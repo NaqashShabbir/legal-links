@@ -4,9 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../resources/app_colors.dart';
-import '../../../resources/common-widgets/custom_button.dart';
-import '../../../resources/common-widgets/custom_textformfield.dart';
-import '../../../resources/common-widgets/global_widget.dart';
+import '../../../utils/common-widgets/custom_button.dart';
+import '../../../utils/common-widgets/custom_textformfield.dart';
+import '../../../utils/common-widgets/global_widget.dart';
 import '../../../resources/validator.dart';
 import '../../../utils/hights_widths.dart';
 import '../../../utils/zbot_toast.dart';

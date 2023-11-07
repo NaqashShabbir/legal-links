@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import '../app_colors.dart';
-import '../app_text_styles.dart';
+import '../../resources/app_colors.dart';
+import '../../resources/app_text_styles.dart';
 
 class GlobalWidgets {
   static showSnackBar(context, text) {

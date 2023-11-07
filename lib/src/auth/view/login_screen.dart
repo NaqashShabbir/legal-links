@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/app_colors.dart';
 import '../../../resources/app_text_styles.dart';
-import '../../../resources/bottom_sheets/forget_password_sheet.dart';
-import '../../../resources/common-widgets/custom_button.dart';
-import '../../../resources/common-widgets/custom_textformfield.dart';
-import '../../../resources/common-widgets/global_widget.dart';
+import '../../../utils/bottom_sheets/forget_password_sheet.dart';
+import '../../../utils/common-widgets/custom_button.dart';
+import '../../../utils/common-widgets/custom_textformfield.dart';
+import '../../../utils/common-widgets/global_widget.dart';
 import '../../../resources/validator.dart';
 import '../../../utils/hights_widths.dart';
 import '../vm/auth_vm.dart';
@@ -103,8 +103,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   h2,
                   Align(
                     alignment: Alignment.bottomRight,
-                    child: InkWell(
-                      onTap: () {
+                    child: TextButton(
+                      onPressed: () {
                         {
                           // Get.bottomSheet(ChangePasswordSheet());
                           Get.bottomSheet(
