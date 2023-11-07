@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/app_images.dart';
+import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/app_colors.dart';
@@ -91,9 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(right: 8.sp),
                         child: Icon(
-                          ispObscure
-                              ? Icons.visibility_off_rounded
-                              : Icons.remove_red_eye_rounded,
+                          ispObscure ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
                           color: Colors.grey,
                           size: 16.sp,
                         ),
@@ -139,9 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     text: "Login",
                     tap: () async {
-                      if (_formKey.currentState!.validate()) {
-                        // await login(vm);
-                      }
+                      await login(vm);
                     },
                   ),
                   h2,
@@ -162,14 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // Future<void> login(AuthVM vm) async {
-  //   ZBotToast.loadingShow();
-  //   if (true) {
-  //     context.read<RootProvider>().selectedScreenValue = 2;
-  //     context.read<RootProvider>().update();
-  //     Get.offAllNamed(UpdateProfileScreen.route,
-  //         arguments: {"isFromLogin": true});
-  //     ZBotToast.loadingClose();
-  //   }
-  // }
+  Future<void> login(AuthVM vm) async {
+    // if (_formKey.currentState!.validate()) {
+      Get.offAllNamed(BaseView.route);
+    // }
+  }
 }

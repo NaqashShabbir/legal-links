@@ -52,157 +52,170 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController phoneNumberController = TextEditingController();
 
   FocusNode numberFN = FocusNode();
+
+  DateTime? currentBackPressTime;
+
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      // ZBotToast.showToastError(message: "Click exit again!");
+      Get.offAllNamed(LoginScreen.route);
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     // return Consumer2<AuthVM, RootProvider>(builder: (context, authVm, vm, _) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: GlobalWidgets.appBar(
-          "Sign Up",
-          onTap: () {
-            Get.offAllNamed(LoginScreen.route);
-          },
-        ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                h3,
-                CustomTextFormField(
-                  fieldTitle: "Full Name",
-                  controller: nameController,
-                  hintText: 'Enter name',
-                  focusNode: nameFocus,
-                  inputAction: TextInputAction.next,
-                  inputType: TextInputType.name,
-                  validator: FieldValidator.validateEmpty,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                ),
-                CustomTextFormField(
-                  fieldTitle: "Email",
-                  controller: emailController,
-                  hintText: 'Enter email',
-                  focusNode: emailFocus,
-                  inputAction: TextInputAction.next,
-                  inputType: TextInputType.emailAddress,
-                  validator: FieldValidator.validateEmail,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                ),
-                h1,
-                CustomTextFormField(
-                  controller: passwordController,
-                  focusNode: passwordFocus,
-                  inputAction: TextInputAction.next,
-                  inputType: TextInputType.visiblePassword,
-                  validator: FieldValidator.validatePassword,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  hintText: 'Enter password',
-                  fieldTitle: "Password",
-                  obscureText: isObscure1,
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isObscure1 = !isObscure1;
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 8.sp),
-                      child: Icon(
-                        isObscure1
-                            ? Icons.visibility_off_rounded
-                            : Icons.remove_red_eye_rounded,
-                        color: Colors.grey,
-                        size: 16.sp,
+    return WillPopScope(
+      onWillPop: () async => await onWillPop(),
+      child: SafeArea(
+        child: Scaffold(
+          appBar: GlobalWidgets.appBar(
+            "Sign Up",
+            onTap: () {
+              Get.offAllNamed(LoginScreen.route);
+            },
+          ),
+          body: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  h3,
+                  CustomTextFormField(
+                    fieldTitle: "Full Name",
+                    controller: nameController,
+                    hintText: 'Enter name',
+                    focusNode: nameFocus,
+                    inputAction: TextInputAction.next,
+                    inputType: TextInputType.name,
+                    validator: FieldValidator.validateEmpty,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                  CustomTextFormField(
+                    fieldTitle: "Email",
+                    controller: emailController,
+                    hintText: 'Enter email',
+                    focusNode: emailFocus,
+                    inputAction: TextInputAction.next,
+                    inputType: TextInputType.emailAddress,
+                    validator: FieldValidator.validateEmail,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                  h1,
+                  CustomTextFormField(
+                    controller: passwordController,
+                    focusNode: passwordFocus,
+                    inputAction: TextInputAction.next,
+                    inputType: TextInputType.visiblePassword,
+                    validator: FieldValidator.validatePassword,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    hintText: 'Enter password',
+                    fieldTitle: "Password",
+                    obscureText: isObscure1,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isObscure1 = !isObscure1;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 8.sp),
+                        child: Icon(
+                          isObscure1 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          color: Colors.grey,
+                          size: 16.sp,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                CustomTextFormField(
-                  controller: confirmpasswordController,
-                  focusNode: confirmpasswordFocus,
-                  inputAction: TextInputAction.done,
-                  inputType: TextInputType.visiblePassword,
-                  validator: (val) => FieldValidator.validatePasswordMatch(
-                      confirmpasswordController.text, passwordController.text),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  hintText: 'Enter confirm password',
-                  fieldTitle: "Confirm Password",
-                  obscureText: isObscure2,
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isObscure2 = !isObscure2;
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 8.sp),
-                      child: Icon(
-                        isObscure2
-                            ? Icons.visibility_off_rounded
-                            : Icons.remove_red_eye_rounded,
-                        color: Colors.grey,
-                        size: 16.sp,
+                  CustomTextFormField(
+                    controller: confirmpasswordController,
+                    focusNode: confirmpasswordFocus,
+                    inputAction: TextInputAction.done,
+                    inputType: TextInputType.visiblePassword,
+                    validator: (val) => FieldValidator.validatePasswordMatch(
+                        confirmpasswordController.text, passwordController.text),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    hintText: 'Enter confirm password',
+                    fieldTitle: "Confirm Password",
+                    obscureText: isObscure2,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isObscure2 = !isObscure2;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 8.sp),
+                        child: Icon(
+                          isObscure2 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          color: Colors.grey,
+                          size: 16.sp,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                h3,
-                InkWell(
-                  overlayColor: MaterialStateProperty.all(Colors.transparent),
-                  onTap: () {
-                    setState(() {
-                      isChecked = !isChecked;
-                    });
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Checkbox(
-                        checkColor: AppColors.white,
-                        activeColor: AppColors.primary,
-                        value: isChecked,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            isChecked = value ?? false;
-                          });
-                        },
-                      ),
-                      const Text(
-                        'I agree to the Privacy Policy and T&C.',
-                      ),
-                    ],
+                  h3,
+                  InkWell(
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    onTap: () {
+                      setState(() {
+                        isChecked = !isChecked;
+                      });
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Checkbox(
+                          checkColor: AppColors.white,
+                          activeColor: AppColors.primary,
+                          value: isChecked,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              isChecked = value ?? false;
+                            });
+                          },
+                        ),
+                        const Text(
+                          'I agree to the Privacy Policy and T&C.',
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                h1,
-                CustomButton(
-                  text: "Sign up",
-                  tap: () async {
-                    if (_formKey.currentState!.validate()) {
-                      if (!isChecked) {
-                        ZBotToast.showToastError(
-                            message:
-                                "Please agree to the Privacy Policy and T&C.");
-                      } else {
-                        //await singup(authVm);
+                  h1,
+                  CustomButton(
+                    text: "Sign up",
+                    tap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        if (!isChecked) {
+                          ZBotToast.showToastError(
+                              message: "Please agree to the Privacy Policy and T&C.");
+                        } else {
+                          //await singup(authVm);
+                        }
                       }
-                    }
-                  },
-                ),
-              ],
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(bottom: 8.sp),
-          child: GlobalWidgets.authBottomWidget(
-            "Already have an account?",
-            '  LogIn',
-            () => Get.offAllNamed(LoginScreen.route),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(bottom: 8.sp),
+            child: GlobalWidgets.authBottomWidget(
+              "Already have an account?",
+              '  LogIn',
+              () => Get.offAllNamed(LoginScreen.route),
+            ),
           ),
         ),
       ),
