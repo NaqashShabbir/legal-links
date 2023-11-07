@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
-import '../../../resources/app_colors.dart';
-import '../../../resources/app_images.dart';
-import '../../../resources/app_text_styles.dart';
+
 import '../../auth/view/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -41,14 +41,14 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(AppImages.logo, scale: 4),
+              Image.asset(R.images.logo, scale: 4),
               Text(
                 "LEGAL LINKS",
                 textAlign: TextAlign.center,
-                style: AppTextStyles.poppinsBold().copyWith(
-                  color: AppColors.primary,
-                  fontSize: 16.sp,
-                ),
+                style: R.textStyles.poppinsBold().copyWith(
+                      color: R.colors.primary,
+                      fontSize: 16.sp,
+                    ),
               ),
             ],
           ),

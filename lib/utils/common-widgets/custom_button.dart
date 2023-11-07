@@ -1,9 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
-import '../../resources/app_colors.dart';
-import '../../resources/app_text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -11,22 +10,17 @@ class CustomButton extends StatelessWidget {
   final Color? color;
   final Color? textColor;
   const CustomButton(
-      {super.key,
-      required this.text,
-      required this.tap,
-      this.color,
-      this.textColor});
+      {super.key, required this.text, required this.tap, this.color, this.textColor});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: tap,
       style: ButtonStyle(
-        padding: MaterialStateProperty.all(
-            EdgeInsets.symmetric(vertical: 9.sp, horizontal: 8)),
+        padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 9.sp, horizontal: 8)),
         shape: MaterialStateProperty.all(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
-        backgroundColor: MaterialStateProperty.all(color ?? AppColors.primary),
+        backgroundColor: MaterialStateProperty.all(color ?? R.colors.primary),
         shadowColor: MaterialStateProperty.all(Colors.transparent),
       ),
       child: Row(
@@ -34,8 +28,9 @@ class CustomButton extends StatelessWidget {
         children: [
           Text(
             text,
-            style: AppTextStyles.poppinsMedium()
-                .copyWith(color: textColor ?? AppColors.white, fontSize: 12.sp),
+            style: R.textStyles
+                .poppinsMedium()
+                .copyWith(color: textColor ?? R.colors.white, fontSize: 12.sp),
           ),
         ],
       ),
@@ -48,10 +43,7 @@ class CustomButtonSearchView extends StatelessWidget {
   final Color textCol;
   final VoidCallback? tap;
   const CustomButtonSearchView(
-      {super.key,
-      required this.text,
-      required this.textCol,
-      required this.tap});
+      {super.key, required this.text, required this.textCol, required this.tap});
 
   @override
   Widget build(BuildContext context) {
@@ -61,12 +53,12 @@ class CustomButtonSearchView extends StatelessWidget {
         child: Container(
           height: 45,
           width: 120,
-          decoration: BoxDecoration(
-              color: AppColors.primary, borderRadius: BorderRadius.circular(5)),
+          decoration:
+              BoxDecoration(color: R.colors.primary, borderRadius: BorderRadius.circular(5)),
           child: Center(
               child: Text(
             text,
-            style: AppTextStyles.poppinsRegular().copyWith(color: textCol),
+            style: R.textStyles.poppinsRegular().copyWith(color: textCol),
           )),
         ),
       ),

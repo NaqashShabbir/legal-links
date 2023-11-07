@@ -1,18 +1,15 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../resources/validator.dart';
 import '../../src/auth/view/login_screen.dart';
 import '../../src/auth/vm/auth_vm.dart';
-import '../hights_widths.dart';
-import '../zbot_toast.dart';
-import '../../resources/app_colors.dart';
-import '../../resources/app_text_styles.dart';
 import '../common-widgets/custom_button.dart';
 import '../common-widgets/custom_textformfield.dart';
-import '../../resources/validator.dart';
+import '../hights_widths.dart';
 import 'otp_sheet.dart';
 
 class ForgotPasswordSheet extends StatefulWidget {
@@ -50,9 +47,9 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
   Widget build(BuildContext context) {
     return Consumer<AuthVM>(builder: (context, vm, _) {
       return Container(
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        decoration: BoxDecoration(
+          color: R.colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 12.sp),
         width: 100.w,
@@ -64,14 +61,13 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
               h2,
               Text(
                 widget.title,
-                style: AppTextStyles.poppinsBold(
-                    color: AppColors.black, fontSize: 15.sp),
+                style: R.textStyles.poppinsBold(color: R.colors.black, fontSize: 15.sp),
               ),
               h2,
               Text(
                 widget.subTitle,
                 textAlign: TextAlign.center,
-                style: AppTextStyles.poppinsRegular(color: AppColors.black),
+                style: R.textStyles.poppinsRegular(color: R.colors.black),
               ),
               h2,
               if (widget.isFromDelete ?? false)
@@ -94,9 +90,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
                     child: Padding(
                       padding: EdgeInsets.only(right: 8.sp),
                       child: Icon(
-                        isObscure1
-                            ? Icons.visibility_off_rounded
-                            : Icons.remove_red_eye_rounded,
+                        isObscure1 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
                         color: Colors.grey,
                         size: 16.sp,
                       ),

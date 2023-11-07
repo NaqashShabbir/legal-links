@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
-import '../../resources/app_colors.dart';
-import '../../resources/app_text_styles.dart';
 
 class GlobalWidgets {
   static showSnackBar(context, text) {
@@ -10,8 +9,7 @@ class GlobalWidgets {
     ScaffoldMessenger.of(context).showSnackBar((snackBar));
   }
 
-  static Widget authBottomWidget(
-      String firstTxt, String scndTxt, Function() onTap) {
+  static Widget authBottomWidget(String firstTxt, String scndTxt, Function() onTap) {
     return InkWell(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       onTap: onTap,
@@ -21,15 +19,12 @@ class GlobalWidgets {
         children: <Widget>[
           Text(
             firstTxt,
-            style: AppTextStyles.poppinsMedium(
-                fontSize: 10.sp, color: Colors.black),
+            style: R.textStyles.poppinsMedium(fontSize: 10.sp, color: Colors.black),
           ),
           Text(
             scndTxt,
-            style: AppTextStyles.poppinsMedium(
-                fontSize: 12.sp,
-                color: AppColors.primary,
-                fontWeight: FontWeight.bold),
+            style: R.textStyles.poppinsMedium(
+                fontSize: 12.sp, color: R.colors.primary, fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -39,11 +34,11 @@ class GlobalWidgets {
   static AppBar appBar(String text,
       {Function()? onTap, bool? showbackButton = true, List<Widget>? actions}) {
     return AppBar(
-      backgroundColor: AppColors.white,
+      backgroundColor: R.colors.white,
       elevation: 2,
       title: Text(
         text,
-        style: AppTextStyles.poppinsSemiBold(fontSize: 13.sp),
+        style: R.textStyles.poppinsSemiBold(fontSize: 13.sp),
       ),
       leading: (showbackButton ?? false)
           ? IconButton(
@@ -53,9 +48,9 @@ class GlobalWidgets {
                   () {
                     Get.back();
                   },
-              icon: const Icon(
+              icon:  Icon(
                 Icons.arrow_back,
-                color: AppColors.black,
+                color: R.colors.black,
               ))
           : null,
       actions: actions,
@@ -64,7 +59,7 @@ class GlobalWidgets {
 
   // static AppBar homeAppBar(String title) {
   //   return AppBar(
-  //     backgroundColor: AppColors.white,
+  //     backgroundColor: R.colors.white,
   //     elevation: 2,
   //     leadingWidth: 35.w,
   //     leading: Container(
@@ -72,7 +67,7 @@ class GlobalWidgets {
   //       alignment: Alignment.centerLeft,
   //       child: Text(
   //         title,
-  //         style: AppTextStyles.poppinsMedium(),
+  //         style: R.textStyles.poppinsMedium(),
   //       ),
   //     ),
   //     title: Image.asset(AppImages.logo, height: 50, width: 50),
@@ -84,13 +79,13 @@ class GlobalWidgets {
   //           shape: BoxShape.circle,
   //           boxShadow: [
   //             BoxShadow(
-  //               color: AppColors.grey.withOpacity(.16),
+  //               color: R.colors.grey.withOpacity(.16),
   //               spreadRadius: 3,
   //               blurRadius: 12,
   //               offset: const Offset(1, 1),
   //             ),
   //             BoxShadow(
-  //               color: AppColors.grey.withOpacity(.16),
+  //               color: R.colors.grey.withOpacity(.16),
   //               spreadRadius: 3,
   //               blurRadius: 12,
   //               offset: const Offset(-1, -1),
@@ -104,7 +99,7 @@ class GlobalWidgets {
   //           },
   //           child: ImageIcon(
   //             AssetImage(AppImages.notiIcon),
-  //             color: AppColors.primary,
+  //             color: R.colors.primary,
   //             size: 14.sp,
   //           ),
   //         ),
@@ -117,12 +112,12 @@ class GlobalWidgets {
   //           shape: BoxShape.circle,
   //           boxShadow: [
   //             BoxShadow(
-  //               color: AppColors.grey.withOpacity(.16),
+  //               color: R.colors.grey.withOpacity(.16),
   //               spreadRadius: 1,
   //               offset: const Offset(1, 1),
   //             ),
   //             BoxShadow(
-  //               color: AppColors.grey.withOpacity(.16),
+  //               color: R.colors.grey.withOpacity(.16),
   //               spreadRadius: 3,
   //               blurRadius: 12,
   //               offset: const Offset(-1, -1),
@@ -136,7 +131,7 @@ class GlobalWidgets {
   //           },
   //           child: Icon(
   //             Icons.favorite,
-  //             color: AppColors.primary,
+  //             color: R.colors.primary,
   //             size: 14.sp,
   //           ),
   //         ),

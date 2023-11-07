@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
-import '../hights_widths.dart';
-import '../../resources/app_colors.dart';
-import '../../resources/app_text_styles.dart';
+
 import '../common-widgets/custom_button.dart';
+import '../hights_widths.dart';
 
 class CongratulationsSheet extends StatefulWidget {
   final void Function() onApprove;
@@ -11,10 +11,7 @@ class CongratulationsSheet extends StatefulWidget {
   final bool? buttonShow;
 
   const CongratulationsSheet(
-      {super.key,
-      required this.onApprove,
-      required this.subTitle,
-      this.buttonShow});
+      {super.key, required this.onApprove, required this.subTitle, this.buttonShow});
 
   @override
   State<CongratulationsSheet> createState() => _CongratulationsSheetState();
@@ -33,13 +30,13 @@ class _CongratulationsSheetState extends State<CongratulationsSheet> {
       padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 12.sp),
       width: 100.w,
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: R.colors.white,
         borderRadius: const BorderRadius.vertical(
           top: Radius.circular(26.0),
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withOpacity(0.16),
+            color: R.colors.black.withOpacity(0.16),
             offset: const Offset(0, 3.0),
             blurRadius: 6.0,
           ),
@@ -51,23 +48,22 @@ class _CongratulationsSheetState extends State<CongratulationsSheet> {
           h1,
           Icon(
             Icons.thumb_up_alt_outlined,
-            color: AppColors.primary,
+            color: R.colors.primary,
             size: 45.sp,
           ),
           h3,
           Text(
             "Congratulations",
             textAlign: TextAlign.center,
-            style: AppTextStyles.poppinsBold(
-                color: AppColors.black, fontSize: 15.sp),
+            style: R.textStyles.poppinsBold(color: R.colors.black, fontSize: 15.sp),
           ),
           h1P5,
           Text(
             widget.subTitle,
             textAlign: TextAlign.center,
-            style: AppTextStyles.poppinsRegular(
+            style: R.textStyles.poppinsRegular(
               fontSize: 12.sp,
-              color: AppColors.grey,
+              color: R.colors.grey,
             ),
           ),
           h5,

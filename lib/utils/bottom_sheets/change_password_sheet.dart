@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
-import '../hights_widths.dart';
-import '../../resources/app_colors.dart';
-import '../../resources/app_text_styles.dart';
+
+import '../../resources/validator.dart';
 import '../common-widgets/custom_button.dart';
 import '../common-widgets/custom_textformfield.dart';
-import '../../resources/validator.dart';
+import '../hights_widths.dart';
 import 'congragulations_sheet.dart';
 
 class ChangePasswordSheet extends StatefulWidget {
@@ -36,9 +36,9 @@ class _ChangePasswordSheetState extends State<ChangePasswordSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      decoration:  BoxDecoration(
+        color: R.colors.white,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       padding: EdgeInsets.symmetric(horizontal: 12.sp, vertical: 12.sp),
       width: 100.w,
@@ -51,13 +51,12 @@ class _ChangePasswordSheetState extends State<ChangePasswordSheet> {
             h1,
             Text(
               'Update Password',
-              style: AppTextStyles.poppinsBold(
-                  color: AppColors.black, fontSize: 15.sp),
+              style: R.textStyles.poppinsBold(color: R.colors.black, fontSize: 15.sp),
             ),
             h2,
             Text(
               'Must include letter number and symbols.',
-              style: AppTextStyles.poppinsRegular(color: AppColors.black),
+              style: R.textStyles.poppinsRegular(color: R.colors.black),
             ),
             h2,
             CustomTextFormField(
@@ -79,9 +78,7 @@ class _ChangePasswordSheetState extends State<ChangePasswordSheet> {
                 child: Padding(
                   padding: EdgeInsets.only(right: 8.sp),
                   child: Icon(
-                    ispObscure
-                        ? Icons.visibility_off_rounded
-                        : Icons.remove_red_eye_rounded,
+                    ispObscure ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
                     color: Colors.grey,
                     size: 16.sp,
                   ),
@@ -108,9 +105,7 @@ class _ChangePasswordSheetState extends State<ChangePasswordSheet> {
                 child: Padding(
                   padding: EdgeInsets.only(right: 8.sp),
                   child: Icon(
-                    isObscure2
-                        ? Icons.visibility_off_rounded
-                        : Icons.remove_red_eye_rounded,
+                    isObscure2 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
                     color: Colors.grey,
                     size: 16.sp,
                   ),

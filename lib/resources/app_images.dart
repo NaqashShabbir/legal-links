@@ -1,3 +1,3 @@
 class AppImages {
-  static var logo = "assets/images/logo.png";
+   var logo = "assets/images/logo.png";
 }

@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../resources/app_colors.dart';
+import '../../../resources/validator.dart';
 import '../../../utils/common-widgets/custom_button.dart';
 import '../../../utils/common-widgets/custom_textformfield.dart';
 import '../../../utils/common-widgets/global_widget.dart';
-import '../../../resources/validator.dart';
 import '../../../utils/hights_widths.dart';
 import '../../../utils/zbot_toast.dart';
-import '../vm/auth_vm.dart';
 import 'login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -176,8 +174,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Checkbox(
-                          checkColor: AppColors.white,
-                          activeColor: AppColors.primary,
+                          checkColor: R.colors.white,
+                          activeColor: R.colors.primary,
                           value: isChecked,
                           onChanged: (bool? value) {
                             setState(() {

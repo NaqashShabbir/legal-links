@@ -2,17 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:legal_links_app/resources/app_images.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../../../resources/app_colors.dart';
-import '../../../resources/app_text_styles.dart';
+
+import '../../../resources/validator.dart';
 import '../../../utils/bottom_sheets/forget_password_sheet.dart';
 import '../../../utils/common-widgets/custom_button.dart';
 import '../../../utils/common-widgets/custom_textformfield.dart';
 import '../../../utils/common-widgets/global_widget.dart';
-import '../../../resources/validator.dart';
 import '../../../utils/hights_widths.dart';
 import '../vm/auth_vm.dart';
 import 'signup_screen.dart';
@@ -53,12 +52,12 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(AppImages.logo, height: 25.h),
+                  Image.asset(R.images.logo, height: 25.h),
                   h2,
                   Text(
                     "Login",
-                    style: AppTextStyles.poppinsBold(
-                      color: AppColors.primary,
+                    style: R.textStyles.poppinsBold(
+                      color: R.colors.primary,
                       fontSize: 18.sp,
                     ),
                   ),
@@ -125,9 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             "Forgot Password?",
                             textAlign: TextAlign.center,
-                            style: AppTextStyles.poppinsMedium(
+                            style: R.textStyles.poppinsMedium(
                               fontSize: 12.sp,
-                              color: AppColors.primary,
+                              color: R.colors.primary,
                             ),
                           ),
                         ],
@@ -161,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> login(AuthVM vm) async {
     // if (_formKey.currentState!.validate()) {
-      Get.offAllNamed(BaseView.route);
+    Get.offAllNamed(BaseView.route);
     // }
   }
 }

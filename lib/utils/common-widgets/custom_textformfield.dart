@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
-import '../../resources/app_text_styles.dart';
+
 import 'app_decoration.dart';
 
 class CustomTextFormField extends StatefulWidget {
@@ -56,7 +57,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
             child: Text(
               widget.fieldTitle ?? "",
-              style: AppTextStyles.poppinsMedium(
+              style: R.textStyles.poppinsMedium(
                 fontSize: 11.sp,
                 color: Colors.black,
               ),
@@ -79,7 +80,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           textInputAction: widget.inputAction,
           focusNode: widget.focusNode,
           autovalidateMode: widget.autovalidateMode,
-          style: AppTextStyles.poppinsRegular(
+          style: R.textStyles.poppinsRegular(
             fontSize: 11.sp,
             color: Colors.black,
           ),

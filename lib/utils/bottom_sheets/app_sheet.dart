@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
 
-import '../hights_widths.dart';
-import '../../resources/app_colors.dart';
-import '../../resources/app_text_styles.dart';
 import '../common-widgets/custom_button.dart';
+import '../hights_widths.dart';
 
 class AppBottomSheet extends StatefulWidget {
   final String? image;
@@ -42,10 +41,10 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
   Widget build(BuildContext context) {
     return Container(
         padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
-        decoration: const BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(26), topLeft: Radius.circular(26)),
+        decoration: BoxDecoration(
+          color: R.colors.white,
+          borderRadius:
+              const BorderRadius.only(topRight: Radius.circular(26), topLeft: Radius.circular(26)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -54,13 +53,13 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
             Icon(
               Icons.help_center_outlined,
               size: 50.sp,
-              color: AppColors.primary,
+              color: R.colors.primary,
             ),
             h2,
             Text(
               widget.title ?? "",
               textAlign: TextAlign.center,
-              style: AppTextStyles.poppinsBold(
+              style: R.textStyles.poppinsBold(
                 fontWeight: FontWeight.w600,
                 fontSize: 17.sp,
               ),
@@ -71,9 +70,9 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
               child: Text(
                 widget.subtitle ?? '',
                 textAlign: TextAlign.center,
-                style: AppTextStyles.poppinsRegular(
+                style: R.textStyles.poppinsRegular(
                   fontSize: 13.sp,
-                  color: AppColors.grey,
+                  color: R.colors.grey,
                   letterSpacing: 0.45,
                 ),
               ),
@@ -86,18 +85,18 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
                 children: [
                   Expanded(
                       child: CustomButton(
-                    color: widget.leftButtonColor ?? AppColors.primary,
+                    color: widget.leftButtonColor ?? R.colors.primary,
                     text: widget.buttonLeft ?? "No",
                     tap: widget.onLeftTap ?? () => Get.back(),
-                    textColor: AppColors.white,
+                    textColor: R.colors.white,
                   )),
                   w2,
                   Expanded(
                       child: CustomButton(
-                    color: widget.rightButtonColor ?? AppColors.primary,
+                    color: widget.rightButtonColor ?? R.colors.primary,
                     text: widget.buttonRight ?? "Yes",
                     tap: widget.onRightTap ?? () {},
-                    textColor: AppColors.white,
+                    textColor: R.colors.white,
                   )),
                 ],
               ),

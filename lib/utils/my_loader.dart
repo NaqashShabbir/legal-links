@@ -1,6 +1,7 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import '../resources/app_colors.dart';
+import 'package:legal_links_app/resources/resources.dart';
 
 class MyLoader extends StatefulWidget {
   final Color color;
@@ -15,12 +16,11 @@ class MyLoaderState extends State<MyLoader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.primary.withOpacity(.05),
+      color: R.colors.primary.withOpacity(.05),
       child: Center(
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-          child: const CircularProgressIndicator(
-              backgroundColor: AppColors.primary),
+          child:  CircularProgressIndicator(backgroundColor: R.colors.primary),
         ),
       ),
     );
