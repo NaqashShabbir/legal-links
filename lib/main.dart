@@ -9,9 +9,14 @@ import 'src/auth/vm/auth_vm.dart';
 import 'src/landing_page/view/splash_screen.dart';
 
 void main() {
-  runApp(MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => AuthVM())],
-      child: const MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthVM()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,9 +27,9 @@ class MyApp extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return GestureDetector(
         behavior: HitTestBehavior.opaque,
-        // onTap: () {
-        //   FocusManager.instance.primaryFocus?.unfocus();
-        // },
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
         child: GetMaterialApp(
           builder: BotToastInit(),
           navigatorObservers: [BotToastNavigatorObserver()],
