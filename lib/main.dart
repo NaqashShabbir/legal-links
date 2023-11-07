@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import 'resources/routes/app_routes.dart';
+import 'routes/app_routes.dart';
 import 'src/auth/vm/auth_vm.dart';
 import 'src/landing_page/view/splash_screen.dart';
 

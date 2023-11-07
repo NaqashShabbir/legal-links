@@ -6,13 +6,13 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../src/auth/view/login_screen.dart';
 import '../../src/auth/vm/auth_vm.dart';
-import '../../utils/hights_widths.dart';
-import '../../utils/zbot_toast.dart';
-import '../app_colors.dart';
-import '../app_text_styles.dart';
+import '../hights_widths.dart';
+import '../zbot_toast.dart';
+import '../../resources/app_colors.dart';
+import '../../resources/app_text_styles.dart';
 import '../common-widgets/custom_button.dart';
 import '../common-widgets/custom_textformfield.dart';
-import '../validator.dart';
+import '../../resources/validator.dart';
 import 'otp_sheet.dart';
 
 class ForgotPasswordSheet extends StatefulWidget {

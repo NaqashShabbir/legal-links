@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import '../../utils/hights_widths.dart';
-import '../app_colors.dart';
-import '../app_text_styles.dart';
+import '../hights_widths.dart';
+import '../../resources/app_colors.dart';
+import '../../resources/app_text_styles.dart';
 import '../common-widgets/custom_button.dart';
 
 class CongratulationsSheet extends StatefulWidget {
