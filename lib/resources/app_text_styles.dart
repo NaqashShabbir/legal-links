@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
 
-import 'app_colors.dart';
-
 class AppTextStyles {
   TextStyle poppinsRegular({
     Color? color,

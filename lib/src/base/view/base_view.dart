@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:legal_links_app/constants/global_functions.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/appointment_view.dart';
-import 'package:legal_links_app/src/base/view/pages/appointment/vm/appointment_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/home_view.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/settings_view.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';

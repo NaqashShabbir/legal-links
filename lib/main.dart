@@ -1,13 +1,13 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import 'routes/app_routes.dart';
 import 'src/auth/vm/auth_vm.dart';
+import 'src/base/view/pages/settings/vm/settings_vm.dart';
 import 'src/landing_page/view/splash_screen.dart';
 
 void main() {
@@ -16,6 +16,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthVM()),
         ChangeNotifierProvider(create: (context) => BaseVM()),
+        ChangeNotifierProvider(create: (context) => SettingsVM()),
       ],
       child: const MyApp(),
     ),
@@ -38,8 +39,8 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [BotToastNavigatorObserver()],
           title: 'Legal Links',
           debugShowCheckedModeBanner: false,
-          // initialRoute: SplashScreen.route,
-           initialRoute: BaseView.route,
+          initialRoute: SplashScreen.route,
+          //initialRoute: BaseView.route,
           getPages: AppPages.pages,
         ),
       );

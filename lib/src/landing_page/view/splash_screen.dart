@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
-
+import '../../../utils/hights_widths.dart';
 import '../../auth/view/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,18 +15,25 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   Future<void> startTimer() async {
-    Future.delayed(
-      const Duration(seconds: 3),
-      () async {
-        Get.offAllNamed(LoginScreen.route);
-      },
-    );
+    await Future.delayed(
+        const Duration(seconds: 2)); // Delay for text animation
+    await controller.forward(); // Start the text animation
+    await Future.delayed(
+        const Duration(seconds: 3)); // Delay before starting image animation
+    Get.offAllNamed(LoginScreen.route);
   }
+
+  late AnimationController controller;
 
   @override
   void initState() {
+    controller = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    );
     startTimer();
 
     super.initState();
@@ -41,19 +48,44 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(R.images.logo, scale: 4),
-              Text(
-                "LEGAL LINKS",
-                textAlign: TextAlign.center,
-                style: R.textStyles.poppinsBold().copyWith(
-                      color: R.colors.primary,
-                      fontSize: 16.sp,
+              AnimationConfiguration.staggeredList(
+                position: 0,
+                duration: const Duration(seconds: 5),
+                child: SlideAnimation(
+                  verticalOffset: -MediaQuery.of(context).size.height,
+                  child: FadeInAnimation(
+                    child: Image.asset(R.images.logo,
+                        scale: 4), // Replace with your logo asset
+                  ),
+                ),
+              ),
+              h1,
+              AnimationConfiguration.staggeredList(
+                position: 1,
+                duration: const Duration(seconds: 2),
+                child: SlideAnimation(
+                  verticalOffset: -MediaQuery.of(context).size.height,
+                  child: FadeInAnimation(
+                    child: Text(
+                      "LEGAL LINKS",
+                      style: R.textStyles.poppinsBold().copyWith(
+                            color: R.colors.primary,
+                            fontSize: 16.sp,
+                          ),
                     ),
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
