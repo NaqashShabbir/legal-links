@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:intl/intl.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/widgets/reviews_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:readmore/readmore.dart';
 import 'package:sizer/sizer.dart';
-import '../../../../../../resources/app_images.dart';
 import '../../../../../../resources/resources.dart';
 import '../../../../../../utils/common-widgets/global_widget.dart';
 import '../../../../../../utils/hights_widths.dart';

@@ -1,10 +1,10 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import 'routes/app_routes.dart';
 import 'src/auth/vm/auth_vm.dart';
 import 'src/base/view/pages/settings/vm/settings_vm.dart';
@@ -15,6 +15,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthVM()),
+        ChangeNotifierProvider(create: (context) => HomeVM()),
         ChangeNotifierProvider(create: (context) => BaseVM()),
         ChangeNotifierProvider(create: (context) => SettingsVM()),
       ],

@@ -2,6 +2,7 @@ import 'package:get/route_manager.dart';
 import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/auth/view/signup_screen.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/view/profile_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_reviews_screen.dart';
 import '../src/base/view/pages/settings/view/privacy_policy_screen.dart';
 import '../src/base/view/pages/settings/view/term_and_conditions_screen.dart';
@@ -21,5 +22,6 @@ abstract class AppPages {
     GetPage(
         name: RatingAndReviewsScreen.route,
         page: () => const RatingAndReviewsScreen()),
+    GetPage(name: ProfileScreen.route, page: () => ProfileScreen()),
   ];
 }

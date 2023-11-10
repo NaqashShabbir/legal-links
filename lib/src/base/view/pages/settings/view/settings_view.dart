@@ -10,6 +10,7 @@ import '../../../../../../utils/common-widgets/settings_widget.dart';
 import '../../../../../../utils/hights_widths.dart';
 import '../../../../../auth/view/login_screen.dart';
 import 'privacy_policy_screen.dart';
+import 'profile_screen.dart';
 import 'rating_and_reviews_screen.dart';
 import 'term_and_conditions_screen.dart';
 
@@ -82,7 +83,7 @@ class _SettingsViewState extends State<SettingsView> {
                     title: 'Profile',
                     tap: () {
                       debugPrint('clicked');
-                      Get.toNamed(PrivacyPolicyScreen.route);
+                      Get.toNamed(ProfileScreen.route);
                     },
                   ),
                   ScreenTileWidget(

@@ -1,0 +1,38 @@
+import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+import '../../../../../../../resources/resources.dart';
+
+class CustomData extends StatelessWidget {
+  final String title;
+  final String subTitle;
+  const CustomData({super.key, required this.title, required this.subTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            style: R.textStyles.poppinsMedium(
+              fontSize: 12.sp,
+              color: R.colors.black,
+              letterSpacing: 0.45,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Text(
+            subTitle,
+            style: R.textStyles.poppinsRegular(
+              color: R.colors.darkGrey,
+              letterSpacing: 0.45,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
