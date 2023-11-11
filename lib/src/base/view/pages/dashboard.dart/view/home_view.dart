@@ -27,9 +27,15 @@ class _HomeViewState extends State<HomeView> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.sp),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     h0P7,
                     searchField(),
+                    h2,
+                    Text(
+                      'How can we help you today?',
+                      style: R.textStyles.poppinsSemiBold(),
+                    ),
                     h0P7,
                     viewAllWidget("Lawyer Profiles", () {
                       //Get.toNamed(FeaturedProfileScreen.route);
@@ -85,6 +91,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget searchField() {
+    bool isSearchFocused = false;
     return TextFormField(
       focusNode: searchFN,
       controller: searchController,
@@ -95,18 +102,27 @@ class _HomeViewState extends State<HomeView> {
         setState(() {});
       },
       onTap: () {
-        setState(() {});
+        setState(() {
+          isSearchFocused = true;
+        });
       },
       onFieldSubmitted: (value) {
-        setState(() {});
+        setState(() {
+          isSearchFocused = false;
+        });
       },
       // validator: FieldValidator.validateEmail,
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: AppDecoration.fieldDecoration(
         hintText: "Search by Case/Lawyer",
-        preIcon: Icon(
-          Icons.search,
-          color: searchFN.hasFocus ? R.colors.primary : Colors.red,
+        preIcon: Focus(
+          focusNode: searchFN,
+          child: Builder(builder: (context) {
+            return Icon(
+              Icons.search,
+              color: searchFN.hasFocus ? R.colors.primary : Colors.red,
+            );
+          }),
         ),
         verticalPadding: 10,
       ),
