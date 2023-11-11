@@ -137,10 +137,10 @@ class _LoginScreenOfDoctorState extends State<LoginScreenOfLawyer> {
                   ),
                   h2,
                   CustomButton(
-                    text: "Login",
+                    
                     tap: () async {
                       await login(vm);
-                    },
+                    }, buttonTitle: 'Login',
                   ),
                   h2,
                 ],

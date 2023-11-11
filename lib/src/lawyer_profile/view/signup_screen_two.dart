@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/resources.dart';
 import '../../../resources/validator.dart';
-import '../../../utils/common-widgets/app_decoration.dart';
+
 import '../../../utils/common-widgets/custom_textformfield.dart';
 import '../../../utils/hights_widths.dart';
 import '../model/lawyer_model.dart';
@@ -70,7 +70,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 ),
               ))
           .toList(),
-      decoration: AppDecoration.fieldDecoration(hintText: "Select Specialist"),
+      decoration: R.decoration.fieldDecoration(hintText: "Select Specialist"),
       value: laywersSpe,
       validator: (value) {
         if (value == null) {
@@ -98,7 +98,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 ),
               ))
           .toList(),
-      decoration: AppDecoration.fieldDecoration(hintText: "Select Specialist"),
+      decoration: R.decoration.fieldDecoration(hintText: "Select Specialist"),
       value: laywersSpe,
       validator: (value) {
         if (value == null) {

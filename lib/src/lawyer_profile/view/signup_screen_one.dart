@@ -115,7 +115,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                 h3,
                 h1,
                 CustomButton(
-                  text: "Continue to next step",
+                  buttonTitle: "Continue to next step",
                   tap: () async {
                     if (_formKey.currentState!.validate()) {
                       ZBotToast.showToastError(
