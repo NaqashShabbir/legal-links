@@ -191,7 +191,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   h1,
                   CustomButton(
-                    text: "Sign up",
+                    buttonTitle: "Sign up",
                     tap: () async {
                       if (_formKey.currentState!.validate()) {
                         if (!isChecked) {

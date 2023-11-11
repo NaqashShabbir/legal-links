@@ -8,4 +8,5 @@ class AppColors {
   Color white = const Color.fromARGB(255, 0xFF, 0xFF, 0xFF);
   Color red = const Color(0xFFF44336);
   Color darkGrey = Colors.grey;
+  Color transparent = const Color(0x0000ffff);
 }

@@ -71,7 +71,7 @@ class _CongratulationsSheetState extends State<CongratulationsSheet> {
             SizedBox(
               width: 90.w,
               child: CustomButton(
-                text: 'Login',
+                buttonTitle: 'Login',
                 tap: widget.onApprove,
               ),
             ),

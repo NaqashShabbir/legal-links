@@ -110,7 +110,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
                 ),
               h3,
               CustomButton(
-                text: widget.text,
+                buttonTitle: widget.text,
                 tap: () {
                   if (_formKey.currentState!.validate()) {
                     // otp(vm, emailController.text);

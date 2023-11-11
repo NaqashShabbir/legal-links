@@ -5,12 +5,12 @@ import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
+  final String buttonTitle;
   final VoidCallback? tap;
   final Color? color;
   final Color? textColor;
   const CustomButton(
-      {super.key, required this.text, required this.tap, this.color, this.textColor});
+      {super.key, required this.buttonTitle, required this.tap, this.color, this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            text,
+            buttonTitle,
             style: R.textStyles
                 .poppinsMedium()
                 .copyWith(color: textColor ?? R.colors.white, fontSize: 12.sp),

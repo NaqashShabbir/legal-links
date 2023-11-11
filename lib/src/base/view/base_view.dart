@@ -87,7 +87,7 @@ class _BaseViewState extends State<BaseView> {
   void _onTabTapped({required int index, required BaseVM vm}) {
     setState(() {
       vm.currentIndex = index;
-      vm.update();
+      vm.update(); 
     });
   }
 

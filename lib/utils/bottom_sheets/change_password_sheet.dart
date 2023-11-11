@@ -36,7 +36,7 @@ class _ChangePasswordSheetState extends State<ChangePasswordSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         color: R.colors.white,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -114,7 +114,7 @@ class _ChangePasswordSheetState extends State<ChangePasswordSheet> {
             ),
             h3,
             CustomButton(
-              text: "Proceed",
+              buttonTitle: "Proceed",
               tap: () {
                 if (_formKey.currentState!.validate()) {
                   Get.back();

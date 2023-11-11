@@ -3,7 +3,7 @@ import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
 
 class AppDecoration {
-  static InputDecoration fieldDecoration(
+  InputDecoration fieldDecoration(
       {Widget? preIcon,
       String? hintText,
       Widget? suffixIcon,

@@ -143,7 +143,7 @@ class _ChangePasswordSheetState extends State<UpdatePasswordSheet> {
               ),
               h3,
               CustomButton(
-                text: "Proceed",
+                buttonTitle: "Proceed",
                 tap: () {
                   if (_formKey.currentState!.validate()) {
                     Get.back();

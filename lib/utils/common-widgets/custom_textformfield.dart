@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
 
-import 'app_decoration.dart';
-
 class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final String? fieldTitle;
@@ -84,7 +82,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             fontSize: 11.sp,
             color: Colors.black,
           ),
-          decoration: AppDecoration.fieldDecoration(
+          decoration: R.decoration.fieldDecoration(
             hintText: widget.hintText,
             suffixIcon: widget.suffixIcon,
           ),

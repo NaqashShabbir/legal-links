@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/services/google_map/address_model.dart';
+import 'package:legal_links_app/services/google_map/google_map_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../../../../../../utils/common-widgets/app_decoration.dart';
+
 import '../../../../../../utils/hights_widths.dart';
 import '../vm/home_vm.dart';
 import 'widget/profile_widget.dart';
@@ -17,6 +21,9 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   TextEditingController searchController = TextEditingController();
   FocusNode searchFN = FocusNode();
+
+  LatLng? latLng;
+  PickLocationData? pickLocationData;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,12 +35,51 @@ class _HomeViewState extends State<HomeView> {
                 padding: EdgeInsets.symmetric(horizontal: 8.sp),
                 child: Column(
                   children: [
-                    h0P7,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Find the Best Lawyer Near You",
+                          style: R.textStyles.poppinsMedium(),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Get.to(
+                              () => GoogleMapScreen(
+                                selectedLocation: latLng,
+                                address: (value) {
+                                  pickLocationData = value;
+                                  latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
+                                },
+                              ),
+                            );
+                            setState(() {});
+                            debugPrint("pickLocationData $pickLocationData");
+                          },
+                          icon: const Icon(
+                            Icons.location_pin,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Find the Best Lawyer Near You",
+                          style: R.textStyles.poppinsMedium(),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.location_pin,
+                          ),
+                        ),
+                      ],
+                    ),
                     searchField(),
                     h0P7,
-                    viewAllWidget("Lawyer Profiles", () {
-                      //Get.toNamed(FeaturedProfileScreen.route);
-                    }),
+                    viewAllWidget("Lawyer Profiles", () {}),
                     h1,
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -65,8 +111,7 @@ class _HomeViewState extends State<HomeView> {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: R.textStyles
-              .poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
+          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
         ),
         TextButton(
           onPressed: onPressed,
@@ -102,7 +147,7 @@ class _HomeViewState extends State<HomeView> {
       },
       // validator: FieldValidator.validateEmail,
       // autovalidateMode: AutovalidateMode.onUserInteraction,
-      decoration: AppDecoration.fieldDecoration(
+      decoration: R.decoration.fieldDecoration(
         hintText: "Search by Case/Lawyer",
         preIcon: Icon(
           Icons.search,

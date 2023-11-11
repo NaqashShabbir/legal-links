@@ -135,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   h2,
                   CustomButton(
-                    text: "Login",
+                    buttonTitle: "Login",
                     tap: () async {
                       await login(vm);
                     },

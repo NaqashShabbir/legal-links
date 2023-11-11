@@ -138,7 +138,7 @@ class _OTPSheetState extends State<OTPSheet> {
           if (widget.isEmail == true) h3,
           Form(key: formKey, child: otpCodeWidget()),
           h3,
-          CustomButton(text: "Proceed", tap: () => onTapSubmitFN()),
+          CustomButton(buttonTitle: "Proceed", tap: () => onTapSubmitFN()),
           h2,
         ],
       ),
