@@ -4,9 +4,12 @@ import 'package:legal_links_app/src/auth/view/signup_screen.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/profile_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_reviews_screen.dart';
+import 'package:legal_links_app/src/lawyer_profile/view/login_screen.dart';
 import '../src/base/view/pages/settings/view/privacy_policy_screen.dart';
 import '../src/base/view/pages/settings/view/term_and_conditions_screen.dart';
 import '../src/landing_page/view/splash_screen.dart';
+import '../src/lawyer_profile/view/signup_screen_one.dart';
+import '../src/lawyer_profile/view/signup_screen_two.dart';
 
 abstract class AppPages {
   static final List<GetPage> pages = [
@@ -23,5 +26,12 @@ abstract class AppPages {
         name: RatingAndReviewsScreen.route,
         page: () => const RatingAndReviewsScreen()),
     GetPage(name: ProfileScreen.route, page: () => ProfileScreen()),
+    GetPage(name: LoginScreenOfLawyer.route, page: () => LoginScreenOfLawyer()),
+    GetPage(
+        name: SignupScreenOneOfLawyer.route,
+        page: () => const SignupScreenOneOfLawyer()),
+    GetPage(
+        name: SignupScreenTwoOfLawyer.route,
+        page: () => const SignupScreenTwoOfLawyer()),
   ];
 }
