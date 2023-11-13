@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../../../resources/resources.dart';
 import '../../../resources/validator.dart';
 import '../../../utils/common-widgets/custom_button.dart';
 import '../../../utils/common-widgets/custom_textformfield.dart';
@@ -10,7 +8,6 @@ import '../../../utils/common-widgets/global_widget.dart';
 import '../../../utils/hights_widths.dart';
 import '../../../utils/zbot_toast.dart';
 import '../../auth/view/login_screen.dart';
-import '../vm/signup_lawyer.dart';
 import 'signup_screen_two.dart';
 
 class SignupScreenOneOfLawyer extends StatefulWidget {
@@ -70,7 +67,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 h3,
-                Text('Step 1/5 About you'),
+                const Text('Step 1/5 About you'),
                 h1,
                 CustomTextFormField(
                   fieldTitle: "Full Name",

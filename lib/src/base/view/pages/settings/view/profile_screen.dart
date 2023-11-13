@@ -10,7 +10,7 @@ import 'widgets/custom_data_widget.dart';
 class ProfileScreen extends StatefulWidget {
   static String route = '/profileroute';
 
-  ProfileScreen({super.key});
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen>
         floatingActionButton: FloatingActionButton(
           backgroundColor: R.colors.primary,
           onPressed: () {},
-          child: Icon(Icons.edit),
+          child: const Icon(Icons.edit),
         ),
         appBar: GlobalWidgets.appBar('Profils'),
         body: Column(children: [
@@ -80,184 +80,178 @@ class _ProfileScreenState extends State<ProfileScreen>
             child: TabBarView(
               controller: tabController,
               children: [
-                Container(
-                  child: Column(
-                    children: [
-                      h2,
-                      Center(
-                        child: CircleAvatar(
-                          backgroundColor: R.colors.primary.withOpacity(.2),
-                          radius: 70,
-                          backgroundImage: NetworkImage(AppImages.dummyImage),
-                          onBackgroundImageError: (exception, stackTrace) {
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(
-                                    color: R.colors.primary.withOpacity(.8),
-                                    width: 1),
+                Column(
+                  children: [
+                    h2,
+                    Center(
+                      child: CircleAvatar(
+                        backgroundColor: R.colors.primary.withOpacity(.2),
+                        radius: 70,
+                        backgroundImage: NetworkImage(AppImages.dummyImage),
+                        onBackgroundImageError: (exception, stackTrace) {
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                  color: R.colors.primary.withOpacity(.8),
+                                  width: 1),
+                            ),
+                            child: Icon(
+                              Icons.error,
+                              color: R.colors.black,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    h3,
+                    Text(
+                      'jone Lawyer',
+                      style: R.textStyles.poppinsBold(fontSize: 15.sp),
+                    ),
+                    Text('joneDone@gmail.com',
+                        style: R.textStyles.poppinsRegular()),
+                    h4,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(horizontal: 12.sp),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'All Information',
+                              style: R.textStyles.poppinsBold(fontSize: 13.sp),
+                            ),
+                            h1,
+                            Text(
+                              'About',
+                              style: R.textStyles.poppinsMedium(),
+                            ),
+                            Text(
+                              'cdaf dsfsdfv dsc  dv dsfcv fssd',
+                              style: R.textStyles.poppinsRegular(
+                                color: R.colors.darkGrey,
+                                letterSpacing: 0.45,
                               ),
-                              child: Icon(
-                                Icons.error,
-                                color: R.colors.black,
-                              ),
-                            );
-                          },
+                            ),
+                            h1,
+                            const CustomData(
+                                title: 'Name:', subTitle: "john ddd"),
+                            h1,
+                            const CustomData(
+                                title: 'Location:',
+                                subTitle: "samnabad Lahore"),
+                            h1,
+                            const CustomData(
+                                title: 'Number:', subTitle: "94 3924032454"),
+                            h1,
+                            const CustomData(
+                                title: 'Email:', subTitle: "hgsd@wjkd.sdk"),
+                            h1,
+                            const CustomData(
+                                title: 'Gender:', subTitle: "Female"),
+                            h1,
+                            const CustomData(
+                                title: 'Experience:', subTitle: "2 years"),
+                            h1,
+                            const CustomData(
+                                title: 'License Number:',
+                                subTitle: "234 34354545"),
+                            h1,
+                            const CustomData(
+                                title: 'Video Consultation Fee:',
+                                subTitle: "2000"),
+                            h1,
+                            const CustomData(
+                                title: 'Physical Consultation Fee:',
+                                subTitle: "2000"),
+                            h4,
+                          ],
                         ),
                       ),
-                      h3,
-                      Text(
-                        'jone Lawyer',
-                        style: R.textStyles.poppinsBold(fontSize: 15.sp),
-                      ),
-                      Text('joneDone@gmail.com',
-                          style: R.textStyles.poppinsRegular()),
-                      h4,
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: EdgeInsets.symmetric(horizontal: 12.sp),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'All Information',
-                                style:
-                                    R.textStyles.poppinsBold(fontSize: 13.sp),
-                              ),
-                              h1,
-                              Text(
-                                'About',
-                                style: R.textStyles.poppinsMedium(),
-                              ),
-                              Text(
-                                'cdaf dsfsdfv dsc  dv dsfcv fssd',
-                                style: R.textStyles.poppinsRegular(
-                                  color: R.colors.darkGrey,
-                                  letterSpacing: 0.45,
-                                ),
-                              ),
-                              h1,
-                              const CustomData(
-                                  title: 'Name:', subTitle: "john ddd"),
-                              h1,
-                              const CustomData(
-                                  title: 'Location:',
-                                  subTitle: "samnabad Lahore"),
-                              h1,
-                              const CustomData(
-                                  title: 'Number:', subTitle: "94 3924032454"),
-                              h1,
-                              const CustomData(
-                                  title: 'Email:', subTitle: "hgsd@wjkd.sdk"),
-                              h1,
-                              const CustomData(
-                                  title: 'Gender:', subTitle: "Female"),
-                              h1,
-                              const CustomData(
-                                  title: 'Experience:', subTitle: "2 years"),
-                              h1,
-                              const CustomData(
-                                  title: 'License Number:',
-                                  subTitle: "234 34354545"),
-                              h1,
-                              const CustomData(
-                                  title: 'Video Consultation Fee:',
-                                  subTitle: "2000"),
-                              h1,
-                              const CustomData(
-                                  title: 'Physical Consultation Fee:',
-                                  subTitle: "2000"),
-                              h4,
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Container(
-                  child: Column(
-                    children: [
-                      h2,
-                      Center(
-                        child: CircleAvatar(
-                          backgroundColor: R.colors.primary.withOpacity(.2),
-                          radius: 70,
-                          backgroundImage: NetworkImage(AppImages.dummyImage),
-                          onBackgroundImageError: (exception, stackTrace) {
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(
-                                    color: R.colors.primary.withOpacity(.8),
-                                    width: 1),
+                Column(
+                  children: [
+                    h2,
+                    Center(
+                      child: CircleAvatar(
+                        backgroundColor: R.colors.primary.withOpacity(.2),
+                        radius: 70,
+                        backgroundImage: NetworkImage(AppImages.dummyImage),
+                        onBackgroundImageError: (exception, stackTrace) {
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                  color: R.colors.primary.withOpacity(.8),
+                                  width: 1),
+                            ),
+                            child: Icon(
+                              Icons.error,
+                              color: R.colors.black,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    h3,
+                    Text(
+                      'jone Done',
+                      style: R.textStyles.poppinsBold(fontSize: 15.sp),
+                    ),
+                    Text('joneDone@gmail.com',
+                        style: R.textStyles.poppinsRegular()),
+                    h4,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(horizontal: 12.sp),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'All Information',
+                              style: R.textStyles.poppinsBold(fontSize: 13.sp),
+                            ),
+                            h1,
+                            Text(
+                              'About',
+                              style: R.textStyles.poppinsMedium(),
+                            ),
+                            Text(
+                              'cdaf dsfsdfv dsc  dv dsfcv fssd',
+                              style: R.textStyles.poppinsRegular(
+                                color: R.colors.darkGrey,
+                                letterSpacing: 0.45,
                               ),
-                              child: Icon(
-                                Icons.error,
-                                color: R.colors.black,
-                              ),
-                            );
-                          },
+                            ),
+                            h1,
+                            const CustomData(
+                                title: 'Name:', subTitle: "john ddd"),
+                            h1,
+                            const CustomData(
+                                title: 'Location:',
+                                subTitle: "samnabad Lahore"),
+                            h1,
+                            const CustomData(
+                                title: 'Number:', subTitle: "94 3924032454"),
+                            h1,
+                            const CustomData(
+                                title: 'Email:', subTitle: "hgsd@wjkd.sdk"),
+                            h1,
+                            const CustomData(
+                                title: 'Gender:', subTitle: "Female"),
+                            h1,
+                            const CustomData(
+                                title: 'Experience:', subTitle: "2 years"),
+                          ],
                         ),
                       ),
-                      h3,
-                      Text(
-                        'jone Done',
-                        style: R.textStyles.poppinsBold(fontSize: 15.sp),
-                      ),
-                      Text('joneDone@gmail.com',
-                          style: R.textStyles.poppinsRegular()),
-                      h4,
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: EdgeInsets.symmetric(horizontal: 12.sp),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'All Information',
-                                style:
-                                    R.textStyles.poppinsBold(fontSize: 13.sp),
-                              ),
-                              h1,
-                              Text(
-                                'About',
-                                style: R.textStyles.poppinsMedium(),
-                              ),
-                              Text(
-                                'cdaf dsfsdfv dsc  dv dsfcv fssd',
-                                style: R.textStyles.poppinsRegular(
-                                  color: R.colors.darkGrey,
-                                  letterSpacing: 0.45,
-                                ),
-                              ),
-                              h1,
-                              const CustomData(
-                                  title: 'Name:', subTitle: "john ddd"),
-                              h1,
-                              const CustomData(
-                                  title: 'Location:',
-                                  subTitle: "samnabad Lahore"),
-                              h1,
-                              const CustomData(
-                                  title: 'Number:', subTitle: "94 3924032454"),
-                              h1,
-                              const CustomData(
-                                  title: 'Email:', subTitle: "hgsd@wjkd.sdk"),
-                              h1,
-                              const CustomData(
-                                  title: 'Gender:', subTitle: "Female"),
-                              h1,
-                              const CustomData(
-                                  title: 'Experience:', subTitle: "2 years"),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),

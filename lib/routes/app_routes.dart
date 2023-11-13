@@ -25,8 +25,7 @@ abstract class AppPages {
     GetPage(
         name: RatingAndReviewsScreen.route,
         page: () => const RatingAndReviewsScreen()),
-    GetPage(name: ProfileScreen.route, page: () => ProfileScreen()),
-    GetPage(name: LoginScreenOfLawyer.route, page: () => LoginScreenOfLawyer()),
+    GetPage(name: ProfileScreen.route, page: () => const ProfileScreen()),
     GetPage(
         name: SignupScreenOneOfLawyer.route,
         page: () => const SignupScreenOneOfLawyer()),

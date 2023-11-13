@@ -6,16 +6,19 @@ class LawyersModel {
   String? location;
   String? profileImageUrl;
   String? description;
+  String? experience;
+  String? fee;
 
-  LawyersModel({
-    this.id,
-    this.username,
-    this.lawyerType,
-    this.gender,
-    this.location,
-    this.profileImageUrl,
-    this.description,
-  });
+  LawyersModel(
+      {this.id,
+      this.username,
+      this.lawyerType,
+      this.gender,
+      this.location,
+      this.profileImageUrl,
+      this.description,
+      this.experience,
+      this.fee});
 
   toList() {}
 }

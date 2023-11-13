@@ -32,8 +32,15 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
             padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(
+                'Create your profile',
+                style: R.textStyles.poppinsSemiBold(),
+              ),
               h3,
-              Text('Step 1/5 About you'),
+              Text(
+                'Step 1/5 About you',
+                style: R.textStyles.poppinsRegular(),
+              ),
               h1,
               speciallistLawyerDropdown(vm: vm),
               h1,
@@ -47,6 +54,20 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               h1,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Your Qualification',
+                    style: R.textStyles.poppinsRegular(),
+                  ),
+                  TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'ADD MORE',
+                      ))
+                ],
+              ),
             ]),
           ),
         );

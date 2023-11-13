@@ -4,12 +4,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/chamber_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../../../../utils/hights_widths.dart';
 import '../vm/home_vm.dart';
 import 'widget/profile_widget.dart';
+import 'widget/reviews_widet.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -50,7 +51,8 @@ class _HomeViewState extends State<HomeView> {
                                 selectedLocation: latLng,
                                 address: (value) {
                                   pickLocationData = value;
-                                  latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
+                                  latLng =
+                                      LatLng(value.lat ?? 0, value.lng ?? 0);
                                 },
                               ),
                             );
@@ -72,7 +74,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         IconButton(
                           onPressed: () {},
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.location_pin,
                           ),
                         ),
@@ -85,7 +87,21 @@ class _HomeViewState extends State<HomeView> {
                       style: R.textStyles.poppinsSemiBold(),
                     ),
                     h0P7,
-                    viewAllWidget("Lawyer Profiles", () {}),
+                    viewAllWidget("Chambers", () {}),
+                    h1,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          context.read<HomeVM>().ChamberList.length,
+                          (index) => ChamberWidget(
+                            model: context.read<HomeVM>().ChamberList[index],
+                          ),
+                        ),
+                      ),
+                    ),
+                    h2,
+                    viewAllWidget("Lawyers", () {}),
                     h1,
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
@@ -98,7 +114,20 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                     ),
-                    h0P7,
+                    h2,
+                    viewAllWidget("Legal Links Users", () {}),
+                    h1,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          context.read<HomeVM>().feedbackList.length,
+                          (index) => FeedbackWidget(
+                            model: context.read<HomeVM>().feedbackList[index],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -117,7 +146,8 @@ class _HomeViewState extends State<HomeView> {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
+          style: R.textStyles
+              .poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
         ),
         TextButton(
           onPressed: onPressed,
@@ -136,7 +166,6 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget searchField() {
-    bool isSearchFocused = false;
     return TextFormField(
       focusNode: searchFN,
       controller: searchController,
@@ -147,14 +176,10 @@ class _HomeViewState extends State<HomeView> {
         setState(() {});
       },
       onTap: () {
-        setState(() {
-          isSearchFocused = true;
-        });
+        setState(() {});
       },
       onFieldSubmitted: (value) {
-        setState(() {
-          isSearchFocused = false;
-        });
+        setState(() {});
       },
       // validator: FieldValidator.validateEmail,
       // autovalidateMode: AutovalidateMode.onUserInteraction,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:legal_links_app/constants/global_functions.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/appointment_view.dart';
@@ -7,6 +8,8 @@ import 'package:legal_links_app/src/base/view/pages/settings/view/settings_view.
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 
 import 'package:provider/provider.dart';
+
+import '../../../utils/common-widgets/call_confirmation.dart';
 
 class BaseView extends StatefulWidget {
   static String route = "/base_view";
@@ -87,7 +90,7 @@ class _BaseViewState extends State<BaseView> {
   void _onTabTapped({required int index, required BaseVM vm}) {
     setState(() {
       vm.currentIndex = index;
-      vm.update(); 
+      vm.update();
     });
   }
 
@@ -149,7 +152,7 @@ class _BaseViewState extends State<BaseView> {
               IconButton(
                 iconSize: 25,
                 onPressed: () {
-                  // Get.to(const QRScannerView());
+                  Get.dialog(const CallConfirmationDialog());
                 },
                 icon: Icon(
                   Icons.call,

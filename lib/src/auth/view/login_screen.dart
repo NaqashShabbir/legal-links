@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/confirmation_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -91,7 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(right: 8.sp),
                         child: Icon(
-                          ispObscure ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          ispObscure
+                              ? Icons.visibility_off_rounded
+                              : Icons.remove_red_eye_rounded,
                           color: Colors.grey,
                           size: 16.sp,
                         ),
@@ -150,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: GlobalWidgets.authBottomWidget(
               "Don't have an account?",
               '  Sign up',
-              () => Get.offAllNamed(SignupScreen.route),
+              () => Get.dialog(ConfirmationDialog()),
             ),
           ),
         );

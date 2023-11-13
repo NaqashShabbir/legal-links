@@ -11,7 +11,7 @@ import '../../model/review_model.dart';
 class ReviewsWidget extends StatelessWidget {
   final ReviewModel model;
 
-  ReviewsWidget({
+  const ReviewsWidget({
     super.key,
     required this.model,
   });
@@ -25,7 +25,7 @@ class ReviewsWidget extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: CachedNetworkImage(
-                imageUrl: model?.img ?? AppImages.dummyImage,
+                imageUrl: model.img ?? AppImages.dummyImage,
                 imageBuilder: (context, imageProvider) => Container(
                   height: 13.w,
                   width: 13.w,
@@ -54,7 +54,7 @@ class ReviewsWidget extends StatelessWidget {
             ),
             w3,
             Text(
-              model?.userName ?? "",
+              model.userName ?? "",
               style: R.textStyles.poppinsSemiBold(),
             ),
             const Spacer(),
@@ -86,7 +86,7 @@ class ReviewsWidget extends StatelessWidget {
           ],
         ),
         h1,
-        Text(model?.review ?? "", style: R.textStyles.poppinsRegular()),
+        Text(model.review ?? "", style: R.textStyles.poppinsRegular()),
         h1
       ],
     );
