@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/validator.dart';
 import '../../../utils/common-widgets/custom_button.dart';
@@ -104,24 +105,30 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   controller: confirmpasswordController,
                   focusNode: confirmpasswordFocus,
                   inputAction: TextInputAction.done,
-                  inputType: TextInputType.name,
+                  inputType: TextInputType.text,
                   hintText: '1',
                   fieldTitle: "Years of Experience",
                   obscureText: isObscure2,
                 ),
                 h3,
                 h1,
-                CustomButton(
-                  buttonTitle: "Continue to next step",
-                  tap: () async {
-                    if (_formKey.currentState!.validate()) {
-                      ZBotToast.showToastError(
-                          message: "Please there will be no empty field.");
-                    } else {
-                      Get.toNamed(SignupScreenTwoOfLawyer.route);
-                    }
+                // CustomButton(
+                //   buttonTitle: "Continue to next step",
+                //   tap: () async {
+                //     if (_formKey.currentState!.validate()) {
+                //       ZBotToast.showToastError(
+                //           message: "Please there will be no empty field.");
+                //     } else {
+                //       Get.toNamed(SignupScreenTwoOfLawyer.route);
+                //     }
+                //   },
+                // ),
+                CustomButtonSignup(
+                  text: 'Continue to next step',
+                  tap: () {
+                    Get.toNamed(SignupScreenTwoOfLawyer.route);
                   },
-                ),
+                )
               ],
             ),
           ),

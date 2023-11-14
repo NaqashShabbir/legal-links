@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:legal_links_app/src/lawyer_profile/view/signup_screen_three.dart';
+import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/resources.dart';
 import '../../../resources/validator.dart';
-
 import '../../../utils/common-widgets/custom_textformfield.dart';
 import '../../../utils/hights_widths.dart';
 import '../model/lawyer_model.dart';
@@ -23,6 +25,35 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
   FocusNode lawyerFocus = FocusNode();
   TextEditingController lawyerController = TextEditingController();
 
+  List<RowItem> rowsList = [
+    RowItem(
+      degree: 'Degree',
+      uni: 'Institute/University',
+      showDeleteIcon: false,
+      controller: TextEditingController(),
+    ),
+    RowItem(
+      degree: 'Degree',
+      uni: 'Institute/University',
+      showDeleteIcon: true,
+      controller: TextEditingController(),
+    ),
+  ];
+
+  List<ExperienceItem> experienceList = [
+    ExperienceItem(
+      designation: 'Designation',
+      court: 'Court/Chamber',
+      showDeleteIcon: false,
+      controller: TextEditingController(),
+    ),
+    ExperienceItem(
+      designation: 'Designation',
+      court: 'Court/Chamber',
+      showDeleteIcon: true,
+      controller: TextEditingController(),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,14 +63,23 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
             padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Create your profile',
-                style: R.textStyles.poppinsSemiBold(),
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(Icons.arrow_back)),
+                  Text(
+                    'Create your profile',
+                    style: R.textStyles.poppinsSemiBold(),
+                  ),
+                ],
               ),
               h3,
               Text(
-                'Step 1/5 About you',
-                style: R.textStyles.poppinsRegular(),
+                'Step 2/5 About you',
+                style: R.textStyles.poppinsRegular(color: R.colors.primary),
               ),
               h1,
               speciallistLawyerDropdown(vm: vm),
@@ -47,27 +87,53 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
               CustomTextFormField(
                 controller: lawyerController,
                 hintText: 'Any other Speciality',
-                focusNode: lawyerFocus,
+                //focusNode: lawyerFocus,
                 inputAction: TextInputAction.next,
                 inputType: TextInputType.name,
                 validator: FieldValidator.validateEmpty,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
               ),
               h1,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Your Qualification',
-                    style: R.textStyles.poppinsRegular(),
-                  ),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'ADD MORE',
-                      ))
-                ],
-              ),
+              heading('Your Qualification', () {
+                setState(() {
+                  rowsList.add(RowItem(
+                      degree: 'Degree',
+                      uni: 'Institute/University',
+                      controller: TextEditingController(),
+                      showDeleteIcon: true));
+                });
+              }),
+              h1,
+              for (int index = 0; index < rowsList.length; index++) ...[
+                customTextFieldRow(rowsList[index], index),
+                h0P8,
+              ],
+              h1,
+              heading('Your Experience', () {
+                setState(() {
+                  experienceList.add(
+                    ExperienceItem(
+                      designation: 'Designation',
+                      court: 'Court/Chamber',
+                      showDeleteIcon: true,
+                      controller: TextEditingController(),
+                    ),
+                  );
+                });
+              }),
+              h1,
+              h1,
+              for (int index = 0; index < experienceList.length; index++) ...[
+                customTextFieldExperience(experienceList[index], index),
+                h0P8,
+              ],
+              h3,
+              CustomButtonSignup(
+                text: 'Continue to next step',
+                tap: () {
+                  Get.toNamed(SignupScreenThreeOfLawyer.route);
+                },
+              )
             ]),
           ),
         );
@@ -132,4 +198,156 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
       },
     );
   }
+
+  Widget heading(String text, VoidCallback onTap) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          text,
+          style: R.textStyles.poppinsSemiBold(),
+        ),
+        TextButton(
+            onPressed: onTap,
+            child: Text(
+              'ADD MORE',
+              style: R.textStyles
+                  .poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
+            )),
+      ],
+    );
+  }
+
+  Widget customTextFieldRow(RowItem item, int index) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 3,
+          child: CustomTextFormField(
+            controller: item.controller,
+            hintText: item.degree,
+            //focusNode: lawyerFocus,
+            inputAction: TextInputAction.next,
+            inputType: TextInputType.name,
+            validator: FieldValidator.validateEmpty,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+          ),
+        ),
+        w2,
+        Expanded(
+          flex: 3,
+          child: CustomTextFormField(
+            controller: item.controller,
+            hintText: item.uni,
+            inputAction: TextInputAction.next,
+            inputType: TextInputType.name,
+            validator: FieldValidator.validateEmpty,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+          ),
+        ),
+        if (item.showDeleteIcon)
+          Expanded(
+            flex: 1,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  rowsList.removeAt(index);
+                });
+              },
+              icon: Icon(
+                Icons.delete,
+                color: R.colors.primary,
+                size: 25.sp,
+              ),
+            ),
+          ),
+        if (!item.showDeleteIcon)
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+      ],
+    );
+  }
+
+  Widget customTextFieldExperience(ExperienceItem item, int index) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 3,
+          child: CustomTextFormField(
+            controller: item.controller,
+            hintText: item.designation,
+            //focusNode: lawyerFocus,
+            inputAction: TextInputAction.next,
+            inputType: TextInputType.name,
+            validator: FieldValidator.validateEmpty,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+          ),
+        ),
+        w2,
+        Expanded(
+          flex: 3,
+          child: CustomTextFormField(
+            controller: item.controller,
+            hintText: item.court,
+            // focusNode: lawyerFocus,
+            inputAction: TextInputAction.next,
+            inputType: TextInputType.name,
+            validator: FieldValidator.validateEmpty,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+          ),
+        ),
+        if (item.showDeleteIcon)
+          Expanded(
+            flex: 1,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  experienceList.removeAt(index);
+                });
+              },
+              icon: Icon(
+                Icons.delete,
+                color: R.colors.primary,
+                size: 25.sp,
+              ),
+            ),
+          ),
+        if (!item.showDeleteIcon)
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+      ],
+    );
+  }
+}
+
+class RowItem {
+  final String degree;
+  final String uni;
+  final bool showDeleteIcon;
+  final TextEditingController controller;
+
+  RowItem({
+    required this.degree,
+    required this.uni,
+    this.showDeleteIcon = true,
+    required this.controller,
+  });
+}
+
+class ExperienceItem {
+  final String designation;
+  final String court;
+  final bool showDeleteIcon;
+  final TextEditingController controller;
+
+  ExperienceItem({
+    required this.designation,
+    required this.court,
+    this.showDeleteIcon = true,
+    required this.controller,
+  });
 }

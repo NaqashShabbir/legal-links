@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
-import 'package:legal_links_app/src/lawyer_profile/view/signup_screen_two.dart';
 import 'package:legal_links_app/src/lawyer_profile/vm/signup_lawyer.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'routes/app_routes.dart';
-import 'src/auth/view/login_screen.dart';
 import 'src/auth/vm/auth_vm.dart';
-import 'src/base/view/base_view.dart';
+import 'src/lawyer_profile/view/signup_screen_one.dart';
 
 void main() {
   runApp(
@@ -43,8 +41,8 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [BotToastNavigatorObserver()],
           title: 'Legal Links',
           debugShowCheckedModeBanner: false,
-          // initialRoute: SignupScreenTwoOfLawyer.route,
-          initialRoute: LoginScreen.route,
+          initialRoute: SignupScreenOneOfLawyer.route,
+          // initialRoute: LoginScreen.route,
           getPages: AppPages.pages,
         ),
       );

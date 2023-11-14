@@ -89,6 +89,7 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Widget NumberField(VoidCallback onTap, String text) {
     return ElevatedButton(
       onPressed: onTap,

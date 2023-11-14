@@ -15,7 +15,6 @@ import '../../../utils/common-widgets/custom_textformfield.dart';
 import '../../../utils/common-widgets/global_widget.dart';
 import '../../../utils/hights_widths.dart';
 import '../vm/auth_vm.dart';
-import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static String route = "/loginScreen";
@@ -153,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: GlobalWidgets.authBottomWidget(
               "Don't have an account?",
               '  Sign up',
-              () => Get.dialog(ConfirmationDialog()),
+              () => Get.dialog(const ConfirmationDialog()),
             ),
           ),
         );

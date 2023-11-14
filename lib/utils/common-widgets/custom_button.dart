@@ -9,15 +9,22 @@ class CustomButton extends StatelessWidget {
   final VoidCallback? tap;
   final Color? color;
   final Color? textColor;
+  final Color? borderCOlor;
   const CustomButton(
-      {super.key, required this.buttonTitle, required this.tap, this.color, this.textColor});
+      {super.key,
+      required this.buttonTitle,
+      required this.tap,
+      this.color,
+      this.textColor,
+      this.borderCOlor});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: tap,
       style: ButtonStyle(
-        padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 9.sp, horizontal: 8)),
+        padding: MaterialStateProperty.all(
+            EdgeInsets.symmetric(vertical: 9.sp, horizontal: 8)),
         shape: MaterialStateProperty.all(
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
         backgroundColor: MaterialStateProperty.all(color ?? R.colors.primary),
@@ -43,7 +50,10 @@ class CustomButtonSearchView extends StatelessWidget {
   final Color textCol;
   final VoidCallback? tap;
   const CustomButtonSearchView(
-      {super.key, required this.text, required this.textCol, required this.tap});
+      {super.key,
+      required this.text,
+      required this.textCol,
+      required this.tap});
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +63,8 @@ class CustomButtonSearchView extends StatelessWidget {
         child: Container(
           height: 45,
           width: 120,
-          decoration:
-              BoxDecoration(color: R.colors.primary, borderRadius: BorderRadius.circular(5)),
+          decoration: BoxDecoration(
+              color: R.colors.primary, borderRadius: BorderRadius.circular(5)),
           child: Center(
               child: Text(
             text,

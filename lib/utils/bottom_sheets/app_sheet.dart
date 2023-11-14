@@ -43,8 +43,8 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
         padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
         decoration: BoxDecoration(
           color: R.colors.white,
-          borderRadius:
-              const BorderRadius.only(topRight: Radius.circular(26), topLeft: Radius.circular(26)),
+          borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(26), topLeft: Radius.circular(26)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -72,7 +72,7 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
                 textAlign: TextAlign.center,
                 style: R.textStyles.poppinsRegular(
                   fontSize: 13.sp,
-                  color: R.colors.grey,
+                  color: R.colors.darkGrey,
                   letterSpacing: 0.45,
                 ),
               ),
