@@ -56,6 +56,7 @@ dependencies:
   http: ^1.1.0
   day_picker: ^2.2.0
   duration_picker: ^1.1.1
+  firebase_core: ^2.22.0
 
 
   

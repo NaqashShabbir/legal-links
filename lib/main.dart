@@ -2,15 +2,23 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
+import 'package:legal_links_app/src/landing_page/view/splash_screen.dart';
 import 'package:legal_links_app/src/lawyer_profile/vm/signup_lawyer.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'routes/app_routes.dart';
 import 'src/auth/vm/auth_vm.dart';
 import 'src/lawyer_profile/view/signup_screen_one.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
       providers: [
@@ -19,6 +27,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => BaseVM()),
         ChangeNotifierProvider(create: (context) => BaseVM()),
         ChangeNotifierProvider(create: (context) => SignupLawyer()),
+        ChangeNotifierProvider(create: (context) => SettingsVM()),
       ],
       child: const MyApp(),
     ),
@@ -41,8 +50,8 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [BotToastNavigatorObserver()],
           title: 'Legal Links',
           debugShowCheckedModeBanner: false,
-          initialRoute: SignupScreenOneOfLawyer.route,
-          // initialRoute: LoginScreen.route,
+          // initialRoute: SignupScreenOneOfLawyer.route,
+          initialRoute: SplashScreen.route,
           getPages: AppPages.pages,
         ),
       );
