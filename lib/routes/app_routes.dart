@@ -44,7 +44,7 @@ abstract class AppPages {
     GetPage(name: CompleteProfile.route, page: () => const CompleteProfile()),
     GetPage(name: AppointmentView.route, page: () => const AppointmentView()),
     GetPage(
-        name: AppointmentView.route, page: () => const AppointmentDetails()),
+        name: AppointmentDetails.route, page: () => const AppointmentDetails()),
     GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
   ];
 }

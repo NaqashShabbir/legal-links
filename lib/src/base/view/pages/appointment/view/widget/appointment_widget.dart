@@ -121,6 +121,7 @@ class AppointmentWidget extends StatelessWidget {
   }
 
   void visitProfileFn() {
+    debugPrint('model: $model');
     Get.toNamed(AppointmentDetails.route, arguments: {"model": model});
   }
 }

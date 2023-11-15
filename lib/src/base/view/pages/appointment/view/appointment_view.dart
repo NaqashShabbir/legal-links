@@ -72,7 +72,11 @@ class _AppointmentViewState extends State<AppointmentView>
                                 .appointmentList[index]))
                   ],
                 ),
-                Column()
+                Text(context
+                    .read<AppointmentVM>()
+                    .appointmentList
+                    .length
+                    .toString())
               ],
             ))
           ],
