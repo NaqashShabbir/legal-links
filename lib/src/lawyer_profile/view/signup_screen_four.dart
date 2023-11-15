@@ -4,8 +4,6 @@ import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/complete_profile.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../utils/common-widgets/custom_button.dart';
 import '../../../utils/hights_widths.dart';
 
 class SignupScreenFour extends StatefulWidget {
@@ -37,8 +35,9 @@ class _SignupScreenFourState extends State<SignupScreenFour> {
             ),
             h3,
             Text(
-              'Step 3/5 About you',
-              style: R.textStyles.poppinsRegular(color: R.colors.primary),
+              'Step 4/5 About you',
+              style: R.textStyles
+                  .poppinsSemiBold(color: R.colors.primary, fontSize: 15.sp),
             ),
             h1,
             Text(

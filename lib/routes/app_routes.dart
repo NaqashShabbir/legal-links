@@ -4,6 +4,9 @@ import 'package:legal_links_app/src/auth/view/signup_screen.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/profile_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_reviews_screen.dart';
+import '../src/base/view/pages/appointment/view/appointment_detail_screen.dart';
+import '../src/base/view/pages/appointment/view/appointment_view.dart';
+import '../src/base/view/pages/dashboard.dart/view/all_lawyers_screen.dart';
 import '../src/base/view/pages/settings/view/privacy_policy_screen.dart';
 import '../src/base/view/pages/settings/view/term_and_conditions_screen.dart';
 import '../src/landing_page/view/splash_screen.dart';
@@ -39,5 +42,9 @@ abstract class AppPages {
         page: () => const SignupScreenThreeOfLawyer()),
     GetPage(name: SignupScreenFour.route, page: () => const SignupScreenFour()),
     GetPage(name: CompleteProfile.route, page: () => const CompleteProfile()),
+    GetPage(name: AppointmentView.route, page: () => const AppointmentView()),
+    GetPage(
+        name: AppointmentView.route, page: () => const AppointmentDetails()),
+    GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
   ];
 }

@@ -22,7 +22,7 @@ class CustomTextFormField extends StatefulWidget {
 
   const CustomTextFormField(
       {super.key,
-      required this.controller,
+      this.controller,
       this.fieldTitle,
       required this.hintText,
       this.initialVal,

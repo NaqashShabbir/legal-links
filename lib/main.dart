@@ -10,15 +10,16 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'routes/app_routes.dart';
 import 'src/auth/vm/auth_vm.dart';
+import 'src/base/view/pages/appointment/vm/appointment_vm.dart';
 import 'src/lawyer_profile/view/signup_screen_one.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   runApp(
     MultiProvider(
       providers: [
@@ -27,7 +28,8 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => BaseVM()),
         ChangeNotifierProvider(create: (context) => BaseVM()),
         ChangeNotifierProvider(create: (context) => SignupLawyer()),
-        ChangeNotifierProvider(create: (context) => SettingsVM()),
+        ChangeNotifierProvider(create: (context) => SignupLawyer()),
+        ChangeNotifierProvider(create: (context) => AppointmentVM()),
       ],
       child: const MyApp(),
     ),

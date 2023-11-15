@@ -142,7 +142,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       onRatingUpdate: (rating) {},
                     ),
                     Text(
-                      '4.5/9',
+                      '4.5/8',
                       style:
                           R.textStyles.poppinsSemiBold(color: R.colors.white),
                     ),

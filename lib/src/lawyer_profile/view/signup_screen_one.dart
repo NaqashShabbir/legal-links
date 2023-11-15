@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:sizer/sizer.dart';
+import '../../../resources/resources.dart';
 import '../../../resources/validator.dart';
-import '../../../utils/common-widgets/custom_button.dart';
 import '../../../utils/common-widgets/custom_textformfield.dart';
 import '../../../utils/common-widgets/global_widget.dart';
+import '../../../utils/common-widgets/phone_number_field.dart';
 import '../../../utils/hights_widths.dart';
-import '../../../utils/zbot_toast.dart';
 import '../../auth/view/login_screen.dart';
 import 'signup_screen_two.dart';
 
@@ -35,13 +36,15 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
   FocusNode confirmpasswordFocus = FocusNode();
   FocusNode nameFocus = FocusNode();
   FocusNode dateFocus = FocusNode();
+  FocusNode colorF = FocusNode();
+  FocusNode numberF = FocusNode();
   FocusNode genderFn = FocusNode();
 
   bool isObscure1 = false;
   bool isObscure2 = false;
 
   bool isChecked = false;
-  //PhoneNumber number = PhoneNumber(isoCode: 'PK');
+  PhoneNumber number = PhoneNumber(isoCode: 'PK');
   TextEditingController phoneNumberController = TextEditingController();
 
   FocusNode numberFN = FocusNode();
@@ -68,7 +71,11 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 h3,
-                const Text('Step 1/5 About you'),
+                Text(
+                  'Step 1/5 About you',
+                  style: R.textStyles.poppinsSemiBold(
+                      color: R.colors.primary, fontSize: 15.sp),
+                ),
                 h1,
                 CustomTextFormField(
                   fieldTitle: "Full Name",
@@ -91,15 +98,13 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
                 h1,
-                CustomTextFormField(
-                  controller: numberController,
-                  focusNode: numberFocus,
-                  inputAction: TextInputAction.next,
-                  inputType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  hintText: '0344-4343434',
-                  fieldTitle: "Mobile Number",
-                  obscureText: isObscure1,
+                PhoneNumberField(
+                  fieldTitle: "phone Number",
+                  number: number,
+                  nextNode: colorF,
+                  numberFN: numberF,
+                  phoneNumberController: phoneNumberController,
+                  // valueChanged: ,
                 ),
                 CustomTextFormField(
                   controller: confirmpasswordController,

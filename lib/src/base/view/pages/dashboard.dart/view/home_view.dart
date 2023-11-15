@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../utils/hights_widths.dart';
 import '../vm/home_vm.dart';
+import 'all_lawyers_screen.dart';
 import 'widget/profile_widget.dart';
 import 'widget/reviews_widet.dart';
 
@@ -101,7 +102,9 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                     h2,
-                    viewAllWidget("Lawyers", () {}),
+                    viewAllWidget("Lawyers", () {
+                      Get.toNamed(AllLawyersScreen.route);
+                    }),
                     h1,
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,

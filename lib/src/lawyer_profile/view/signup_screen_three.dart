@@ -58,7 +58,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
   @override
   void initState() {
     super.initState();
-    duration = Duration(minutes: 30); // Initialize with a default value
+    duration = const Duration(minutes: 30); // Initialize with a default value
   }
 
   @override
@@ -96,7 +96,8 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
               h3,
               Text(
                 'Step 3/5 About you',
-                style: R.textStyles.poppinsRegular(color: R.colors.primary),
+                style: R.textStyles
+                    .poppinsSemiBold(color: R.colors.primary, fontSize: 15.sp),
               ),
               h1,
               CustomTextFormField(
@@ -148,7 +149,6 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                     ),
                     onSelect: (values) {
                       // <== Callback to handle the selected days
-                      print(values);
                     },
                   ),
                 ),
@@ -196,7 +196,6 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                             content:
                                 Text('Chose duration: $resultingEndDuration')));
                       }
-                      ;
                     },
                     child: Column(
                       children: [
@@ -208,7 +207,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                           ),
                         ),
                         h1,
-                        Text(''),
+                        const Text(''),
                       ],
                     ),
                   ),

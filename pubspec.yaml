@@ -57,6 +57,7 @@ dependencies:
   day_picker: ^2.2.0
   duration_picker: ^1.1.1
   firebase_core: ^2.22.0
+  intl_phone_number_input: ^0.7.3+1
 
 
   

@@ -18,6 +18,7 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
       backgroundColor: R.colors.transparent,
       body: Center(
         child: Container(
+          padding: EdgeInsets.all(10.sp),
           margin: EdgeInsets.symmetric(horizontal: 7.w),
           decoration: BoxDecoration(
             color: R.colors.white,
@@ -76,12 +77,12 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
                   margin: EdgeInsets.symmetric(horizontal: 10.sp),
                   width: double.infinity,
                   child: NumberField(() {}, '0345-5533872')),
-              h2,
+              h3,
               Text(
                 'Available 12/7 for your service',
                 style: R.textStyles.poppinsRegular(),
               ),
-              h2,
+              h3,
             ],
           ),
         ),

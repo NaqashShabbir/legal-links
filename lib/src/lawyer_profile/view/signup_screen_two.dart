@@ -30,13 +30,11 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
       degree: 'Degree',
       uni: 'Institute/University',
       showDeleteIcon: false,
-      controller: TextEditingController(),
     ),
     RowItem(
       degree: 'Degree',
       uni: 'Institute/University',
       showDeleteIcon: true,
-      controller: TextEditingController(),
     ),
   ];
 
@@ -45,13 +43,11 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
       designation: 'Designation',
       court: 'Court/Chamber',
       showDeleteIcon: false,
-      controller: TextEditingController(),
     ),
     ExperienceItem(
       designation: 'Designation',
       court: 'Court/Chamber',
       showDeleteIcon: true,
-      controller: TextEditingController(),
     ),
   ];
   @override
@@ -99,7 +95,6 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                   rowsList.add(RowItem(
                       degree: 'Degree',
                       uni: 'Institute/University',
-                      controller: TextEditingController(),
                       showDeleteIcon: true));
                 });
               }),
@@ -116,7 +111,6 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                       designation: 'Designation',
                       court: 'Court/Chamber',
                       showDeleteIcon: true,
-                      controller: TextEditingController(),
                     ),
                   );
                 });
@@ -224,7 +218,6 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
         Expanded(
           flex: 3,
           child: CustomTextFormField(
-            controller: item.controller,
             hintText: item.degree,
             //focusNode: lawyerFocus,
             inputAction: TextInputAction.next,
@@ -237,7 +230,6 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
         Expanded(
           flex: 3,
           child: CustomTextFormField(
-            controller: item.controller,
             hintText: item.uni,
             inputAction: TextInputAction.next,
             inputType: TextInputType.name,
@@ -276,7 +268,6 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
         Expanded(
           flex: 3,
           child: CustomTextFormField(
-            controller: item.controller,
             hintText: item.designation,
             //focusNode: lawyerFocus,
             inputAction: TextInputAction.next,
@@ -289,7 +280,6 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
         Expanded(
           flex: 3,
           child: CustomTextFormField(
-            controller: item.controller,
             hintText: item.court,
             // focusNode: lawyerFocus,
             inputAction: TextInputAction.next,
@@ -328,13 +318,11 @@ class RowItem {
   final String degree;
   final String uni;
   final bool showDeleteIcon;
-  final TextEditingController controller;
 
   RowItem({
     required this.degree,
     required this.uni,
     this.showDeleteIcon = true,
-    required this.controller,
   });
 }
 
@@ -342,12 +330,10 @@ class ExperienceItem {
   final String designation;
   final String court;
   final bool showDeleteIcon;
-  final TextEditingController controller;
 
   ExperienceItem({
     required this.designation,
     required this.court,
     this.showDeleteIcon = true,
-    required this.controller,
   });
 }
