@@ -11,6 +11,7 @@ import '../../../../../../utils/hights_widths.dart';
 import '../vm/home_vm.dart';
 import 'all_lawyers_screen.dart';
 import 'widget/profile_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'widget/reviews_widet.dart';
 
 class HomeView extends StatefulWidget {
@@ -34,10 +35,54 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.sp),
+                padding: EdgeInsets.all(8.sp),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // h1P5,
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
+                            imageBuilder: (context, imageProvider) => Container(
+                              height: 11.w,
+                              width: 11.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: R.colors.white, width: 1),
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, e) =>
+                                SizedBox(height: 11.w, width: 11.w, child: const Icon(Icons.error)),
+                            placeholder: (context, url) {
+                              return Center(
+                                  child: SizedBox(
+                                height: 11.w,
+                                width: 11.w,
+                                child: CircularProgressIndicator.adaptive(
+                                    backgroundColor: R.colors.primary),
+                              ));
+                            },
+                          ),
+                        ),
+                        w1,
+                        Text(
+                          "Hello, Jhon Doe!",
+                          style: R.textStyles.poppinsMedium(fontSize: 15.sp),
+                        ),
+                        w1,
+                      ],
+                    ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -52,29 +97,13 @@ class _HomeViewState extends State<HomeView> {
                                 selectedLocation: latLng,
                                 address: (value) {
                                   pickLocationData = value;
-                                  latLng =
-                                      LatLng(value.lat ?? 0, value.lng ?? 0);
+                                  latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
                                 },
                               ),
                             );
                             setState(() {});
                             debugPrint("pickLocationData $pickLocationData");
                           },
-                          icon: const Icon(
-                            Icons.location_pin,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Find the Best Lawyer Near You",
-                          style: R.textStyles.poppinsMedium(),
-                        ),
-                        IconButton(
-                          onPressed: () {},
                           icon: const Icon(
                             Icons.location_pin,
                           ),
@@ -149,8 +178,7 @@ class _HomeViewState extends State<HomeView> {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: R.textStyles
-              .poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
+          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
         ),
         TextButton(
           onPressed: onPressed,
