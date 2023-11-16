@@ -167,169 +167,177 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        body: startLocation == null
-            ? Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: R.colors.primary,
-                ),
-              )
-            : Stack(
-                children: [
-                  GoogleMap(
-                      onTap: (lat) async {
-                        searchFN.unfocus();
-                        if (widget.showButton!) {
-                          await getAddress(lat.latitude, lat.longitude);
-                        }
-                      },
-                      onMapCreated: (controller) async {
-                        mapsController = controller;
+    return Container(
+      color: R.colors.primary,
+      child: SafeArea(
+        child: Scaffold(
+          body: startLocation == null
+              ? Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: R.colors.primary,
+                  ),
+                )
+              : Stack(
+                  children: [
+                    GoogleMap(
+                        indoorViewEnabled: true,
+                        onTap: (lat) async {
+                          searchFN.unfocus();
+                          if (widget.showButton!) {
+                            await getAddress(lat.latitude, lat.longitude);
+                          }
+                          setState(() {});
+                        },
+                        onMapCreated: (controller) async {
+                          mapsController = controller;
 
-                        controller.animateCamera(
-                          CameraUpdate.newCameraPosition(
-                            CameraPosition(
-                              target: lt.LatLng(startLocation!.latitude, startLocation!.longitude),
-                              zoom: 18,
-                            ),
-                          ),
-                        );
-                        setState(() {});
-                      },
-                      myLocationButtonEnabled: true,
-                      myLocationEnabled: true,
-                      compassEnabled: true,
-                      zoomControlsEnabled: widget.showButton!,
-                      zoomGesturesEnabled: true,
-                      minMaxZoomPreference: MinMaxZoomPreference.unbounded,
-                      markers: markers,
-                      mapType: MapType.terrain,
-                      initialCameraPosition: CameraPosition(target: startLocation!, zoom: 18)),
-                  Container(
-                    padding: const EdgeInsets.only(top: 8.0, bottom: 3),
-                    color: R.colors.white,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          children: [
-                            // ...Back Button
-                            GestureDetector(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                margin: const EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: R.colors.white,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                child: Icon(
-                                  Icons.arrow_back_outlined,
-                                  color: R.colors.black,
-                                ),
+                          controller.animateCamera(
+                            CameraUpdate.newCameraPosition(
+                              CameraPosition(
+                                target:
+                                    lt.LatLng(startLocation!.latitude, startLocation!.longitude),
+                                zoom: 18,
                               ),
                             ),
-                            Expanded(
-                              child: SizedBox(
-                                child: TextFormField(
-                                  readOnly: false,
-                                  controller: searchTC,
-                                  focusNode: searchFN,
-                                  textInputAction: TextInputAction.done,
-                                  onChanged: ((value) async {
-                                    if (value.isNotEmpty) {
-                                      await GoogleMapFunctions.predict(value);
-                                    }
-                                    setState(() {});
-                                  }),
-                                  decoration: R.decoration
-                                      .fieldDecoration(
-                                        hintText: "search",
-                                        suffixIcon: searchTC.text.isNotEmpty
-                                            ? GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    searchTC.clear();
-                                                  });
-                                                },
-                                                child: Icon(
-                                                  Icons.cancel_outlined,
-                                                  color: R.colors.red,
-                                                ),
-                                              )
-                                            : null,
-                                      )
-                                      .copyWith(
-                                        fillColor: R.colors.grey.withOpacity(.3),
-                                        filled: true,
-                                      ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () async {
-                                searchFN.unfocus();
-                                setState(() {});
-
-                                bool check = await GoogleMapFunctions.checkLocation();
-                                if (check) {
-                                  await getLocation();
-                                }
-                              },
-                              child: Container(
+                          );
+                          setState(() {});
+                        },
+                        myLocationButtonEnabled: true,
+                        myLocationEnabled: true,
+                        compassEnabled: true,
+                        zoomControlsEnabled: widget.showButton!,
+                        zoomGesturesEnabled: true,
+                        minMaxZoomPreference: MinMaxZoomPreference.unbounded,
+                        markers: markers,
+                        mapType: MapType.terrain,
+                        initialCameraPosition: CameraPosition(target: startLocation!, zoom: 18)),
+                    Container(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 3),
+                      color: R.colors.white,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              // ...Back Button
+                              GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Container(
                                   width: 40,
                                   height: 40,
                                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                                  padding: EdgeInsets.symmetric(horizontal: 6.sp),
                                   decoration: BoxDecoration(
-                                      color: R.colors.grey.withOpacity(.3),
-                                      borderRadius: BorderRadius.circular(3),
-                                      border: Border.all(color: R.colors.grey)),
+                                    color: R.colors.white,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                  ),
                                   child: Icon(
-                                    Icons.my_location,
-                                    color: R.colors.primary,
-                                  )),
-                            )
-                          ],
-                        ),
-                        Visibility(
-                          visible: searchTC.text.isNotEmpty && searchFN.hasFocus,
-                          child: GoogleMapPredict(
-                            predictValue: searchTC.text,
-                            address: (adress) {
-                              predictFn(adress);
-                            },
+                                    Icons.arrow_back_outlined,
+                                    color: R.colors.black,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: SizedBox(
+                                  child: TextFormField(
+                                    readOnly: false,
+                                    controller: searchTC,
+                                    focusNode: searchFN,
+                                    textInputAction: TextInputAction.done,
+                                    onChanged: ((value) async {
+                                      if (value.isNotEmpty) {
+                                        await GoogleMapFunctions.predict(value);
+                                      }
+                                      setState(() {});
+                                    }),
+                                    decoration: R.decoration
+                                        .fieldDecoration(
+                                          hintText: "search",
+                                          suffixIcon: searchTC.text.isNotEmpty
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      searchTC.clear();
+                                                    });
+                                                  },
+                                                  child: Icon(
+                                                    Icons.cancel_outlined,
+                                                    color: R.colors.red,
+                                                  ),
+                                                )
+                                              : null,
+                                        )
+                                        .copyWith(
+                                          fillColor: R.colors.grey.withOpacity(.3),
+                                          filled: true,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  searchFN.unfocus();
+                                  setState(() {});
+
+                                  bool check = await GoogleMapFunctions.checkLocation();
+                                  if (check) {
+                                    await getLocation();
+                                  }
+                                },
+                                child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                                    padding: EdgeInsets.symmetric(horizontal: 6.sp),
+                                    decoration: BoxDecoration(
+                                        color: R.colors.grey.withOpacity(.3),
+                                        borderRadius: BorderRadius.circular(3),
+                                        border: Border.all(color: R.colors.grey)),
+                                    child: Icon(
+                                      Icons.my_location,
+                                      color: R.colors.primary,
+                                    )),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: 75.w,
-                      color: R.colors.transparent,
-                      margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12),
-                      child: CustomButton(
-                        color: R.colors.primary,
-                        textColor: R.colors.white,
-                        buttonTitle: "save",
-                        tap: () {
-                          widget.address!(address!);
-                          Get.back();
-                        },
+                          Visibility(
+                            visible: searchTC.text.isNotEmpty && searchFN.hasFocus,
+                            child: GoogleMapPredict(
+                              predictValue: searchTC.text,
+                              address: (adress) {
+                                predictFn(adress);
+                              },
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-    )
-    ;
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: 75.w,
+                        color: R.colors.transparent,
+                        margin: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12),
+                        child: CustomButton(
+                          color: R.colors.primary,
+                          textColor: R.colors.white,
+                          buttonTitle: "Save",
+                          tap: () {
+                            debugPrint("adress $address");
+                            widget.address!(address!);
+                            Get.back();
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+      ),
+    );
   }
 
   void predictFn(PickLocationData adress) {
