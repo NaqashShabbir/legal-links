@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_links_app/resources/app_images.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/model/appointment_details_model.dart';
 
 class AppointmentVM extends ChangeNotifier {
@@ -9,8 +10,7 @@ class AppointmentVM extends ChangeNotifier {
         lawyerType: 'Business laywer',
         time: '06:00 PM',
         date: 'November 22,2023',
-        userimage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
+        userimage: AppImages.dummyImageOne,
         customerNamr: 'Laiba'),
     AppointmentModel(
         id: '113,342',
@@ -18,8 +18,7 @@ class AppointmentVM extends ChangeNotifier {
         lawyerType: 'Business laywer',
         time: '06:00 PM',
         date: 'November 22,2023',
-        userimage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAG0N4aaM-RYwgmRdTGUX7UWJRHruOtdsI2Q&usqp=CAU',
+        userimage: AppImages.dummyImageTwo,
         customerNamr: 'Laiba'),
     AppointmentModel(
         id: '113,342',
@@ -27,8 +26,7 @@ class AppointmentVM extends ChangeNotifier {
         lawyerType: 'Business laywer',
         time: '06:00 PM',
         date: 'November 22,2023',
-        userimage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ__0SqA2Fz58iyqbhzRIO8xlM7Ir1l-zdJ3g&usqp=CAU',
+        userimage: AppImages.dummyImageThree,
         customerNamr: 'Laiba'),
   ];
 
