@@ -6,6 +6,7 @@ import 'package:legal_links_app/src/base/view/pages/settings/view/profile_screen
 import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_reviews_screen.dart';
 import '../src/base/view/pages/appointment/view/appointment_detail_screen.dart';
 import '../src/base/view/pages/appointment/view/appointment_view.dart';
+import '../src/base/view/pages/appointment/view/book_appointment_screen.dart';
 import '../src/base/view/pages/dashboard.dart/view/all_chambers_screen.dart';
 import '../src/base/view/pages/dashboard.dart/view/all_courts_screen.dart';
 import '../src/base/view/pages/dashboard.dart/view/all_lawyers_screen.dart';
@@ -54,5 +55,8 @@ abstract class AppPages {
     GetPage(
         name: AppointmentDetails.route, page: () => const AppointmentDetails()),
     GetPage(name: LawyerDetailsScrren.route, page: () => LawyerDetailsScrren()),
+    GetPage(
+        name: BookAppointmentScreen.route,
+        page: () => const BookAppointmentScreen()),
   ];
 }

@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:legal_links_app/src/base/view/pages/appointment/view/book_appointment_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/lawyers_model.dart';
 import 'package:legal_links_app/utils/common-widgets/call_confirmation.dart';
 import 'package:sizer/sizer.dart';
@@ -130,9 +132,9 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                             ),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         IconButton(
-                            onPressed: () {}, icon: Icon(Icons.more_vert))
+                            onPressed: () {}, icon: const Icon(Icons.more_vert))
                       ]),
                 ],
               ),
@@ -391,7 +393,10 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
               child: CustomButton(
             color: R.colors.primary,
             buttonTitle: "Book Appointment",
-            tap: () {},
+            tap: () {
+              Get.toNamed(BookAppointmentScreen.route,
+                  arguments: {"model": model});
+            },
             textColor: R.colors.white,
           )),
         ],

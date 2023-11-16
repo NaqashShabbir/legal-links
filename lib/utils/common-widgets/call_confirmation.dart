@@ -108,11 +108,9 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
         padding: EdgeInsets.symmetric(vertical: 2.sp, horizontal: 2.sp),
         child: Row(
           children: [
-            Container(
-              child: Icon(
-                Icons.phone,
-                color: R.colors.white,
-              ),
+            Icon(
+              Icons.phone,
+              color: R.colors.white,
             ),
             w2,
             Expanded(
