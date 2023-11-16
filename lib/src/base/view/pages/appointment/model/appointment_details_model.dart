@@ -6,6 +6,13 @@ class AppointmentModel {
   String? lawyerType;
   String? date;
   String? time;
+  String? address;
+  String? fee;
+  String? chamberName;
+  String? status;
+  String? payment;
+  String? numberOne;
+  String? numberTwo;
 
   AppointmentModel(
       {this.id,
@@ -14,7 +21,14 @@ class AppointmentModel {
       this.date,
       this.time,
       this.userimage,
-      this.customerNamr});
+      this.customerNamr,
+      this.fee,
+      this.address,
+      this.chamberName,
+      this.status,
+      this.numberOne,
+      this.numberTwo,
+      this.payment});
 
   toList() {}
 }

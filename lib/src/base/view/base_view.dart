@@ -150,7 +150,10 @@ class _BaseViewState extends State<BaseView> {
               IconButton(
                 iconSize: 25,
                 onPressed: () {
-                  Get.dialog(const CallConfirmationDialog());
+                  Get.dialog(CallConfirmationDialog(
+                    PhoneNumberOne: '0343-4567543',
+                    PhoneNumberTwo: '0325-4543213',
+                  ));
                 },
                 icon: Icon(
                   Icons.call,
