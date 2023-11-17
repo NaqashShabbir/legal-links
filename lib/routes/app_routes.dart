@@ -14,6 +14,10 @@ import '../src/base/view/pages/dashboard.dart/view/lawyer_detail_screen.dart';
 import '../src/base/view/pages/settings/view/privacy_policy_screen.dart';
 import '../src/base/view/pages/settings/view/term_and_conditions_screen.dart';
 import '../src/landing_page/view/splash_screen.dart';
+import '../src/lawyer_base/view/lawyer_base_view.dart';
+import '../src/lawyer_base/view/pages/dashboard/view/lawyer_home_view.dart';
+import '../src/lawyer_base/view/pages/dashboard/view/schedule_appointment.dart';
+import '../src/lawyer_base/view/pages/dashboard/view/user_ratting_screen.dart';
 import '../src/lawyer_profile/view/complete_profile.dart';
 import '../src/lawyer_profile/view/signup_screen_four.dart';
 import '../src/lawyer_profile/view/signup_screen_one.dart';
@@ -58,5 +62,11 @@ abstract class AppPages {
     GetPage(
         name: BookAppointmentScreen.route,
         page: () => const BookAppointmentScreen()),
+    GetPage(name: LawyerBaseView.route, page: () => const LawyerBaseView()),
+    GetPage(name: LawyerHomeView.route, page: () => const LawyerHomeView()),
+    GetPage(name: UserRattingView.route, page: () => UserRattingView()),
+    GetPage(
+        name: ScheduleAppointmentView.route,
+        page: () => ScheduleAppointmentView()),
   ];
 }

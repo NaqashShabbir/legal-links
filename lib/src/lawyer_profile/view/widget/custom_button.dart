@@ -21,7 +21,7 @@ class CustomButtonSignup extends StatelessWidget {
             border: Border.all(color: R.colors.primary, width: 2.sp)),
         child: Center(
           child: Text(
-            'Continue to your dashboard',
+            text,
             style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
           ),
         ),

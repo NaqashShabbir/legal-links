@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/src/lawyer_base/view/lawyer_base_view.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/resources.dart';
 import '../../../utils/hights_widths.dart';
-import '../../base/view/base_view.dart';
 
 class CompleteProfile extends StatefulWidget {
   static String route = '/completeProfile';
@@ -51,7 +51,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
             CustomButtonSignup(
               text: 'Continue to your dashboard',
               tap: () {
-                Get.toNamed(BaseView.route);
+                Get.toNamed(LawyerBaseView.route);
               },
             )
           ],

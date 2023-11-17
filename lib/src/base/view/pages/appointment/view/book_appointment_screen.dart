@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,7 +21,8 @@ class BookAppointmentScreen extends StatefulWidget {
 class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
   LawyersModel? model;
   dynamic args;
-
+  String currentDate = DateFormat("EEEE dd").format(DateTime.now());
+  List<String> selectedDates = List.filled(5, "");
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -30,7 +32,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
           model = args['model'];
         }
       }
-
+      for (int i = 0; i < selectedDates.length; i++) {
+        selectedDates[i] = DateFormat('EEEE dd').format(DateTime.now());
+      }
       setState(() {});
     });
     super.initState();
@@ -38,6 +42,21 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> getCurrent(BuildContext context, int index) async {
+      final DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now().subtract(Duration(days: 365 * 2)),
+        lastDate: DateTime.now().add(Duration(days: 365 * 2)),
+      );
+      if (date != null) {
+        setState(() {
+          // Update the selected date for the tapped field
+          selectedDates[index] = DateFormat('EEEE dd').format(date);
+        });
+      }
+    }
+
     return Scaffold(
       bottomNavigationBar: BookButton(),
       appBar: AppBar(
@@ -91,109 +110,115 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 12.sp),
-            padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
-            decoration: BoxDecoration(
-              border: Border.all(color: R.colors.grey),
-              borderRadius: BorderRadius.circular(10.sp),
-              boxShadow: [
-                BoxShadow(
-                  color: R.colors.grey.withOpacity(.1),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: CachedNetworkImage(
-                          imageUrl: model?.profileImageUrl ?? '',
-                          imageBuilder: (context, imageProvider) => Container(
-                            height: 14.w,
-                            width: 14.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border:
-                                  Border.all(color: R.colors.white, width: 1),
-                              image: DecorationImage(
-                                image: imageProvider,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          fit: BoxFit.cover,
-                          errorWidget: (context, url, e) => SizedBox(
-                              height: 14.w,
-                              width: 14.w,
-                              child: const Icon(Icons.error)),
-                          placeholder: (context, url) {
-                            return Center(
-                                child: SizedBox(
-                              height: 14.w,
-                              width: 14.w,
-                              child: CircularProgressIndicator.adaptive(
-                                  backgroundColor: R.colors.primary),
-                            ));
-                          },
-                        ),
-                      ),
-                      w2,
-                      Column(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.sp),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 12.sp),
+              padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
+              decoration: BoxDecoration(
+                border: Border.all(color: R.colors.grey),
+                borderRadius: BorderRadius.circular(10.sp),
+                boxShadow: [
+                  BoxShadow(
+                    color: R.colors.grey.withOpacity(.1),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            model?.username ?? "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: R.textStyles.poppinsSemiBold(
-                                fontSize: 11.sp, color: R.colors.black),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: CachedNetworkImage(
+                              imageUrl: model?.profileImageUrl ?? '',
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                height: 14.w,
+                                width: 14.w,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: R.colors.white, width: 1),
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              fit: BoxFit.cover,
+                              errorWidget: (context, url, e) => SizedBox(
+                                  height: 14.w,
+                                  width: 14.w,
+                                  child: const Icon(Icons.error)),
+                              placeholder: (context, url) {
+                                return Center(
+                                    child: SizedBox(
+                                  height: 14.w,
+                                  width: 14.w,
+                                  child: CircularProgressIndicator.adaptive(
+                                      backgroundColor: R.colors.primary),
+                                ));
+                              },
+                            ),
                           ),
-                          Text(
-                            model?.lawyerType ?? "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: R.textStyles.poppinsRegular(
-                                fontSize: 10.sp, color: R.colors.black),
-                          ),
-                          Row(
+                          w2,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Fee: ',
-                                style: R.textStyles
-                                    .poppinsSemiBold(fontSize: 10.sp),
+                                model?.username ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: R.textStyles.poppinsSemiBold(
+                                    fontSize: 11.sp, color: R.colors.black),
                               ),
                               Text(
-                                model?.fee ?? "",
+                                model?.lawyerType ?? "",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: R.textStyles.poppinsRegular(
                                     fontSize: 10.sp, color: R.colors.black),
                               ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Fee: ',
+                                    style: R.textStyles
+                                        .poppinsSemiBold(fontSize: 10.sp),
+                                  ),
+                                  Text(
+                                    model?.fee ?? "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: R.textStyles.poppinsRegular(
+                                        fontSize: 10.sp, color: R.colors.black),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-                      Spacer(),
-                      IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
-                    ]),
-              ],
+                          Spacer(),
+                          IconButton(
+                              onPressed: () {}, icon: Icon(Icons.more_vert))
+                        ]),
+                  ],
+                ),
+              ),
             ),
-          ),
-          h1,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.sp),
-            child: Row(
+            h1,
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
@@ -236,8 +261,75 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                 ),
               ],
             ),
-          )
-        ],
+            h2,
+            Text(
+              'Select date for consultation',
+              style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
+            ),
+            h1,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  selectDateField(() {
+                    getCurrent(context, 0);
+                  }, 0),
+                  w3,
+                  selectDateField(() {
+                    getCurrent(context, 1);
+                  }, 1),
+                  w3,
+                  selectDateField(() {
+                    getCurrent(context, 2);
+                  }, 2),
+                  w3,
+                  selectDateField(() {
+                    getCurrent(context, 3);
+                  }, 3),
+                  w3,
+                  selectDateField(() {
+                    getCurrent(context, 4);
+                  }, 4),
+                ],
+              ),
+            ),
+            h3,
+            Text(
+              'Select Time for consultation',
+              style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
+            ),
+            h1,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                timeSlots('12:00 PM'),
+                timeSlots('12:15 PM'),
+                timeSlots('12:30 PM'),
+                timeSlots('12:45 PM'),
+              ],
+            ),
+            h1,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                timeSlots('01:00 PM'),
+                timeSlots('01:15 PM'),
+                timeSlots('01:30 PM'),
+                timeSlots('01:45 PM'),
+              ],
+            ),
+            h1,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                timeSlots('02:00 PM'),
+                timeSlots('02:15 PM'),
+                timeSlots('02:30 PM'),
+                timeSlots('02:45 PM'),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -250,6 +342,38 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
         buttonTitle: "Book Now",
         tap: () {},
         textColor: R.colors.white,
+      ),
+    );
+  }
+
+  Widget timeSlots(String text) {
+    return Container(
+      padding: EdgeInsets.all(4.sp),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.sp),
+          border: Border.all(color: R.colors.primary)),
+      child: Text(
+        text,
+        style: R.textStyles.poppinsRegular(color: R.colors.primary),
+      ),
+    );
+  }
+
+  Widget selectDateField(
+    VoidCallback onTap,
+    int index,
+  ) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(4.sp),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5.sp),
+            border: Border.all(color: R.colors.primary)),
+        child: Text(
+          '${selectedDates[index]}',
+          style: R.textStyles.poppinsRegular(color: R.colors.primary),
+        ),
       ),
     );
   }
