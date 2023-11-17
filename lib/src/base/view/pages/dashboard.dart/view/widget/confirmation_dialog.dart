@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/src/auth/view/signup_screen.dart';
+import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../../resources/resources.dart';
 import '../../../../../../../utils/common-widgets/custom_app_button.dart';
@@ -21,7 +24,8 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
       backgroundColor: R.colors.transparent,
       body: Center(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 7.w),
+          margin: EdgeInsets.all(7.w),
+          padding: EdgeInsets.all(3.w),
           decoration: BoxDecoration(
             color: R.colors.white,
             borderRadius: BorderRadius.circular(10),
@@ -64,25 +68,33 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
               ),
               h1,
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10.sp),
+                margin: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
                 width: double.infinity,
                 child: AppButton(
+                  verticlePadding: 12,
                   borderRadius: 10,
                   buttonTitle: 'Signup as a customer',
                   onTap: () {
+                    context.read<AuthVM>().userRole = UserRole.CLIENT;
+                    context.read<AuthVM>().update();
                     Get.toNamed(SignupScreen.route);
+                    debugPrint("User Role: ${context.read<AuthVM>().userRole} ");
                   },
                 ),
               ),
               h1,
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 10.sp),
+                margin: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 5.sp),
                 width: double.infinity,
                 child: AppButton(
+                  verticlePadding: 12,
                   borderRadius: 10,
                   buttonTitle: 'Signup as a Lawyer',
                   onTap: () {
+                    context.read<AuthVM>().userRole = UserRole.LAWYER;
+                    context.read<AuthVM>().update();
                     Get.toNamed(SignupScreenOneOfLawyer.route);
+                    debugPrint("User Role: ${context.read<AuthVM>().userRole} ");
                   },
                 ),
               ),

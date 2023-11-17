@@ -5,6 +5,8 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
+import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../resources/validator.dart';
@@ -113,6 +115,16 @@ class _SignupScreenState extends State<SignupScreen> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   h1,
+                  Container(
+                    margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    child: Text(
+                      "Phone Number",
+                      style: R.textStyles.poppinsMedium(
+                        fontSize: 11.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
                   phoneNumberField(),
                   h1,
                   CustomTextFormField(
@@ -252,7 +264,7 @@ class _SignupScreenState extends State<SignupScreen> {
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
               width: 1,
-              color: R.colors.grey,
+              color: R.colors.primary,
             )),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
@@ -296,24 +308,6 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  // UserModel createClient() {
-  //   Timestamp now = Timestamp.now();
-  //   return UserModel(
-  //     role: UserRole.CLIENT,
-  //     fullName: nameController.text.trim(),
-  //     createdAt: now,
-  //     updatedAt: now,
-  //     phoneNumber: PhoneNumberModel(
-  //       number: phoneNumberController.text.trim(),
-  //       isoCode: number.isoCode,
-  //       countryCode: number.dialCode,
-  //     ),
-  //     //  id: ,
-  //     email: emailController.text.trim(),
-  //     status: UserStatus.ACTIVE,
-  //   );
-  // }
-
   Future<void> buttonFn() async {
     if (_formKey.currentState!.validate()) {
       if (!isChecked) {
@@ -321,7 +315,7 @@ class _SignupScreenState extends State<SignupScreen> {
       } else {
         Timestamp now = Timestamp.now();
         UserModel createClient = UserModel(
-          role: UserRole.CLIENT,
+          role: context.read<AuthVM>().userRole,
           fullName: nameController.text.trim(),
           createdAt: now,
           updatedAt: now,
@@ -334,23 +328,23 @@ class _SignupScreenState extends State<SignupScreen> {
           email: emailController.text.trim(),
           status: UserStatus.ACTIVE,
         );
-        debugPrint(" body : ${createClient}");
-        debugPrint('role: ${UserRole.CLIENT}');
-        debugPrint('fullName: ${nameController.text.trim()}');
-        debugPrint('createdAt: $now');
-        debugPrint('updatedAt: $now');
-        debugPrint('phoneNumber: ${PhoneNumberModel(
-          number: phoneNumberController.text.trim(),
-          isoCode: number.isoCode,
-          countryCode: number.dialCode,
-        )}');
-// Uncomment the line below if `id` is a property
-// debugPrint('id: $id');
-        debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
-        debugPrint('number.isoCode: ${number.isoCode}');
-        debugPrint('number.dialCode: ${number.dialCode}');
-        debugPrint('email: ${emailController.text.trim()}');
-        debugPrint('status: ${UserStatus.ACTIVE}');
+
+        await context.read<AuthVM>().signUp(createClient, passwordController.text.trim());
+
+        
+
+        // debugPrint(" body: ");
+        // debugPrint('role: ${context.read<AuthVM>().userRole}');
+        // debugPrint('fullName: ${nameController.text.trim()}');
+        // debugPrint('createdAt: $now');
+        // debugPrint('updatedAt: $now');
+        // Uncomment the line below if `id` is a property
+        // debugPrint('id: $id');
+        // debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
+        // debugPrint('number.isoCode: ${number.isoCode}');
+        // debugPrint('number.dialCode: ${number.dialCode}');
+        // debugPrint('email: ${emailController.text.trim()}');
+        // debugPrint('status: ${UserStatus.ACTIVE}');
       }
     }
   }

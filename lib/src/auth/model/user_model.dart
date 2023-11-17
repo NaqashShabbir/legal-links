@@ -26,7 +26,7 @@ class UserModel {
   });
 
   UserModel.fromJson(dynamic json) {
-    role = json['role'];
+    role = UserRole.values[json['role']];
     assistantName = json['assistantName'];
     isVerified = json['isVerified'];
     experiencedCasesCount = json['experiencedCasesCount'];
@@ -38,7 +38,8 @@ class UserModel {
     qualifications =
         json['qualifications'] != null ? Qualifications.fromJson(json['qualifications']) : null;
     createdAt = json['createdAt'];
-    phoneNumber = json['phoneNumber'] != null ? PhoneNumberModel.fromJson(json['phoneNumber']) : null;
+    phoneNumber =
+        json['phoneNumber'] != null ? PhoneNumberModel.fromJson(json['phoneNumber']) : null;
     specialist = json['specialist'] != null ? json['specialist'].cast<String>() : [];
     officeAdress =
         json['officeAdress'] != null ? OfficeAdress.fromJson(json['officeAdress']) : null;
@@ -46,7 +47,8 @@ class UserModel {
     id = json['id'];
     email = json['email'];
     updatedAt = json['updatedAt'];
-    status = json['status'];
+    // status = json['status'].va;
+    status = UserStatus.values[json['status']];
     casesCount = json['casesCount'];
   }
   UserRole? role;
@@ -115,7 +117,7 @@ class UserModel {
       );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['role'] = role;
+    map['role'] = role?.index;
     map['assistantName'] = assistantName;
     map['isVerified'] = isVerified;
     map['experiencedCasesCount'] = experiencedCasesCount;
@@ -141,7 +143,7 @@ class UserModel {
     map['id'] = id;
     map['email'] = email;
     map['updatedAt'] = updatedAt;
-    map['status'] = status;
+    map['status'] = status?.index;
     map['casesCount'] = casesCount;
     return map;
   }

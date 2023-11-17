@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:legal_links_app/services/firebase_collections.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
@@ -26,25 +27,26 @@ class Auth implements BaseAuth {
       var user =
           (await _firebaseAuth.createUserWithEmailAndPassword(email: email!, password: password!))
               .user;
-      try {
-        await user?.sendEmailVerification();
-        return user;
-      } catch (e) {
-        ZBotToast.loadingClose();
-        ZBotToast.showToastError(message:  "An error occurred while trying to send email verification");
-        log("An error occurred while trying to send email  verification");
-        log(e.toString());
-      }
+      // try {
+      // await user?.sendEmailVerification();
+      return user;
+      // } catch (e) {
+      //   ZBotToast.loadingClose();
+      //   ZBotToast.showToastError(
+      //       message: "An error occurred while trying to send email verification");
+      //   debugPrint("An error occurred while trying to send email  verification");
+      //   debugPrint(e.toString());
+      // }
     } catch (e) {
       ZBotToast.loadingClose();
-      log("I am Error \n\n\n $e");
+      debugPrint("I am Error \n\n\n $e");
       String error = e.toString();
       if (error.contains("email-already-in-use")) {
         ZBotToast.showToastError(message: "The email address is already in use by another account");
       }
       return null;
     }
-    return null;
+    // return null;
   }
 
   @override
@@ -55,7 +57,7 @@ class Auth implements BaseAuth {
 
   @override
   Future<User?> signInWithEmailPassword(String? email, String? password) async {
-    log("sign in method");
+    debugPrint("sign in method");
     try {
       var user =
           (await _firebaseAuth.signInWithEmailAndPassword(email: email!, password: password!)).user;
@@ -63,18 +65,20 @@ class Auth implements BaseAuth {
         return user;
       } else {
         ZBotToast.loadingClose();
-        ZBotToast.showToastError(message: 
-            "You haven't verified your email yet, the link has been sent again to your registered email");
+        ZBotToast.showToastError(
+            message:
+                "You haven't verified your email yet, the link has been sent again to your registered email");
         user.sendEmailVerification();
         FirebaseAuth.instance.signOut();
         return null;
       }
     } catch (e) {
       String error = e.toString();
-      log("sign in error $e");
+      debugPrint("sign in error $e");
 
       if (error.contains("too-many-requests")) {
-        ZBotToast.showToastError(message: "This Device is blocked for some time due to unusual activity.");
+        ZBotToast.showToastError(
+            message: "This Device is blocked for some time due to unusual activity.");
       } else if (error.contains("wrong-password")) {
         ZBotToast.showToastError(message: "ENTER CORRECT PASSWORD");
       } else if (error.contains("user-not-found")) {
@@ -90,21 +94,21 @@ class Auth implements BaseAuth {
   @override
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
-    ZBotToast.showToastSuccess(message:"Logged Out ");
+    ZBotToast.showToastSuccess(message: "Logged Out ");
   }
 
   @override
   Future<void> sendResetPassEmail(String? email) async {
     FirebaseAuth.instance.sendPasswordResetEmail(email: '$email').then((value) {
-      log("success");
+      debugPrint("success");
     }).catchError((e) {
       String error = e.toString();
-      log(error);
+      debugPrint(error);
 
       if (error.contains('user-not-found')) {
         ZBotToast.showToastError(message: "Email not registered");
       } else {
-        log(e.toString());
+        debugPrint(e.toString());
         ZBotToast.showToastError(message: e.toString());
       }
     });
@@ -118,9 +122,10 @@ class Auth implements BaseAuth {
     } catch (e) {
       ZBotToast.loadingClose();
       String error = e.toString();
-      log("sign in error $e");
+      debugPrint("sign in error $e");
       if (error.contains("too-many-requests")) {
-        ZBotToast.showToastError(message: "This Device is blocked for some time due to unusual activity.");
+        ZBotToast.showToastError(
+            message: "This Device is blocked for some time due to unusual activity.");
       } else if (error.contains("wrong-password")) {
         ZBotToast.showToastError(message: "ENTER CORRECT PASSWORD");
       } else if (error.contains("user-not-found")) {
@@ -134,11 +139,11 @@ class Auth implements BaseAuth {
   Future<UserModel?> getUserData(String? id) async {
     try {
       DocumentSnapshot result = await FBCollections.users.doc(id).get();
-      log(result.id);
+      debugPrint(result.id);
       UserModel user = UserModel.fromJson(result.data());
       return user;
     } catch (e) {
-      log(e.toString());
+      debugPrint(e.toString());
       return null;
     }
   }

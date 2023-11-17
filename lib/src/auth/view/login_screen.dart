@@ -1,8 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
@@ -55,13 +50,13 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
-                      FirebaseFirestore.instance
-                          .collection("users")
-                          .doc("XmRw9jqFAKJpi3hzxtQi")
-                          .get()
-                          .then((value) => debugPrint(jsonEncode(value.data())));
+                      // FirebaseFirestore.instance
+                      //     .collection("users")
+                      //     .doc("XmRw9jqFAKJpi3hzxtQi")
+                      //     .get()
+                      //     .then((value) => debugPrint(jsonEncode(value.data())));
                     },
                     child: Image.asset(R.images.logo, height: 25.h),
                   ),
@@ -171,8 +166,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> login(AuthVM vm) async {
-    // if (_formKey.currentState!.validate()) {
-    Get.offAllNamed(BaseView.route);
-    // }
+    if (_formKey.currentState!.validate()) {
+      await context.read<AuthVM>().signIn(
+            emailController.text.trim(),
+            passwordController.text.trim(),
+          );
+
+      // Get.offAllNamed(BaseView.route);
+    }
   }
 }
