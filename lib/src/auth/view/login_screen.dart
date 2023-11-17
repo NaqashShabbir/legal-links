@@ -1,5 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
@@ -52,7 +55,16 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(R.images.logo, height: 25.h),
+                  InkWell(
+                    onTap: () {
+                      FirebaseFirestore.instance
+                          .collection("users")
+                          .doc("XmRw9jqFAKJpi3hzxtQi")
+                          .get()
+                          .then((value) => debugPrint(jsonEncode(value.data())));
+                    },
+                    child: Image.asset(R.images.logo, height: 25.h),
+                  ),
                   h2,
                   Text(
                     "Login",
@@ -91,9 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(right: 8.sp),
                         child: Icon(
-                          ispObscure
-                              ? Icons.visibility_off_rounded
-                              : Icons.remove_red_eye_rounded,
+                          ispObscure ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
                           color: Colors.grey,
                           size: 16.sp,
                         ),

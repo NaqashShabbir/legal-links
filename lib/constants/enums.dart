@@ -1,5 +1,6 @@
-// ignore: camel_case_types
-enum speciallist {
+// ignore_for_file: constant_identifier_names
+
+enum Speciallist {
   familyLaw,
   corporateLawyer,
   criminalDefenseLawyer,
@@ -9,3 +10,6 @@ enum speciallist {
   taxLaw,
   paralegal,
 }
+
+enum UserStatus { ACTIVE, BLOCKED, DELETED }
+enum UserRole { CLIENT, LAWYER }

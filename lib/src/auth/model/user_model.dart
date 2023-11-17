@@ -1,0 +1,308 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:legal_links_app/constants/enums.dart';
+
+class UserModel {
+  UserModel({
+    this.role,
+    this.assistantName,
+    this.isVerified,
+    this.experiencedCasesCount,
+    this.fullName,
+    this.experience,
+    this.isLawyerVerified,
+    this.practiceAreas,
+    this.yearOfExperience,
+    this.qualifications,
+    this.createdAt,
+    this.phoneNumber,
+    this.specialist,
+    this.officeAdress,
+    this.feePerMeeting,
+    this.id,
+    this.email,
+    this.updatedAt,
+    this.status,
+    this.casesCount,
+  });
+
+  UserModel.fromJson(dynamic json) {
+    role = json['role'];
+    assistantName = json['assistantName'];
+    isVerified = json['isVerified'];
+    experiencedCasesCount = json['experiencedCasesCount'];
+    fullName = json['fullName'];
+    experience = json['experience'] != null ? Experience.fromJson(json['experience']) : null;
+    isLawyerVerified = json['isLawyerVerified'];
+    practiceAreas = json['practiceAreas'] != null ? json['practiceAreas'].cast<String>() : [];
+    yearOfExperience = json['yearOfExperience'];
+    qualifications =
+        json['qualifications'] != null ? Qualifications.fromJson(json['qualifications']) : null;
+    createdAt = json['createdAt'];
+    phoneNumber = json['phoneNumber'] != null ? PhoneNumberModel.fromJson(json['phoneNumber']) : null;
+    specialist = json['specialist'] != null ? json['specialist'].cast<String>() : [];
+    officeAdress =
+        json['officeAdress'] != null ? OfficeAdress.fromJson(json['officeAdress']) : null;
+    feePerMeeting = json['feePerMeeting'];
+    id = json['id'];
+    email = json['email'];
+    updatedAt = json['updatedAt'];
+    status = json['status'];
+    casesCount = json['casesCount'];
+  }
+  UserRole? role;
+  String? assistantName;
+  bool? isVerified;
+  num? experiencedCasesCount;
+  String? fullName;
+  Experience? experience;
+  String? isLawyerVerified;
+  List<String>? practiceAreas;
+  String? yearOfExperience;
+  Qualifications? qualifications;
+  Timestamp? createdAt;
+  PhoneNumberModel? phoneNumber;
+  List<String>? specialist;
+  OfficeAdress? officeAdress;
+  num? feePerMeeting;
+  String? id;
+  String? email;
+  Timestamp? updatedAt;
+  UserStatus? status;
+  num? casesCount;
+  UserModel copyWith({
+    UserRole? role,
+    String? assistantName,
+    bool? isVerified,
+    num? experiencedCasesCount,
+    String? fullName,
+    Experience? experience,
+    String? isLawyerVerified,
+    List<String>? practiceAreas,
+    String? yearOfExperience,
+    Qualifications? qualifications,
+    Timestamp? createdAt,
+    PhoneNumberModel? phoneNumber,
+    List<String>? specialist,
+    OfficeAdress? officeAdress,
+    num? feePerMeeting,
+    String? id,
+    String? email,
+    Timestamp? updatedAt,
+    UserStatus? status,
+    num? casesCount,
+  }) =>
+      UserModel(
+        role: role ?? this.role,
+        assistantName: assistantName ?? this.assistantName,
+        isVerified: isVerified ?? this.isVerified,
+        experiencedCasesCount: experiencedCasesCount ?? this.experiencedCasesCount,
+        fullName: fullName ?? this.fullName,
+        experience: experience ?? this.experience,
+        isLawyerVerified: isLawyerVerified ?? this.isLawyerVerified,
+        practiceAreas: practiceAreas ?? this.practiceAreas,
+        yearOfExperience: yearOfExperience ?? this.yearOfExperience,
+        qualifications: qualifications ?? this.qualifications,
+        createdAt: createdAt ?? this.createdAt,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        specialist: specialist ?? this.specialist,
+        officeAdress: officeAdress ?? this.officeAdress,
+        feePerMeeting: feePerMeeting ?? this.feePerMeeting,
+        id: id ?? this.id,
+        email: email ?? this.email,
+        updatedAt: updatedAt ?? this.updatedAt,
+        status: status ?? this.status,
+        casesCount: casesCount ?? this.casesCount,
+      );
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['role'] = role;
+    map['assistantName'] = assistantName;
+    map['isVerified'] = isVerified;
+    map['experiencedCasesCount'] = experiencedCasesCount;
+    map['fullName'] = fullName;
+    if (experience != null) {
+      map['experience'] = experience?.toJson();
+    }
+    map['isLawyerVerified'] = isLawyerVerified;
+    map['practiceAreas'] = practiceAreas;
+    map['yearOfExperience'] = yearOfExperience;
+    if (qualifications != null) {
+      map['qualifications'] = qualifications?.toJson();
+    }
+    map['createdAt'] = createdAt;
+    if (phoneNumber != null) {
+      map['phoneNumber'] = phoneNumber?.toJson();
+    }
+    map['specialist'] = specialist;
+    if (officeAdress != null) {
+      map['officeAdress'] = officeAdress?.toJson();
+    }
+    map['feePerMeeting'] = feePerMeeting;
+    map['id'] = id;
+    map['email'] = email;
+    map['updatedAt'] = updatedAt;
+    map['status'] = status;
+    map['casesCount'] = casesCount;
+    return map;
+  }
+}
+
+class OfficeAdress {
+  OfficeAdress({
+    this.zipCode,
+    this.country,
+    this.streetAdress,
+    this.city,
+    this.state,
+    this.latLng,
+  });
+
+  OfficeAdress.fromJson(dynamic json) {
+    zipCode = json['zipCode'];
+    country = json['country'];
+    streetAdress = json['streetAdress'];
+    city = json['city'];
+    state = json['state'];
+    latLng = json['latLng'];
+  }
+  String? zipCode;
+  String? country;
+  String? streetAdress;
+  String? city;
+  String? state;
+  String? latLng;
+  OfficeAdress copyWith({
+    String? zipCode,
+    String? country,
+    String? streetAdress,
+    String? city,
+    String? state,
+    String? latLng,
+  }) =>
+      OfficeAdress(
+        zipCode: zipCode ?? this.zipCode,
+        country: country ?? this.country,
+        streetAdress: streetAdress ?? this.streetAdress,
+        city: city ?? this.city,
+        state: state ?? this.state,
+        latLng: latLng ?? this.latLng,
+      );
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['zipCode'] = zipCode;
+    map['country'] = country;
+    map['streetAdress'] = streetAdress;
+    map['city'] = city;
+    map['state'] = state;
+    map['latLng'] = latLng;
+    return map;
+  }
+}
+
+class PhoneNumberModel {
+  PhoneNumberModel({
+    this.number,
+    this.isoCode,
+    this.countryCode,
+  });
+
+  PhoneNumberModel.fromJson(dynamic json) {
+    number = json['number'];
+    isoCode = json['isoCode'];
+    countryCode = json['countryCode'];
+  }
+  String? number;
+  String? isoCode;
+  String? countryCode;
+  PhoneNumberModel copyWith({
+    String? number,
+    String? isoCode,
+    String? countryCode,
+  }) =>
+      PhoneNumberModel(
+        number: number ?? this.number,
+        isoCode: isoCode ?? this.isoCode,
+        countryCode: countryCode ?? this.countryCode,
+      );
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['number'] = number;
+    map['isoCode'] = isoCode;
+    map['countryCode'] = countryCode;
+    return map;
+  }
+}
+
+class Qualifications {
+  Qualifications({
+    this.year,
+    this.degree,
+    this.institute,
+  });
+
+  Qualifications.fromJson(dynamic json) {
+    year = json['year'];
+    degree = json['degree'];
+    institute = json['institute'];
+  }
+  String? year;
+  String? degree;
+  String? institute;
+  Qualifications copyWith({
+    String? year,
+    String? degree,
+    String? institute,
+  }) =>
+      Qualifications(
+        year: year ?? this.year,
+        degree: degree ?? this.degree,
+        institute: institute ?? this.institute,
+      );
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['year'] = year;
+    map['degree'] = degree;
+    map['institute'] = institute;
+    return map;
+  }
+}
+
+class Experience {
+  Experience({
+    this.lawFirm,
+    this.endDate,
+    this.position,
+    this.startDate,
+  });
+
+  Experience.fromJson(dynamic json) {
+    lawFirm = json['lawFirm'];
+    endDate = json['endDate'];
+    position = json['position'];
+    startDate = json['startDate'];
+  }
+  String? lawFirm;
+  String? endDate;
+  String? position;
+  String? startDate;
+  Experience copyWith({
+    String? lawFirm,
+    String? endDate,
+    String? position,
+    String? startDate,
+  }) =>
+      Experience(
+        lawFirm: lawFirm ?? this.lawFirm,
+        endDate: endDate ?? this.endDate,
+        position: position ?? this.position,
+        startDate: startDate ?? this.startDate,
+      );
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['lawFirm'] = lawFirm;
+    map['endDate'] = endDate;
+    map['position'] = position;
+    map['startDate'] = startDate;
+    return map;
+  }
+}

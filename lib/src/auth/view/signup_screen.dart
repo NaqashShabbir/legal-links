@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../resources/validator.dart';
@@ -46,9 +50,9 @@ class _SignupScreenState extends State<SignupScreen> {
   bool isObscure2 = false;
 
   bool isChecked = false;
-  //PhoneNumber number = PhoneNumber(isoCode: 'PK');
-  TextEditingController phoneNumberController = TextEditingController();
 
+  PhoneNumber number = PhoneNumber(isoCode: 'PK');
+  TextEditingController phoneNumberController = TextEditingController();
   FocusNode numberFN = FocusNode();
 
   DateTime? currentBackPressTime;
@@ -108,6 +112,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     validator: FieldValidator.validateEmail,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
+                  h1,
+                  phoneNumberField(),
                   h1,
                   CustomTextFormField(
                     controller: passwordController,
@@ -193,14 +199,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   CustomButton(
                     buttonTitle: "Sign up",
                     tap: () async {
-                      if (_formKey.currentState!.validate()) {
-                        if (!isChecked) {
-                          ZBotToast.showToastError(
-                              message: "Please agree to the Privacy Policy and T&C.");
-                        } else {
-                          //await singup(authVm);
-                        }
-                      }
+                      await buttonFn();
                     },
                   ),
                 ],
@@ -220,37 +219,139 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
-  // Future<void> singup(AuthVM vm) async {
-  //   ZBotToast.loadingShow();
-  //   Map body = {
-  //     "fullname": nameController.text.trim(),
-  //     "email": emailController.text.trim(),
-  //     "password": passwordController.text.trim(),
-  //     "confirmpassword": confirmpasswordController.text.trim(),
-  //   };
-  //   debugPrint("body:");
-  //   debugPrint("$body");
+  Widget phoneNumberField() {
+    return InternationalPhoneNumberInput(
+      focusNode: numberFN,
+      inputDecoration: InputDecoration(
+        isDense: true,
+        suffixIcon: Icon(
+          Icons.phone_outlined,
+          color: numberFN.hasFocus ? R.colors.primary : R.colors.grey,
+        ),
+        hintText: 'Number',
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 17,
+        ),
+        filled: true,
+        focusColor: R.colors.primary,
+        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 0.5,
+              color: R.colors.red,
+            )),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 0.5,
+              color: R.colors.primary,
+            )),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 1,
+              color: R.colors.grey,
+            )),
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 0.5,
+              color: R.colors.red,
+            )),
+      ),
+      onInputChanged: (PhoneNumber phonenumber) {
+        number = phonenumber;
+      },
+      onInputValidated: (val) {
+        debugPrint(val.toString());
+      },
+      selectorConfig: const SelectorConfig(
+          leadingPadding: 10,
+          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          showFlags: false,
+          setSelectorButtonAsPrefixIcon: true,
+          trailingSpace: true),
+      spaceBetweenSelectorAndTextField: 0,
+      selectorTextStyle: TextStyle(color: R.colors.primary),
+      ignoreBlank: false,
+      autoValidateMode: AutovalidateMode.onUserInteraction,
+      initialValue: number,
+      textFieldController: phoneNumberController,
+      // validator: (value) => FieldValidator.validatePhoneNumber(
+      //     phoneNumberController.text.trim(), context),
+      formatInput: false,
+      keyboardAction: TextInputAction.done,
+      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+      inputBorder: const UnderlineInputBorder(),
+      onSaved: (PhoneNumber number) {
+        debugPrint('On Saved: $number');
+      },
 
-  //   bool check = await vm.singup(body: body);
+      onFieldSubmitted: (value) {
+        setState(() {});
+        FocusScope.of(context).requestFocus(passwordFocus);
+      },
+    );
+  }
 
-  //   if (check) {
-  //     bool isOtpReceived =
-  //         await vm.otp(body: {"email": emailController.text.trim()});
-  //     if (isOtpReceived) {
-  //       debugPrint("");
-  //       Get.bottomSheet(
-  //         OTPSheet(
-  //           email: emailController.text,
-  //           onTap: () {
-  //             Get.back();
-  //           },
-  //           isEmail: true,
-  //         ),
-  //         isScrollControlled: true,
-  //       );
-
-  //       ZBotToast.loadingClose();
-  //     }
-  //   }
+  // UserModel createClient() {
+  //   Timestamp now = Timestamp.now();
+  //   return UserModel(
+  //     role: UserRole.CLIENT,
+  //     fullName: nameController.text.trim(),
+  //     createdAt: now,
+  //     updatedAt: now,
+  //     phoneNumber: PhoneNumberModel(
+  //       number: phoneNumberController.text.trim(),
+  //       isoCode: number.isoCode,
+  //       countryCode: number.dialCode,
+  //     ),
+  //     //  id: ,
+  //     email: emailController.text.trim(),
+  //     status: UserStatus.ACTIVE,
+  //   );
   // }
+
+  Future<void> buttonFn() async {
+    if (_formKey.currentState!.validate()) {
+      if (!isChecked) {
+        ZBotToast.showToastError(message: "Please agree to the Privacy Policy and T&C.");
+      } else {
+        Timestamp now = Timestamp.now();
+        UserModel createClient = UserModel(
+          role: UserRole.CLIENT,
+          fullName: nameController.text.trim(),
+          createdAt: now,
+          updatedAt: now,
+          phoneNumber: PhoneNumberModel(
+            number: phoneNumberController.text.trim(),
+            isoCode: number.isoCode,
+            countryCode: number.dialCode,
+          ),
+          //  id: ,
+          email: emailController.text.trim(),
+          status: UserStatus.ACTIVE,
+        );
+        debugPrint(" body : ${createClient}");
+        debugPrint('role: ${UserRole.CLIENT}');
+        debugPrint('fullName: ${nameController.text.trim()}');
+        debugPrint('createdAt: $now');
+        debugPrint('updatedAt: $now');
+        debugPrint('phoneNumber: ${PhoneNumberModel(
+          number: phoneNumberController.text.trim(),
+          isoCode: number.isoCode,
+          countryCode: number.dialCode,
+        )}');
+// Uncomment the line below if `id` is a property
+// debugPrint('id: $id');
+        debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
+        debugPrint('number.isoCode: ${number.isoCode}');
+        debugPrint('number.dialCode: ${number.dialCode}');
+        debugPrint('email: ${emailController.text.trim()}');
+        debugPrint('status: ${UserStatus.ACTIVE}');
+      }
+    }
+  }
 }
