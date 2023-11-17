@@ -3,26 +3,29 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/lawyers_model.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/lawyer_detail_screen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../../../resources/resources.dart';
 import '../../../../../../../utils/hights_widths.dart';
 
-class ProfileWidget extends StatefulWidget {
+class LawyerWidget extends StatefulWidget {
   LawyersModel model;
 
-  ProfileWidget({super.key, required this.model});
+  LawyerWidget({super.key, required this.model});
 
   @override
-  State<ProfileWidget> createState() => _ProfileWidgetState();
+  State<LawyerWidget> createState() => _LawyerWidgetState();
 }
 
-class _ProfileWidgetState extends State<ProfileWidget> {
+class _LawyerWidgetState extends State<LawyerWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        debugPrint('clsdj');
         visitProfileFn();
       },
       child: Container(
@@ -159,6 +162,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
   }
 
   void visitProfileFn() {
-    //Get.toNamed(ProfileDetailScreen.route, arguments: {"model": widget.model});
+    Get.toNamed(LawyerDetailsScrren.route, arguments: {"model": widget.model});
   }
 }

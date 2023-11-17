@@ -8,6 +8,13 @@ class LawyersModel {
   String? description;
   String? experience;
   String? fee;
+  String? education;
+  String? satisfaction;
+  String? waitTime;
+  String? appointmentDay;
+  String? appointmentTime;
+  String? lawyerNumberOne;
+  String? lawyerNumberTwo;
 
   LawyersModel(
       {this.id,
@@ -18,7 +25,14 @@ class LawyersModel {
       this.profileImageUrl,
       this.description,
       this.experience,
-      this.fee});
+      this.fee,
+      this.education,
+      this.satisfaction,
+      this.waitTime,
+      this.appointmentDay,
+      this.appointmentTime,
+      this.lawyerNumberOne,
+      this.lawyerNumberTwo});
 
   toList() {}
 }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../../resources/resources.dart';
 
 class CallConfirmationDialog extends StatefulWidget {
-  const CallConfirmationDialog({super.key});
+  final String PhoneNumberOne, PhoneNumberTwo;
+  CallConfirmationDialog(
+      {super.key, required this.PhoneNumberOne, required this.PhoneNumberTwo});
 
   @override
   State<CallConfirmationDialog> createState() => _CallConfirmationDialogState();
@@ -64,19 +67,19 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
               Icon(
                 Icons.headphones,
                 size: 30.sp,
-                color: Colors.green,
+                color: Colors.red,
               ),
               h2,
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.sp),
                 width: double.infinity,
-                child: NumberField(() {}, '0345-5533872'),
+                child: NumberField(() {}, widget.PhoneNumberOne),
               ),
               h1,
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 10.sp),
                   width: double.infinity,
-                  child: NumberField(() {}, '0345-5533872')),
+                  child: NumberField(() {}, widget.PhoneNumberTwo)),
               h3,
               Text(
                 'Available 12/7 for your service',
@@ -105,11 +108,9 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
         padding: EdgeInsets.symmetric(vertical: 2.sp, horizontal: 2.sp),
         child: Row(
           children: [
-            Container(
-              child: Icon(
-                Icons.phone,
-                color: R.colors.white,
-              ),
+            Icon(
+              Icons.phone,
+              color: R.colors.white,
             ),
             w2,
             Expanded(

@@ -135,14 +135,14 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
     );
   }
 
-  LawyerModel? laywersSpe;
+  LawyerModelSignup? laywersSpe;
 
   Widget speciallistLawyerDropdown({required SignupLawyer vm}) {
-    return DropdownButtonFormField<LawyerModel?>(
+    return DropdownButtonFormField<LawyerModelSignup?>(
       borderRadius: BorderRadius.circular(8),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       items: vm.castList
-          .map((item) => DropdownMenuItem<LawyerModel?>(
+          .map((item) => DropdownMenuItem<LawyerModelSignup?>(
                 value: item,
                 child: Text(
                   item.specialist ?? "",
@@ -166,11 +166,11 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
   }
 
   Widget categoryLawyerDropdown({required SignupLawyer vm}) {
-    return DropdownButtonFormField<LawyerModel?>(
+    return DropdownButtonFormField<LawyerModelSignup?>(
       borderRadius: BorderRadius.circular(8),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       items: vm.castList
-          .map((item) => DropdownMenuItem<LawyerModel?>(
+          .map((item) => DropdownMenuItem<LawyerModelSignup?>(
                 value: item,
                 child: Text(
                   item.specialist ?? "",

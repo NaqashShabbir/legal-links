@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
+import '../hights_widths.dart';
 
 class GlobalWidgets {
   static showSnackBar(context, text) {
@@ -9,7 +10,8 @@ class GlobalWidgets {
     ScaffoldMessenger.of(context).showSnackBar((snackBar));
   }
 
-  static Widget authBottomWidget(String firstTxt, String scndTxt, Function() onTap) {
+  static Widget authBottomWidget(
+      String firstTxt, String scndTxt, Function() onTap) {
     return InkWell(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       onTap: onTap,
@@ -19,12 +21,15 @@ class GlobalWidgets {
         children: <Widget>[
           Text(
             firstTxt,
-            style: R.textStyles.poppinsMedium(fontSize: 10.sp, color: Colors.black),
+            style: R.textStyles
+                .poppinsMedium(fontSize: 10.sp, color: Colors.black),
           ),
           Text(
             scndTxt,
             style: R.textStyles.poppinsMedium(
-                fontSize: 12.sp, color: R.colors.primary, fontWeight: FontWeight.bold),
+                fontSize: 12.sp,
+                color: R.colors.primary,
+                fontWeight: FontWeight.bold),
           ),
         ],
       ),
@@ -48,12 +53,64 @@ class GlobalWidgets {
                   () {
                     Get.back();
                   },
-              icon:  Icon(
+              icon: Icon(
                 Icons.arrow_back,
                 color: R.colors.black,
               ))
           : null,
       actions: actions,
+    );
+  }
+
+  static AppBar ScreenAppBar(String text,
+      {VoidCallback? onTap,
+      bool? showbackButton = true,
+      List<Widget>? actions}) {
+    return AppBar(
+      backgroundColor: R.colors.white,
+      leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: R.colors.primary,
+          )),
+      title: Center(
+        child: Text(
+          text,
+          style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
+        ),
+      ),
+      actions: [
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 4.sp, horizontal: 10.sp),
+            margin: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 12.sp),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(9.0),
+              color: R.colors.red,
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.phone,
+                  size: 10.sp,
+                ),
+                w2,
+                Text(
+                  "Help",
+                  style: R.textStyles.poppinsMedium(
+                    fontSize: 9.sp,
+                    color: R.colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

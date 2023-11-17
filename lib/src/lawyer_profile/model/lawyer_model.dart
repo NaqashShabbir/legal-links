@@ -1,8 +1,8 @@
-class LawyerModel {
+class LawyerModelSignup {
   String? id;
   String? specialist;
 
-  LawyerModel({
+  LawyerModelSignup({
     this.id,
     this.specialist,
   });

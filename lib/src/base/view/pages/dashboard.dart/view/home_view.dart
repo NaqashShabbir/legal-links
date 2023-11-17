@@ -10,7 +10,8 @@ import 'package:sizer/sizer.dart';
 import '../../../../../../utils/hights_widths.dart';
 import '../vm/home_vm.dart';
 import 'all_lawyers_screen.dart';
-import 'widget/profile_widget.dart';
+import 'widget/court_widget.dart';
+import 'widget/laywer_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'widget/reviews_widet.dart';
 
@@ -53,7 +54,8 @@ class _HomeViewState extends State<HomeView> {
                               width: 11.w,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(color: R.colors.white, width: 1),
+                                border:
+                                    Border.all(color: R.colors.white, width: 1),
                                 image: DecorationImage(
                                   image: imageProvider,
                                   fit: BoxFit.cover,
@@ -61,8 +63,10 @@ class _HomeViewState extends State<HomeView> {
                               ),
                             ),
                             fit: BoxFit.cover,
-                            errorWidget: (context, url, e) =>
-                                SizedBox(height: 11.w, width: 11.w, child: const Icon(Icons.error)),
+                            errorWidget: (context, url, e) => SizedBox(
+                                height: 11.w,
+                                width: 11.w,
+                                child: const Icon(Icons.error)),
                             placeholder: (context, url) {
                               return Center(
                                   child: SizedBox(
@@ -97,7 +101,8 @@ class _HomeViewState extends State<HomeView> {
                                 selectedLocation: latLng,
                                 address: (value) {
                                   pickLocationData = value;
-                                  latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
+                                  latLng =
+                                      LatLng(value.lat ?? 0, value.lng ?? 0);
                                 },
                               ),
                             );
@@ -140,8 +145,22 @@ class _HomeViewState extends State<HomeView> {
                       child: Row(
                         children: List.generate(
                           context.read<HomeVM>().LawyerList.length,
-                          (index) => ProfileWidget(
+                          (index) => LawyerWidget(
                             model: context.read<HomeVM>().LawyerList[index],
+                          ),
+                        ),
+                      ),
+                    ),
+                    h0P7,
+                    viewAllWidget("Courts", () {}),
+                    h1,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          context.read<HomeVM>().courtList.length,
+                          (index) => CourtWidget(
+                            model: context.read<HomeVM>().courtList[index],
                           ),
                         ),
                       ),
@@ -178,7 +197,8 @@ class _HomeViewState extends State<HomeView> {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
+          style: R.textStyles
+              .poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
         ),
         TextButton(
           onPressed: onPressed,
@@ -187,7 +207,7 @@ class _HomeViewState extends State<HomeView> {
             style: R.textStyles.poppinsRegular().copyWith(
                   fontSize: 10.sp,
                   color: R.colors.primary,
-                  decoration: TextDecoration.underline,
+                  // decoration: TextDecoration.underline,
                   height: 1,
                 ),
           ),

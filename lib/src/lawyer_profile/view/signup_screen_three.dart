@@ -189,7 +189,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                       {
                         var resultingEndDuration = await showDurationPicker(
                           context: context,
-                          initialTime: Duration(minutes: 30),
+                          initialTime: const Duration(minutes: 30),
                         );
                         duration = resultingEndDuration;
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

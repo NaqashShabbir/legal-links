@@ -6,7 +6,11 @@ import 'package:legal_links_app/src/base/view/pages/settings/view/profile_screen
 import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_reviews_screen.dart';
 import '../src/base/view/pages/appointment/view/appointment_detail_screen.dart';
 import '../src/base/view/pages/appointment/view/appointment_view.dart';
+import '../src/base/view/pages/appointment/view/book_appointment_screen.dart';
+import '../src/base/view/pages/dashboard.dart/view/all_chambers_screen.dart';
+import '../src/base/view/pages/dashboard.dart/view/all_courts_screen.dart';
 import '../src/base/view/pages/dashboard.dart/view/all_lawyers_screen.dart';
+import '../src/base/view/pages/dashboard.dart/view/lawyer_detail_screen.dart';
 import '../src/base/view/pages/settings/view/privacy_policy_screen.dart';
 import '../src/base/view/pages/settings/view/term_and_conditions_screen.dart';
 import '../src/landing_page/view/splash_screen.dart';
@@ -43,8 +47,16 @@ abstract class AppPages {
     GetPage(name: SignupScreenFour.route, page: () => const SignupScreenFour()),
     GetPage(name: CompleteProfile.route, page: () => const CompleteProfile()),
     GetPage(name: AppointmentView.route, page: () => const AppointmentView()),
+    GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
+    GetPage(
+        name: AllChambersScreen.route, page: () => const AllChambersScreen()),
+    GetPage(name: AllCourtsScreen.route, page: () => const AllCourtsScreen()),
+    GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
     GetPage(
         name: AppointmentDetails.route, page: () => const AppointmentDetails()),
-    GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
+    GetPage(name: LawyerDetailsScrren.route, page: () => LawyerDetailsScrren()),
+    GetPage(
+        name: BookAppointmentScreen.route,
+        page: () => const BookAppointmentScreen()),
   ];
 }

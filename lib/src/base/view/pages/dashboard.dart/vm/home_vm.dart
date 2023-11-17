@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/court_model.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/lawyers_model.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/reviews_model.dart';
 
@@ -16,37 +17,55 @@ class HomeVM extends ChangeNotifier {
         experience: '10 years experience',
         profileImageUrl:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
-        fee: 'Rs 1500'),
+        fee: 'Rs 1500',
+        education: 'LLB(Gold Medalist),',
+        appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
+        appointmentTime: '12:00 PM - 01:23 pm',
+        lawyerNumberOne: '0344-5566745',
+        lawyerNumberTwo: '0222-3434555'),
     LawyersModel(
         id: '2',
         lawyerType: 'Civil Litigation Lawyer',
-        username: 'john doe',
+        username: 'ALi Hassan',
         gender: 'Female',
         location: 'Lahore',
         profileImageUrl:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAG0N4aaM-RYwgmRdTGUX7UWJRHruOtdsI2Q&usqp=CAU',
         experience: '7 years experience',
-        fee: 'Rs 1500'),
+        fee: 'Rs 1500',
+        education: 'LLB(Gold Medalist),',
+        appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
+        appointmentTime: '12:00 PM - 01:23 pm',
+        lawyerNumberOne: '0344-5566745',
+        lawyerNumberTwo: '0222-3434555'),
     LawyersModel(
         id: '3',
         lawyerType: 'Family Lawyer',
-        username: 'john doe',
+        username: 'Wasif doe',
         gender: 'Female',
         location: 'Lahore',
         profileImageUrl:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ__0SqA2Fz58iyqbhzRIO8xlM7Ir1l-zdJ3g&usqp=CAU',
         experience: '7 years experience',
-        fee: 'Rs 1500'),
+        fee: 'Rs 1500',
+        education: 'LLB(Gold Medalist),',
+        appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
+        appointmentTime: '12:00 PM - 01:23 pm',
+        lawyerNumberOne: '0344-5566745',
+        lawyerNumberTwo: '0222-3434555'),
     LawyersModel(
         id: '4',
         lawyerType: 'Criminal Lawyers',
-        username: 'john doe',
+        username: 'Numan doe',
         gender: 'Female',
         location: 'Lahore',
         profileImageUrl:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUUPuhf3x5zalkt2GzJnmgNNhAx-lraRjsgg&usqp=CAU',
         experience: '7 years experience',
-        fee: 'Rs 1500'),
+        fee: 'Rs 1500',
+        education: 'LLB(Gold Medalist),',
+        lawyerNumberOne: '0344-5566745',
+        lawyerNumberTwo: '0222-3434555'),
     LawyersModel(
         id: '5',
         lawyerType: 'Bankruptcy Lawyer',
@@ -56,7 +75,12 @@ class HomeVM extends ChangeNotifier {
         profileImageUrl:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK4YCLW0GH4TYQyCaAlc5PB9C97XRUFZI7jw&usqp=CAU',
         experience: '7 years experience',
-        fee: 'Rs 1500')
+        fee: 'Rs 1500',
+        education: 'LLB(Gold Medalist),',
+        appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
+        appointmentTime: '12:00 PM - 01:23 pm',
+        lawyerNumberOne: '0344-5566745',
+        lawyerNumberTwo: '0222-3434555')
   ];
 
   // ignore: non_constant_identifier_names
@@ -90,6 +114,51 @@ class HomeVM extends ChangeNotifier {
         name: 'Garden Court Chambers',
         address: 'Lahore',
         chamberImage:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTefJRo_twCt2ma3N1MR3akbBGTMIxUs2S-qQ&usqp=CAU'),
+  ];
+
+  List<CourtModel> courtList = [
+    CourtModel(
+        id: '1',
+        courtName: 'Supreme court of pakistan',
+        address: 'Lahore',
+        courtImage:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ74qk8JJffr5gqfu8UG8l7egIA-vWtDOt4A&usqp=CAU'),
+    CourtModel(
+        id: '2',
+        courtName: 'Peshawar High court',
+        address: 'Lahore',
+        courtImage:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPEhRLaxLUrV6EwNvPEIj8I1yEt7YnRFOoVg&usqp=CAU'),
+    CourtModel(
+        id: '3',
+        courtName: 'Lahore high court',
+        address: 'Lahore',
+        courtImage:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbT-MQCTd4up7TSCee1rtJALdY8idxF_iR5A&usqp=CAU'),
+    CourtModel(
+        id: '4',
+        courtName: 'Federial shariat Court',
+        address: 'Lahore',
+        courtImage:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-twaONW2h-1N3CmYlh0NKGYM8F191R6VjFg&usqp=CAU'),
+    CourtModel(
+        id: '5',
+        courtName: 'Sindh high Court',
+        address: 'Lahore',
+        courtImage:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTefJRo_twCt2ma3N1MR3akbBGTMIxUs2S-qQ&usqp=CAU'),
+    CourtModel(
+        id: '6',
+        courtName: 'Islamabad high Court',
+        address: 'Lahore',
+        courtImage:
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTefJRo_twCt2ma3N1MR3akbBGTMIxUs2S-qQ&usqp=CAU'),
+    CourtModel(
+        id: '7',
+        courtName: 'Balochistan high Court',
+        address: 'Lahore',
+        courtImage:
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTefJRo_twCt2ma3N1MR3akbBGTMIxUs2S-qQ&usqp=CAU'),
   ];
   void update() {

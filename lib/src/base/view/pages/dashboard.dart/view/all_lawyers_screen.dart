@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_links_app/utils/common-widgets/global_widget.dart';
 
 class AllLawyersScreen extends StatefulWidget {
   static String route = '/alllawyers';
@@ -11,6 +12,8 @@ class AllLawyersScreen extends StatefulWidget {
 class _AllLawyersScreenState extends State<AllLawyersScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: GlobalWidgets.ScreenAppBar('All Lawyers'),
+    );
   }
 }
