@@ -4,6 +4,7 @@ import 'package:legal_links_app/src/auth/view/signup_screen.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/profile_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_reviews_screen.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/view/update_client_profile.dart';
 import '../src/base/view/pages/appointment/view/appointment_detail_screen.dart';
 import '../src/base/view/pages/appointment/view/appointment_view.dart';
 import '../src/base/view/pages/appointment/view/book_appointment_screen.dart';
@@ -30,43 +31,27 @@ abstract class AppPages {
     GetPage(name: LoginScreen.route, page: () => const LoginScreen()),
     GetPage(name: SignupScreen.route, page: () => const SignupScreen()),
     GetPage(name: BaseView.route, page: () => const BaseView()),
-    GetPage(
-        name: PrivacyPolicyScreen.route,
-        page: () => const PrivacyPolicyScreen()),
-    GetPage(
-        name: TermsAndConditions.route, page: () => const TermsAndConditions()),
-    GetPage(
-        name: RatingAndReviewsScreen.route,
-        page: () => const RatingAndReviewsScreen()),
+    GetPage(name: PrivacyPolicyScreen.route, page: () => const PrivacyPolicyScreen()),
+    GetPage(name: TermsAndConditions.route, page: () => const TermsAndConditions()),
+    GetPage(name: RatingAndReviewsScreen.route, page: () => const RatingAndReviewsScreen()),
     GetPage(name: ProfileScreen.route, page: () => const ProfileScreen()),
-    GetPage(
-        name: SignupScreenOneOfLawyer.route,
-        page: () => const SignupScreenOneOfLawyer()),
-    GetPage(
-        name: SignupScreenTwoOfLawyer.route,
-        page: () => const SignupScreenTwoOfLawyer()),
-    GetPage(
-        name: SignupScreenThreeOfLawyer.route,
-        page: () => const SignupScreenThreeOfLawyer()),
+    GetPage(name: SignupScreenOneOfLawyer.route, page: () => const SignupScreenOneOfLawyer()),
+    GetPage(name: SignupScreenTwoOfLawyer.route, page: () => const SignupScreenTwoOfLawyer()),
+    GetPage(name: SignupScreenThreeOfLawyer.route, page: () => const SignupScreenThreeOfLawyer()),
     GetPage(name: SignupScreenFour.route, page: () => const SignupScreenFour()),
     GetPage(name: CompleteProfile.route, page: () => const CompleteProfile()),
     GetPage(name: AppointmentView.route, page: () => const AppointmentView()),
     GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
-    GetPage(
-        name: AllChambersScreen.route, page: () => const AllChambersScreen()),
+    GetPage(name: AllChambersScreen.route, page: () => const AllChambersScreen()),
     GetPage(name: AllCourtsScreen.route, page: () => const AllCourtsScreen()),
     GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
-    GetPage(
-        name: AppointmentDetails.route, page: () => const AppointmentDetails()),
+    GetPage(name: AppointmentDetails.route, page: () => const AppointmentDetails()),
     GetPage(name: LawyerDetailsScrren.route, page: () => LawyerDetailsScrren()),
-    GetPage(
-        name: BookAppointmentScreen.route,
-        page: () => const BookAppointmentScreen()),
+    GetPage(name: BookAppointmentScreen.route, page: () => const BookAppointmentScreen()),
     GetPage(name: LawyerBaseView.route, page: () => const LawyerBaseView()),
     GetPage(name: LawyerHomeView.route, page: () => const LawyerHomeView()),
-    GetPage(name: UserRattingView.route, page: () => UserRattingView()),
-    GetPage(
-        name: ScheduleAppointmentView.route,
-        page: () => ScheduleAppointmentView()),
+    GetPage(name: UserRattingView.route, page: () => const UserRattingView()),
+    GetPage(name: ScheduleAppointmentView.route, page: () => const ScheduleAppointmentView()),
+    GetPage(name: UpdateClientScreen.route, page: () => const UpdateClientScreen()),
   ];
 }
