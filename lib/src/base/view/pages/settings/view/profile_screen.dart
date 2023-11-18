@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/services/auth_services.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/view/update_client_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../resources/app_images.dart';
@@ -56,7 +58,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           child: Scaffold(
             floatingActionButton: FloatingActionButton(
               backgroundColor: R.colors.primary,
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => const UpdateClientScreen());
+              },
               child: const Icon(Icons.edit),
             ),
             appBar: GlobalWidgets.appBar('Profils'),
@@ -191,20 +195,20 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                   style: R.textStyles.poppinsBold(fontSize: 13.sp),
                 ),
                 h1,
-                if (authVM.userModel.about != null)
-                  Text(
-                    'About',
-                    style: R.textStyles.poppinsMedium(),
-                  ),
-                if (authVM.userModel.about != null)
-                  Text(
-                    authVM.userModel.about ?? "",
-                    style: R.textStyles.poppinsRegular(
-                      color: R.colors.darkGrey,
-                      letterSpacing: 0.45,
-                    ),
-                  ),
-                h1,
+                // if (authVM.userModel.about != "" || authVM.userModel.about != null)
+                //   Text(
+                //     'About ${authVM.userModel.about}',
+                //     style: R.textStyles.poppinsMedium(),
+                //   ),
+                // if (authVM.userModel.about != "" || authVM.userModel.about != null)
+                //   Text(
+                //     authVM.userModel.about ?? "",
+                //     style: R.textStyles.poppinsRegular(
+                //       color: R.colors.darkGrey,
+                //       letterSpacing: 0.45,
+                //     ),
+                //   ),
+                // h1,
                 CustomData(title: 'Name:', subTitle: authVM.userModel.fullName ?? ''),
                 h1,
                 // CustomData(

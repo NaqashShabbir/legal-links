@@ -11,6 +11,7 @@ import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
+import 'package:provider/provider.dart';
 
 class AuthVM extends ChangeNotifier {
   UserRole? userRole;
@@ -89,5 +90,52 @@ class AuthVM extends ChangeNotifier {
 
   void update() {
     notifyListeners();
+  }
+
+  // updateProfile(UserModel updateClient) {}
+
+// Future<void> updateProfile(UserModel updatedUser) async {
+//   try {
+//     String userId = // get the current user ID from your authentication state or context;
+
+//     // Reference to the Firestore collection
+//     CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+
+//     // Update the user document with the new data
+//     await usersCollection.doc(userId).update();
+
+//     print('Profile updated successfully!');
+//   } catch (error) {
+//     print('Error updating profile: $error');
+//     // Handle the error as needed
+//   }
+// }
+
+  Future<void> updateUserData(Map<String, dynamic> ud, String id) async {
+    final BaseAuth auth = Auth();
+    try {
+      ZBotToast.loadingShow();
+      if (id != null) {
+        // await FBCollections.users.doc(ud.id).update(ud.toJson());
+
+        debugPrint("update data: $ud");
+
+        await FBCollections.users.doc(id).update(ud);
+
+        // var vm = Provider.of<AuthVM>(Get.context!, listen: false);
+        userModel = (await auth.getUserData(id)) ?? UserModel();
+        notifyListeners();
+        ZBotToast.showToastSuccess(message: "Profile Updated");
+        Get.back();
+      } else {
+        debugPrint("User Doesnt Exist");
+      }
+      notifyListeners();
+      ZBotToast.loadingClose();
+    } catch (e) {
+      String error = e.toString().split(']').toList().last;
+      ZBotToast.showToastError(message: error);
+      ZBotToast.loadingClose();
+    }
   }
 }
