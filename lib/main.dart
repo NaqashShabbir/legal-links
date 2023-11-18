@@ -6,6 +6,7 @@ import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/src/landing_page/view/splash_screen.dart';
 import 'package:legal_links_app/src/lawyer_profile/vm/signup_lawyer.dart';
+import 'package:legal_links_app/widget_test.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'routes/app_routes.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           // initialRoute: SignupScreenOneOfLawyer.route,
           initialRoute: SplashScreen.route,
           getPages: AppPages.pages,
+          //  home: TestWidget(),
         ),
       );
     });
