@@ -8,10 +8,7 @@ class ScreenTileWidget extends StatelessWidget {
   final String title;
   final VoidCallback? tap;
   const ScreenTileWidget(
-      {super.key,
-      required this.iconVar,
-      required this.title,
-      required this.tap});
+      {super.key, required this.iconVar, required this.title, required this.tap});
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +38,11 @@ class ScreenTileWidget extends StatelessWidget {
           width: double.infinity,
           child: Row(
             children: [
-              Icon(iconVar, size: 14.sp),
+              Icon(iconVar, size: 14.sp, color: R.colors.primary),
               w2,
               Text(title, style: R.textStyles.poppinsMedium(fontSize: 10.sp)),
               const Spacer(),
-              Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 14.sp,
-              )
+              Icon(Icons.arrow_forward_ios_rounded, size: 14.sp, color: R.colors.primary)
             ],
           ),
         ),

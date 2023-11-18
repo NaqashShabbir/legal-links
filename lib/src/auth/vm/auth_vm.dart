@@ -24,18 +24,18 @@ class AuthVM extends ChangeNotifier {
       ZBotToast.loadingShow();
       User? user = await _auth.signInWithEmailPassword(email, pass);
       if (user != null) {
-        if (user.emailVerified) {
-          userModel = (await _auth.getUserData(user.uid)) ?? UserModel();
-          if (userModel.status == UserStatus.ACTIVE) {
-            Get.offAllNamed(BaseView.route);
-            ZBotToast.showToastSuccess(message: 'Logged in Successfully');
-          } else {
-            ZBotToast.showToastError(message: "You have been blocked by the admin");
-          }
+        // if (user.emailVerified) {
+        userModel = (await _auth.getUserData(user.uid)) ?? UserModel();
+        if (userModel.status == UserStatus.ACTIVE) {
+          Get.offAllNamed(BaseView.route);
+          ZBotToast.showToastSuccess(message: 'Logged in Successfully');
         } else {
-          ZBotToast.showToastError(message: "Verify Your Email");
-          ZBotToast.loadingClose();
+          ZBotToast.showToastError(message: "You have been blocked by the admin");
         }
+        // } else {
+        //   ZBotToast.showToastError(message: "Verify Your Email");
+        //   ZBotToast.loadingClose();
+        // }
       }
       ZBotToast.loadingClose();
       notifyListeners();

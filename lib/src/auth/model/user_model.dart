@@ -16,17 +16,21 @@ class UserModel {
     this.createdAt,
     this.phoneNumber,
     this.specialist,
+    this.profileImages,
     this.officeAdress,
     this.feePerMeeting,
     this.id,
     this.email,
+    this.about,
     this.updatedAt,
     this.status,
     this.casesCount,
+    this.gender,
   });
 
   UserModel.fromJson(dynamic json) {
     role = UserRole.values[json['role']];
+    gender = GenderEnum.values[json['gender']];
     assistantName = json['assistantName'];
     isVerified = json['isVerified'];
     experiencedCasesCount = json['experiencedCasesCount'];
@@ -41,11 +45,13 @@ class UserModel {
     phoneNumber =
         json['phoneNumber'] != null ? PhoneNumberModel.fromJson(json['phoneNumber']) : null;
     specialist = json['specialist'] != null ? json['specialist'].cast<String>() : [];
+    profileImages = json['profileImages'] != null ? json['profileImages'].cast<String>() : [];
     officeAdress =
         json['officeAdress'] != null ? OfficeAdress.fromJson(json['officeAdress']) : null;
     feePerMeeting = json['feePerMeeting'];
     id = json['id'];
     email = json['email'];
+    about = json['about'];
     updatedAt = json['updatedAt'];
     // status = json['status'].va;
     status = UserStatus.values[json['status']];
@@ -64,8 +70,11 @@ class UserModel {
   Timestamp? createdAt;
   PhoneNumberModel? phoneNumber;
   List<String>? specialist;
+  List<String>? profileImages;
+  String? about;
   OfficeAdress? officeAdress;
   num? feePerMeeting;
+  GenderEnum? gender;
   String? id;
   String? email;
   Timestamp? updatedAt;
@@ -81,12 +90,15 @@ class UserModel {
     String? isLawyerVerified,
     List<String>? practiceAreas,
     String? yearOfExperience,
+    String? about,
     Qualifications? qualifications,
     Timestamp? createdAt,
     PhoneNumberModel? phoneNumber,
     List<String>? specialist,
+    List<String>? profileImages,
     OfficeAdress? officeAdress,
     num? feePerMeeting,
+    GenderEnum? gender,
     String? id,
     String? email,
     Timestamp? updatedAt,
@@ -95,10 +107,12 @@ class UserModel {
   }) =>
       UserModel(
         role: role ?? this.role,
+        gender: gender ?? this.gender,
         assistantName: assistantName ?? this.assistantName,
         isVerified: isVerified ?? this.isVerified,
         experiencedCasesCount: experiencedCasesCount ?? this.experiencedCasesCount,
         fullName: fullName ?? this.fullName,
+        about: about ?? this.about,
         experience: experience ?? this.experience,
         isLawyerVerified: isLawyerVerified ?? this.isLawyerVerified,
         practiceAreas: practiceAreas ?? this.practiceAreas,
@@ -107,6 +121,7 @@ class UserModel {
         createdAt: createdAt ?? this.createdAt,
         phoneNumber: phoneNumber ?? this.phoneNumber,
         specialist: specialist ?? this.specialist,
+        profileImages: profileImages ?? this.profileImages,
         officeAdress: officeAdress ?? this.officeAdress,
         feePerMeeting: feePerMeeting ?? this.feePerMeeting,
         id: id ?? this.id,
@@ -118,10 +133,12 @@ class UserModel {
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['role'] = role?.index;
+    map['gender'] = gender?.index;
     map['assistantName'] = assistantName;
     map['isVerified'] = isVerified;
     map['experiencedCasesCount'] = experiencedCasesCount;
     map['fullName'] = fullName;
+    map['about'] = about;
     if (experience != null) {
       map['experience'] = experience?.toJson();
     }
@@ -136,6 +153,7 @@ class UserModel {
       map['phoneNumber'] = phoneNumber?.toJson();
     }
     map['specialist'] = specialist;
+    map['profileImages'] = profileImages;
     if (officeAdress != null) {
       map['officeAdress'] = officeAdress?.toJson();
     }

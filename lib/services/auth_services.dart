@@ -61,17 +61,17 @@ class Auth implements BaseAuth {
     try {
       var user =
           (await _firebaseAuth.signInWithEmailAndPassword(email: email!, password: password!)).user;
-      if (user!.emailVerified) {
-        return user;
-      } else {
-        ZBotToast.loadingClose();
-        ZBotToast.showToastError(
-            message:
-                "You haven't verified your email yet, the link has been sent again to your registered email");
-        user.sendEmailVerification();
-        FirebaseAuth.instance.signOut();
-        return null;
-      }
+      // if (user!.emailVerified) {
+      return user;
+      // } else {
+      //   ZBotToast.loadingClose();
+      //   ZBotToast.showToastError(
+      //       message:
+      //           "You haven't verified your email yet, the link has been sent again to your registered email");
+      //   user.sendEmailVerification();
+      //   FirebaseAuth.instance.signOut();
+      //   return null;
+      // }
     } catch (e) {
       String error = e.toString();
       debugPrint("sign in error $e");
@@ -79,7 +79,7 @@ class Auth implements BaseAuth {
       if (error.contains("too-many-requests")) {
         ZBotToast.showToastError(
             message: "This Device is blocked for some time due to unusual activity.");
-      } else if (error.contains("wrong-password")) {
+      } else if (error.contains("INVALID_LOGIN_CREDENTIALS")) {
         ZBotToast.showToastError(message: "ENTER CORRECT PASSWORD");
       } else if (error.contains("user-not-found")) {
         ZBotToast.showToastError(message: "No User found against this email.");

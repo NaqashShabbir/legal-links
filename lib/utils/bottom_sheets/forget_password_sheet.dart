@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -113,23 +114,26 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
                 buttonTitle: widget.text,
                 tap: () {
                   if (_formKey.currentState!.validate()) {
-                    // otp(vm, emailController.text);
-                    if (widget.isFromDelete ?? false) {
-                      Get.back();
-                      Get.offAllNamed(LoginScreen.route);
-                    } else {
-                      Get.back();
-
-                      Get.bottomSheet(
-                        OTPSheet(
-                          email: emailController.text,
-                          onTap: () {},
-                          isEmail: true,
-                        ),
-                        isScrollControlled: true,
-                      );
-                    }
+                    Auth().sendResetPassEmail(emailController.text.trim());
+                    Get.back();
                   }
+                  // if (_formKey.currentState!.validate()) {
+                  // otp(vm, emailController.text);
+                  // if (widget.isFromDelete ?? false) {
+                  //   Get.back();
+                  //   Get.offAllNamed(LoginScreen.route);
+                  // } else {
+                  //   Get.back();
+                  // Get.bottomSheet(
+                  //   OTPSheet(
+                  //     email: emailController.text,
+                  //     onTap: () {},
+                  //     isEmail: true,
+                  //   ),
+                  //   isScrollControlled: true,
+                  // );
+                  // }
+                  // }
                 },
               ),
               h3,

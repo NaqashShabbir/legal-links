@@ -12,4 +12,22 @@ enum Speciallist {
 }
 
 enum UserStatus { ACTIVE, BLOCKED, DELETED }
+
 enum UserRole { CLIENT, LAWYER }
+
+enum GenderEnum { MALE, FEMALE, PREFERNOTTOSAY, OTHERS }
+
+String getGenderString(GenderEnum? gender) {
+  switch (gender) {
+    case GenderEnum.MALE:
+      return 'Male';
+    case GenderEnum.FEMALE:
+      return 'Female';
+    case GenderEnum.PREFERNOTTOSAY:
+      return 'Prefer not to say';
+    case GenderEnum.OTHERS:
+      return 'Others';
+    default:
+      return '';
+  }
+}

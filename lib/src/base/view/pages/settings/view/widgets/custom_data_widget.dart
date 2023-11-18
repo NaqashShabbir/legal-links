@@ -14,6 +14,7 @@ class CustomData extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
+          flex: 4,
           child: Text(
             title,
             style: R.textStyles.poppinsMedium(
@@ -24,6 +25,7 @@ class CustomData extends StatelessWidget {
           ),
         ),
         Expanded(
+          flex: 6,
           child: Text(
             subTitle,
             style: R.textStyles.poppinsRegular(
