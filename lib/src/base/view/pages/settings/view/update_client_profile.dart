@@ -59,9 +59,9 @@ class _UpdateClientScreenState extends State<UpdateClientScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var vm = Provider.of<AuthVM>(context, listen: false);
       // aboutTC.text = vm.userModel.about ?? "";
-      // fullnameController.text = vm.userModel.fullName ?? "";
-      // dateController.text = vm.userModel.dob ?? "";
-      // formattedDate = vm.userModel.dob ?? "";
+      nameController.text = vm.userModel.fullName ?? "";
+      phoneNumberController.text = vm.userModel.phoneNumber?.number ?? "";
+      // number.isoCode = vm.userModel.phoneNumber ?? "";
       // vm.imageUrl = null;
       // vm.pImage = null;
       // vm.update();
@@ -100,16 +100,6 @@ class _UpdateClientScreenState extends State<UpdateClientScreen> {
                     validator: FieldValidator.validateEmpty,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
-                  CustomTextFormField(
-                    fieldTitle: "Email",
-                    controller: emailController,
-                    hintText: 'Enter email',
-                    focusNode: emailFocus,
-                    inputAction: TextInputAction.next,
-                    inputType: TextInputType.emailAddress,
-                    validator: FieldValidator.validateEmail,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                  ),
                   h1,
                   Container(
                     margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
@@ -122,69 +112,18 @@ class _UpdateClientScreenState extends State<UpdateClientScreen> {
                     ),
                   ),
                   phoneNumberField(),
-                  h1,
-                  CustomTextFormField(
-                    controller: passwordController,
-                    focusNode: passwordFocus,
-                    inputAction: TextInputAction.next,
-                    inputType: TextInputType.visiblePassword,
-                    validator: FieldValidator.validatePassword,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    hintText: 'Enter password',
-                    fieldTitle: "Password",
-                    obscureText: isObscure1,
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isObscure1 = !isObscure1;
-                        });
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 8.sp),
-                        child: Icon(
-                          isObscure1 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
-                          color: Colors.grey,
-                          size: 16.sp,
-                        ),
-                      ),
-                    ),
-                  ),
-                  CustomTextFormField(
-                    controller: confirmpasswordController,
-                    focusNode: confirmpasswordFocus,
-                    inputAction: TextInputAction.done,
-                    inputType: TextInputType.visiblePassword,
-                    validator: (val) => FieldValidator.validatePasswordMatch(
-                        confirmpasswordController.text, passwordController.text),
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    hintText: 'Enter confirm password',
-                    fieldTitle: "Confirm Password",
-                    obscureText: isObscure2,
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isObscure2 = !isObscure2;
-                        });
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 8.sp),
-                        child: Icon(
-                          isObscure2 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
-                          color: Colors.grey,
-                          size: 16.sp,
-                        ),
-                      ),
-                    ),
-                  ),
                   h3,
-                  CustomButton(
-                    buttonTitle: "Sign up",
-                    tap: () async {
-                      await buttonFn();
-                    },
-                  ),
                 ],
               ),
+            ),
+          ),
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.w),
+            child: CustomButton(
+              buttonTitle: "Save",
+              tap: () async {
+                await buttonFn();
+              },
             ),
           ),
         ),
@@ -272,35 +211,38 @@ class _UpdateClientScreenState extends State<UpdateClientScreen> {
   Future<void> buttonFn() async {
     if (_formKey.currentState!.validate()) {
       Timestamp now = Timestamp.now();
-      UserModel createClient = UserModel(
-        role: context.read<AuthVM>().userRole,
+      UserModel updateClient = UserModel(
         fullName: nameController.text.trim(),
-        createdAt: now,
         updatedAt: now,
         phoneNumber: PhoneNumberModel(
           number: phoneNumberController.text.trim(),
           isoCode: number.isoCode,
           countryCode: number.dialCode,
         ),
-        //  id: ,
-        email: emailController.text.trim(),
-        status: UserStatus.ACTIVE,
       );
+      //
+      Map<String, dynamic> updateData = {
+        'fullName': updateClient.fullName,
+        'updatedAt': updateClient.updatedAt,
+        'phoneNumber': {
+          'number': updateClient.phoneNumber?.number,
+          'isoCode': updateClient.phoneNumber?.isoCode,
+          'countryCode': updateClient.phoneNumber?.countryCode,
+        }
+      };
 
-      await context.read<AuthVM>().signUp(createClient, passwordController.text.trim());
+      await context.read<AuthVM>().updateUserData(
+            updateData,
+            context.read<AuthVM>().userModel.id ?? "",
+          );
 
       // debugPrint(" body: ");
       // debugPrint('role: ${context.read<AuthVM>().userRole}');
       // debugPrint('fullName: ${nameController.text.trim()}');
-      // debugPrint('createdAt: $now');
       // debugPrint('updatedAt: $now');
-      // Uncomment the line below if `id` is a property
-      // debugPrint('id: $id');
       // debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
       // debugPrint('number.isoCode: ${number.isoCode}');
       // debugPrint('number.dialCode: ${number.dialCode}');
-      // debugPrint('email: ${emailController.text.trim()}');
-      // debugPrint('status: ${UserStatus.ACTIVE}');
     }
   }
 }
