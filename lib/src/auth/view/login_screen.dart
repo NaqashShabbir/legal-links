@@ -26,12 +26,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController = TextEditingController(
-      //text: 'ds@sss.ff'
-      );
-  TextEditingController passwordController = TextEditingController(
-      // text: 'a222222@'
-      );
+  TextEditingController emailController = TextEditingController(text: 'telorav291@nexxterp.com');
+  TextEditingController passwordController = TextEditingController(text: '123456@');
 
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();

@@ -30,22 +30,26 @@ class UserModel {
 
   UserModel.fromJson(dynamic json) {
     role = UserRole.values[json['role']];
-    gender = GenderEnum.values[json['gender']];
+    gender = json['gender'] != null ? GenderEnum.values[json['gender']] : GenderEnum.PREFERNOTTOSAY;
     assistantName = json['assistantName'];
     isVerified = json['isVerified'];
     experiencedCasesCount = json['experiencedCasesCount'];
     fullName = json['fullName'];
     experience = json['experience'] != null ? Experience.fromJson(json['experience']) : null;
     isLawyerVerified = json['isLawyerVerified'];
-    practiceAreas = json['practiceAreas'] != null ? json['practiceAreas'].cast<String>() : [];
+    // practiceAreas = json['practiceAreas'] != null ? json['practiceAreas'].cast<String>() : [];
+    practiceAreas = json['practiceAreas'] is List ? List<String>.from(json['practiceAreas']) : [];
     yearOfExperience = json['yearOfExperience'];
     qualifications =
         json['qualifications'] != null ? Qualifications.fromJson(json['qualifications']) : null;
     createdAt = json['createdAt'];
     phoneNumber =
         json['phoneNumber'] != null ? PhoneNumberModel.fromJson(json['phoneNumber']) : null;
-    specialist = json['specialist'] != null ? json['specialist'].cast<String>() : [];
-    profileImages = json['profileImages'] != null ? json['profileImages'].cast<String>() : [];
+    // specialist = json['specialist'] != null ? json['specialist'].cast<String>() : [];
+    // profileImages = json['profileImages'] != null ? List<String>.from(json['profileImages']) : [];
+    specialist = json['specialist'] is List ? List<String>.from(json['specialist']) : [];
+    profileImages = json['profileImages'] is List ? List<String>.from(json['profileImages']) : [];
+
     officeAdress =
         json['officeAdress'] != null ? OfficeAdress.fromJson(json['officeAdress']) : null;
     feePerMeeting = json['feePerMeeting'];

@@ -137,15 +137,15 @@ class Auth implements BaseAuth {
 
   @override
   Future<UserModel?> getUserData(String? id) async {
-    try {
-      DocumentSnapshot result = await FBCollections.users.doc(id).get();
-      debugPrint(result.id);
-      UserModel user = UserModel.fromJson(result.data());
-      return user;
-    } catch (e) {
-      debugPrint(e.toString());
-      return null;
-    }
+    // try {
+    DocumentSnapshot result = await FBCollections.users.doc(id).get();
+    debugPrint("===================== ${result.id}");
+    UserModel user = UserModel.fromJson(result.data());
+    return user;
+    // } catch (e) {
+    //   debugPrint(e.toString());
+    //   return null;
+    // }
   }
   //
   // @override

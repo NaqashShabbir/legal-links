@@ -20,30 +20,35 @@ class AuthVM extends ChangeNotifier {
   UserModel userModel = UserModel();
 
   Future<void> signIn(String email, String pass) async {
-    try {
-      ZBotToast.loadingShow();
-      User? user = await _auth.signInWithEmailPassword(email, pass);
-      if (user != null) {
-        // if (user.emailVerified) {
-        userModel = (await _auth.getUserData(user.uid)) ?? UserModel();
-        if (userModel.status == UserStatus.ACTIVE) {
-          Get.offAllNamed(BaseView.route);
-          ZBotToast.showToastSuccess(message: 'Logged in Successfully');
-        } else {
-          ZBotToast.showToastError(message: "You have been blocked by the admin");
-        }
-        // } else {
-        //   ZBotToast.showToastError(message: "Verify Your Email");
-        //   ZBotToast.loadingClose();
-        // }
-      }
-      ZBotToast.loadingClose();
-      notifyListeners();
-    } catch (e) {
-      String error = e.toString().split(']').toList().last;
-      ZBotToast.showToastError(message: error);
-      ZBotToast.loadingClose();
+    // try {
+    ZBotToast.loadingShow();
+    User? user = await _auth.signInWithEmailPassword(email, pass);
+    if (user != null) {
+      // if (user.emailVerified) {
+      userModel = (await _auth.getUserData(user.uid)) ?? UserModel();
+
+      debugPrint("userModel ${userModel.fullName}");
+      debugPrint("userModel ${userModel.status}");
+      // if (userModel.status == UserStatus.ACTIVE) {
+      //   Get.offAllNamed(BaseView.route);
+      //   ZBotToast.showToastSuccess(message: 'Logged in Successfully');
+      // } else if (userModel.status == UserStatus.BLOCKED) {
+      //   ZBotToast.showToastError(message: "You have been blocked by the admin");
+      // } else {
+      //   ZBotToast.showToastError(message: "You have been deleted by the admin");
+      // }
+      // } else {
+      //   ZBotToast.showToastError(message: "Verify Your Email");
+      //   ZBotToast.loadingClose();
+      // }
     }
+    ZBotToast.loadingClose();
+    notifyListeners();
+    // } catch (e) {
+    //   String error = e.toString().split(']').toList().last;
+    //   ZBotToast.showToastError(message: error);
+    //   ZBotToast.loadingClose();
+    // }
   }
 
   Future<void> signUp(UserModel? ud, String pass) async {
