@@ -279,4 +279,51 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
       ),
     );
   }
+
+  // UserModel dummyUser = UserModel(
+  //   role: UserRole.ADMIN,
+  //   assistantName: 'John Doe',
+  //   isVerified: true,
+  //   experiencedCasesCount: 50,
+  //   fullName: 'John Doe',
+  //   experience: Experience(
+  //     lawFirm: 'Law Firm XYZ',
+  //     endDate: '2022-01-01',
+  //     position: 'Senior Lawyer',
+  //     startDate: '2020-01-01',
+  //   ),
+  //   isLawyerVerified: 'Verified',
+  //   practiceAreas: ['Criminal Law', 'Family Law'],
+  //   yearOfExperience: '5 years',
+  //   qualifications: Qualifications(
+  //     year: '2010',
+  //     degree: 'LLB',
+  //     institute: 'Law School ABC',
+  //   ),
+  //   createdAt: DateTime.now(),
+  //   phoneNumber: PhoneNumberModel(
+  //     number: '1234567890',
+  //     isoCode: 'US',
+  //     countryCode: '+1',
+  //   ),
+  //   specialist: ['Litigation', 'Contracts'],
+  //   profileImages: ['image1.jpg', 'image2.jpg'],
+  //   about:
+  //       'I am an experienced lawyer with expertise in criminal and family law.',
+  //   officeAdress: OfficeAdress(
+  //     zipCode: '12345',
+  //     country: 'USA',
+  //     streetAdress: '123 Main St',
+  //     city: 'Anytown',
+  //     state: 'CA',
+  //     latLng: '37.7749° N, 122.4194° W',
+  //   ),
+  //   feePerMeeting: 100.0,
+  //   gender: GenderEnum.MALE,
+  //   id: '123456789',
+  //   email: 'john.doe@example.com',
+  //   updatedAt: DateTime.now(),
+  //   status: UserStatus.ACTIVE,
+  //   casesCount: 10,
+  // );
 }

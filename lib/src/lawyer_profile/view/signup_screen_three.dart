@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
+import 'package:legal_links_app/src/lawyer_profile/view/complete_profile.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/signup_screen_four.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/steper_widget.dart';
@@ -26,6 +27,8 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
   TextEditingController feeController = TextEditingController();
   TextEditingController assistantController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController aboutController = TextEditingController();
+  TextEditingController caseCountController = TextEditingController();
 
   FocusNode feeFocus = FocusNode();
   FocusNode assistantFocus = FocusNode();
@@ -33,33 +36,33 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
   LatLng? latLng;
   PickLocationData? pickLocationData;
 
-  final List<DayInWeek> _days = [
-    DayInWeek(
-      "Sun",
-      dayKey: '',
-    ),
-    DayInWeek(
-      "Mon",
-      dayKey: '',
-    ),
-    DayInWeek("Tue", isSelected: true, dayKey: ''),
-    DayInWeek(
-      "Wed",
-      dayKey: '',
-    ),
-    DayInWeek(
-      "Thu",
-      dayKey: '',
-    ),
-    DayInWeek(
-      "Fri",
-      dayKey: '',
-    ),
-    DayInWeek(
-      "Sat",
-      dayKey: '',
-    ),
-  ];
+  // final List<DayInWeek> _days = [
+  //   DayInWeek(
+  //     "Sun",
+  //     dayKey: '',
+  //   ),
+  //   DayInWeek(
+  //     "Mon",
+  //     dayKey: '',
+  //   ),
+  //   DayInWeek("Tue", isSelected: true, dayKey: ''),
+  //   DayInWeek(
+  //     "Wed",
+  //     dayKey: '',
+  //   ),
+  //   DayInWeek(
+  //     "Thu",
+  //     dayKey: '',
+  //   ),
+  //   DayInWeek(
+  //     "Fri",
+  //     dayKey: '',
+  //   ),
+  //   DayInWeek(
+  //     "Sat",
+  //     dayKey: '',
+  //   ),
+  // ];
   var duration;
   @override
   void initState() {
@@ -90,7 +93,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                   Spacer(),
                   TextButton(
                       onPressed: () {
-                        Get.toNamed(SignupScreenFour.route);
+                        Get.toNamed(CompleteProfile.route);
                       },
                       child: Text(
                         'Skip',
@@ -122,6 +125,15 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                 fieldTitle: "Assistant Name",
               ),
               CustomTextFormField(
+                controller: caseCountController,
+                //  focusNode: feeFocus,
+                inputAction: TextInputAction.next,
+                inputType: TextInputType.text,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                hintText: '10',
+                fieldTitle: "Case Count",
+              ),
+              CustomTextFormField(
                 controller: addressController,
                 focusNode: addressFocus,
                 inputAction: TextInputAction.done,
@@ -145,97 +157,107 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                 },
               ),
               h1,
-              Text(
-                'Select Days',
-                style: R.textStyles.poppinsMedium(
-                  fontSize: 11.sp,
-                  color: Colors.black,
-                ),
+              CustomTextFormField(
+                controller: aboutController,
+                focusNode: addressFocus,
+                inputAction: TextInputAction.done,
+                inputType: TextInputType.text,
+                hintText: 'About Yourself',
+                fieldTitle: "About Yourself",
+                maxLines: 3,
               ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SelectWeekDays(
-                    backgroundColor: R.colors.primary,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    days: _days,
-                    border: false,
-                    boxDecoration: BoxDecoration(
-                      color: R.colors.primary,
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    onSelect: (values) {
-                      // <== Callback to handle the selected days
-                    },
-                  ),
-                ),
-              ),
-              h1,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          {
-                            var resultingDuration = await showDurationPicker(
-                              context: context,
-                              initialTime: Duration(minutes: 30),
-                            );
-                            duration = resultingDuration;
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                    'Chose duration: $resultingDuration')));
-                          }
-                        },
-                        child: Text(
-                          'Select time',
-                          style: R.textStyles.poppinsMedium(
-                            fontSize: 11.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      h1,
-                      Text(duration != null ? '$duration' : 'Select time'),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () async {
-                      {
-                        var resultingEndDuration = await showDurationPicker(
-                          context: context,
-                          initialTime: const Duration(minutes: 30),
-                        );
-                        duration = resultingEndDuration;
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content:
-                                Text('Chose duration: $resultingEndDuration')));
-                      }
-                    },
-                    child: Column(
-                      children: [
-                        Text(
-                          'End time',
-                          style: R.textStyles.poppinsMedium(
-                            fontSize: 11.sp,
-                            color: Colors.black,
-                          ),
-                        ),
-                        h1,
-                        const Text(''),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+
+              // Text(
+              //   'Select Days',
+              //   style: R.textStyles.poppinsMedium(
+              //     fontSize: 11.sp,
+              //     color: Colors.black,
+              //   ),
+              // ),
+              // Center(
+              //   child: Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: SelectWeekDays(
+              //       backgroundColor: R.colors.primary,
+              //       fontSize: 14,
+              //       fontWeight: FontWeight.w500,
+              //       days: _days,
+              //       border: false,
+              //       boxDecoration: BoxDecoration(
+              //         color: R.colors.primary,
+              //         borderRadius: BorderRadius.circular(30.0),
+              //       ),
+              //       onSelect: (values) {
+              //         // <== Callback to handle the selected days
+              //       },
+              //     ),
+              //   ),
+              // ),
+              // h1,
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Column(
+              //       children: [
+              //         InkWell(
+              //           onTap: () async {
+              //             {
+              //               var resultingDuration = await showDurationPicker(
+              //                 context: context,
+              //                 initialTime: Duration(minutes: 30),
+              //               );
+              //               duration = resultingDuration;
+              //               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //                   content: Text(
+              //                       'Chose duration: $resultingDuration')));
+              //             }
+              //           },
+              //           child: Text(
+              //             'Select time',
+              //             style: R.textStyles.poppinsMedium(
+              //               fontSize: 11.sp,
+              //               color: Colors.black,
+              //             ),
+              //           ),
+              //         ),
+              //         h1,
+              //         Text(duration != null ? '$duration' : 'Select time'),
+              //       ],
+              //     ),
+              //     InkWell(
+              //       onTap: () async {
+              //         {
+              //           var resultingEndDuration = await showDurationPicker(
+              //             context: context,
+              //             initialTime: const Duration(minutes: 30),
+              //           );
+              //           duration = resultingEndDuration;
+              //           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //               content:
+              //                   Text('Chose duration: $resultingEndDuration')));
+              //         }
+              //       },
+              //       child: Column(
+              //         children: [
+              //           Text(
+              //             'End time',
+              //             style: R.textStyles.poppinsMedium(
+              //               fontSize: 11.sp,
+              //               color: Colors.black,
+              //             ),
+              //           ),
+              //           h1,
+              //           const Text(''),
+              //         ],
+              //       ),
+              //     ),
+              //   ],
+              // ),
               h3,
               CustomButtonSignup(
                 text: "Continue to next step",
                 tap: () async {
-                  Get.toNamed(SignupScreenFour.route);
+                  Get.toNamed(CompleteProfile.route);
                 },
               ),
             ],

@@ -9,7 +9,7 @@ class SteperWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StepProgressIndicator(
-      totalSteps: 4,
+      totalSteps: 3,
       currentStep: currentStep,
       selectedColor: R.colors.primary,
       unselectedColor: R.colors.grey,
