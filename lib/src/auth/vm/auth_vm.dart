@@ -26,18 +26,24 @@ class AuthVM extends ChangeNotifier {
       if (user != null) {
         // if (user.emailVerified) {
         userModel = (await _auth.getUserData(user.uid)) ?? UserModel();
+
+        debugPrint("userModel ${userModel.fullName}");
+        debugPrint("userModel ${userModel.status}");
         if (userModel.status == UserStatus.ACTIVE) {
           Get.offAllNamed(BaseView.route);
           ZBotToast.showToastSuccess(message: 'Logged in Successfully');
-        } else {
+        } else if (userModel.status == UserStatus.BLOCKED) {
           ZBotToast.showToastError(
               message: "You have been blocked by the admin");
+        } else {
+          ZBotToast.showToastError(
+              message: "You have been deleted by the admin");
         }
-        // } else {
-        //   ZBotToast.showToastError(message: "Verify Your Email");
-        //   ZBotToast.loadingClose();
-        // }
+      } else {
+        ZBotToast.showToastError(message: "Verify Your Email");
+        ZBotToast.loadingClose();
       }
+      // }
       ZBotToast.loadingClose();
       notifyListeners();
     } catch (e) {

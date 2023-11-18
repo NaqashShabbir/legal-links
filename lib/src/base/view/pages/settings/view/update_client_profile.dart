@@ -53,128 +53,143 @@ class _UpdateClientScreenState extends State<UpdateClientScreen> {
   TextEditingController phoneNumberController = TextEditingController();
   FocusNode numberFN = FocusNode();
 
-  DateTime? currentBackPressTime;
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var vm = Provider.of<AuthVM>(context, listen: false);
+      // aboutTC.text = vm.userModel.about ?? "";
+      // fullnameController.text = vm.userModel.fullName ?? "";
+      // dateController.text = vm.userModel.dob ?? "";
+      // formattedDate = vm.userModel.dob ?? "";
+      // vm.imageUrl = null;
+      // vm.pImage = null;
+      // vm.update();
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // return Consumer2<AuthVM, RootProvider>(builder: (context, authVm, vm, _) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: GlobalWidgets.appBar(
-          "Update Profile",
-          onTap: () {
-            Get.back();
-          },
-        ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                h3,
-                CustomTextFormField(
-                  fieldTitle: "Full Name",
-                  controller: nameController,
-                  hintText: 'Enter name',
-                  focusNode: nameFocus,
-                  inputAction: TextInputAction.next,
-                  inputType: TextInputType.name,
-                  validator: FieldValidator.validateEmpty,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                ),
-                CustomTextFormField(
-                  fieldTitle: "Email",
-                  controller: emailController,
-                  hintText: 'Enter email',
-                  focusNode: emailFocus,
-                  inputAction: TextInputAction.next,
-                  inputType: TextInputType.emailAddress,
-                  validator: FieldValidator.validateEmail,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                ),
-                h1,
-                Container(
-                  margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
-                  child: Text(
-                    "Phone Number",
-                    style: R.textStyles.poppinsMedium(
-                      fontSize: 11.sp,
-                      color: Colors.black,
-                    ),
+    return Consumer<AuthVM>(builder: (context, authVm, _) {
+      return SafeArea(
+        child: Scaffold(
+          appBar: GlobalWidgets.appBar(
+            "Update Profile",
+            onTap: () {
+              Get.back();
+            },
+          ),
+          body: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  h3,
+                  CustomTextFormField(
+                    fieldTitle: "Full Name",
+                    controller: nameController,
+                    hintText: 'Enter name',
+                    focusNode: nameFocus,
+                    inputAction: TextInputAction.next,
+                    inputType: TextInputType.name,
+                    validator: FieldValidator.validateEmpty,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
-                ),
-                phoneNumberField(),
-                h1,
-                CustomTextFormField(
-                  controller: passwordController,
-                  focusNode: passwordFocus,
-                  inputAction: TextInputAction.next,
-                  inputType: TextInputType.visiblePassword,
-                  validator: FieldValidator.validatePassword,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  hintText: 'Enter password',
-                  fieldTitle: "Password",
-                  obscureText: isObscure1,
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isObscure1 = !isObscure1;
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 8.sp),
-                      child: Icon(
-                        isObscure1 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
-                        color: Colors.grey,
-                        size: 16.sp,
+                  CustomTextFormField(
+                    fieldTitle: "Email",
+                    controller: emailController,
+                    hintText: 'Enter email',
+                    focusNode: emailFocus,
+                    inputAction: TextInputAction.next,
+                    inputType: TextInputType.emailAddress,
+                    validator: FieldValidator.validateEmail,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                  h1,
+                  Container(
+                    margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    child: Text(
+                      "Phone Number",
+                      style: R.textStyles.poppinsMedium(
+                        fontSize: 11.sp,
+                        color: Colors.black,
                       ),
                     ),
                   ),
-                ),
-                CustomTextFormField(
-                  controller: confirmpasswordController,
-                  focusNode: confirmpasswordFocus,
-                  inputAction: TextInputAction.done,
-                  inputType: TextInputType.visiblePassword,
-                  validator: (val) => FieldValidator.validatePasswordMatch(
-                      confirmpasswordController.text, passwordController.text),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  hintText: 'Enter confirm password',
-                  fieldTitle: "Confirm Password",
-                  obscureText: isObscure2,
-                  suffixIcon: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isObscure2 = !isObscure2;
-                      });
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 8.sp),
-                      child: Icon(
-                        isObscure2 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
-                        color: Colors.grey,
-                        size: 16.sp,
+                  phoneNumberField(),
+                  h1,
+                  CustomTextFormField(
+                    controller: passwordController,
+                    focusNode: passwordFocus,
+                    inputAction: TextInputAction.next,
+                    inputType: TextInputType.visiblePassword,
+                    validator: FieldValidator.validatePassword,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    hintText: 'Enter password',
+                    fieldTitle: "Password",
+                    obscureText: isObscure1,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isObscure1 = !isObscure1;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 8.sp),
+                        child: Icon(
+                          isObscure1 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          color: Colors.grey,
+                          size: 16.sp,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                h3,
-                CustomButton(
-                  buttonTitle: "Sign up",
-                  tap: () async {
-                    await buttonFn();
-                  },
-                ),
-              ],
+                  CustomTextFormField(
+                    controller: confirmpasswordController,
+                    focusNode: confirmpasswordFocus,
+                    inputAction: TextInputAction.done,
+                    inputType: TextInputType.visiblePassword,
+                    validator: (val) => FieldValidator.validatePasswordMatch(
+                        confirmpasswordController.text, passwordController.text),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    hintText: 'Enter confirm password',
+                    fieldTitle: "Confirm Password",
+                    obscureText: isObscure2,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isObscure2 = !isObscure2;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 8.sp),
+                        child: Icon(
+                          isObscure2 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          color: Colors.grey,
+                          size: 16.sp,
+                        ),
+                      ),
+                    ),
+                  ),
+                  h3,
+                  CustomButton(
+                    buttonTitle: "Sign up",
+                    tap: () async {
+                      await buttonFn();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget phoneNumberField() {

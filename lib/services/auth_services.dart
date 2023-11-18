@@ -139,7 +139,7 @@ class Auth implements BaseAuth {
   Future<UserModel?> getUserData(String? id) async {
     try {
       DocumentSnapshot result = await FBCollections.users.doc(id).get();
-      debugPrint(result.id);
+      debugPrint("===================== ${result.id}");
       UserModel user = UserModel.fromJson(result.data());
       return user;
     } catch (e) {
