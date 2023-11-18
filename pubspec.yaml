@@ -60,6 +60,8 @@ dependencies:
   intl_phone_number_input: ^0.7.3+1
   syncfusion_flutter_datepicker: ^23.1.44
   share_plus: ^7.2.1
+  image_cropper: ^5.0.0
+  step_progress_indicator: ^1.0.2
 
 
   cloud_firestore: ^4.13.1

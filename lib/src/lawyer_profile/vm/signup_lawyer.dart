@@ -21,4 +21,8 @@ class SignupLawyer extends ChangeNotifier {
     LawyerModelSignup(id: "14", specialist: "Employment and Labor Lawyer"),
     LawyerModelSignup(id: "15", specialist: " Estate Planning Lawyer"),
   ];
+
+  void update() {
+    notifyListeners();
+  }
 }
