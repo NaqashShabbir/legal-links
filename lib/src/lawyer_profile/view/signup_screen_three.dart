@@ -2,8 +2,12 @@ import 'package:day_picker/day_picker.dart';
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:legal_links_app/services/google_map/address_model.dart';
+import 'package:legal_links_app/services/google_map/google_map_screen.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/signup_screen_four.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
+import 'package:legal_links_app/src/lawyer_profile/view/widget/steper_widget.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/resources.dart';
 import '../../../utils/common-widgets/custom_textformfield.dart';
@@ -26,6 +30,8 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
   FocusNode feeFocus = FocusNode();
   FocusNode assistantFocus = FocusNode();
   FocusNode addressFocus = FocusNode();
+  LatLng? latLng;
+  PickLocationData? pickLocationData;
 
   final List<DayInWeek> _days = [
     DayInWeek(
@@ -94,12 +100,10 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                 ],
               ),
               h3,
-              Text(
-                'Step 3/5 About you',
-                style: R.textStyles
-                    .poppinsSemiBold(color: R.colors.primary, fontSize: 15.sp),
+              SteperWidget(
+                currentStep: 3,
               ),
-              h1,
+              h2,
               CustomTextFormField(
                 controller: feeController,
                 focusNode: feeFocus,
@@ -124,7 +128,21 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                 inputType: TextInputType.text,
                 hintText: 'Review Address',
                 fieldTitle: "Your address",
-                maxLines: 3,
+                onTap: () {
+                  Get.to(
+                    () => GoogleMapScreen(
+                      selectedLocation: latLng,
+                      address: (value) {
+                        pickLocationData = value;
+                        latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
+                        addressController.text =
+                            pickLocationData?.streetAddress ?? '';
+                      },
+                    ),
+                  );
+                  setState(() {});
+                  debugPrint("pickLocationData $pickLocationData");
+                },
               ),
               h1,
               Text(

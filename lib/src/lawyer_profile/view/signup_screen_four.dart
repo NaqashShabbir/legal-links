@@ -5,6 +5,7 @@ import 'package:legal_links_app/src/lawyer_profile/view/complete_profile.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utils/hights_widths.dart';
+import 'widget/steper_widget.dart';
 
 class SignupScreenFour extends StatefulWidget {
   static String route = '/signupScreenFour';
@@ -34,12 +35,10 @@ class _SignupScreenFourState extends State<SignupScreenFour> {
               ],
             ),
             h3,
-            Text(
-              'Step 4/5 About you',
-              style: R.textStyles
-                  .poppinsSemiBold(color: R.colors.primary, fontSize: 15.sp),
+            SteperWidget(
+              currentStep: 4,
             ),
-            h1,
+            h2,
             Text(
               'Would you like to start online consult with customers',
               textAlign: TextAlign.center,

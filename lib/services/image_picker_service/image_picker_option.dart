@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:united_proposals_app/utils/text_style.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'image_picker_services.dart';
 
 class ImagePickerOption extends StatefulWidget {
@@ -38,20 +38,24 @@ class ImagePickerOptionState extends State<ImagePickerOption> {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                    bottom: Get.height * .05, left: Get.width * .08, right: Get.width * .08),
+                    bottom: Get.height * .05,
+                    left: Get.width * .08,
+                    right: Get.width * .08),
                 padding: EdgeInsets.only(
                     bottom: Get.height * .05,
                     top: Get.height * .02,
                     left: Get.width * .08,
                     right: Get.width * .08),
                 width: Get.width,
-                decoration:
-                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text("Choose option",
-                        style: AppTextStyles.poppinsMedium(fontWeight: FontWeight.w500)),
+                        style: R.textStyles
+                            .poppinsMedium(fontWeight: FontWeight.w500)),
                     SizedBox(height: Get.height * .02),
                     InkWell(
                       onTap: () {
@@ -61,9 +65,11 @@ class ImagePickerOptionState extends State<ImagePickerOption> {
                                 context: context)
                             .then((value) async {
                           if (ImagePickerServices.profileImage != null) {
-                            widget.uploadImage!(ImagePickerServices.profileImage);
+                            widget
+                                .uploadImage!(ImagePickerServices.profileImage);
                           }
-                        }).whenComplete(() => ImagePickerServices.profileImage = null);
+                        }).whenComplete(
+                                () => ImagePickerServices.profileImage = null);
                         setState(() {});
 
                         Navigator.pop(context);
@@ -78,7 +84,8 @@ class ImagePickerOptionState extends State<ImagePickerOption> {
                             width: Get.width * .03,
                           ),
                           Text("Gallery",
-                              style: AppTextStyles.poppinsMedium(fontWeight: FontWeight.normal)),
+                              style: R.textStyles.poppinsMedium(
+                                  fontWeight: FontWeight.normal)),
                         ],
                       ),
                     ),
@@ -91,9 +98,11 @@ class ImagePickerOptionState extends State<ImagePickerOption> {
                                 context: context)
                             .then((value) async {
                           if (ImagePickerServices.profileImage != null) {
-                            widget.uploadImage!(ImagePickerServices.profileImage);
+                            widget
+                                .uploadImage!(ImagePickerServices.profileImage);
                           }
-                        }).whenComplete(() => ImagePickerServices.profileImage = null);
+                        }).whenComplete(
+                                () => ImagePickerServices.profileImage = null);
 
                         setState(() {});
 
@@ -103,10 +112,12 @@ class ImagePickerOptionState extends State<ImagePickerOption> {
                         const Icon(Icons.camera, size: 20),
                         SizedBox(width: Get.width * .03),
                         Text("Camera",
-                            style: AppTextStyles.poppinsMedium(fontWeight: FontWeight.normal))
+                            style: R.textStyles
+                                .poppinsMedium(fontWeight: FontWeight.normal))
                       ]),
                     ),
-                    if (widget.isPhotoPicked ?? false) const Divider(color: Colors.grey),
+                    if (widget.isPhotoPicked ?? false)
+                      const Divider(color: Colors.grey),
                     if (widget.isPhotoPicked ?? false)
                       InkWell(
                         onTap: widget.removeImageFn,
@@ -114,8 +125,9 @@ class ImagePickerOptionState extends State<ImagePickerOption> {
                           const Icon(Icons.delete, size: 20, color: Colors.red),
                           SizedBox(width: Get.width * .03),
                           Text("Remove Photo",
-                              style: AppTextStyles.poppinsMedium(
-                                  fontWeight: FontWeight.normal, color: Colors.red))
+                              style: R.textStyles.poppinsMedium(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.red))
                         ]),
                       ),
                   ],

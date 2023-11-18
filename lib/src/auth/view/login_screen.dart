@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/home_view.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/confirmation_dialog.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -94,7 +96,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(right: 8.sp),
                         child: Icon(
-                          ispObscure ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          ispObscure
+                              ? Icons.visibility_off_rounded
+                              : Icons.remove_red_eye_rounded,
                           color: Colors.grey,
                           size: 16.sp,
                         ),
@@ -140,7 +144,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     buttonTitle: "Login",
                     tap: () async {
-                      await login(vm);
+                      // await login(vm);
+                      Get.toNamed(BaseView.route);
                     },
                   ),
                   h2,

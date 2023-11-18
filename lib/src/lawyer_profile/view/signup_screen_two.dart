@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/signup_screen_three.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
+import 'package:legal_links_app/src/lawyer_profile/view/widget/steper_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/resources.dart';
@@ -73,11 +74,10 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 ],
               ),
               h3,
-              Text(
-                'Step 2/5 About you',
-                style: R.textStyles.poppinsRegular(color: R.colors.primary),
+              SteperWidget(
+                currentStep: 2,
               ),
-              h1,
+              h2,
               speciallistLawyerDropdown(vm: vm),
               h1,
               CustomTextFormField(

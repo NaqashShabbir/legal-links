@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
           // initialRoute: SignupScreenOneOfLawyer.route,
           initialRoute: SplashScreen.route,
           getPages: AppPages.pages,
-          //  home: TestWidget(),
+          // home: TestWidget(),
         ),
       );
     });

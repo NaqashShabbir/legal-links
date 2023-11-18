@@ -34,9 +34,11 @@ class AuthVM extends ChangeNotifier {
           Get.offAllNamed(BaseView.route);
           ZBotToast.showToastSuccess(message: 'Logged in Successfully');
         } else if (userModel.status == UserStatus.BLOCKED) {
-          ZBotToast.showToastError(message: "You have been blocked by the admin");
+          ZBotToast.showToastError(
+              message: "You have been blocked by the admin");
         } else {
-          ZBotToast.showToastError(message: "You have been deleted by the admin");
+          ZBotToast.showToastError(
+              message: "You have been deleted by the admin");
         }
       } else {
         ZBotToast.showToastError(message: "Verify Your Email");
@@ -55,7 +57,8 @@ class AuthVM extends ChangeNotifier {
   Future<void> signUp(UserModel? ud, String pass) async {
     try {
       ZBotToast.loadingShow();
-      User? user = await _auth.createUserWithEmailPassword(ud?.email ?? "", pass);
+      User? user =
+          await _auth.createUserWithEmailPassword(ud?.email ?? "", pass);
       if (user != null) {
         debugPrint("user is not null");
         ud?.id = user.uid;

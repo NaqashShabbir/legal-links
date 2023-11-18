@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:google_maps_flutter_platform_interface/src/types/location.dart' as lt;
+import 'package:google_maps_flutter_platform_interface/src/types/location.dart'
+    as lt;
 import 'package:legal_links_app/constants/api_url.dart';
 import 'package:legal_links_app/constants/mapkey.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
@@ -56,9 +57,11 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     await _apiRequests.getMap(
         url: ApiUrl.getAddressFromlatlng(lat, lng, MapKey.mapKey),
         onSuccess: (res) {
-          googleMapLatLongModel = GoogleMapLatLongModel.fromJson(jsonDecode(res));
+          googleMapLatLongModel =
+              GoogleMapLatLongModel.fromJson(jsonDecode(res));
           startLocation = lt.LatLng(lat, lng);
-          mapsController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          mapsController
+              ?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
             target: startLocation!,
             zoom: 18,
           )));
@@ -79,28 +82,27 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
           );
           address = PickLocationData(
               geohash: "",
-              lat: googleMapLatLongModel.results?.first.geometry?.location?.lat?.toDouble() ?? 0,
-              lng: googleMapLatLongModel.results?.first.geometry?.location?.lng?.toDouble() ?? 0,
+              lat: googleMapLatLongModel.results?.first.geometry?.location?.lat
+                      ?.toDouble() ??
+                  0,
+              lng: googleMapLatLongModel.results?.first.geometry?.location?.lng
+                      ?.toDouble() ??
+                  0,
               country: googleMapLatLongModel.results?.first.addressComponents
-                      ?.firstWhereOrNull((element) => element.types!.contains("country"))
+                      ?.firstWhereOrNull(
+                          (element) => element.types!.contains("country"))
                       ?.longName ??
                   "",
               city: googleMapLatLongModel.results?.first.addressComponents
-                      ?.firstWhereOrNull(
-                          (element) => element.types!.contains("administrative_area_level_2"))
+                      ?.firstWhereOrNull((element) =>
+                          element.types!.contains("administrative_area_level_2"))
                       ?.longName ??
                   "",
-              state: googleMapLatLongModel.results?.first.addressComponents
-                      ?.firstWhereOrNull(
-                          (element) => element.types!.contains("administrative_area_level_1"))
-                      ?.longName ??
-                  "",
+              state: googleMapLatLongModel.results?.first.addressComponents?.firstWhereOrNull((element) => element.types!.contains("administrative_area_level_1"))?.longName ?? "",
               streetAddress: googleMapLatLongModel.results?.first.formattedAddress ?? "",
-              zipCode: googleMapLatLongModel.results?.first.addressComponents
-                      ?.firstWhereOrNull((element) => element.types!.contains("postal_code"))
-                      ?.longName ??
-                  "");
-          searchTC.text = googleMapLatLongModel.results?.first.formattedAddress ?? "";
+              zipCode: googleMapLatLongModel.results?.first.addressComponents?.firstWhereOrNull((element) => element.types!.contains("postal_code"))?.longName ?? "");
+          searchTC.text =
+              googleMapLatLongModel.results?.first.formattedAddress ?? "";
           setState(() {});
         },
         onError: (e) {
@@ -111,11 +113,14 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
   Future<void> getLocation() async {
     loc.Location location = loc.Location();
     await location.changeSettings(
-        accuracy: loc.LocationAccuracy.balanced, interval: 1000, distanceFilter: 0);
+        accuracy: loc.LocationAccuracy.balanced,
+        interval: 1000,
+        distanceFilter: 0);
     loc.LocationData currentLocation = await location.getLocation();
     log("Accuracy is ${currentLocation.accuracy}Lat is ${currentLocation.latitude}Long is ${currentLocation.longitude}");
 
-    startLocation = lt.LatLng(currentLocation.latitude!, currentLocation.longitude!);
+    startLocation =
+        lt.LatLng(currentLocation.latitude!, currentLocation.longitude!);
     await getAddress(currentLocation.latitude!, currentLocation.longitude!);
   }
 
@@ -136,7 +141,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
         targetWidth: 45, targetHeight: 60);
     ui.FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!.buffer.asUint8List();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 
   @override
@@ -194,8 +201,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                           controller.animateCamera(
                             CameraUpdate.newCameraPosition(
                               CameraPosition(
-                                target:
-                                    lt.LatLng(startLocation!.latitude, startLocation!.longitude),
+                                target: lt.LatLng(startLocation!.latitude,
+                                    startLocation!.longitude),
                                 zoom: 18,
                               ),
                             ),
@@ -210,7 +217,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                         minMaxZoomPreference: MinMaxZoomPreference.unbounded,
                         markers: markers,
                         mapType: MapType.terrain,
-                        initialCameraPosition: CameraPosition(target: startLocation!, zoom: 18)),
+                        initialCameraPosition:
+                            CameraPosition(target: startLocation!, zoom: 18)),
                     Container(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 3),
                       color: R.colors.white,
@@ -227,7 +235,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                 child: Container(
                                   width: 40,
                                   height: 40,
-                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                   decoration: BoxDecoration(
                                     color: R.colors.white,
                                     borderRadius: const BorderRadius.all(
@@ -271,7 +280,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                               : null,
                                         )
                                         .copyWith(
-                                          fillColor: R.colors.grey.withOpacity(.3),
+                                          fillColor:
+                                              R.colors.grey.withOpacity(.3),
                                           filled: true,
                                         ),
                                   ),
@@ -282,7 +292,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                   searchFN.unfocus();
                                   setState(() {});
 
-                                  bool check = await GoogleMapFunctions.checkLocation();
+                                  bool check =
+                                      await GoogleMapFunctions.checkLocation();
                                   if (check) {
                                     await getLocation();
                                   }
@@ -290,12 +301,15 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                                 child: Container(
                                     width: 40,
                                     height: 40,
-                                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                                    padding: EdgeInsets.symmetric(horizontal: 6.sp),
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 6.sp),
                                     decoration: BoxDecoration(
                                         color: R.colors.grey.withOpacity(.3),
                                         borderRadius: BorderRadius.circular(3),
-                                        border: Border.all(color: R.colors.grey)),
+                                        border:
+                                            Border.all(color: R.colors.grey)),
                                     child: Icon(
                                       Icons.my_location,
                                       color: R.colors.primary,
@@ -304,7 +318,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
                             ],
                           ),
                           Visibility(
-                            visible: searchTC.text.isNotEmpty && searchFN.hasFocus,
+                            visible:
+                                searchTC.text.isNotEmpty && searchFN.hasFocus,
                             child: GoogleMapPredict(
                               predictValue: searchTC.text,
                               address: (adress) {
@@ -344,8 +359,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreen> {
     // widget.address!(adress);
     address = adress;
     searchTC.text = adress.streetAddress ?? "";
-    startLocation =
-        lt.LatLng(adress.lat ?? startLocation!.latitude, adress.lng ?? startLocation!.longitude);
+    startLocation = lt.LatLng(adress.lat ?? startLocation!.latitude,
+        adress.lng ?? startLocation!.longitude);
     mapsController?.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
       target: startLocation!,
       zoom: 18,

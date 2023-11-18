@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:united_proposals_app/utils/text_style.dart';
+import 'package:legal_links_app/resources/resources.dart';
 import 'image_picker_services.dart';
 
 class PostImagePicker extends StatefulWidget {
@@ -54,8 +54,8 @@ class PostImagePickerState extends State<PostImagePicker> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text("Choose option",
-                        style: AppTextStyles.poppinsMedium(
-                            fontWeight: FontWeight.w500)),
+                        style: R.textStyles
+                            .poppinsMedium(fontWeight: FontWeight.w500)),
                     SizedBox(height: Get.height * .02),
                     InkWell(
                       onTap: () {
@@ -84,7 +84,7 @@ class PostImagePickerState extends State<PostImagePicker> {
                             width: Get.width * .03,
                           ),
                           Text("Gallery",
-                              style: AppTextStyles.poppinsMedium(
+                              style: R.textStyles.poppinsMedium(
                                   fontWeight: FontWeight.normal)),
                         ],
                       ),
@@ -112,8 +112,8 @@ class PostImagePickerState extends State<PostImagePicker> {
                         const Icon(Icons.camera, size: 20),
                         SizedBox(width: Get.width * .03),
                         Text("Camera",
-                            style: AppTextStyles.poppinsMedium(
-                                fontWeight: FontWeight.normal))
+                            style: R.textStyles
+                                .poppinsMedium(fontWeight: FontWeight.normal))
                       ]),
                     ),
                     if (widget.isPhotoPicked ?? false)
@@ -125,7 +125,7 @@ class PostImagePickerState extends State<PostImagePicker> {
                           const Icon(Icons.delete, size: 20, color: Colors.red),
                           SizedBox(width: Get.width * .03),
                           Text("Remove Photo",
-                              style: AppTextStyles.poppinsMedium(
+                              style: R.textStyles.poppinsMedium(
                                   fontWeight: FontWeight.normal,
                                   color: Colors.red))
                         ]),
