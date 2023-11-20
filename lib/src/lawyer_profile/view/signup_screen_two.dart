@@ -51,6 +51,17 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
       showDeleteIcon: true,
     ),
   ];
+
+  List<PracticeAreaItems> practiceList = [
+    PracticeAreaItems(
+      practiceArea: 'Designation',
+      showDeleteIcon: false,
+    ),
+    PracticeAreaItems(
+      practiceArea: 'Designation',
+      showDeleteIcon: true,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -121,6 +132,23 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 customTextFieldExperience(experienceList[index], index),
                 h0P8,
               ],
+              h1,
+              heading('Practice Area', () {
+                setState(() {
+                  practiceList.add(
+                    PracticeAreaItems(
+                      practiceArea: 'Designation',
+                      showDeleteIcon: true,
+                    ),
+                  );
+                });
+              }),
+              h1,
+              for (int index = 0; index < practiceList.length; index++) ...[
+                practiceField(practiceList[index], index),
+                h0P8,
+              ],
+              h1,
               h3,
               CustomButtonSignup(
                 text: 'Continue to next step',
@@ -314,6 +342,45 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
   }
 }
 
+Widget practiceField(PracticeAreaItems item, int index) {
+  return Row(
+    children: [
+      Expanded(
+        flex: 3,
+        child: CustomTextFormField(
+          hintText: item.practiceArea,
+          //focusNode: lawyerFocus,
+          inputAction: TextInputAction.next,
+          inputType: TextInputType.name,
+          validator: FieldValidator.validateEmpty,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+        ),
+      ),
+      if (item.showDeleteIcon)
+        Expanded(
+          flex: 1,
+          child: IconButton(
+            onPressed: () {
+              // setState(() {
+              //   practiceList.removeAt(index);
+              // });
+            },
+            icon: Icon(
+              Icons.delete,
+              color: R.colors.primary,
+              size: 25.sp,
+            ),
+          ),
+        ),
+      if (!item.showDeleteIcon)
+        Expanded(
+          flex: 1,
+          child: Container(),
+        ),
+    ],
+  );
+}
+
 class RowItem {
   final String degree;
   final String uni;
@@ -334,6 +401,17 @@ class ExperienceItem {
   ExperienceItem({
     required this.designation,
     required this.court,
+    this.showDeleteIcon = true,
+  });
+}
+
+class PracticeAreaItems {
+  final String practiceArea;
+
+  final bool showDeleteIcon;
+
+  PracticeAreaItems({
+    required this.practiceArea,
     this.showDeleteIcon = true,
   });
 }
