@@ -45,7 +45,7 @@ abstract class AppPages {
         page: () => const SignupScreenOneOfLawyer()),
     GetPage(
         name: SignupScreenTwoOfLawyer.route,
-        page: () => const SignupScreenTwoOfLawyer()),
+        page: () => SignupScreenTwoOfLawyer()),
     GetPage(
         name: SignupScreenThreeOfLawyer.route,
         page: () => const SignupScreenThreeOfLawyer()),

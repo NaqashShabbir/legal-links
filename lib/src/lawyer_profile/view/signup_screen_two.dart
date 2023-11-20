@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/signup_screen_three.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/steper_widget.dart';
+import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/resources.dart';
@@ -13,9 +16,11 @@ import '../model/lawyer_model.dart';
 import '../vm/signup_lawyer.dart';
 
 class SignupScreenTwoOfLawyer extends StatefulWidget {
+  final _formKey = GlobalKey<FormState>();
+
   static String route = '/signupTwoaslawyer';
 
-  const SignupScreenTwoOfLawyer({super.key});
+  SignupScreenTwoOfLawyer({super.key});
 
   @override
   State<SignupScreenTwoOfLawyer> createState() =>
@@ -340,6 +345,30 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
       ],
     );
   }
+
+  // Future<void> butonFn() async {
+  //   if (_formKey.currentState!.validate()) {
+  //     ZBotToast.showToastError(message: 'Invalid credentials');
+  //   } else {
+  //     Timestamp now = Timestamp.now();
+  //     UserModel createLawyer = UserModel(
+  //       role: context.read<AuthVM>().userRole,
+  //       fullName: nameController.text.trim(),
+  //       createdAt: now,
+  //       updatedAt: now,
+  //       phoneNumber: PhoneNumberModel(
+  //         number: numberController.text.trim(),
+  //         isoCode: number.isoCode,
+  //         countryCode: number.dialCode,
+  //       ),
+  //       email: emailController.text.trim(),
+  //       status: UserStatus.ACTIVE,
+  //       yearOfExperience: yeearOfExperienceController.text.toString(),
+  //     );
+
+  //     await context.read<AuthVM>().signUp(createLawyer, pass: '');
+  //   }
+  // }
 }
 
 Widget practiceField(PracticeAreaItems item, int index) {

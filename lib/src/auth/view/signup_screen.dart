@@ -360,7 +360,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
         await context
             .read<AuthVM>()
-            .signUp(createClient, passwordController.text.trim());
+            .signUp(createClient, pass: passwordController.text.trim());
 
         // debugPrint(" body: ");
         // debugPrint('role: ${context.read<AuthVM>().userRole}');
