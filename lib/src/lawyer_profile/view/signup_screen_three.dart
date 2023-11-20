@@ -5,10 +5,13 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
+import 'package:legal_links_app/src/auth/model/user_model.dart';
+import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/complete_profile.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/signup_screen_four.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/steper_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/resources.dart';
 import '../../../utils/common-widgets/custom_textformfield.dart';
@@ -36,33 +39,6 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
   LatLng? latLng;
   PickLocationData? pickLocationData;
 
-  // final List<DayInWeek> _days = [
-  //   DayInWeek(
-  //     "Sun",
-  //     dayKey: '',
-  //   ),
-  //   DayInWeek(
-  //     "Mon",
-  //     dayKey: '',
-  //   ),
-  //   DayInWeek("Tue", isSelected: true, dayKey: ''),
-  //   DayInWeek(
-  //     "Wed",
-  //     dayKey: '',
-  //   ),
-  //   DayInWeek(
-  //     "Thu",
-  //     dayKey: '',
-  //   ),
-  //   DayInWeek(
-  //     "Fri",
-  //     dayKey: '',
-  //   ),
-  //   DayInWeek(
-  //     "Sat",
-  //     dayKey: '',
-  //   ),
-  // ];
   var duration;
   @override
   void initState() {
@@ -128,7 +104,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                 controller: caseCountController,
                 //  focusNode: feeFocus,
                 inputAction: TextInputAction.next,
-                inputType: TextInputType.text,
+                inputType: TextInputType.number,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 hintText: '10',
                 fieldTitle: "Case Count",
@@ -166,97 +142,11 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                 fieldTitle: "About Yourself",
                 maxLines: 3,
               ),
-
-              // Text(
-              //   'Select Days',
-              //   style: R.textStyles.poppinsMedium(
-              //     fontSize: 11.sp,
-              //     color: Colors.black,
-              //   ),
-              // ),
-              // Center(
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(8.0),
-              //     child: SelectWeekDays(
-              //       backgroundColor: R.colors.primary,
-              //       fontSize: 14,
-              //       fontWeight: FontWeight.w500,
-              //       days: _days,
-              //       border: false,
-              //       boxDecoration: BoxDecoration(
-              //         color: R.colors.primary,
-              //         borderRadius: BorderRadius.circular(30.0),
-              //       ),
-              //       onSelect: (values) {
-              //         // <== Callback to handle the selected days
-              //       },
-              //     ),
-              //   ),
-              // ),
-              // h1,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Column(
-              //       children: [
-              //         InkWell(
-              //           onTap: () async {
-              //             {
-              //               var resultingDuration = await showDurationPicker(
-              //                 context: context,
-              //                 initialTime: Duration(minutes: 30),
-              //               );
-              //               duration = resultingDuration;
-              //               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //                   content: Text(
-              //                       'Chose duration: $resultingDuration')));
-              //             }
-              //           },
-              //           child: Text(
-              //             'Select time',
-              //             style: R.textStyles.poppinsMedium(
-              //               fontSize: 11.sp,
-              //               color: Colors.black,
-              //             ),
-              //           ),
-              //         ),
-              //         h1,
-              //         Text(duration != null ? '$duration' : 'Select time'),
-              //       ],
-              //     ),
-              //     InkWell(
-              //       onTap: () async {
-              //         {
-              //           var resultingEndDuration = await showDurationPicker(
-              //             context: context,
-              //             initialTime: const Duration(minutes: 30),
-              //           );
-              //           duration = resultingEndDuration;
-              //           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //               content:
-              //                   Text('Chose duration: $resultingEndDuration')));
-              //         }
-              //       },
-              //       child: Column(
-              //         children: [
-              //           Text(
-              //             'End time',
-              //             style: R.textStyles.poppinsMedium(
-              //               fontSize: 11.sp,
-              //               color: Colors.black,
-              //             ),
-              //           ),
-              //           h1,
-              //           const Text(''),
-              //         ],
-              //       ),
-              //     ),
-              //   ],
-              // ),
               h3,
               CustomButtonSignup(
                 text: "Continue to next step",
                 tap: () async {
+                  await buttonFn();
                   Get.toNamed(CompleteProfile.route);
                 },
               ),
@@ -265,5 +155,30 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
         ),
       ),
     );
+  }
+
+  Future<void> buttonFn() async {
+    UserModel createClient = UserModel(
+      feePerMeeting: int.tryParse(feeController.text),
+      assistantName: assistantController.text.toString(),
+      casesCount: int.tryParse(caseCountController.text),
+      officeAdress: OfficeAdress(),
+      about: aboutController.text.toString(),
+    );
+
+    await context.read<AuthVM>().signUp(createClient, pass: '');
+
+    // debugPrint(" body: ");
+    // debugPrint('role: ${context.read<AuthVM>().userRole}');
+    // debugPrint('fullName: ${nameController.text.trim()}');
+    // debugPrint('createdAt: $now');
+    // debugPrint('updatedAt: $now');
+    // Uncomment the line below if `id` is a property
+    // debugPrint('id: $id');
+    // debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
+    // debugPrint('number.isoCode: ${number.isoCode}');
+    // debugPrint('number.dialCode: ${number.dialCode}');
+    // debugPrint('email: ${emailController.text.trim()}');
+    // debugPrint('status: ${UserStatus.ACTIVE}');
   }
 }

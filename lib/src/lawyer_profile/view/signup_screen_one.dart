@@ -1,14 +1,18 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/services/image_picker_service/image_picker_option.dart';
+import 'package:legal_links_app/src/auth/model/user_model.dart';
+import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/vm/lawyer_vm.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/steper_widget.dart';
 import 'package:legal_links_app/src/lawyer_profile/vm/signup_lawyer.dart';
+import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../resources/resources.dart';
@@ -36,6 +40,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
   TextEditingController nameController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
   TextEditingController dateCon = TextEditingController();
+  TextEditingController yeearOfExperienceController = TextEditingController();
 
   DateTime? selectedDate;
 
@@ -109,16 +114,21 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   h1,
-                  PhoneNumberField(
-                    fieldTitle: "phone Number",
-                    number: number,
-                    nextNode: colorF,
-                    numberFN: numberF,
-                    phoneNumberController: phoneNumberController,
-                    // valueChanged: ,
+                  Container(
+                    margin:
+                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    child: Text(
+                      "Phone Number",
+                      style: R.textStyles.poppinsMedium(
+                        fontSize: 11.sp,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
+                  phoneNumberField(),
+                  h1,
                   CustomTextFormField(
-                    controller: confirmpasswordController,
+                    controller: yeearOfExperienceController,
                     focusNode: confirmpasswordFocus,
                     inputAction: TextInputAction.done,
                     inputType: TextInputType.text,
@@ -151,7 +161,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   // ),
                   CustomButtonSignup(
                     text: 'Continue to next step',
-                    tap: () {
+                    tap: () async {
+                      await butonFn();
                       Get.toNamed(SignupScreenTwoOfLawyer.route);
                     },
                   )
@@ -278,6 +289,105 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
         ],
       ),
     );
+  }
+
+  Widget phoneNumberField() {
+    return InternationalPhoneNumberInput(
+      focusNode: numberFN,
+      inputDecoration: InputDecoration(
+        isDense: true,
+        suffixIcon: Icon(
+          Icons.phone_outlined,
+          color: numberFN.hasFocus ? R.colors.primary : R.colors.grey,
+        ),
+        hintText: 'Number',
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 17,
+        ),
+        filled: true,
+        focusColor: R.colors.primary,
+        hintStyle:
+            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 0.5,
+              color: R.colors.red,
+            )),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 0.5,
+              color: R.colors.primary,
+            )),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 1,
+              color: R.colors.primary,
+            )),
+        focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              width: 0.5,
+              color: R.colors.red,
+            )),
+      ),
+      onInputChanged: (PhoneNumber phonenumber) {
+        number = phonenumber;
+      },
+      onInputValidated: (val) {
+        debugPrint(val.toString());
+      },
+      selectorConfig: const SelectorConfig(
+          leadingPadding: 10,
+          selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+          showFlags: false,
+          setSelectorButtonAsPrefixIcon: true,
+          trailingSpace: true),
+      spaceBetweenSelectorAndTextField: 0,
+      selectorTextStyle: TextStyle(color: R.colors.primary),
+      ignoreBlank: false,
+      autoValidateMode: AutovalidateMode.onUserInteraction,
+      initialValue: number,
+      textFieldController: phoneNumberController,
+      // validator: (value) => FieldValidator.validatePhoneNumber(
+      //     phoneNumberController.text.trim(), context),
+      formatInput: false,
+      keyboardAction: TextInputAction.done,
+      keyboardType:
+          const TextInputType.numberWithOptions(signed: true, decimal: true),
+      inputBorder: const UnderlineInputBorder(),
+      onSaved: (PhoneNumber number) {
+        debugPrint('On Saved: $number');
+      },
+
+      onFieldSubmitted: (value) {
+        setState(() {});
+        FocusScope.of(context).requestFocus(numberF);
+      },
+    );
+  }
+
+  Future<void> butonFn() async {
+    Timestamp now = Timestamp.now();
+    UserModel createLawyer = UserModel(
+      role: context.read<AuthVM>().userRole,
+      fullName: nameController.text.trim(),
+      createdAt: now,
+      updatedAt: now,
+      phoneNumber: PhoneNumberModel(
+        number: numberController.text.trim(),
+        isoCode: number.isoCode,
+        countryCode: number.dialCode,
+      ),
+      email: emailController.text.trim(),
+      status: UserStatus.ACTIVE,
+      yearOfExperience: yeearOfExperienceController.text.toString(),
+    );
+
+    await context.read<AuthVM>().signUp(createLawyer, pass: '');
   }
 
   // UserModel dummyUser = UserModel(

@@ -54,7 +54,7 @@ class AuthVM extends ChangeNotifier {
     }
   }
 
-  Future<void> signUp(UserModel? ud, String pass) async {
+  Future<void> signUp(UserModel? ud, {required String pass}) async {
     try {
       ZBotToast.loadingShow();
       User? user =
