@@ -5,5 +5,5 @@ class FBCollections {
 
   static CollectionReference users = fb.collection("users");
   static CollectionReference properties = fb.collection("properties");
-  static CollectionReference app_settings = fb.collection("app_settings");
+  static CollectionReference settings = fb.collection("settings");
 }
