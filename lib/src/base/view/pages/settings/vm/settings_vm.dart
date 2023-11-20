@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:legal_links_app/services/firebase_collections.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/model/content_model.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/model/review_model.dart';
 
 import '../model/profile_model.dart';
@@ -39,6 +42,17 @@ class SettingsVM extends ChangeNotifier {
         videoConsultationFee: '3244',
         physicalConsultationFee: '3243')
   ];
+
+  ContentModel contentModel = ContentModel();
+  Future<void> getData() async {
+    DocumentSnapshot doc = await FBCollections.settings.doc("SbKBaXdi6T3Tldwjycwc").get();
+
+    contentModel = ContentModel.fromJson(doc.data());
+    debugPrint("settings data: ${doc.data()}");
+    debugPrint("app name:  ${contentModel.appName}");
+
+    update();
+  }
 
   void update() {
     notifyListeners();

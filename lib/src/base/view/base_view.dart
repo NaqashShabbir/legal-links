@@ -5,6 +5,7 @@ import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/appointment_view.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/home_view.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/settings_view.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/common-widgets/call_confirmation.dart';
@@ -40,6 +41,17 @@ class _BaseViewState extends State<BaseView> {
     Icons.schedule,
     Icons.settings,
   ];
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var vm = Provider.of<SettingsVM>(context, listen: false);
+      await vm.getData();
+      vm.update();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<BaseVM>(builder: (context, dashVM, _) {
