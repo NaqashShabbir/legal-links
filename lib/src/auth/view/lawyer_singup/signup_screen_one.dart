@@ -1,27 +1,23 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/services/image_picker_service/image_picker_option.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
+import 'package:legal_links_app/src/auth/view/lawyer_singup/steper_widget.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
-import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/vm/lawyer_vm.dart';
-import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
-import 'package:legal_links_app/src/lawyer_profile/view/widget/steper_widget.dart';
-import 'package:legal_links_app/src/lawyer_profile/vm/signup_lawyer.dart';
-import 'package:legal_links_app/utils/zbot_toast.dart';
+import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../../../resources/resources.dart';
-import '../../../resources/validator.dart';
-import '../../../utils/common-widgets/custom_textformfield.dart';
-import '../../../utils/common-widgets/global_widget.dart';
-import '../../../utils/common-widgets/phone_number_field.dart';
-import '../../../utils/hights_widths.dart';
-import '../../auth/view/login_screen.dart';
+
+import '../../../../resources/resources.dart';
+import '../../../../resources/validator.dart';
+import '../../../../utils/common-widgets/custom_textformfield.dart';
+import '../../../../utils/common-widgets/global_widget.dart';
+import '../../../../utils/hights_widths.dart';
+import '../login_screen.dart';
 import 'signup_screen_two.dart';
 
 class SignupScreenOneOfLawyer extends StatefulWidget {
@@ -29,8 +25,7 @@ class SignupScreenOneOfLawyer extends StatefulWidget {
   const SignupScreenOneOfLawyer({super.key});
 
   @override
-  State<SignupScreenOneOfLawyer> createState() =>
-      _SignupScreenOneOfLawyerState();
+  State<SignupScreenOneOfLawyer> createState() => _SignupScreenOneOfLawyerState();
 }
 
 class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
@@ -67,7 +62,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SignupLawyer>(builder: (context, vm, _) {
+    return Consumer<AuthVM>(builder: (context, vm, _) {
       return SafeArea(
         child: Scaffold(
           appBar: GlobalWidgets.appBar(
@@ -115,8 +110,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   ),
                   h1,
                   Container(
-                    margin:
-                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
                     child: Text(
                       "Phone Number",
                       style: R.textStyles.poppinsMedium(
@@ -159,11 +153,10 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   //     }
                   //   },
                   // ),
-                  CustomButtonSignup(
-                    text: 'Continue to next step',
+                  CustomButton(
+                    buttonTitle: 'Continue to next step',
                     tap: () async {
                       await butonFn();
-                      Get.toNamed(SignupScreenTwoOfLawyer.route);
                     },
                   )
                 ],
@@ -177,7 +170,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
 
   GenderEnum? selectedGender;
 
-  Widget genderDropDown({required SignupLawyer vm}) {
+  Widget genderDropDown({required AuthVM vm}) {
     return DropdownButtonFormField<GenderEnum>(
       //focusNode: maritalFn,
       borderRadius: BorderRadius.circular(8),
@@ -204,7 +197,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
     );
   }
 
-  Widget pickImageWidget(SignupLawyer vm) {
+  Widget pickImageWidget(AuthVM vm) {
     return InkWell(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       onTap: () {
@@ -240,9 +233,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
             child: Container(
               width: 40.sp,
               height: 40.sp,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: R.colors.primary.withOpacity(.08)),
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: R.colors.primary.withOpacity(.08)),
               child: profileImage == null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(150),
@@ -307,8 +299,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle:
-            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -356,8 +347,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
       //     phoneNumberController.text.trim(), context),
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputBorder: const UnderlineInputBorder(),
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
@@ -371,23 +361,25 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
   }
 
   Future<void> butonFn() async {
-    Timestamp now = Timestamp.now();
-    UserModel createLawyer = UserModel(
-      role: context.read<AuthVM>().userRole,
-      fullName: nameController.text.trim(),
-      createdAt: now,
-      updatedAt: now,
-      phoneNumber: PhoneNumberModel(
-        number: numberController.text.trim(),
-        isoCode: number.isoCode,
-        countryCode: number.dialCode,
-      ),
-      email: emailController.text.trim(),
-      status: UserStatus.ACTIVE,
-      yearOfExperience: yeearOfExperienceController.text.toString(),
-    );
+    if (_formKey.currentState!.validate()) {
+      context.read<AuthVM>().tempLawyerModel = UserModel(
+        role: context.read<AuthVM>().userRole,
+        fullName: nameController.text.trim(),
+        phoneNumber: PhoneNumberModel(
+          number: numberController.text.trim(),
+          isoCode: number.isoCode,
+          countryCode: number.dialCode,
+        ),
+        email: emailController.text.trim(),
+        status: UserStatus.ACTIVE,
+        yearOfExperience: yeearOfExperienceController.text.toString(),
+        gender: selectedGender,
+        profileImages: [profileImage?.path ?? ""],
+      );
 
-    await context.read<AuthVM>().signUp(createLawyer, pass: '');
+      Get.toNamed(SignupScreenTwoOfLawyer.route);
+      context.read<AuthVM>().update();
+    }
   }
 
   // UserModel dummyUser = UserModel(

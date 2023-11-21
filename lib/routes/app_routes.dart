@@ -19,11 +19,11 @@ import '../src/lawyer_base/view/lawyer_base_view.dart';
 import '../src/lawyer_base/view/pages/dashboard/view/lawyer_home_view.dart';
 import '../src/lawyer_base/view/pages/dashboard/view/schedule_appointment.dart';
 import '../src/lawyer_base/view/pages/dashboard/view/user_ratting_screen.dart';
-import '../src/lawyer_profile/view/complete_profile.dart';
+import '../src/auth/view/lawyer_singup/complete_profile.dart';
 import '../src/lawyer_profile/view/signup_screen_four.dart';
-import '../src/lawyer_profile/view/signup_screen_one.dart';
-import '../src/lawyer_profile/view/signup_screen_three.dart';
-import '../src/lawyer_profile/view/signup_screen_two.dart';
+import '../src/auth/view/lawyer_singup/signup_screen_one.dart';
+import '../src/auth/view/lawyer_singup/signup_screen_three.dart';
+import '../src/auth/view/lawyer_singup/signup_screen_two.dart';
 
 abstract class AppPages {
   static final List<GetPage> pages = [

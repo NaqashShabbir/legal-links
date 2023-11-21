@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/src/lawyer_base/view/lawyer_base_view.dart';
 import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
+import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:sizer/sizer.dart';
-import '../../../resources/resources.dart';
-import '../../../utils/hights_widths.dart';
+import '../../../../resources/resources.dart';
+import '../../../../utils/hights_widths.dart';
 
 class CompleteProfile extends StatefulWidget {
   static String route = '/completeProfile';
@@ -38,8 +39,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
             Text(
               'You have successfully created your profile on Legal Links',
               textAlign: TextAlign.center,
-              style: R.textStyles
-                  .poppinsSemiBold(color: R.colors.primary, fontSize: 17.sp),
+              style: R.textStyles.poppinsSemiBold(color: R.colors.primary, fontSize: 17.sp),
             ),
             h3,
             Text(
@@ -48,8 +48,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
               style: R.textStyles.poppinsMedium(color: R.colors.red),
             ),
             h3,
-            CustomButtonSignup(
-              text: 'Continue to your dashboard',
+            CustomButton(
+              buttonTitle: 'Continue to your dashboard',
               tap: () {
                 Get.toNamed(LawyerBaseView.route);
               },

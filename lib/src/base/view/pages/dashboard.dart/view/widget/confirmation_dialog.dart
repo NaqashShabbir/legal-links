@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../../resources/resources.dart';
 import '../../../../../../../utils/common-widgets/custom_app_button.dart';
-import '../../../../../../lawyer_profile/view/signup_screen_one.dart';
+import '../../../../../../auth/view/lawyer_singup/signup_screen_one.dart';
 
 class ConfirmationDialog extends StatefulWidget {
   const ConfirmationDialog({super.key});

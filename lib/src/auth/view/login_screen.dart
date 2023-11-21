@@ -146,8 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomButton(
                     buttonTitle: "Login",
                     tap: () async {
-                      // await login(vm);
-                      Get.toNamed(BaseView.route);
+                      await login(vm);
                     },
                   ),
                   h2,

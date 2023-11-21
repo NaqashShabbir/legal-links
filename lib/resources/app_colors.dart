@@ -14,4 +14,18 @@ class AppColors {
   Color orange = Colors.orange;
   Color lightPrimary = const Color.fromARGB(255, 61, 131, 229);
   Color transparent = const Color(0x0000ffff);
+
+
+
+
+  String blackPrint = "\x1b[30m";
+  String redPrint = "\x1b[31m";
+  String greenPrint = "\x1b[32m";
+  String yellowPrint = "\x1b[33m";
+  String bluePrint = "\x1b[34m";
+  String magentaPrint = "\x1b[35m";
+  String cyanPrint = "\x1b[36m";
+  String whitePrint = "\x1b[37m";
+  String brightBlackGrayPrint = "\x1b[90m";
+  String brightWhitePrint = "\x1b[97m";
 }

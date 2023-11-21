@@ -13,7 +13,7 @@ import 'routes/app_routes.dart';
 import 'src/auth/vm/auth_vm.dart';
 import 'src/base/view/pages/appointment/vm/appointment_vm.dart';
 import 'src/lawyer_base/view/pages/dashboard/vm/lawyer_vm.dart';
-import 'src/lawyer_profile/view/signup_screen_one.dart';
+import 'src/auth/view/lawyer_singup/signup_screen_one.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -29,7 +29,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => HomeVM()),
         ChangeNotifierProvider(create: (context) => BaseVM()),
         ChangeNotifierProvider(create: (context) => BaseVM()),
-        ChangeNotifierProvider(create: (context) => SignupLawyer()),
+        // ChangeNotifierProvider(create: (context) => SignupLawyer()),
         ChangeNotifierProvider(create: (context) => AppointmentVM()),
         ChangeNotifierProvider(create: (context) => SettingsVM()),
         ChangeNotifierProvider(create: (context) => LawyerVM()),

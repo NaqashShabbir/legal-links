@@ -35,13 +35,25 @@ class UserModel {
     isVerified = json['isVerified'];
     experiencedCasesCount = json['experiencedCasesCount'];
     fullName = json['fullName'];
-    experience = json['experience'] != null ? Experience.fromJson(json['experience']) : null;
+    // experience = json['experience'] != null ? Experience.fromJson(json['experience']) : null;
+    if (json['experience'] != null) {
+      experience = [];
+      json['experience'].forEach((v) {
+        experience?.add(Experience.fromJson(v));
+      });
+    }
+
     isLawyerVerified = json['isLawyerVerified'];
     // practiceAreas = json['practiceAreas'] != null ? json['practiceAreas'].cast<String>() : [];
     practiceAreas = json['practiceAreas'] is List ? List<String>.from(json['practiceAreas']) : [];
     yearOfExperience = json['yearOfExperience'];
-    qualifications =
-        json['qualifications'] != null ? Qualifications.fromJson(json['qualifications']) : null;
+    // qualifications =json['qualifications'] != null ? Qualifications.fromJson(json['qualifications']) : null;
+    if (json['qualifications'] != null) {
+      qualifications = [];
+      json['qualifications'].forEach((v) {
+        qualifications?.add(Qualifications.fromJson(v));
+      });
+    }
     createdAt = json['createdAt'];
     phoneNumber =
         json['phoneNumber'] != null ? PhoneNumberModel.fromJson(json['phoneNumber']) : null;
@@ -66,11 +78,11 @@ class UserModel {
   bool? isVerified;
   num? experiencedCasesCount;
   String? fullName;
-  Experience? experience;
-  String? isLawyerVerified;
+  List<Experience>? experience;
+  bool? isLawyerVerified;
   List<String>? practiceAreas;
   String? yearOfExperience;
-  Qualifications? qualifications;
+  List<Qualifications>? qualifications;
   Timestamp? createdAt;
   PhoneNumberModel? phoneNumber;
   List<String>? specialist;
@@ -90,12 +102,12 @@ class UserModel {
     bool? isVerified,
     num? experiencedCasesCount,
     String? fullName,
-    Experience? experience,
-    String? isLawyerVerified,
+    List<Experience>? experience,
+    bool? isLawyerVerified,
     List<String>? practiceAreas,
     String? yearOfExperience,
     String? about,
-    Qualifications? qualifications,
+    List<Qualifications>? qualifications,
     Timestamp? createdAt,
     PhoneNumberModel? phoneNumber,
     List<String>? specialist,
@@ -144,13 +156,13 @@ class UserModel {
     map['fullName'] = fullName;
     map['about'] = about;
     if (experience != null) {
-      map['experience'] = experience?.toJson();
+      map['experience'] = experience?.map((v) => v.toJson()).toList();
     }
     map['isLawyerVerified'] = isLawyerVerified;
     map['practiceAreas'] = practiceAreas;
     map['yearOfExperience'] = yearOfExperience;
     if (qualifications != null) {
-      map['qualifications'] = qualifications?.toJson();
+      map['qualifications'] = qualifications?.map((v) => v.toJson()).toList();
     }
     map['createdAt'] = createdAt;
     if (phoneNumber != null) {
@@ -194,14 +206,14 @@ class OfficeAdress {
   String? streetAdress;
   String? city;
   String? state;
-  String? latLng;
+  GeoPoint? latLng;
   OfficeAdress copyWith({
     String? zipCode,
     String? country,
     String? streetAdress,
     String? city,
     String? state,
-    String? latLng,
+    GeoPoint? latLng,
   }) =>
       OfficeAdress(
         zipCode: zipCode ?? this.zipCode,
@@ -269,6 +281,7 @@ class Qualifications {
     degree = json['degree'];
     institute = json['institute'];
   }
+  bool? showDeleteIcon;
   String? year;
   String? degree;
   String? institute;
