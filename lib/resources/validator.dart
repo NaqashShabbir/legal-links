@@ -3,8 +3,7 @@ class FieldValidator {
     if (value!.isEmpty) {
       return "Please enter your email address";
     }
-    if (!RegExp(
-            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)"
+    if (!RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)"
             r"*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
         .hasMatch(value.trim())) {
       return "Enter valid email";
@@ -57,6 +56,13 @@ class FieldValidator {
   static String? validateEmpty(String? value) {
     if (value!.isEmpty) {
       return "Field can't be empty";
+    }
+    return null;
+  }
+
+  static String? validateGender(String? value) {
+    if (value!.isEmpty) {
+      return "Select Gender";
     }
     return null;
   }

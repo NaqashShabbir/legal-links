@@ -15,8 +15,6 @@ import '../../../../utils/hights_widths.dart';
 import '../../model/lawyer_model.dart';
 
 class SignupScreenTwoOfLawyer extends StatefulWidget {
-  static String route = '/signupTwoaslawyer';
-
   const SignupScreenTwoOfLawyer({super.key});
 
   @override
@@ -80,21 +78,6 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: const Icon(Icons.arrow_back)),
-                      Text(
-                        'Create your profile',
-                        style: R.textStyles.poppinsSemiBold(),
-                      ),
-                    ],
-                  ),
-                  h3,
-                  SteperWidget(currentStep: 2),
                   h2,
                   speciallistLawyerDropdown(vm: vm),
                   // h1,
@@ -145,7 +128,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                   h1,
                   h3,
                   CustomButton(
-                    buttonTitle: 'Continue to next step',
+                    buttonTitle: 'Continue',
                     tap: () async {
                       await butonFn(vm);
                     },
@@ -418,8 +401,10 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
         experience: List.from(experienceList),
         practiceAreas: List.from(practiceAreaList),
       );
+      context.read<AuthVM>().singupPageController.jumpToPage(2);
+      context.read<AuthVM>().singupPage = 2;
       context.read<AuthVM>().update();
-      Get.toNamed(SignupScreenThreeOfLawyer.route);
+      // Get.toNamed(SignupScreenThreeOfLawyer.route);
     }
   }
 }

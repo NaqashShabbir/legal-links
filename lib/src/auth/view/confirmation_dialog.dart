@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/constants/enums.dart';
+import 'package:legal_links_app/src/auth/view/lawyer_singup/lawyer_singup.dart';
 import 'package:legal_links_app/src/auth/view/signup_screen.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../../../../../../../resources/resources.dart';
-import '../../../../../../../utils/common-widgets/custom_app_button.dart';
-import '../../../../../../auth/view/lawyer_singup/signup_screen_one.dart';
+import '../../../resources/resources.dart';
+import '../../../utils/common-widgets/custom_app_button.dart';
+import 'lawyer_singup/signup_screen_one.dart';
 
 class ConfirmationDialog extends StatefulWidget {
   const ConfirmationDialog({super.key});
@@ -93,7 +94,7 @@ class _ConfirmationDialogState extends State<ConfirmationDialog> {
                   onTap: () {
                     context.read<AuthVM>().userRole = UserRole.LAWYER;
                     context.read<AuthVM>().update();
-                    Get.toNamed(SignupScreenOneOfLawyer.route);
+                    Get.toNamed(LawyerSignupView.route);
                     debugPrint("User Role: ${context.read<AuthVM>().userRole} ");
                   },
                 ),

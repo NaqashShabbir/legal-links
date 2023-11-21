@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/constants/enums.dart';
@@ -21,7 +22,6 @@ import '../login_screen.dart';
 import 'signup_screen_two.dart';
 
 class SignupScreenOneOfLawyer extends StatefulWidget {
-  static String route = '/signupaslawyer';
   const SignupScreenOneOfLawyer({super.key});
 
   @override
@@ -65,12 +65,6 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
     return Consumer<AuthVM>(builder: (context, vm, _) {
       return SafeArea(
         child: Scaffold(
-          appBar: GlobalWidgets.appBar(
-            "Sign Up",
-            onTap: () {
-              Get.offAllNamed(LoginScreen.route);
-            },
-          ),
           body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(vertical: 12.sp, horizontal: 12.sp),
             child: Form(
@@ -80,14 +74,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  h3,
-                  SteperWidget(
-                    currentStep: 1,
-                  ),
-                  h2,
                   pickImageWidget(vm),
                   h3,
-
                   CustomTextFormField(
                     fieldTitle: "Full Name",
                     controller: nameController,
@@ -97,6 +85,9 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                     inputType: TextInputType.name,
                     validator: FieldValidator.validateEmpty,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(50),
+                    ],
                   ),
                   CustomTextFormField(
                     fieldTitle: "Email",
@@ -124,11 +115,16 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   CustomTextFormField(
                     controller: yeearOfExperienceController,
                     focusNode: confirmpasswordFocus,
-                    inputAction: TextInputAction.done,
-                    inputType: TextInputType.text,
-                    hintText: '1',
+                    inputAction: TextInputAction.next,
+                    hintText: 'Years of Experience',
                     fieldTitle: "Years of Experience",
-                    obscureText: isObscure2,
+                    validator: FieldValidator.validateEmpty,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    inputType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(2),
+                    ],
                   ),
                   h1,
                   Text(
@@ -142,19 +138,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   genderDropDown(vm: vm),
                   h3,
                   h1,
-                  // CustomButton(
-                  //   buttonTitle: "Continue to next step",
-                  //   tap: () async {
-                  //     if (_formKey.currentState!.validate()) {
-                  //       ZBotToast.showToastError(
-                  //           message: "Please there will be no empty field.");
-                  //     } else {
-                  //       Get.toNamed(SignupScreenTwoOfLawyer.route);
-                  //     }
-                  //   },
-                  // ),
                   CustomButton(
-                    buttonTitle: 'Continue to next step',
+                    buttonTitle: 'Continue',
                     tap: () async {
                       await butonFn();
                     },
@@ -189,6 +174,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
       }).toList(),
       decoration: R.decoration.fieldDecoration(hintText: "Select Gender"),
       value: selectedGender,
+      validator: (val) => FieldValidator.validateGender(val?.name ?? ""),
       onChanged: (GenderEnum? newValue) {
         setState(() {
           selectedGender = newValue;
@@ -377,7 +363,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
         profileImages: [profileImage?.path ?? ""],
       );
 
-      Get.toNamed(SignupScreenTwoOfLawyer.route);
+      context.read<AuthVM>().singupPageController.jumpToPage(1);
+      context.read<AuthVM>().singupPage = 1;
       context.read<AuthVM>().update();
     }
   }

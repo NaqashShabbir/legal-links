@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utils/hights_widths.dart';
 import '../../auth/view/login_screen.dart';
@@ -27,6 +29,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var vm = Provider.of<SettingsVM>(context, listen: false);
+      await vm.getData();
+      vm.update();
+    });
     controller = AnimationController(
       duration: const Duration(seconds: 3),
       vsync: this,

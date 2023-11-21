@@ -25,22 +25,16 @@ class AppDecoration {
       // contentPadding: EdgeInsets.symmetric(vertical: 15.sp, horizontal: 12),
       suffixIcon: suffixIcon != null ? Container(child: suffixIcon) : null,
 
-      hintStyle:
-          R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
-      errorStyle:
-          R.textStyles.poppinsRegular(fontSize: 9.sp, color: R.colors.red),
+      hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+      errorStyle: R.textStyles.poppinsRegular(fontSize: 9.sp, color: R.colors.red),
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: R.colors.primary),
-          borderRadius: BorderRadius.circular(8)),
+          borderSide: BorderSide(color: R.colors.primary), borderRadius: BorderRadius.circular(8)),
       focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: R.colors.primary),
-          borderRadius: BorderRadius.circular(8)),
+          borderSide: BorderSide(color: R.colors.primary), borderRadius: BorderRadius.circular(8)),
       errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: R.colors.primary),
-          borderRadius: BorderRadius.circular(8)),
+          borderSide: BorderSide(color: R.colors.red), borderRadius: BorderRadius.circular(8)),
       focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: R.colors.primary),
-          borderRadius: BorderRadius.circular(8)),
+          borderSide: BorderSide(color: R.colors.red), borderRadius: BorderRadius.circular(8)),
     );
   }
 

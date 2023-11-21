@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../../../../resources/resources.dart';
 import '../../../../../../utils/common-widgets/global_widget.dart';
-import '../../../../../../utils/hights_widths.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   static String route = "/PrivacyPolicyScreen";
@@ -15,8 +13,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalWidgets.appBar('Privasy Policy'),
-      body: Padding(
+      appBar: GlobalWidgets.appBar('Privacy Policy'),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.only(left: 25, right: 25, top: 35),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,6 +30,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           ],
         ),
       ),
+    
     );
   }
 }

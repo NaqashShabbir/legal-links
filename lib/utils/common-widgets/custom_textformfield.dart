@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,12 +14,14 @@ class CustomTextFormField extends StatefulWidget {
   final Widget? suffixIcon;
   final TextInputType? inputType;
   final TextInputAction? inputAction;
+  
   final FocusNode? focusNode;
   final int? maxLines;
   final int? maxLength;
   final bool? obscureText;
   final bool? readOnly;
   final AutovalidateMode? autovalidateMode;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextFormField(
       {super.key,
@@ -36,6 +39,7 @@ class CustomTextFormField extends StatefulWidget {
       this.maxLines = 1,
       this.maxLength,
       this.autovalidateMode,
+      this.inputFormatters,
       this.obscureText = false,
       this.readOnly = false});
 
@@ -74,10 +78,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
               },
           validator: widget.validator,
           onTap: widget.onTap,
+          
           keyboardType: widget.inputType,
           textInputAction: widget.inputAction,
           focusNode: widget.focusNode,
           autovalidateMode: widget.autovalidateMode,
+          inputFormatters: widget.inputFormatters ?? [],
           style: R.textStyles.poppinsRegular(
             fontSize: 11.sp,
             color: Colors.black,

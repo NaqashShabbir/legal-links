@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/home_view.dart';
-import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/confirmation_dialog.dart';
+import 'package:legal_links_app/src/auth/view/confirmation_dialog.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -31,7 +31,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController = TextEditingController(text: 'telorav291@nexxterp.com');
+  // TextEditingController emailController = TextEditingController(text: 'telorav291@nexxterp.com');
+  TextEditingController emailController = TextEditingController(text: 'hhhhhh@hhh.hhhcc');
   TextEditingController passwordController = TextEditingController(text: '123456@');
 
   FocusNode emailFocus = FocusNode();
@@ -53,12 +54,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      debugPrint("settings");
-                      FirebaseFirestore.instance
-                          .collection("settings")
-                          .doc("SbKBaXdi6T3Tldwjycwc")
-                          .get()
-                          .then((value) => debugPrint(jsonEncode(value.data())));
+                      // debugPrint("settings");
+                      // FirebaseFirestore.instance
+                      //     .collection("settings")
+                      //     .doc("SbKBaXdi6T3Tldwjycwc")
+                      //     .get()
+                      //     .then((value) => debugPrint(jsonEncode(value.data())));
                     },
                     child: Image.asset(R.images.logo, height: 25.h),
                   ),

@@ -19,6 +19,8 @@ import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 
 class AuthVM extends ChangeNotifier {
+  PageController singupPageController = PageController();
+  int singupPage = 0;
   List<LawyerModelSignup> castList = [
     LawyerModelSignup(id: "1", specialist: "Family law"),
     LawyerModelSignup(id: "2", specialist: "Corporate lawyer"),
