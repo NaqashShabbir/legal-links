@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/model/review_model.dart';
+import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/model/lawyer_schedule_model.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/model/user_reviews_model.dart';
 
 class LawyerVM extends ChangeNotifier {
+  LawyerScheduleModel lawyerScheduleModel = LawyerScheduleModel();
   List<UserReviewsModel> userreviewsList = [
     UserReviewsModel(
         userName: 'Johe doe',
