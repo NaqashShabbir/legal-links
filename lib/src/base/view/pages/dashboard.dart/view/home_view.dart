@@ -5,6 +5,7 @@ import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/chamber_widget.dart';
+import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../utils/hights_widths.dart';
@@ -30,164 +31,168 @@ class _HomeViewState extends State<HomeView> {
   PickLocationData? pickLocationData;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.sp),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // h1P5,
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
-                            imageBuilder: (context, imageProvider) => Container(
-                              height: 11.w,
-                              width: 11.w,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border:
-                                    Border.all(color: R.colors.white, width: 1),
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            fit: BoxFit.cover,
-                            errorWidget: (context, url, e) => SizedBox(
-                                height: 11.w,
-                                width: 11.w,
-                                child: const Icon(Icons.error)),
-                            placeholder: (context, url) {
-                              return Center(
-                                  child: SizedBox(
-                                height: 11.w,
-                                width: 11.w,
-                                child: CircularProgressIndicator.adaptive(
-                                    backgroundColor: R.colors.primary),
-                              ));
+    return Consumer<BaseVM>(builder: (context, vm, _) {
+      return SafeArea(
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.sp),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // h1P5,
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              var vm = Provider.of<BaseVM>(context, listen: false);
+                              await vm.getAllLawyers();
                             },
-                          ),
-                        ),
-                        w1,
-                        Text(
-                          "Hello, Jhon Doe!",
-                          style: R.textStyles.poppinsMedium(fontSize: 15.sp),
-                        ),
-                        w1,
-                      ],
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Find the Best Lawyer Near You",
-                          style: R.textStyles.poppinsMedium(),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Get.to(
-                              () => GoogleMapScreen(
-                                selectedLocation: latLng,
-                                address: (value) {
-                                  pickLocationData = value;
-                                  latLng =
-                                      LatLng(value.lat ?? 0, value.lng ?? 0);
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
+                                imageBuilder: (context, imageProvider) => Container(
+                                  height: 11.w,
+                                  width: 11.w,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: R.colors.white, width: 1),
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, e) => SizedBox(
+                                    height: 11.w, width: 11.w, child: const Icon(Icons.error)),
+                                placeholder: (context, url) {
+                                  return Center(
+                                      child: SizedBox(
+                                    height: 11.w,
+                                    width: 11.w,
+                                    child: CircularProgressIndicator.adaptive(
+                                        backgroundColor: R.colors.primary),
+                                  ));
                                 },
                               ),
-                            );
-                            setState(() {});
-                            debugPrint("pickLocationData $pickLocationData");
-                          },
-                          icon: const Icon(
-                            Icons.location_pin,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    searchField(),
-                    h2,
-                    Text(
-                      'How can we help you today?',
-                      style: R.textStyles.poppinsSemiBold(),
-                    ),
-                    h0P7,
-                    viewAllWidget("Chambers", () {}),
-                    h1,
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                          context.read<HomeVM>().ChamberList.length,
-                          (index) => ChamberWidget(
-                            model: context.read<HomeVM>().ChamberList[index],
+                          w1,
+                          Text(
+                            "Hello, Jhon Doe!",
+                            style: R.textStyles.poppinsMedium(fontSize: 15.sp),
+                          ),
+                          w1,
+                        ],
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Find the Best Lawyer Near You",
+                            style: R.textStyles.poppinsMedium(),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Get.to(
+                                () => GoogleMapScreen(
+                                  selectedLocation: latLng,
+                                  address: (value) {
+                                    pickLocationData = value;
+                                    latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
+                                  },
+                                ),
+                              );
+                              setState(() {});
+                              debugPrint("pickLocationData $pickLocationData");
+                            },
+                            icon: const Icon(
+                              Icons.location_pin,
+                            ),
+                          ),
+                        ],
+                      ),
+                      searchField(),
+                      h2,
+                      Text(
+                        'How can we help you today?',
+                        style: R.textStyles.poppinsSemiBold(),
+                      ),
+                      h0P7,
+                      viewAllWidget("Chambers", () {}),
+                      h1,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            context.read<HomeVM>().ChamberList.length,
+                            (index) => ChamberWidget(
+                              model: context.read<HomeVM>().ChamberList[index],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    h2,
-                    viewAllWidget("Lawyers", () {
-                      Get.toNamed(AllLawyersScreen.route);
-                    }),
-                    h1,
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                          context.read<HomeVM>().LawyerList.length,
-                          (index) => LawyerWidget(
-                            model: context.read<HomeVM>().LawyerList[index],
+                      h2,
+                      viewAllWidget("Lawyers ${vm.lawyersList.length}", () {
+                        Get.toNamed(AllLawyersScreen.route);
+                      }),
+                      h1,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            vm.lawyersList.length,
+                            (index) => LawyerWidget(
+                              model: vm.lawyersList[index],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    h0P7,
-                    viewAllWidget("Courts", () {}),
-                    h1,
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                          context.read<HomeVM>().courtList.length,
-                          (index) => CourtWidget(
-                            model: context.read<HomeVM>().courtList[index],
+                      h0P7,
+                      viewAllWidget("Courts", () {}),
+                      h1,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            context.read<HomeVM>().courtList.length,
+                            (index) => CourtWidget(
+                              model: context.read<HomeVM>().courtList[index],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    h2,
-                    viewAllWidget("Legal Links Users", () {}),
-                    h1,
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
-                          context.read<HomeVM>().feedbackList.length,
-                          (index) => FeedbackWidget(
-                            model: context.read<HomeVM>().feedbackList[index],
+                      h2,
+                      viewAllWidget("Legal Links Users", () {}),
+                      h1,
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            context.read<HomeVM>().feedbackList.length,
+                            (index) => FeedbackWidget(
+                              model: context.read<HomeVM>().feedbackList[index],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              h2,
-            ],
+                h2,
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget viewAllWidget(String title, Function() onPressed) {
@@ -197,8 +202,7 @@ class _HomeViewState extends State<HomeView> {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: R.textStyles
-              .poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
+          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
         ),
         TextButton(
           onPressed: onPressed,

@@ -45,11 +45,11 @@ class _BaseViewState extends State<BaseView> {
   void initState() {
     super.initState();
 
-    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-    //   var vm = Provider.of<SettingsVM>(context, listen: false);
-    //   await vm.getData();
-    //   vm.update();
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var vm = Provider.of<BaseVM>(context, listen: false);
+      await vm.getAllLawyers();
+      
+    });
   }
 
   @override
