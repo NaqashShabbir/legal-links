@@ -5,6 +5,8 @@ import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.da
 import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/src/landing_page/view/splash_screen.dart';
+import 'package:legal_links_app/src/lawyer_base/view/lawyer_base_view.dart';
+import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/view/schedule_appointment.dart';
 import 'package:legal_links_app/src/lawyer_profile/vm/signup_lawyer.dart';
 import 'package:legal_links_app/widget_test.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +58,7 @@ class MyApp extends StatelessWidget {
           title: 'Legal Links',
           debugShowCheckedModeBanner: false,
           // initialRoute: SignupScreenOneOfLawyer.route,
-          initialRoute: SplashScreen.route,
+          initialRoute: ScheduleAppointmentView.route,
           getPages: AppPages.pages,
           // home: TestWidget(),
         ),

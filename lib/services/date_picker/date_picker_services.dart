@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:legal_links_app/utils/zbot_toast.dart';
 
 import '../../resources/resources.dart';
 import '../../utils/helper.dart';
@@ -81,7 +82,8 @@ class DateTimePickerServices {
             selectEndDate.month, selectEndDate.day, endTime.hour, endTime.minute));
       } else {
         controller.clear();
-        // wrong time
+        ZBotToast.showToastError(
+            message: "Error: The end time must be equal to or later than the start time.");
       }
     }
   }
