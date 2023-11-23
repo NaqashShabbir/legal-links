@@ -4,8 +4,8 @@ import '../../../../../../../resources/resources.dart';
 
 class CustomData extends StatelessWidget {
   final String title;
-  final String subTitle;
-  const CustomData({super.key, required this.title, required this.subTitle});
+  String? subTitle;
+  CustomData({super.key, required this.title, this.subTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CustomData extends StatelessWidget {
         Expanded(
           flex: 6,
           child: Text(
-            subTitle,
+            subTitle!,
             style: R.textStyles.poppinsRegular(
               color: R.colors.darkGrey,
               letterSpacing: 0.45,

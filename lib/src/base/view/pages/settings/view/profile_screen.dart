@@ -5,6 +5,7 @@ import 'package:legal_links_app/services/auth_services.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/update_client_profile.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/view/update_lawyer_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../resources/app_images.dart';
@@ -23,7 +24,8 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProviderStateMixin {
+class _ProfileScreenState extends State<ProfileScreen>
+    with SingleTickerProviderStateMixin {
   late ClientModel model;
   dynamic args;
   late TabController tabController;
@@ -59,13 +61,20 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
             floatingActionButton: FloatingActionButton(
               backgroundColor: R.colors.primary,
               onPressed: () {
-                Get.to(() => const UpdateClientScreen());
+                if (authVm.userModel.role == UserRole.CLIENT) {
+                  Get.to(() => const UpdateClientScreen());
+                } else {
+                  Get.to(() => const UpdateLawyerProfile());
+                }
               },
-              child: const Icon(Icons.edit),
+              child: Icon(
+                Icons.edit,
+                color: R.colors.white,
+              ),
             ),
             appBar: GlobalWidgets.appBar('Profils'),
             body: authVm.userModel.role == UserRole.LAWYER
-                ? lawyerProfileWidget(authVm.userModel)
+                ? lawyerProfileWidget(authVm)
                 : clientProfileWidget(authVm),
           ),
         );
@@ -73,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     );
   }
 
-  Widget lawyerProfileWidget(UserModel model) {
+  Widget lawyerProfileWidget(AuthVM vm) {
     return Column(
       children: [
         h2,
@@ -87,7 +96,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: R.colors.primary.withOpacity(.8), width: 1),
+                  border: Border.all(
+                      color: R.colors.primary.withOpacity(.8), width: 1),
                 ),
                 child: Icon(
                   Icons.error,
@@ -99,10 +109,10 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
         ),
         h3,
         Text(
-          'jone Lawyer',
+          vm.userModel.fullName ?? '',
           style: R.textStyles.poppinsBold(fontSize: 15.sp),
         ),
-        Text('joneDone@gmail.com', style: R.textStyles.poppinsRegular()),
+        Text(vm.userModel.email ?? '', style: R.textStyles.poppinsRegular()),
         h4,
         Expanded(
           child: SingleChildScrollView(
@@ -120,30 +130,56 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                   style: R.textStyles.poppinsMedium(),
                 ),
                 Text(
-                  'cdaf dsfsdfv dsc  dv dsfcv fssd',
+                  vm.userModel.about ?? '',
                   style: R.textStyles.poppinsRegular(
                     color: R.colors.darkGrey,
                     letterSpacing: 0.45,
                   ),
                 ),
                 h1,
-                const CustomData(title: 'Name:', subTitle: "john ddd"),
+                CustomData(
+                    title: 'Name:', subTitle: vm.userModel.fullName ?? ''),
                 h1,
-                const CustomData(title: 'Location:', subTitle: "samnabad Lahore"),
+                CustomData(
+                  title: 'Qualifications:',
+                  subTitle: vm.userModel.qualifications
+                          ?.map((q) => " ${q.degree} (${q.institute})")
+                          .join(', ') ??
+                      '',
+                ),
                 h1,
-                const CustomData(title: 'Number:', subTitle: "94 3924032454"),
+                CustomData(
+                    title: 'Experience:',
+                    subTitle: vm.userModel.experience
+                            ?.map((e) => "${e.lawFirm} (${e.position})")
+                            .join(',') ??
+                        ''),
                 h1,
-                const CustomData(title: 'Email:', subTitle: "hgsd@wjkd.sdk"),
+                CustomData(title: 'Location:', subTitle: "samnabad Lahore"),
                 h1,
-                const CustomData(title: 'Gender:', subTitle: "Female"),
+                CustomData(
+                    title: 'Number:',
+                    subTitle: phoneNumber(vm.userModel.phoneNumber)),
                 h1,
-                const CustomData(title: 'Experience:', subTitle: "2 years"),
+                CustomData(title: 'Email:', subTitle: vm.userModel.email ?? ''),
                 h1,
-                const CustomData(title: 'License Number:', subTitle: "234 34354545"),
+                CustomData(
+                  title: 'Gender:',
+                  subTitle: getGenderString(vm.userModel.gender),
+                ),
                 h1,
-                const CustomData(title: 'Video Consultation Fee:', subTitle: "2000"),
+                CustomData(
+                    title: 'Years of Experience:',
+                    subTitle: vm.userModel.yearOfExperience ?? ''),
                 h1,
-                const CustomData(title: 'Physical Consultation Fee:', subTitle: "2000"),
+                CustomData(title: 'License Number:', subTitle: "234 34354545"),
+                h1,
+                CustomData(
+                    title: 'Video Consultation Fee:',
+                    subTitle: vm.userModel.feePerMeeting.toString()),
+                h1,
+                CustomData(
+                    title: 'Physical Consultation Fee:', subTitle: '2000'),
                 h4,
               ],
             ),
@@ -167,7 +203,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: R.colors.primary.withOpacity(.8), width: 1),
+                  border: Border.all(
+                      color: R.colors.primary.withOpacity(.8), width: 1),
                 ),
                 child: Icon(
                   Icons.error,
@@ -182,7 +219,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           authVM.userModel.fullName ?? '',
           style: R.textStyles.poppinsBold(fontSize: 15.sp),
         ),
-        Text(authVM.userModel.email ?? '', style: R.textStyles.poppinsRegular()),
+        Text(authVM.userModel.email ?? '',
+            style: R.textStyles.poppinsRegular()),
         h4,
         Expanded(
           child: SingleChildScrollView(
@@ -209,7 +247,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                 //     ),
                 //   ),
                 // h1,
-                CustomData(title: 'Name:', subTitle: authVM.userModel.fullName ?? ''),
+                CustomData(
+                    title: 'Name:', subTitle: authVM.userModel.fullName ?? ''),
                 h1,
                 // CustomData(
                 //     title: 'Location:',
@@ -220,7 +259,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                   subTitle: phoneNumber(authVM.userModel.phoneNumber),
                 ),
                 h1,
-                CustomData(title: 'Email:', subTitle: authVM.userModel.email ?? ''),
+                CustomData(
+                    title: 'Email:', subTitle: authVM.userModel.email ?? ''),
                 h1,
                 // CustomData(title: 'Gender:', subTitle: getGenderString(authVM.userModel.gender)),
               ],

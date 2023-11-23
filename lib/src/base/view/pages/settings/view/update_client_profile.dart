@@ -102,7 +102,8 @@ class _UpdateClientScreenState extends State<UpdateClientScreen> {
                   ),
                   h1,
                   Container(
-                    margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    margin:
+                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
                     child: Text(
                       "Phone Number",
                       style: R.textStyles.poppinsMedium(
@@ -147,7 +148,8 @@ class _UpdateClientScreenState extends State<UpdateClientScreen> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle:
+            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -195,7 +197,8 @@ class _UpdateClientScreenState extends State<UpdateClientScreen> {
       //     phoneNumberController.text.trim(), context),
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType:
+          const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputBorder: const UnderlineInputBorder(),
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
