@@ -181,10 +181,7 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                           await DateTimePickerServices.selectStartTimeFunction(
                               context, startTimeTC, TimeOfDay.now());
 
-                          final DateFormat format = DateFormat.jm();
-                          DateTime dateTime = format.parse(startTimeTC.text.trim());
-                          TimeOfDay timeOfDay = TimeOfDay.fromDateTime(dateTime);
-                          debugPrint("${R.colors.greenPrint} $timeOfDay  | $dateTime");
+                          debugPrint("${R.colors.greenPrint} |");
                           setState(() {});
                         },
                       ),
@@ -203,10 +200,7 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                         readOnly: true,
                         onTap: () {
                           DateTimePickerServices.selectEndTimeFunction(context, endTimeTC);
-                          final DateFormat format = DateFormat.jm();
-                          DateTime dateTime = format.parse(endTimeTC.text.trim());
-                          TimeOfDay timeOfDay = TimeOfDay.fromDateTime(dateTime);
-                          debugPrint("${R.colors.greenPrint} $timeOfDay  | $dateTime");
+                          debugPrint("${R.colors.greenPrint} |");
 
                           setState(() {});
                         },

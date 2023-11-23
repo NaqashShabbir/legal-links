@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class LawyerScheduleModel {
@@ -16,15 +17,15 @@ class LawyerScheduleModel {
     intervalMinutes = json['intervalMinutes'];
     lawyerId = json['lawyerId'];
   }
-  List<DateTime>? availableDates;
-  TimeOfDay? officeEndTime;
-  TimeOfDay? officeStartTime;
+  List<Timestamp>? availableDates;
+  Timestamp? officeEndTime;
+  Timestamp? officeStartTime;
   int? intervalMinutes;
   String? lawyerId;
   LawyerScheduleModel copyWith({
-    List<DateTime>? availableDates,
-    TimeOfDay? officeEndTime,
-    TimeOfDay? officeStartTime,
+    List<Timestamp>? availableDates,
+    Timestamp? officeEndTime,
+    Timestamp? officeStartTime,
     int? intervalMinutes,
     String? lawyerId,
   }) =>
