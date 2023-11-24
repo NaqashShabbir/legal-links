@@ -78,8 +78,11 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       // aboutTC.text = vm.userModel.about ?? "";
       nameController.text = vm.userModel.fullName ?? "";
       phoneNumberController.text = vm.userModel.phoneNumber?.number ?? "";
-      yearExperienceController.text =
-          vm.userModel.experiencedCasesCount.toString();
+      if (vm.userModel.experiencedCasesCount != null) {
+        yearExperienceController.text =
+            vm.userModel.experiencedCasesCount.toString();
+      }
+
       feeController.text = vm.userModel.feePerMeeting.toString();
       assistantController.text = vm.userModel.assistantName ?? "";
       caseCountController.text = vm.userModel.casesCount.toString();
@@ -117,29 +120,29 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   h3,
-                  CustomTextFormField(
-                    fieldTitle: "Full Name",
-                    controller: nameController,
-                    hintText: 'Enter name',
-                    focusNode: nameFocus,
-                    inputAction: TextInputAction.next,
-                    inputType: TextInputType.name,
-                    validator: FieldValidator.validateEmpty,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                  ),
-                  h1,
-                  Container(
-                    margin:
-                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
-                    child: Text(
-                      "Phone Number",
-                      style: R.textStyles.poppinsMedium(
-                        fontSize: 11.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  phoneNumberField(),
+                  // CustomTextFormField(
+                  //   fieldTitle: "Full Name",
+                  //   controller: nameController,
+                  //   hintText: 'Enter name',
+                  //   focusNode: nameFocus,
+                  //   inputAction: TextInputAction.next,
+                  //   inputType: TextInputType.name,
+                  //   validator: FieldValidator.validateEmpty,
+                  //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  // ),
+                  // h1,
+                  // Container(
+                  //   margin:
+                  //       EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                  //   child: Text(
+                  //     "Phone Number",
+                  //     style: R.textStyles.poppinsMedium(
+                  //       fontSize: 11.sp,
+                  //       color: Colors.black,
+                  //     ),
+                  //   ),
+                  // ),
+                  // phoneNumberField(),
                   h1,
                   CustomTextFormField(
                     fieldTitle: "Year of experience",
@@ -163,12 +166,12 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   h1,
-                  Text(
-                    'SpecialList',
-                    style: R.textStyles.poppinsMedium(),
-                  ),
-                  h1,
-                  speciallistLawyerDropdown(vm: vm),
+                  // Text(
+                  //   'SpecialList',
+                  //   style: R.textStyles.poppinsMedium(),
+                  // ),
+                  // h1,
+                  // speciallistLawyerDropdown(vm: vm),
                   CustomTextFormField(
                     controller: assistantController,
                     focusNode: assistantFocus,
@@ -246,33 +249,33 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     h0P8,
                   ],
                   h1,
-                  heading('Your Experience', () {
-                    setState(() {
-                      experienceList.add(
-                        Experience(),
-                      );
-                    });
-                  }),
-                  h1,
-                  for (int index = 0;
-                      index < experienceList.length;
-                      index++) ...[
-                    customTextFieldExperience(experienceList[index], index),
-                    h0P8,
-                  ],
-                  h1,
-                  heading('Your Qualification', () {
-                    setState(() {
-                      qualificationList.add(Qualifications());
-                    });
-                  }),
-                  h1,
-                  for (int index = 0;
-                      index < qualificationList.length;
-                      index++) ...[
-                    qualificationFieldRow(qualificationList[index], index),
-                    h0P8,
-                  ],
+                  // heading('Your Experience', () {
+                  //   setState(() {
+                  //     experienceList.add(
+                  //       Experience(),
+                  //     );
+                  //   });
+                  // }),
+                  // h1,
+                  // for (int index = 0;
+                  //     index < experienceList.length;
+                  //     index++) ...[
+                  //   customTextFieldExperience(experienceList[index], index),
+                  //   h0P8,
+                  // ],
+                  // h1,
+                  // heading('Your Qualification', () {
+                  //   setState(() {
+                  //     qualificationList.add(Qualifications());
+                  //   });
+                  // }),
+                  // h1,
+                  // for (int index = 0;
+                  //     index < qualificationList.length;
+                  //     index++) ...[
+                  //   qualificationFieldRow(qualificationList[index], index),
+                  //   h0P8,
+                  // ],
                   h1,
                 ],
               ),
@@ -402,18 +405,26 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
   }
 
   Future<void> buttonFn() async {
+    print('Fee Value: ${feeController.text}');
+
     num feeValue = double.parse(feeController.text.trim());
+    print('Fee Value: ${feeValue}');
+
     if (_formKey.currentState!.validate()) {
       Timestamp now = Timestamp.now();
       UserModel updateClient = UserModel(
-          fullName: nameController.text.trim(),
-          updatedAt: now,
-          phoneNumber: PhoneNumberModel(
-            number: phoneNumberController.text.trim(),
-            isoCode: number.isoCode,
-            countryCode: number.dialCode,
-          ),
-          feePerMeeting: feeValue);
+        fullName: nameController.text.trim(),
+        updatedAt: now,
+        phoneNumber: PhoneNumberModel(
+          number: phoneNumberController.text.trim(),
+          isoCode: number.isoCode,
+          countryCode: number.dialCode,
+        ),
+        feePerMeeting: feeValue,
+        about: aboutController.text,
+        yearOfExperience: yearExperienceController.text.toString(),
+        practiceAreas: practiceAreaList,
+      );
       //
       Map<String, dynamic> updateData = {
         'fullName': updateClient.fullName,

@@ -170,7 +170,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                 h1,
                 CustomData(
                     title: 'Years of Experience:',
-                    subTitle: vm.userModel.yearOfExperience ?? ''),
+                    subTitle: vm.userModel.experiencedCasesCount.toString()),
+                h1,
+                CustomData(
+                    title: 'Cases Count:',
+                    subTitle: vm.userModel.casesCount.toString()),
                 h1,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -189,11 +193,16 @@ class _ProfileScreenState extends State<ProfileScreen>
                     ),
                     Expanded(
                       flex: 6,
-                      child: Text(
-                        "vm.userModel.practiceAreas",
-                        style: R.textStyles.poppinsRegular(
-                          color: R.colors.darkGrey,
-                          letterSpacing: 0.45,
+                      child: Column(
+                        children: List.generate(
+                          vm.userModel.practiceAreas!.length,
+                          (index) => Text(
+                            vm.userModel.practiceAreas![index],
+                            style: R.textStyles.poppinsRegular(
+                              color: R.colors.darkGrey,
+                              letterSpacing: 0.45,
+                            ),
+                          ),
                         ),
                       ),
                     ),
