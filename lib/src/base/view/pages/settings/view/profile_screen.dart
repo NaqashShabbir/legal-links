@@ -172,14 +172,40 @@ class _ProfileScreenState extends State<ProfileScreen>
                     title: 'Years of Experience:',
                     subTitle: vm.userModel.yearOfExperience ?? ''),
                 h1,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Text(
+                        'Practice Area',
+                        style: R.textStyles.poppinsMedium(
+                          fontSize: 12.sp,
+                          color: R.colors.black,
+                          letterSpacing: 0.45,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 6,
+                      child: Text(
+                        "vm.userModel.practiceAreas",
+                        style: R.textStyles.poppinsRegular(
+                          color: R.colors.darkGrey,
+                          letterSpacing: 0.45,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                h1,
                 CustomData(title: 'License Number:', subTitle: "234 34354545"),
                 h1,
                 CustomData(
-                    title: 'Video Consultation Fee:',
+                    title: 'Office Consultation Fee:',
                     subTitle: vm.userModel.feePerMeeting.toString()),
                 h1,
-                CustomData(
-                    title: 'Physical Consultation Fee:', subTitle: '2000'),
                 h4,
               ],
             ),
