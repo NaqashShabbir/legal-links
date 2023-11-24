@@ -18,7 +18,8 @@ class SignupScreenTwoOfLawyer extends StatefulWidget {
   const SignupScreenTwoOfLawyer({super.key});
 
   @override
-  State<SignupScreenTwoOfLawyer> createState() => _SignupScreenTwoOfLawyerState();
+  State<SignupScreenTwoOfLawyer> createState() =>
+      _SignupScreenTwoOfLawyerState();
 }
 
 class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
@@ -97,7 +98,9 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     });
                   }),
                   h1,
-                  for (int index = 0; index < qualificationList.length; index++) ...[
+                  for (int index = 0;
+                      index < qualificationList.length;
+                      index++) ...[
                     qualificationFieldRow(qualificationList[index], index),
                     h0P8,
                   ],
@@ -110,7 +113,9 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     });
                   }),
                   h1,
-                  for (int index = 0; index < experienceList.length; index++) ...[
+                  for (int index = 0;
+                      index < experienceList.length;
+                      index++) ...[
                     customTextFieldExperience(experienceList[index], index),
                     h0P8,
                   ],
@@ -121,7 +126,9 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     });
                   }),
                   h1,
-                  for (int index = 0; index < practiceAreaList.length; index++) ...[
+                  for (int index = 0;
+                      index < practiceAreaList.length;
+                      index++) ...[
                     practiceField(practiceAreaList[index], index),
                     h0P8,
                   ],
@@ -153,7 +160,8 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 value: item,
                 child: Text(
                   item.specialist ?? "",
-                  style: R.textStyles.poppinsRegular(color: R.colors.black, fontSize: 8.sp),
+                  style: R.textStyles
+                      .poppinsRegular(color: R.colors.black, fontSize: 8.sp),
                 ),
               ))
           .toList(),
@@ -180,7 +188,8 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 value: item,
                 child: Text(
                   item.specialist ?? "",
-                  style: R.textStyles.poppinsRegular(color: R.colors.black, fontSize: 8.sp),
+                  style: R.textStyles
+                      .poppinsRegular(color: R.colors.black, fontSize: 8.sp),
                 ),
               ))
           .toList(),
@@ -210,7 +219,8 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
             onPressed: onTap,
             child: Text(
               'ADD MORE',
-              style: R.textStyles.poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
+              style: R.textStyles
+                  .poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
             )),
       ],
     );
