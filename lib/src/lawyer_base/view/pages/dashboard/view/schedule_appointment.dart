@@ -247,10 +247,10 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
               child: CustomButton(
                 buttonTitle: "Save",
                 tap: () {
-                  dates;
                   List<Timestamp> timestamplist = dates.map((e) => Timestamp.fromDate(e)).toList();
 
                   if (startTime != null && endTime != null && timestamplist.isNotEmpty) {
+                    Timestamp now = Timestamp.now();
                     Map body = {
                       "id": context.read<AuthVM>().userModel.id,
                       "availableDates": timestamplist,
@@ -266,6 +266,9 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                       officeStartTime: Timestamp.fromDate(startTime!),
                       officeEndTime: Timestamp.fromDate(endTime!),
                       lawyerId: context.read<AuthVM>().userModel.id,
+                      createdAt: now,
+                      updatedAt: now,
+                      status: 0,
                     );
                     debugPrint(
                         "${R.colors.cyanPrint}model ${vm.lawyerScheduleModel.availableDates}");
