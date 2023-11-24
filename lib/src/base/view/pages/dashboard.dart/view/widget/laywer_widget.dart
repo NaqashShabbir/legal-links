@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/lawyers_model.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/lawyer_detail_screen.dart';
 import 'package:sizer/sizer.dart';
@@ -12,7 +13,7 @@ import '../../../../../../../resources/resources.dart';
 import '../../../../../../../utils/hights_widths.dart';
 
 class LawyerWidget extends StatefulWidget {
-  LawyersModel model;
+  UserModel model;
 
   LawyerWidget({super.key, required this.model});
 
@@ -32,7 +33,7 @@ class _LawyerWidgetState extends State<LawyerWidget> {
           margin: EdgeInsets.all(4.sp),
           padding: EdgeInsets.all(8.sp),
           width: 60.w,
-          height: 15.h,
+          // height: 15.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: R.colors.white,
@@ -49,10 +50,7 @@ class _LawyerWidgetState extends State<LawyerWidget> {
               ),
             ],
             gradient: LinearGradient(
-              colors: [
-                R.colors.primary,
-                R.colors.lightPrimary
-              ], // Replace with your desired colors
+              colors: [R.colors.primary, R.colors.lightPrimary], // Replace with your desired colors
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -66,7 +64,7 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: CachedNetworkImage(
-                        imageUrl: widget.model.profileImageUrl ?? '',
+                        imageUrl: widget.model.profileImages?.first ?? '',
                         imageBuilder: (context, imageProvider) => Container(
                           height: 14.w,
                           width: 14.w,
@@ -80,10 +78,8 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                           ),
                         ),
                         fit: BoxFit.cover,
-                        errorWidget: (context, url, e) => SizedBox(
-                            height: 14.w,
-                            width: 14.w,
-                            child: const Icon(Icons.error)),
+                        errorWidget: (context, url, e) =>
+                            SizedBox(height: 14.w, width: 14.w, child: const Icon(Icons.error)),
                         placeholder: (context, url) {
                           return Center(
                               child: SizedBox(
@@ -101,25 +97,25 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.model.username ?? "",
+                            widget.model.fullName ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: R.textStyles.poppinsSemiBold(
-                                fontSize: 11.sp, color: R.colors.white),
+                            style: R.textStyles
+                                .poppinsSemiBold(fontSize: 11.sp, color: R.colors.white),
                           ),
                           Text(
-                            widget.model.lawyerType ?? "",
+                            widget.model.casesCount.toString(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: R.textStyles.poppinsRegular(
-                                fontSize: 10.sp, color: R.colors.white),
+                            style:
+                                R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.white),
                           ),
                           Text(
-                            widget.model.experience ?? "",
+                            widget.model.yearOfExperience ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: R.textStyles.poppinsRegular(
-                                fontSize: 10.sp, color: R.colors.white),
+                            style:
+                                R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.white),
                           ),
                         ],
                       ),
@@ -146,14 +142,12 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                     ),
                     Text(
                       '4.5/8',
-                      style:
-                          R.textStyles.poppinsSemiBold(color: R.colors.white),
+                      style: R.textStyles.poppinsSemiBold(color: R.colors.white),
                     ),
                     const Spacer(),
                     Text(
-                      widget.model.fee ?? '',
-                      style:
-                          R.textStyles.poppinsSemiBold(color: R.colors.white),
+                      widget.model.feePerMeeting?.toStringAsFixed(2) ?? "",
+                      style: R.textStyles.poppinsSemiBold(color: R.colors.white),
                     ),
                   ],
                 )
