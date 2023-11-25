@@ -128,255 +128,267 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
           body: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.sp),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 12.sp),
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 10.sp, vertical: 15.sp),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: R.colors.grey),
-                      borderRadius: BorderRadius.circular(10.sp),
-                      boxShadow: [
-                        BoxShadow(
-                          color: R.colors.grey.withOpacity(.1),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: const Offset(0, 3),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.sp),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 12.sp),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.sp, vertical: 15.sp),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: R.colors.grey),
+                        borderRadius: BorderRadius.circular(10.sp),
+                        boxShadow: [
+                          BoxShadow(
+                            color: R.colors.grey.withOpacity(.1),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          //   model?.profileImageUrl ??
+                                          '',
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        height: 14.w,
+                                        width: 14.w,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                              color: R.colors.white, width: 1),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      fit: BoxFit.cover,
+                                      errorWidget: (context, url, e) =>
+                                          SizedBox(
+                                              height: 14.w,
+                                              width: 14.w,
+                                              child: const Icon(Icons.error)),
+                                      placeholder: (context, url) {
+                                        return Center(
+                                            child: SizedBox(
+                                          height: 14.w,
+                                          width: 14.w,
+                                          child: CircularProgressIndicator
+                                              .adaptive(
+                                                  backgroundColor:
+                                                      R.colors.primary),
+                                        ));
+                                      },
+                                    ),
+                                  ),
+                                  w2,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${model?.fullName}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: R.textStyles.poppinsSemiBold(
+                                            fontSize: 11.sp,
+                                            color: R.colors.black),
+                                      ),
+                                      Row(
+                                        children: List.generate(
+                                          model?.specialist?.length ?? 0,
+                                          (index) => Text(
+                                            // model?.specialist![index],
+                                            "${model?.specialist?[index]}",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: R.textStyles.poppinsRegular(
+                                                fontSize: 10.sp,
+                                                color: R.colors.black),
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Fee: ${model?.feePerMeeting}',
+                                            style: R.textStyles.poppinsSemiBold(
+                                                fontSize: 10.sp),
+                                          ),
+                                          Text(
+                                            vm.userModel.feePerMeeting
+                                                .toString(),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: R.textStyles.poppinsRegular(
+                                                fontSize: 10.sp,
+                                                color: R.colors.black),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.more_vert))
+                                ]),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    h1,
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     Row(
+                    //       children: [
+                    //         CircleAvatar(
+                    //           backgroundColor: R.colors.grey,
+                    //           child: IconButton(
+                    //             onPressed: () {},
+                    //             icon: Icon(
+                    //               Icons.verified,
+                    //               size: 15.sp,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         w1,
+                    //         Text(
+                    //           'Verified Lawyer',
+                    //           style: R.textStyles.poppinsRegular(),
+                    //         )
+                    //       ],
+                    //     ),
+                    //     Row(
+                    //       children: [
+                    //         CircleAvatar(
+                    //           backgroundColor: R.colors.grey,
+                    //           child: IconButton(
+                    //             onPressed: () {},
+                    //             icon: Icon(
+                    //               Icons.online_prediction,
+                    //               size: 15.sp,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         w1,
+                    //         Text(
+                    //           'Online prescription',
+                    //           style: R.textStyles.poppinsRegular(),
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
+                    h2,
+                    AnimatedContainer(
+                      padding: EdgeInsets.all(7.sp),
+                      decoration: R.decoration.decoration(radius: 15),
+                      duration: const Duration(milliseconds: 1200),
+                      curve: Curves.easeIn,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        //   model?.profileImageUrl ??
-                                        '',
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      height: 14.w,
-                                      width: 14.w,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                            color: R.colors.white, width: 1),
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    fit: BoxFit.cover,
-                                    errorWidget: (context, url, e) => SizedBox(
-                                        height: 14.w,
-                                        width: 14.w,
-                                        child: const Icon(Icons.error)),
-                                    placeholder: (context, url) {
-                                      return Center(
-                                          child: SizedBox(
-                                        height: 14.w,
-                                        width: 14.w,
-                                        child:
-                                            CircularProgressIndicator.adaptive(
-                                                backgroundColor:
-                                                    R.colors.primary),
-                                      ));
-                                    },
-                                  ),
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Select date for consultation',
+                                style: R.textStyles
+                                    .poppinsSemiBold(color: R.colors.primary),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isOpened = !isOpened;
+                                  });
+                                },
+                                padding: EdgeInsets.zero,
+                                icon: Icon(
+                                  isOpened
+                                      ? Icons.arrow_drop_up_rounded
+                                      : Icons.arrow_drop_down_rounded,
+                                  color: R.colors.black,
+                                  size: 25.sp,
                                 ),
-                                w2,
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      vm.userModel.fullName ?? "",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: R.textStyles.poppinsSemiBold(
-                                          fontSize: 11.sp,
-                                          color: R.colors.black),
-                                    ),
-                                    Text(
-                                      // model?.lawyerType ??
-                                      "",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: R.textStyles.poppinsRegular(
-                                          fontSize: 10.sp,
-                                          color: R.colors.black),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Fee: ',
-                                          style: R.textStyles
-                                              .poppinsSemiBold(fontSize: 10.sp),
-                                        ),
-                                        Text(
-                                          vm.userModel.feePerMeeting.toString(),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: R.textStyles.poppinsRegular(
-                                              fontSize: 10.sp,
-                                              color: R.colors.black),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Spacer(),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.more_vert))
-                              ]),
+                              )
+                            ],
+                          ),
+                          h1,
+                          if (isOpened)
+                            SfDateRangePicker(
+                              headerStyle: DateRangePickerHeaderStyle(
+                                  textStyle: R.textStyles
+                                      .poppinsMedium(color: R.colors.primary)),
+                              rangeTextStyle: R.textStyles
+                                  .poppinsRegular(color: R.colors.primary),
+                              selectionColor: R.colors.primary,
+                              onSelectionChanged: _onSelectionChanged,
+                              selectionMode:
+                                  DateRangePickerSelectionMode.single,
+                              initialSelectedRange: PickerDateRange(
+                                  DateTime.now()
+                                      .subtract(const Duration(days: 4)),
+                                  DateTime.now().add(const Duration(days: 3))),
+                            ),
                         ],
                       ),
                     ),
-                  ),
-                  h1,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: R.colors.grey,
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.verified,
-                                size: 15.sp,
-                              ),
-                            ),
-                          ),
-                          w1,
-                          Text(
-                            'Verified Lawyer',
-                            style: R.textStyles.poppinsRegular(),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: R.colors.grey,
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.online_prediction,
-                                size: 15.sp,
-                              ),
-                            ),
-                          ),
-                          w1,
-                          Text(
-                            'Online prescription',
-                            style: R.textStyles.poppinsRegular(),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                  h2,
-                  AnimatedContainer(
-                    padding: EdgeInsets.all(7.sp),
-                    decoration: R.decoration.decoration(radius: 15),
-                    duration: const Duration(milliseconds: 1200),
-                    curve: Curves.easeIn,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    h3,
+                    Text(
+                      'Select Time for consultation',
+                      style:
+                          R.textStyles.poppinsSemiBold(color: R.colors.primary),
+                    ),
+                    h1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Select date for consultation',
-                              style: R.textStyles
-                                  .poppinsSemiBold(color: R.colors.primary),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isOpened = !isOpened;
-                                });
-                              },
-                              padding: EdgeInsets.zero,
-                              icon: Icon(
-                                isOpened
-                                    ? Icons.arrow_drop_up_rounded
-                                    : Icons.arrow_drop_down_rounded,
-                                color: R.colors.black,
-                                size: 25.sp,
-                              ),
-                            )
-                          ],
-                        ),
-                        h1,
-                        if (isOpened)
-                          SfDateRangePicker(
-                            headerStyle: DateRangePickerHeaderStyle(
-                                textStyle: R.textStyles
-                                    .poppinsMedium(color: R.colors.primary)),
-                            rangeTextStyle: R.textStyles
-                                .poppinsRegular(color: R.colors.primary),
-                            selectionColor: R.colors.primary,
-                            onSelectionChanged: _onSelectionChanged,
-                            selectionMode: DateRangePickerSelectionMode.single,
-                            initialSelectedRange: PickerDateRange(
-                                DateTime.now()
-                                    .subtract(const Duration(days: 4)),
-                                DateTime.now().add(const Duration(days: 3))),
-                          ),
+                        timeSlots('12:00 PM'),
+                        timeSlots('12:15 PM'),
+                        timeSlots('12:30 PM'),
+                        timeSlots('12:45 PM'),
                       ],
                     ),
-                  ),
-                  h3,
-                  Text(
-                    'Select Time for consultation',
-                    style:
-                        R.textStyles.poppinsSemiBold(color: R.colors.primary),
-                  ),
-                  h1,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      timeSlots('12:00 PM'),
-                      timeSlots('12:15 PM'),
-                      timeSlots('12:30 PM'),
-                      timeSlots('12:45 PM'),
-                    ],
-                  ),
-                  h1,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      timeSlots('01:00 PM'),
-                      timeSlots('01:15 PM'),
-                      timeSlots('01:30 PM'),
-                      timeSlots('01:45 PM'),
-                    ],
-                  ),
-                  h1,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      timeSlots('02:00 PM'),
-                      timeSlots('02:15 PM'),
-                      timeSlots('02:30 PM'),
-                      timeSlots('02:45 PM'),
-                    ],
-                  ),
-                ],
+                    h1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        timeSlots('01:00 PM'),
+                        timeSlots('01:15 PM'),
+                        timeSlots('01:30 PM'),
+                        timeSlots('01:45 PM'),
+                      ],
+                    ),
+                    h1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        timeSlots('02:00 PM'),
+                        timeSlots('02:15 PM'),
+                        timeSlots('02:30 PM'),
+                        timeSlots('02:45 PM'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

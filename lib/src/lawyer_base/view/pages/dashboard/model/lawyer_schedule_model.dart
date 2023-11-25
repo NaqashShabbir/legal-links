@@ -14,7 +14,15 @@ class LawyerScheduleModel {
   });
 
   LawyerScheduleModel.fromJson(dynamic json) {
-    availableDates = json['availableDates'] != null ? json['availableDates'].cast<String>() : [];
+    if (json['availableDates'] is List) {
+      availableDates = (json['availableDates'] as List)
+          .map((date) => date is Timestamp ? date : null)
+          .where((date) => date != null)
+          .cast<Timestamp>()
+          .toList();
+    } else {
+      availableDates = [];
+    }
     officeEndTime = json['officeEndTime'];
     officeStartTime = json['officeStartTime'];
     intervalMinutes = json['intervalMinutes'];
