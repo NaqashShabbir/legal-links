@@ -4,6 +4,7 @@ import 'package:legal_links_app/constants/global_functions.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/appointment_view.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/home_view.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/settings_view.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
@@ -46,9 +47,17 @@ class _BaseViewState extends State<BaseView> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      var vm = Provider.of<BaseVM>(context, listen: false);
-      await vm.getAllLawyers();
-      
+      var baseVM = Provider.of<BaseVM>(context, listen: false);
+      var homeVM = Provider.of<HomeVM>(context, listen: false);
+
+      await Future.wait([
+        baseVM.getAllLawyers(),
+        homeVM.getChamberList(),
+        homeVM.getCourtList(),
+        homeVM.getLawFirmList(),
+      ]);
+
+      setState(() {});
     });
   }
 

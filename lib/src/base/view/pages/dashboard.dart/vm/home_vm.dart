@@ -15,14 +15,47 @@ class HomeVM extends ChangeNotifier {
 
   Future<void> getChamberList() async {
     try {
-      debugPrint("ChamberList GETTING _________");
       ZBotToast.loadingShow();
-      QuerySnapshot q = await FBCollections.users.get();
+      QuerySnapshot q = await FBCollections.chambers.get();
       chamberList.clear();
       for (var element in q.docs) {
         chamberList.add(ChamberModel.fromJson(element));
       }
-      debugPrint("ChamberList GETTING _________ ${chamberList.length}");
+      debugPrint("ChamberList length _________ ${chamberList.length}");
+      notifyListeners();
+      ZBotToast.loadingClose();
+    } catch (e) {
+      ZBotToast.loadingClose();
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> getCourtList() async {
+    try {
+      ZBotToast.loadingShow();
+      QuerySnapshot q = await FBCollections.courts.get();
+      courtList.clear();
+      for (var element in q.docs) {
+        courtList.add(ChamberModel.fromJson(element));
+      }
+      debugPrint("courtList length _________ ${courtList.length}");
+      notifyListeners();
+      ZBotToast.loadingClose();
+    } catch (e) {
+      ZBotToast.loadingClose();
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> getLawFirmList() async {
+    try {
+      ZBotToast.loadingShow();
+      QuerySnapshot q = await FBCollections.lawFirms.get();
+      lawFirmList.clear();
+      for (var element in q.docs) {
+        lawFirmList.add(ChamberModel.fromJson(element));
+      }
+      debugPrint("lawFirmList length _________ ${lawFirmList.length}");
       notifyListeners();
       ZBotToast.loadingClose();
     } catch (e) {

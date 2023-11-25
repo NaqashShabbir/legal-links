@@ -31,9 +31,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController = TextEditingController(text: 'telorav291@nexxterp.com');
+  TextEditingController emailController = TextEditingController(text: 'customer@gmail.com');
   // TextEditingController emailController = TextEditingController(text: 'hhhhhh@hhh.hhhcc');
-  TextEditingController passwordController = TextEditingController(text: '123456@');
+
+  TextEditingController passwordController = TextEditingController(text: '12345@');
 
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
@@ -54,13 +55,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      debugPrint("mrd0EqAOwVKV7wkksyf6");
-                      FirebaseFirestore.instance
-                          .collection("lawyer_scedule")
-                          .doc("mrd0EqAOwVKV7wkksyf6")
-                          .get()
-                          .then((value) => debugPrint(jsonEncode(value.data())));
-                      
+                      // debugPrint("mrd0EqAOwVKV7wkksyf6");
+                      // FirebaseFirestore.instance
+                      //     .collection("lawyer_scedule")
+                      //     .doc("mrd0EqAOwVKV7wkksyf6")
+                      //     .get()
+                      //     .then((value) => debugPrint(jsonEncode(value.data())));
                     },
                     child: Image.asset(R.images.logo, height: 25.h),
                   ),

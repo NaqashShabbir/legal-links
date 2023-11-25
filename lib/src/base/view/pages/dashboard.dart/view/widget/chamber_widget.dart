@@ -16,44 +16,42 @@ class ChamberWidget extends StatefulWidget {
 class _ChamberWidgetState extends State<ChamberWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.all(4.sp),
-          width: 25.w,
-          height: 25.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(60),
-            color: R.colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.20),
-                offset: const Offset(-5, -2),
-                blurRadius: 12,
+    return Container(
+      width: 25.w,
+      // margin: EdgeInsets.symmetric(vertical: 4.sp),
+      child: Column(
+        children: [
+          Container(
+            margin: EdgeInsets.all(4.sp),
+            height: 20.w,
+            width: 20.w,
+            decoration: R.decoration.decoration(radius: 15),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: CachedNetworkImage(
+                imageUrl: widget.model.image ?? "",
+                fit: BoxFit.cover,
+                height: 20.w,
+                width: 20.w,
+                errorWidget: (context, url, error) {
+                  return SizedBox(
+                    height: 20.w,
+                    width: 20.w,
+                    child: const Icon(Icons.error_rounded),
+                  );
+                },
               ),
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.20),
-                offset: const Offset(3, 3),
-                blurRadius: 12,
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(60),
-            child: CachedNetworkImage(
-              imageUrl: widget.model.image ?? "",
-              fit: BoxFit.cover,
             ),
           ),
-        ),
-        h1,
-        Text(
-          widget.model.name ?? '',
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: R.textStyles.poppinsMedium(fontSize: 11.sp),
-        )
-      ],
+          h1,
+          Text(
+            widget.model.name ?? '',
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: R.textStyles.poppinsMedium(fontSize: 11.sp),
+          )
+        ],
+      ),
     );
   }
 }

@@ -1,24 +1,21 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:legal_links_app/resources/resources.dart';
-import 'package:legal_links_app/services/firebase_collections.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/chamber_widget.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/reviews_widet.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../../../../../utils/hights_widths.dart';
 import '../vm/home_vm.dart';
 import 'all_lawyers_screen.dart';
 import 'widget/court_widget.dart';
 import 'widget/laywer_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'widget/reviews_widet.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -53,28 +50,30 @@ class _HomeViewState extends State<HomeView> {
                           InkWell(
                             onTap: () async {
                               // var vm =
-                                  Provider.of<BaseVM>(context, listen: false);
-                              // await vm.getAllLawyers();
-                              // btnFun();
-                              // FirebaseFirestore.instance
-                              //     .collection("chambers")
-                              //     .doc("JVSOwcn2jwWUEGlscRNj")
-                              //     .get()
-                              //     .then((value) => debugPrint(jsonEncode(value.data())));
+                              // Provider.of<BaseVM>(context, listen: false);
+                              // var baseVM = Provider.of<BaseVM>(context, listen: false);
+                              // var homeVM = Provider.of<HomeVM>(context, listen: false);
+
+                              // await Future.wait([
+                              //   baseVM.getAllLawyers(),
+                              //   homeVM.getChamberList(),
+                              //   homeVM.getCourtList(),
+                              //   homeVM.getLawFirmList(),
+                              // ]);
+
+                              // setState(() {});
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: CachedNetworkImage(
                                 imageUrl:
                                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
+                                imageBuilder: (context, imageProvider) => Container(
                                   height: 11.w,
                                   width: 11.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: R.colors.white, width: 1),
+                                    border: Border.all(color: R.colors.white, width: 1),
                                     image: DecorationImage(
                                       image: imageProvider,
                                       fit: BoxFit.cover,
@@ -83,9 +82,7 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 fit: BoxFit.cover,
                                 errorWidget: (context, url, e) => SizedBox(
-                                    height: 11.w,
-                                    width: 11.w,
-                                    child: const Icon(Icons.error)),
+                                    height: 11.w, width: 11.w, child: const Icon(Icons.error)),
                                 placeholder: (context, url) {
                                   return Center(
                                       child: SizedBox(
@@ -121,8 +118,7 @@ class _HomeViewState extends State<HomeView> {
                                   selectedLocation: latLng,
                                   address: (value) {
                                     pickLocationData = value;
-                                    latLng =
-                                        LatLng(value.lat ?? 0, value.lng ?? 0);
+                                    latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
                                   },
                                 ),
                               );
@@ -136,27 +132,9 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
                       searchField(),
-                      h2,
-                      Text(
-                        'How can we help you today?',
-                        style: R.textStyles.poppinsSemiBold(),
-                      ),
-                      h0P7,
-                      viewAllWidget("Chambers", () {}),
                       h1,
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(
-                            context.read<HomeVM>().chamberList.length,
-                            (index) => ChamberWidget(
-                              model: context.read<HomeVM>().chamberList[index],
-                            ),
-                          ),
-                        ),
-                      ),
-                      h2,
-                      viewAllWidget("Lawyers ${vm.lawyersList.length}", () {
+
+                      viewAllWidget("Lawyers", () {
                         Get.toNamed(AllLawyersScreen.route);
                       }),
                       h1,
@@ -172,11 +150,27 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       ),
                       h0P7,
-                      viewAllWidget("Courts", () {}),
-                      h1,
+                      viewAllWidget("Chambers", () {}),
+
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            context.read<HomeVM>().chamberList.length,
+                            (index) => ChamberWidget(
+                              model: context.read<HomeVM>().chamberList[index],
+                            ),
+                          ),
+                        ),
+                      ),
+                      h1,
+                      viewAllWidget("Courts", () {}),
+
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: List.generate(
                             context.read<HomeVM>().courtList.length,
                             (index) => CourtWidget(
@@ -185,20 +179,36 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                       ),
-                      h2,
-                      viewAllWidget("Legal Links Users", () {}),
                       h1,
+                      viewAllWidget("Law Firms", () {}),
+
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: List.generate(
-                            context.read<HomeVM>().feedbackList.length,
-                            (index) => FeedbackWidget(
-                              model: context.read<HomeVM>().feedbackList[index],
+                            context.read<HomeVM>().lawFirmList.length,
+                            (index) => ChamberWidget(
+                              model: context.read<HomeVM>().lawFirmList[index],
                             ),
                           ),
                         ),
                       ),
+                      h1,
+
+                      // viewAllWidget("Legal Links Users", () {}),
+                      // h1,
+                      // SingleChildScrollView(
+                      //   scrollDirection: Axis.horizontal,
+                      //   child: Row(
+                      //     children: List.generate(
+                      //       context.read<HomeVM>().feedbackList.length,
+                      //       (index) => FeedbackWidget(
+                      //         model: context.read<HomeVM>().feedbackList[index],
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -217,19 +227,20 @@ class _HomeViewState extends State<HomeView> {
       children: [
         Text(
           title,
-          textAlign: TextAlign.center,
-          style: R.textStyles
-              .poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
+          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 14.sp),
         ),
         TextButton(
+          style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
           onPressed: onPressed,
           child: Text(
             'View All',
-            style: R.textStyles.poppinsRegular().copyWith(
+            style: R.textStyles
+                .poppinsRegular(
                   fontSize: 10.sp,
                   color: R.colors.primary,
-                  // decoration: TextDecoration.underline,
-                  height: 1,
+                )
+                .copyWith(
+                  decoration: TextDecoration.underline,
                 ),
           ),
         ),
