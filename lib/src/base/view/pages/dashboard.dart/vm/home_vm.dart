@@ -9,86 +9,28 @@ import 'package:legal_links_app/utils/zbot_toast.dart';
 import '../model/chamber_model.dart';
 
 class HomeVM extends ChangeNotifier {
-  // ignore: non_constant_identifier_names
+  List<ChamberModel> chamberList = [];
+  List<ChamberModel> courtList = [];
+  List<ChamberModel> lawFirmList = [];
 
-  // ignore: non_constant_identifier_names
-  List<ChamberModel> ChamberList = [
-    ChamberModel(
-        id: '1',
-        name: 'Supreme court',
-        address: 'Lahore',
-        chamberImage:
-            'https://naich.law/assets/images/img-2327-2-5-1044x1392.jpeg'),
-    ChamberModel(
-        id: '2',
-        name: 'High court',
-        address: 'Lahore',
-        chamberImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBmZ3eT7v-gOdpqc0-kiQ4jdY4aTvHppv7sA&usqp=CAU'),
-    ChamberModel(
-        id: '3',
-        name: 'Malir court',
-        address: 'Lahore',
-        chamberImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdYBbw5fhHmzDXszc_gbG8eYRWwhcHveu6Zw&usqp=CAU'),
-    ChamberModel(
-        id: '4',
-        name: 'Essex Court Chamber',
-        address: 'Lahore',
-        chamberImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD1AtIBDqREiRCX6-FdWb7-bhAG-vkwqR3sw&usqp=CAU'),
-    ChamberModel(
-        id: '5',
-        name: 'Garden Court Chambers',
-        address: 'Lahore',
-        chamberImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTefJRo_twCt2ma3N1MR3akbBGTMIxUs2S-qQ&usqp=CAU'),
-  ];
+  Future<void> getChamberList() async {
+    try {
+      debugPrint("ChamberList GETTING _________");
+      ZBotToast.loadingShow();
+      QuerySnapshot q = await FBCollections.users.get();
+      chamberList.clear();
+      for (var element in q.docs) {
+        chamberList.add(ChamberModel.fromJson(element));
+      }
+      debugPrint("ChamberList GETTING _________ ${chamberList.length}");
+      notifyListeners();
+      ZBotToast.loadingClose();
+    } catch (e) {
+      ZBotToast.loadingClose();
+      debugPrint(e.toString());
+    }
+  }
 
-  List<CourtModel> courtList = [
-    CourtModel(
-        id: '1',
-        courtName: 'Supreme court of pakistan',
-        address: 'Lahore',
-        courtImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ74qk8JJffr5gqfu8UG8l7egIA-vWtDOt4A&usqp=CAU'),
-    CourtModel(
-        id: '2',
-        courtName: 'Peshawar High court',
-        address: 'Lahore',
-        courtImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPEhRLaxLUrV6EwNvPEIj8I1yEt7YnRFOoVg&usqp=CAU'),
-    CourtModel(
-        id: '3',
-        courtName: 'Lahore high court',
-        address: 'Lahore',
-        courtImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbT-MQCTd4up7TSCee1rtJALdY8idxF_iR5A&usqp=CAU'),
-    CourtModel(
-        id: '4',
-        courtName: 'Federial shariat Court',
-        address: 'Lahore',
-        courtImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-twaONW2h-1N3CmYlh0NKGYM8F191R6VjFg&usqp=CAU'),
-    CourtModel(
-        id: '5',
-        courtName: 'Sindh high Court',
-        address: 'Lahore',
-        courtImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTefJRo_twCt2ma3N1MR3akbBGTMIxUs2S-qQ&usqp=CAU'),
-    CourtModel(
-        id: '6',
-        courtName: 'Islamabad high Court',
-        address: 'Lahore',
-        courtImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTefJRo_twCt2ma3N1MR3akbBGTMIxUs2S-qQ&usqp=CAU'),
-    CourtModel(
-        id: '7',
-        courtName: 'Balochistan high Court',
-        address: 'Lahore',
-        courtImage:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTefJRo_twCt2ma3N1MR3akbBGTMIxUs2S-qQ&usqp=CAU'),
-  ];
   void update() {
     notifyListeners();
   }
