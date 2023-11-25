@@ -37,6 +37,7 @@ class UserModel {
     isVerified = json['isVerified'];
     experiencedCasesCount = json['experiencedCasesCount'];
     fullName = json['fullName'];
+
     // experience = json['experience'] != null ? Experience.fromJson(json['experience']) : null;
     if (json['experience'] != null) {
       experience = [];
@@ -50,6 +51,7 @@ class UserModel {
     practiceAreas = json['practiceAreas'] is List
         ? List<String>.from(json['practiceAreas'])
         : [];
+
     yearOfExperience = json['yearOfExperience'];
     // qualifications =json['qualifications'] != null ? Qualifications.fromJson(json['qualifications']) : null;
     if (json['qualifications'] != null) {
@@ -105,6 +107,7 @@ class UserModel {
   Timestamp? updatedAt;
   UserStatus? status;
   num? casesCount;
+
   UserModel copyWith({
     UserRole? role,
     String? assistantName,
@@ -156,6 +159,7 @@ class UserModel {
         status: status ?? this.status,
         casesCount: casesCount ?? this.casesCount,
       );
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['role'] = role?.index;

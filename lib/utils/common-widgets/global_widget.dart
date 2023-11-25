@@ -62,10 +62,12 @@ class GlobalWidgets {
     );
   }
 
-  static AppBar ScreenAppBar(String text,
-      {VoidCallback? onTap,
-      bool? showbackButton = true,
-      List<Widget>? actions}) {
+  static AppBar screenAppBar(
+    String text, {
+    VoidCallback? onTap,
+    bool? showbackButton = true,
+    List<Widget>? actions,
+  }) {
     return AppBar(
       backgroundColor: R.colors.white,
       leading: IconButton(
@@ -76,11 +78,9 @@ class GlobalWidgets {
             Icons.arrow_back,
             color: R.colors.primary,
           )),
-      title: Center(
-        child: Text(
-          text,
-          style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
-        ),
+      title: Text(
+        text,
+        style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
       ),
       actions: [
         InkWell(

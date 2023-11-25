@@ -52,7 +52,8 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              // var vm = Provider.of<BaseVM>(context, listen: false);
+                              // var vm =
+                                  Provider.of<BaseVM>(context, listen: false);
                               // await vm.getAllLawyers();
                               // btnFun();
                               // FirebaseFirestore.instance
@@ -66,12 +67,14 @@ class _HomeViewState extends State<HomeView> {
                               child: CachedNetworkImage(
                                 imageUrl:
                                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
-                                imageBuilder: (context, imageProvider) => Container(
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
                                   height: 11.w,
                                   width: 11.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border: Border.all(color: R.colors.white, width: 1),
+                                    border: Border.all(
+                                        color: R.colors.white, width: 1),
                                     image: DecorationImage(
                                       image: imageProvider,
                                       fit: BoxFit.cover,
@@ -80,7 +83,9 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 fit: BoxFit.cover,
                                 errorWidget: (context, url, e) => SizedBox(
-                                    height: 11.w, width: 11.w, child: const Icon(Icons.error)),
+                                    height: 11.w,
+                                    width: 11.w,
+                                    child: const Icon(Icons.error)),
                                 placeholder: (context, url) {
                                   return Center(
                                       child: SizedBox(
@@ -116,7 +121,8 @@ class _HomeViewState extends State<HomeView> {
                                   selectedLocation: latLng,
                                   address: (value) {
                                     pickLocationData = value;
-                                    latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
+                                    latLng =
+                                        LatLng(value.lat ?? 0, value.lng ?? 0);
                                   },
                                 ),
                               );
@@ -212,7 +218,8 @@ class _HomeViewState extends State<HomeView> {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
+          style: R.textStyles
+              .poppinsSemiBold(color: R.colors.black, fontSize: 15.sp),
         ),
         TextButton(
           onPressed: onPressed,
