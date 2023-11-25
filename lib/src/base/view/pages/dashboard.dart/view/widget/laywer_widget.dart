@@ -30,141 +30,131 @@ class _LawyerWidgetState extends State<LawyerWidget> {
         visitProfileFn();
       },
       child: Container(
-          margin: EdgeInsets.all(4.sp),
-          padding: EdgeInsets.all(8.sp),
-          width: 60.w,
-          // height: 15.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: R.colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.20),
-                offset: const Offset(-5, -2),
-                blurRadius: 12,
-              ),
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.20),
-                offset: const Offset(3, 3),
-                blurRadius: 12,
-              ),
-            ],
-            gradient: LinearGradient(
-              colors: [
-                R.colors.primary,
-                R.colors.lightPrimary
-              ], // Replace with your desired colors
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+        margin: EdgeInsets.all(4.sp),
+        padding: EdgeInsets.all(8.sp),
+        width: 60.w,
+        // height: 15.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: R.colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.20),
+              offset: const Offset(-5, -2),
+              blurRadius: 12,
             ),
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.20),
+              offset: const Offset(3, 3),
+              blurRadius: 12,
+            ),
+          ],
+          gradient: LinearGradient(
+            colors: [
+              R.colors.champagne,
+              R.colors.lightPrimary,
+              R.colors.primary,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.model.profileImages?.first ?? '',
-                        imageBuilder: (context, imageProvider) => Container(
-                          height: 14.w,
-                          width: 14.w,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: R.colors.white, width: 1),
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: CachedNetworkImage(
+                    imageUrl: widget.model.profileImages?.first ?? '',
+                    imageBuilder: (context, imageProvider) => Container(
+                      height: 14.w,
+                      width: 14.w,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: R.colors.white, width: 1),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
-                        errorWidget: (context, url, e) => SizedBox(
-                            height: 14.w,
-                            width: 14.w,
-                            child: const Icon(Icons.error)),
-                        placeholder: (context, url) {
-                          return Center(
-                              child: SizedBox(
-                            height: 14.w,
-                            width: 14.w,
-                            child: CircularProgressIndicator.adaptive(
-                                backgroundColor: R.colors.primary),
-                          ));
-                        },
                       ),
                     ),
-                    w2,
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${widget.model.fullName}",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: R.textStyles.poppinsSemiBold(
-                                fontSize: 11.sp, color: R.colors.white),
-                          ),
-                          Row(
-                            children: List.generate(
-                              widget.model.specialist?.length ?? 0,
-                              (index) => Text(
-                                // model?.specialist![index],
-                                "${widget.model?.specialist?[index]}",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: R.textStyles.poppinsRegular(
-                                    fontSize: 10.sp, color: R.colors.white),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            " ${widget.model.yearOfExperience}",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: R.textStyles.poppinsRegular(
-                                fontSize: 10.sp, color: R.colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                    h1,
-                  ],
+                    fit: BoxFit.cover,
+                    errorWidget: (context, url, e) =>
+                        SizedBox(height: 14.w, width: 14.w, child: const Icon(Icons.error)),
+                    placeholder: (context, url) {
+                      return Center(
+                          child: SizedBox(
+                        height: 14.w,
+                        width: 14.w,
+                        child:
+                            CircularProgressIndicator.adaptive(backgroundColor: R.colors.primary),
+                      ));
+                    },
+                  ),
                 ),
-                h2,
-                Row(
-                  children: [
-                    RatingBar.builder(
-                      initialRating: 2.0,
-                      itemSize: 10.sp,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 1,
-                      //itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                      itemBuilder: (context, _) => Icon(
-                        Icons.star,
-                        color: R.colors.orange,
+                w2,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${widget.model.fullName}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: R.textStyles.poppinsSemiBold(fontSize: 11.sp, color: R.colors.white),
                       ),
-                      onRatingUpdate: (rating) {},
-                    ),
-                    Text(
-                      '4.5/8',
-                      style:
-                          R.textStyles.poppinsSemiBold(color: R.colors.white),
-                    ),
-                    const Spacer(),
-                    Text(
-                      "${widget.model.feePerMeeting?.toStringAsFixed(2)}",
-                      style:
-                          R.textStyles.poppinsSemiBold(color: R.colors.white),
-                    ),
-                  ],
-                )
-              ])),
+                      Text(
+                        "${widget.model.specialist?.first}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.white),
+                      ),
+                      Text(
+                        " ${widget.model.yearOfExperience}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+                h1,
+              ],
+            ),
+            h2,
+            Row(
+              children: [
+                RatingBar.builder(
+                  initialRating: 2.0,
+                  itemSize: 10.sp,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 1,
+                  //itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: R.colors.orange,
+                  ),
+                  onRatingUpdate: (rating) {},
+                ),
+                Text(
+                  '4.5/8',
+                  style: R.textStyles.poppinsSemiBold(color: R.colors.white),
+                ),
+                const Spacer(),
+                Text(
+                  "${widget.model.feePerMeeting?.toStringAsFixed(2)}",
+                  style: R.textStyles.poppinsSemiBold(color: R.colors.white),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 

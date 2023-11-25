@@ -44,8 +44,6 @@ class _BaseViewState extends State<BaseView> {
   ];
   @override
   void initState() {
-    super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var baseVM = Provider.of<BaseVM>(context, listen: false);
       var homeVM = Provider.of<HomeVM>(context, listen: false);
@@ -59,6 +57,7 @@ class _BaseViewState extends State<BaseView> {
 
       setState(() {});
     });
+    super.initState();
   }
 
   @override

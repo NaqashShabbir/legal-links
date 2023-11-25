@@ -30,6 +30,25 @@ class _HomeViewState extends State<HomeView> {
 
   LatLng? latLng;
   PickLocationData? pickLocationData;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      // var baseVM = Provider.of<BaseVM>(context, listen: false);
+      // var homeVM = Provider.of<HomeVM>(context, listen: false);
+
+      // await Future.wait([
+      //   baseVM.getAllLawyers(),
+      //   homeVM.getChamberList(),
+      //   homeVM.getCourtList(),
+      //   homeVM.getLawFirmList(),
+      // ]);
+
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<BaseVM>(builder: (context, vm, _) {
@@ -49,8 +68,7 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              // var vm =
-                              // Provider.of<BaseVM>(context, listen: false);
+                              // var vm = Provider.of<BaseVM>(context, listen: false);
                               // var baseVM = Provider.of<BaseVM>(context, listen: false);
                               // var homeVM = Provider.of<HomeVM>(context, listen: false);
 
@@ -61,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
                               //   homeVM.getLawFirmList(),
                               // ]);
 
-                              // setState(() {});
+                              setState(() {});
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
