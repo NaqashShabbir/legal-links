@@ -41,7 +41,7 @@ class _ChamberWidgetState extends State<ChamberWidget> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(60),
             child: CachedNetworkImage(
-              imageUrl: widget.model.chamberImage ?? "",
+              imageUrl: widget.model.image ?? "",
               fit: BoxFit.cover,
             ),
           ),

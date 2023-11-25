@@ -3,13 +3,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/chamber_model.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/court_model.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../../resources/resources.dart';
 import '../../../../../../../utils/hights_widths.dart';
 
 class CourtWidget extends StatefulWidget {
-  CourtModel model;
+  ChamberModel model;
 
   CourtWidget({super.key, required this.model});
 
@@ -54,7 +55,7 @@ class _CourtWidgetState extends State<CourtWidget> {
                 height: 16.h,
                 width: 40.w,
                 child: CachedNetworkImage(
-                  imageUrl: widget.model.courtImage ?? "",
+                  imageUrl: widget.model.image ?? "",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -70,7 +71,7 @@ class _CourtWidgetState extends State<CourtWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.model.courtName ?? "",
+                          widget.model.name ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: R.textStyles.poppinsMedium(fontSize: 11.sp),
