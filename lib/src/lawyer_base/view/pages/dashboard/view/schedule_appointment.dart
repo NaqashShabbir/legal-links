@@ -23,7 +23,8 @@ class ScheduleAppointmentView extends StatefulWidget {
   const ScheduleAppointmentView({super.key});
 
   @override
-  State<ScheduleAppointmentView> createState() => _ScheduleAppointmentViewState();
+  State<ScheduleAppointmentView> createState() =>
+      _ScheduleAppointmentViewState();
 }
 
 class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
@@ -75,7 +76,8 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                   h3,
                   Text(
                     'Select Days',
-                    style: R.textStyles.poppinsSemiBold(fontSize: 12.sp, color: R.colors.black),
+                    style: R.textStyles.poppinsSemiBold(
+                        fontSize: 12.sp, color: R.colors.black),
                   ),
                   h1,
                   InkWell(
@@ -98,7 +100,8 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                             children: [
                               Text(
                                 'Select date for consultation',
-                                style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
+                                style: R.textStyles
+                                    .poppinsSemiBold(color: R.colors.primary),
                               ),
                               IconButton(
                                 onPressed: () {
@@ -121,20 +124,25 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                           if (isOpened)
                             SfDateRangePicker(
                               headerStyle: DateRangePickerHeaderStyle(
-                                  textStyle: R.textStyles.poppinsMedium(color: R.colors.black)),
-                              rangeTextStyle: R.textStyles.poppinsRegular(color: R.colors.black),
+                                  textStyle: R.textStyles
+                                      .poppinsMedium(color: R.colors.black)),
+                              rangeTextStyle: R.textStyles
+                                  .poppinsRegular(color: R.colors.black),
                               selectionColor: R.colors.primary,
-                              onSelectionChanged: (dateRangePickerSelectionChangedArgs) {
+                              onSelectionChanged:
+                                  (dateRangePickerSelectionChangedArgs) {
                                 setState(
                                   () {
-                                    dateRangeArgs = dateRangePickerSelectionChangedArgs;
+                                    dateRangeArgs =
+                                        dateRangePickerSelectionChangedArgs;
                                     dates = dateRangeArgs?.value;
                                     debugPrint("dates $dates");
                                   },
                                 );
                               },
                               enablePastDates: false,
-                              selectionMode: DateRangePickerSelectionMode.multiple,
+                              selectionMode:
+                                  DateRangePickerSelectionMode.multiple,
                               // initialSelectedRange: PickerDateRange(
                               //   DateTime.now().subtract(const Duration(days: 4)),
                               //   DateTime.now().add(const Duration(days: 3)),
@@ -160,10 +168,12 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           readOnly: true,
                           onTap: () async {
-                            await DateTimePickerServices.selectStartTimeFunction(
-                                context, startTimeTC, TimeOfDay.now());
+                            await DateTimePickerServices
+                                .selectStartTimeFunction(
+                                    context, startTimeTC, TimeOfDay.now());
 
-                            debugPrint("${R.colors.greenPrint} ${startTimeTC.text.trim()} }");
+                            debugPrint(
+                                "${R.colors.greenPrint} ${startTimeTC.text.trim()} }");
 
                             DateFormat format = DateFormat("hh:mm a");
 
@@ -193,7 +203,8 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           readOnly: true,
                           onTap: () async {
-                            await DateTimePickerServices.selectEndTimeFunction(context, endTimeTC);
+                            await DateTimePickerServices.selectEndTimeFunction(
+                                context, endTimeTC);
                             DateFormat format = DateFormat("hh:mm a");
                             try {
                               endTime = format.parse(endTimeTC.text.trim());
@@ -232,11 +243,13 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                         value: interval,
                         child: Text(
                           '$interval minutes',
-                          style: R.textStyles.poppinsRegular(color: R.colors.black),
+                          style: R.textStyles
+                              .poppinsRegular(color: R.colors.black),
                         ),
                       );
                     }).toList(),
-                    decoration: R.decoration.fieldDecoration(hintText: "Select Interval"),
+                    decoration: R.decoration
+                        .fieldDecoration(hintText: "Select Interval"),
                   ),
                   h1,
                 ],
@@ -247,9 +260,12 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
               child: CustomButton(
                 buttonTitle: "Save",
                 tap: () {
-                  List<Timestamp> timestamplist = dates.map((e) => Timestamp.fromDate(e)).toList();
+                  List<Timestamp> timestamplist =
+                      dates.map((e) => Timestamp.fromDate(e)).toList();
 
-                  if (startTime != null && endTime != null && timestamplist.isNotEmpty) {
+                  if (startTime != null &&
+                      endTime != null &&
+                      timestamplist.isNotEmpty) {
                     Timestamp now = Timestamp.now();
                     Map body = {
                       "id": context.read<AuthVM>().userModel.id,
@@ -275,7 +291,8 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
 
                     vm.createSchedule(model);
                   } else {
-                    ZBotToast.showToastError(message: "Please Select Required Fields");
+                    ZBotToast.showToastError(
+                        message: "Please Select Required Fields");
                   }
                 },
               ),

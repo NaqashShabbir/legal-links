@@ -196,8 +196,7 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                 ),
                 Row(
                   children: [
-                    customContainer(
-                        'Experience', model?.yearOfExperience ?? ""),
+                    customContainer('Experience', model?.yearOfExperience),
                     customContainer('Satisfaction %', '100%'),
                     customContainer('Wait Time', '7 mins'),
                   ],
@@ -550,7 +549,7 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
   }
 }
 
-Widget customContainer(String headingText, String text) {
+Widget customContainer(String headingText, var text) {
   return Expanded(
     child: Container(
       padding: EdgeInsets.all(5.sp),

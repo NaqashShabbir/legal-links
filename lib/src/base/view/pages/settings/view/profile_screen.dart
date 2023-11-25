@@ -141,6 +141,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                     title: 'Name:', subTitle: vm.userModel.fullName ?? ''),
                 h1,
                 CustomData(
+                    title: 'Assistent Name:',
+                    subTitle: vm.userModel.assistantName ?? ''),
+                h1,
+                CustomData(
+                    title: 'Specialist Lawyer:',
+                    subTitle: vm.userModel.specialist![0]),
+                h1,
+                CustomData(
                   title: 'Qualifications:',
                   subTitle: vm.userModel.qualifications
                           ?.map((q) => " ${q.degree} (${q.institute})")
@@ -170,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 h1,
                 CustomData(
                     title: 'Years of Experience:',
-                    subTitle: vm.userModel.experiencedCasesCount.toString()),
+                    subTitle: vm.userModel.yearOfExperience.toString()),
                 h1,
                 CustomData(
                     title: 'Cases Count:',
@@ -208,11 +216,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                     ),
                   ],
                 ),
-                h1,
-                CustomData(title: 'License Number:', subTitle: "234 34354545"),
+                // h1,
+                // CustomData(title: 'License Number:', subTitle: "234 34354545"),
                 h1,
                 CustomData(
-                    title: 'Office Consultation Fee:',
+                    title: 'Fee:',
                     subTitle: vm.userModel.feePerMeeting.toString()),
                 h1,
                 h4,
