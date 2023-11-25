@@ -48,7 +48,7 @@ class _BaseViewState extends State<BaseView> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       var vm = Provider.of<BaseVM>(context, listen: false);
       await vm.getAllLawyers();
-      
+      vm.fetchData();
     });
   }
 

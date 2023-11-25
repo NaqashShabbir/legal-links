@@ -52,9 +52,9 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              // var vm =
+                              var vm =
                                   Provider.of<BaseVM>(context, listen: false);
-                              // await vm.getAllLawyers();
+                              vm.fetchData();
                               // btnFun();
                               // FirebaseFirestore.instance
                               //     .collection("chambers")
