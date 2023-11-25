@@ -1,7 +1,11 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/services/firebase_collections.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/chamber_widget.dart';
@@ -48,8 +52,14 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              var vm = Provider.of<BaseVM>(context, listen: false);
-                              await vm.getAllLawyers();
+                              // var vm = Provider.of<BaseVM>(context, listen: false);
+                              // await vm.getAllLawyers();
+                              // btnFun();
+                              // FirebaseFirestore.instance
+                              //     .collection("chambers")
+                              //     .doc("JVSOwcn2jwWUEGlscRNj")
+                              //     .get()
+                              //     .then((value) => debugPrint(jsonEncode(value.data())));
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
@@ -132,9 +142,9 @@ class _HomeViewState extends State<HomeView> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: List.generate(
-                            context.read<HomeVM>().ChamberList.length,
+                            context.read<HomeVM>().chamberList.length,
                             (index) => ChamberWidget(
-                              model: context.read<HomeVM>().ChamberList[index],
+                              model: context.read<HomeVM>().chamberList[index],
                             ),
                           ),
                         ),
@@ -253,4 +263,39 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
+  // List<String> lawFirms = [
+  //   'KPMG Taseer Hadi & Co.',
+  //   'Orr, Dignam & Co.',
+  //   'Haidermota & Co.',
+  //   'Rasheed A. Razvi & Associates',
+  //   'Rahmat Ali & Associates',
+  //   'Raja Mohammed Akram & Co.',
+  //   'Surridge and Beecheno',
+  //   'ABS & Co.',
+  //   'Mandviwalla & Zafar',
+  //   'S & F Attorneys',
+  // ];
+
+  // Future<void> btnFun() async {
+  //   for (String lawFirm in lawFirms) {
+  //     debugPrint("lawFirm $lawFirm");
+
+  //     Map<String, dynamic> body = {
+  //       'id': Timestamp.now().microsecondsSinceEpoch.toString(),
+  //       'image': 'https://cdn1.vectorstock.com/i/1000x1000/49/35/law-firm-logo-vector-29294935.jpg',
+  //       'name': lawFirm,
+  //       'status': 0,
+  //       'createdAt': FieldValue.serverTimestamp(),
+  //       'updatedAt': FieldValue.serverTimestamp(),
+  //     };
+
+  //     debugPrint("body $body");
+
+  //     // FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  //     // CollectionReference lawFirms = firestore.collection('chambers');
+  //     await FBCollections.lawFirms.doc(Timestamp.now().microsecondsSinceEpoch.toString()).set(body);
+  //   }
+  // }
 }

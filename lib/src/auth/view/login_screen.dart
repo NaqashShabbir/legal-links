@@ -54,13 +54,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      // debugPrint("mrd0EqAOwVKV7wkksyf6");
-                      // FirebaseFirestore.instance
-                      //     .collection("lawyer_scedule")
-                      //     .doc("mrd0EqAOwVKV7wkksyf6")
-                      //     .get()
-                      //     .then((value) => debugPrint(jsonEncode(value.data())));
-                      // {"availableDates":["",""],"officeEndTime":"","officeStartTime":"","intervalMinutes":15,"lawyerId":""}
+                      debugPrint("mrd0EqAOwVKV7wkksyf6");
+                      FirebaseFirestore.instance
+                          .collection("lawyer_scedule")
+                          .doc("mrd0EqAOwVKV7wkksyf6")
+                          .get()
+                          .then((value) => debugPrint(jsonEncode(value.data())));
+                      
                     },
                     child: Image.asset(R.images.logo, height: 25.h),
                   ),
