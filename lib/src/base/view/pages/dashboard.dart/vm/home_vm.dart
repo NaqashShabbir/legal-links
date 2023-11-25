@@ -7,84 +7,84 @@ import '../model/chamber_model.dart';
 
 class HomeVM extends ChangeNotifier {
   // ignore: non_constant_identifier_names
-  List<LawyersModel> LawyerList = [
-    LawyersModel(
-        id: '1',
-        username: 'john doe',
-        lawyerType: 'Business Lawyer',
-        gender: 'Female',
-        location: 'Lahore',
-        experience: '10 years experience',
-        profileImageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
-        fee: 'Rs 1500',
-        education: 'LLB(Gold Medalist),',
-        appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
-        appointmentTime: '12:00 PM - 01:23 pm',
-        lawyerNumberOne: '0344-5566745',
-        lawyerNumberTwo: '0222-3434555'),
-    LawyersModel(
-        id: '2',
-        lawyerType: 'Civil Litigation Lawyer',
-        username: 'ALi Hassan',
-        gender: 'Female',
-        location: 'Lahore',
-        profileImageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAG0N4aaM-RYwgmRdTGUX7UWJRHruOtdsI2Q&usqp=CAU',
-        experience: '7 years experience',
-        fee: 'Rs 1500',
-        education: 'LLB(Gold Medalist),',
-        appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
-        appointmentTime: '12:00 PM - 01:23 pm',
-        lawyerNumberOne: '0344-5566745',
-        lawyerNumberTwo: '0222-3434555'),
-    LawyersModel(
-        id: '3',
-        lawyerType: 'Family Lawyer',
-        username: 'Wasif doe',
-        gender: 'Female',
-        location: 'Lahore',
-        profileImageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ__0SqA2Fz58iyqbhzRIO8xlM7Ir1l-zdJ3g&usqp=CAU',
-        experience: '7 years experience',
-        fee: 'Rs 1500',
-        education: 'LLB(Gold Medalist),',
-        appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
-        appointmentTime: '12:00 PM - 01:23 pm',
-        lawyerNumberOne: '0344-5566745',
-        lawyerNumberTwo: '0222-3434555'),
-    LawyersModel(
-        id: '4',
-        lawyerType: 'Criminal Lawyers',
-        username: 'Numan doe',
-        gender: 'Female',
-        location: 'Lahore',
-        profileImageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUUPuhf3x5zalkt2GzJnmgNNhAx-lraRjsgg&usqp=CAU',
-        experience: '7 years experience',
-        fee: 'Rs 1500',
-        education: 'LLB(Gold Medalist),',
-        lawyerNumberOne: '0344-5566745',
-        lawyerNumberTwo: '0222-3434555'),
-    LawyersModel(
-        id: '5',
-        lawyerType: 'Bankruptcy Lawyer',
-        username: 'john doe',
-        gender: 'Female',
-        location: 'Lahore',
-        profileImageUrl:
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK4YCLW0GH4TYQyCaAlc5PB9C97XRUFZI7jw&usqp=CAU',
-        experience: '7 years experience',
-        fee: 'Rs 1500',
-        education: 'LLB(Gold Medalist),',
-        appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
-        appointmentTime: '12:00 PM - 01:23 pm',
-        lawyerNumberOne: '0344-5566745',
-        lawyerNumberTwo: '0222-3434555')
-  ];
+  // List<LawyersModel> LawyerList = [
+  //   LawyersModel(
+  //       id: '1',
+  //       username: 'john doe',
+  //       lawyerType: 'Business Lawyer',
+  //       gender: 'Female',
+  //       location: 'Lahore',
+  //       experience: '10 years experience',
+  //       profileImageUrl:
+  //           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
+  //       fee: 'Rs 1500',
+  //       education: 'LLB(Gold Medalist),',
+  //       appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
+  //       appointmentTime: '12:00 PM - 01:23 pm',
+  //       lawyerNumberOne: '0344-5566745',
+  //       lawyerNumberTwo: '0222-3434555'),
+  //   LawyersModel(
+  //       id: '2',
+  //       lawyerType: 'Civil Litigation Lawyer',
+  //       username: 'ALi Hassan',
+  //       gender: 'Female',
+  //       location: 'Lahore',
+  //       profileImageUrl:
+  //           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAG0N4aaM-RYwgmRdTGUX7UWJRHruOtdsI2Q&usqp=CAU',
+  //       experience: '7 years experience',
+  //       fee: 'Rs 1500',
+  //       education: 'LLB(Gold Medalist),',
+  //       appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
+  //       appointmentTime: '12:00 PM - 01:23 pm',
+  //       lawyerNumberOne: '0344-5566745',
+  //       lawyerNumberTwo: '0222-3434555'),
+  //   LawyersModel(
+  //       id: '3',
+  //       lawyerType: 'Family Lawyer',
+  //       username: 'Wasif doe',
+  //       gender: 'Female',
+  //       location: 'Lahore',
+  //       profileImageUrl:
+  //           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ__0SqA2Fz58iyqbhzRIO8xlM7Ir1l-zdJ3g&usqp=CAU',
+  //       experience: '7 years experience',
+  //       fee: 'Rs 1500',
+  //       education: 'LLB(Gold Medalist),',
+  //       appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
+  //       appointmentTime: '12:00 PM - 01:23 pm',
+  //       lawyerNumberOne: '0344-5566745',
+  //       lawyerNumberTwo: '0222-3434555'),
+  //   LawyersModel(
+  //       id: '4',
+  //       lawyerType: 'Criminal Lawyers',
+  //       username: 'Numan doe',
+  //       gender: 'Female',
+  //       location: 'Lahore',
+  //       profileImageUrl:
+  //           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUUPuhf3x5zalkt2GzJnmgNNhAx-lraRjsgg&usqp=CAU',
+  //       experience: '7 years experience',
+  //       fee: 'Rs 1500',
+  //       education: 'LLB(Gold Medalist),',
+  //       lawyerNumberOne: '0344-5566745',
+  //       lawyerNumberTwo: '0222-3434555'),
+  //   LawyersModel(
+  //       id: '5',
+  //       lawyerType: 'Bankruptcy Lawyer',
+  //       username: 'john doe',
+  //       gender: 'Female',
+  //       location: 'Lahore',
+  //       profileImageUrl:
+  //           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK4YCLW0GH4TYQyCaAlc5PB9C97XRUFZI7jw&usqp=CAU',
+  //       experience: '7 years experience',
+  //       fee: 'Rs 1500',
+  //       education: 'LLB(Gold Medalist),',
+  //       appointmentDay: 'Mon, Tue,Wed,Thu,Fri,Sat,Sun',
+  //       appointmentTime: '12:00 PM - 01:23 pm',
+  //       lawyerNumberOne: '0344-5566745',
+  //       lawyerNumberTwo: '0222-3434555')
+  // ];
 
   // ignore: non_constant_identifier_names
-  List<ChamberModel> ChamberList = [
+  List<ChamberModel> chamberList = [
     ChamberModel(
         id: '1',
         name: 'Supreme court',

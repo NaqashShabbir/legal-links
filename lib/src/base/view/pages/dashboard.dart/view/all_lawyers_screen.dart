@@ -13,7 +13,7 @@ class _AllLawyersScreenState extends State<AllLawyersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalWidgets.ScreenAppBar('All Lawyers'),
+      appBar: GlobalWidgets.screenAppBar('All Lawyers'),
     );
   }
 }

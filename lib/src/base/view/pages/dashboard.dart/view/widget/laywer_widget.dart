@@ -50,7 +50,10 @@ class _LawyerWidgetState extends State<LawyerWidget> {
               ),
             ],
             gradient: LinearGradient(
-              colors: [R.colors.primary, R.colors.lightPrimary], // Replace with your desired colors
+              colors: [
+                R.colors.primary,
+                R.colors.lightPrimary
+              ], // Replace with your desired colors
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -78,8 +81,10 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                           ),
                         ),
                         fit: BoxFit.cover,
-                        errorWidget: (context, url, e) =>
-                            SizedBox(height: 14.w, width: 14.w, child: const Icon(Icons.error)),
+                        errorWidget: (context, url, e) => SizedBox(
+                            height: 14.w,
+                            width: 14.w,
+                            child: const Icon(Icons.error)),
                         placeholder: (context, url) {
                           return Center(
                               child: SizedBox(
@@ -100,22 +105,22 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                             widget.model.fullName ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: R.textStyles
-                                .poppinsSemiBold(fontSize: 11.sp, color: R.colors.white),
+                            style: R.textStyles.poppinsSemiBold(
+                                fontSize: 11.sp, color: R.colors.white),
                           ),
                           Text(
                             widget.model.casesCount.toString(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style:
-                                R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.white),
+                            style: R.textStyles.poppinsRegular(
+                                fontSize: 10.sp, color: R.colors.white),
                           ),
                           Text(
                             widget.model.yearOfExperience ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style:
-                                R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.white),
+                            style: R.textStyles.poppinsRegular(
+                                fontSize: 10.sp, color: R.colors.white),
                           ),
                         ],
                       ),
@@ -142,12 +147,14 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                     ),
                     Text(
                       '4.5/8',
-                      style: R.textStyles.poppinsSemiBold(color: R.colors.white),
+                      style:
+                          R.textStyles.poppinsSemiBold(color: R.colors.white),
                     ),
                     const Spacer(),
                     Text(
                       widget.model.feePerMeeting?.toStringAsFixed(2) ?? "",
-                      style: R.textStyles.poppinsSemiBold(color: R.colors.white),
+                      style:
+                          R.textStyles.poppinsSemiBold(color: R.colors.white),
                     ),
                   ],
                 )
