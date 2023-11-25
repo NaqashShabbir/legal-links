@@ -21,8 +21,8 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
       backgroundColor: R.colors.transparent,
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(10.sp),
-          margin: EdgeInsets.symmetric(horizontal: 7.w),
+          padding: EdgeInsets.all(8.sp),
+          margin: EdgeInsets.symmetric(horizontal: 5.w),
           decoration: BoxDecoration(
             color: R.colors.white,
             borderRadius: BorderRadius.circular(10),

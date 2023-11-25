@@ -102,21 +102,27 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.model.fullName ?? "",
+                            "${widget.model.fullName}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: R.textStyles.poppinsSemiBold(
                                 fontSize: 11.sp, color: R.colors.white),
                           ),
-                          Text(
-                            widget.model.casesCount.toString(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: R.textStyles.poppinsRegular(
-                                fontSize: 10.sp, color: R.colors.white),
+                          Row(
+                            children: List.generate(
+                              widget.model.specialist?.length ?? 0,
+                              (index) => Text(
+                                // model?.specialist![index],
+                                "${widget.model?.specialist?[index]}",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: R.textStyles.poppinsRegular(
+                                    fontSize: 10.sp, color: R.colors.white),
+                              ),
+                            ),
                           ),
                           Text(
-                            widget.model.yearOfExperience ?? "",
+                            " ${widget.model.yearOfExperience}",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: R.textStyles.poppinsRegular(
@@ -152,7 +158,7 @@ class _LawyerWidgetState extends State<LawyerWidget> {
                     ),
                     const Spacer(),
                     Text(
-                      widget.model.feePerMeeting?.toStringAsFixed(2) ?? "",
+                      "${widget.model.feePerMeeting?.toStringAsFixed(2)}",
                       style:
                           R.textStyles.poppinsSemiBold(color: R.colors.white),
                     ),
