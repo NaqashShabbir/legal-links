@@ -23,6 +23,12 @@ class LawyerScheduleModel {
     } else {
       availableDates = [];
     }
+    // if (json['availableDates'] != null) {
+    //   availableDates = [];
+    //   json['availableDates'].forEach((v) {
+    //     availableDates?.add(json['availableDates'] as Timestamp);
+    //   });
+    // }
     officeEndTime = json['officeEndTime'];
     officeStartTime = json['officeStartTime'];
     intervalMinutes = json['intervalMinutes'];

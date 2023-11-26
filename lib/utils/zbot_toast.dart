@@ -12,13 +12,14 @@ class ZBotToast {
         },
         allowClick: false,
         clickClose: false,
+
         backgroundColor: Colors.transparent);
-    // Future.delayed(Duration(seconds: Constants.apiTimer), () => loadingClose());
+    Future.delayed(const Duration(seconds: 60), () => loadingClose());
   }
 
   static Future loadingClose() async {
     BotToast.cleanAll();
-    //await Future.delayed(Duration(milliseconds: Constants.apiTimer));
+    await Future.delayed(const Duration(milliseconds: 60));
   }
 
   static showToastSuccess(

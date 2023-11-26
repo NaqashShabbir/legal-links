@@ -270,8 +270,8 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                       updatedAt: now,
                       status: 0,
                     );
-                    debugPrint(
-                        "${R.colors.cyanPrint}model ${vm.lawyerScheduleModel.availableDates}");
+                    debugPrint("${R.colors.cyanPrint}model ${model.availableDates}");
+                    debugPrint("${R.colors.cyanPrint}timestamplist $timestamplist");
 
                     vm.createSchedule(model);
                   } else {
