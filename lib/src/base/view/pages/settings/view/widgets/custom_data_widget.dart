@@ -4,7 +4,7 @@ import '../../../../../../../resources/resources.dart';
 
 class CustomData extends StatelessWidget {
   final String title;
-  String? subTitle;
+  var subTitle;
   CustomData({super.key, required this.title, this.subTitle});
 
   @override

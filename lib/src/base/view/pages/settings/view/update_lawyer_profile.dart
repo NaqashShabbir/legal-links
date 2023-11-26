@@ -77,11 +77,10 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       var vm = Provider.of<AuthVM>(context, listen: false);
       // aboutTC.text = vm.userModel.about ?? "";
       nameController.text = vm.userModel.fullName ?? "";
+
       phoneNumberController.text = vm.userModel.phoneNumber?.number ?? "";
-      if (vm.userModel.experiencedCasesCount != null) {
-        yearExperienceController.text =
-            vm.userModel.experiencedCasesCount.toString();
-      }
+
+      yearExperienceController.text = vm.userModel.yearOfExperience.toString();
 
       feeController.text = vm.userModel.feePerMeeting.toString();
       assistantController.text = vm.userModel.assistantName ?? "";
@@ -150,7 +149,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     hintText: 'How many year of experience do you have?',
                     focusNode: experienceFocus,
                     inputAction: TextInputAction.next,
-                    inputType: TextInputType.name,
+                    inputType: TextInputType.number,
                     validator: FieldValidator.validateEmpty,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
@@ -166,12 +165,12 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   h1,
-                  // Text(
-                  //   'SpecialList',
-                  //   style: R.textStyles.poppinsMedium(),
-                  // ),
-                  // h1,
-                  // speciallistLawyerDropdown(vm: vm),
+                  Text(
+                    'SpecialList',
+                    style: R.textStyles.poppinsMedium(),
+                  ),
+                  h1,
+                  speciallistLawyerDropdown(vm: vm),
                   CustomTextFormField(
                     controller: assistantController,
                     focusNode: assistantFocus,
@@ -231,8 +230,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     hintText: 'About Yourself',
                     fieldTitle: "About Yourself",
                     maxLines: 3,
-                    // validator: FieldValidator.validateEmpty,
-                    // autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: FieldValidator.validateEmpty,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   h1,
                   h1,
@@ -249,33 +248,33 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     h0P8,
                   ],
                   h1,
-                  // heading('Your Experience', () {
-                  //   setState(() {
-                  //     experienceList.add(
-                  //       Experience(),
-                  //     );
-                  //   });
-                  // }),
-                  // h1,
-                  // for (int index = 0;
-                  //     index < experienceList.length;
-                  //     index++) ...[
-                  //   customTextFieldExperience(experienceList[index], index),
-                  //   h0P8,
-                  // ],
-                  // h1,
-                  // heading('Your Qualification', () {
-                  //   setState(() {
-                  //     qualificationList.add(Qualifications());
-                  //   });
-                  // }),
-                  // h1,
-                  // for (int index = 0;
-                  //     index < qualificationList.length;
-                  //     index++) ...[
-                  //   qualificationFieldRow(qualificationList[index], index),
-                  //   h0P8,
-                  // ],
+                  heading('Your Experience', () {
+                    setState(() {
+                      experienceList.add(
+                        Experience(),
+                      );
+                    });
+                  }),
+                  h1,
+                  for (int index = 0;
+                      index < experienceList.length;
+                      index++) ...[
+                    customTextFieldExperience(experienceList[index], index),
+                    h0P8,
+                  ],
+                  h1,
+                  heading('Your Qualification', () {
+                    setState(() {
+                      qualificationList.add(Qualifications());
+                    });
+                  }),
+                  h1,
+                  for (int index = 0;
+                      index < qualificationList.length;
+                      index++) ...[
+                    qualificationFieldRow(qualificationList[index], index),
+                    h0P8,
+                  ],
                   h1,
                 ],
               ),
@@ -408,46 +407,84 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
     print('Fee Value: ${feeController.text}');
 
     num feeValue = double.parse(feeController.text.trim());
+    num caseCountControllerValue =
+        double.parse(caseCountController.text.trim());
+    int? yearExperience;
+    if (yearExperienceController.text.isNotEmpty) {
+      yearExperience = int.tryParse(yearExperienceController.text);
+    }
     print('Fee Value: ${feeValue}');
 
     if (_formKey.currentState!.validate()) {
       Timestamp now = Timestamp.now();
-      UserModel updateClient = UserModel(
-        fullName: nameController.text.trim(),
-        updatedAt: now,
-        phoneNumber: PhoneNumberModel(
-          number: phoneNumberController.text.trim(),
-          isoCode: number.isoCode,
-          countryCode: number.dialCode,
-        ),
-        feePerMeeting: feeValue,
-        about: aboutController.text,
-        yearOfExperience: yearExperienceController.text.toString(),
-        practiceAreas: practiceAreaList,
-      );
-      //
+      UserModel updateLawyer = UserModel(
+          fullName: nameController.text.trim(),
+          updatedAt: now,
+          phoneNumber: PhoneNumberModel(
+            number: phoneNumberController.text.trim(),
+            isoCode: number.isoCode,
+            countryCode: number.dialCode,
+          ),
+          feePerMeeting: feeValue,
+          about: aboutController.text,
+          yearOfExperience: yearExperienceController.toString(),
+          practiceAreas: practiceAreaList,
+          assistantName: assistantController.text.trim(),
+          casesCount: caseCountControllerValue);
+      print('assistent name : ${assistantController.toString()}');
+
       Map<String, dynamic> updateData = {
-        'fullName': updateClient.fullName,
-        'updatedAt': updateClient.updatedAt,
+        "about": updateLawyer.about,
+        "assistantName": updateLawyer.assistantName,
+        "casesCount": updateLawyer.casesCount.toString(),
+        "experience": [""],
+        "feePerMeeting": updateLawyer.feePerMeeting,
+        "fullName": updateLawyer.fullName,
+
+        // "officeAddress": {
+        //   "city": null,
+        //   "country": null,
+        //   "latLng": [0, 0],
+        //   "state": null,
+        //   "streetAddress": null,
+        //   "zipCode": null
+        // },
         'phoneNumber': {
-          'number': updateClient.phoneNumber?.number,
-          'isoCode': updateClient.phoneNumber?.isoCode,
-          'countryCode': updateClient.phoneNumber?.countryCode,
+          'number': updateLawyer.phoneNumber?.number,
+          'isoCode': updateLawyer.phoneNumber?.isoCode,
+          'countryCode': updateLawyer.phoneNumber?.countryCode,
         }
+        // "practiceAreas": [
+
+        // ],
+        // "profileImages": [""],
+        // "qualifications": [
+
+        // ],
+        // "role": 1,
+        // "specialist": [""],
+        // "status": 0,
+        // "updatedAt": ,
+        // "yearOfExperience": ""
       };
 
-      await context.read<AuthVM>().updateUserData(
-            updateData,
-            context.read<AuthVM>().userModel.id ?? "",
-          );
+      // await context.read<AuthVM>().updateUserData(
+      //       updateData,
+      //       context.read<AuthVM>().userModel.id ?? "",
+      //     );
 
-      // debugPrint(" body: ");
+      debugPrint(" body: ${updateData}");
       // debugPrint('role: ${context.read<AuthVM>().userRole}');
-      // debugPrint('fullName: ${nameController.text.trim()}');
-      // debugPrint('updatedAt: $now');
-      // debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
-      // debugPrint('number.isoCode: ${number.isoCode}');
-      // debugPrint('number.dialCode: ${number.dialCode}');
+      debugPrint('fullName: ${nameController.text.trim()}');
+      debugPrint('updatedAt: $now');
+      debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
+      debugPrint('Assistant Name: ${assistantController.text.trim()}');
+      debugPrint('Year of Experience: ${yearExperienceController.toString()}');
+      debugPrint('fee: ${feeValue}');
+      debugPrint('specialist: ${number.dialCode}');
+      debugPrint('Case count: ${caseCountControllerValue}');
+      debugPrint('About : ${aboutController.text}');
+      debugPrint('Practice Area: ${practiceAreaList}');
     }
   }
 

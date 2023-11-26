@@ -317,7 +317,7 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
   }
 }
 
-Widget customContainer(String headingText, String text) {
+Widget customContainer(String headingText, var text) {
   return Expanded(
     child: Container(
       padding: EdgeInsets.all(5.sp),
