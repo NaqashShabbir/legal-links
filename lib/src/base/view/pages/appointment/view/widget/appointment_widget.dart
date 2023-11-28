@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/model/appointment_details_model.dart';
+import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/appointment_detail_screen.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../../resources/resources.dart';
@@ -9,7 +10,7 @@ import '../../../../../../../utils/hights_widths.dart';
 
 // ignore: must_be_immutable
 class AppointmentWidget extends StatelessWidget {
-  AppointmentModel model;
+  BookingModel model;
   AppointmentWidget({super.key, required this.model});
 
   @override
@@ -35,7 +36,7 @@ class AppointmentWidget extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: CachedNetworkImage(
-                      imageUrl: model.userimage ?? '',
+                      imageUrl: "",
                       imageBuilder: (context, imageProvider) => Container(
                         height: 14.w,
                         width: 14.w,
@@ -49,17 +50,15 @@ class AppointmentWidget extends StatelessWidget {
                         ),
                       ),
                       fit: BoxFit.cover,
-                      errorWidget: (context, url, e) => SizedBox(
-                          height: 14.w,
-                          width: 14.w,
-                          child: const Icon(Icons.error)),
+                      errorWidget: (context, url, e) =>
+                          SizedBox(height: 14.w, width: 14.w, child: const Icon(Icons.error)),
                       placeholder: (context, url) {
                         return Center(
                             child: SizedBox(
                           height: 14.w,
                           width: 14.w,
-                          child: CircularProgressIndicator.adaptive(
-                              backgroundColor: R.colors.primary),
+                          child:
+                              CircularProgressIndicator.adaptive(backgroundColor: R.colors.primary),
                         ));
                       },
                     ),
@@ -70,43 +69,43 @@ class AppointmentWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          model.username ?? "",
+                          "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: R.textStyles.poppinsSemiBold(
-                              fontSize: 11.sp, color: R.colors.black),
+                          style:
+                              R.textStyles.poppinsSemiBold(fontSize: 11.sp, color: R.colors.black),
                         ),
                         Text(
-                          model.customerNamr ?? "",
+                          "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: R.textStyles.poppinsRegular(
-                              fontSize: 10.sp, color: R.colors.primary),
+                          style:
+                              R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
                         ),
                         Text(
-                          model.lawyerType ?? "",
+                          "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: R.textStyles.poppinsRegular(
-                              fontSize: 10.sp, color: R.colors.primary),
+                          style:
+                              R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
                         ),
                         h2,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              model.time ?? '',
+                              '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: R.textStyles.poppinsRegular(
-                                  fontSize: 10.sp, color: R.colors.primary),
+                              style: R.textStyles
+                                  .poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
                             ),
                             Text(
-                              model.date ?? '',
+                              '',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: R.textStyles.poppinsRegular(
-                                  fontSize: 10.sp, color: R.colors.primary),
+                              style: R.textStyles
+                                  .poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
                             )
                           ],
                         )

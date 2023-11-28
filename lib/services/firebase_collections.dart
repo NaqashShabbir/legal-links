@@ -9,4 +9,5 @@ class FBCollections {
   static CollectionReference chambers = fb.collection("chambers");
   static CollectionReference lawFirms = fb.collection("law_firms");
   static CollectionReference courts = fb.collection("courts");
+  static CollectionReference bookings = fb.collection("bookings");
 }
