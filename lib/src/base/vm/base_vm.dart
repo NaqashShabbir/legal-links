@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/services/firebase_collections.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
+import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/model/lawyer_schedule_model.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
 
@@ -62,6 +64,19 @@ class BaseVM extends ChangeNotifier {
     }
 
     return check;
+  }
+
+  Future<void> createBookings(BookingModel model) async {
+    try {
+      ZBotToast.loadingShow();
+      await FBCollections.bookings.doc(model.id).set(model.toJson());
+      ZBotToast.showToastSuccess(message: "Booking added successfully.");
+      Get.back();
+    } catch (e) {
+      String error = e.toString().split(']').toList().last;
+      ZBotToast.showToastError(message: error);
+      ZBotToast.loadingClose();
+    }
   }
 
   void update() {
