@@ -62,7 +62,8 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
               h2,
               Text(
                 widget.title,
-                style: R.textStyles.poppinsBold(color: R.colors.black, fontSize: 15.sp),
+                style: R.textStyles
+                    .poppinsBold(color: R.colors.black, fontSize: 15.sp),
               ),
               h2,
               Text(
@@ -91,7 +92,9 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
                     child: Padding(
                       padding: EdgeInsets.only(right: 8.sp),
                       child: Icon(
-                        isObscure1 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                        isObscure1
+                            ? Icons.visibility_off_rounded
+                            : Icons.remove_red_eye_rounded,
                         color: Colors.grey,
                         size: 16.sp,
                       ),
@@ -112,9 +115,11 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
               h3,
               CustomButton(
                 buttonTitle: widget.text,
-                tap: () {
+                color: R.colors.red,
+                tap: () async {
                   if (_formKey.currentState!.validate()) {
-                    Auth().sendResetPassEmail(emailController.text.trim());
+                    //Auth().sendResetPassEmail(emailController.text.trim());
+                    await AuthVM().deleteAccount();
                     Get.back();
                   }
                   // if (_formKey.currentState!.validate()) {

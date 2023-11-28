@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -223,5 +221,25 @@ class AuthVM extends ChangeNotifier {
     ZBotToast.loadingClose();
 
     return imageURL;
+  }
+
+  Future<void> deleteAccount() async {
+    try {
+      ZBotToast.loadingShow();
+      User? currentUser = _auth.getCurrentUser();
+      if (currentUser != null) {
+        await _auth.deleteAccount(currentUser.uid);
+        ZBotToast.showToastSuccess(message: "Account deleted successfully");
+        // Navigate to the login screen or any other screen after account deletion
+        Get.offAllNamed(LoginScreen.route);
+      } else {
+        ZBotToast.showToastError(message: "User not found");
+      }
+    } catch (e) {
+      String error = e.toString().split(']').toList().last;
+      ZBotToast.showToastError(message: error);
+    } finally {
+      ZBotToast.loadingClose();
+    }
   }
 }
