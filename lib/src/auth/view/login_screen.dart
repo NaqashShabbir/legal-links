@@ -1,13 +1,7 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
-import 'package:legal_links_app/src/base/view/base_view.dart';
-import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/home_view.dart';
 import 'package:legal_links_app/src/auth/view/confirmation_dialog.dart';
-import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 

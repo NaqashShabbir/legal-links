@@ -9,8 +9,6 @@ import 'package:legal_links_app/resources/validator.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
-import 'package:legal_links_app/src/auth/view/lawyer_singup/complete_profile.dart';
-import 'package:legal_links_app/src/auth/view/lawyer_singup/steper_widget.dart';
 import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
@@ -18,7 +16,6 @@ import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../../resources/resources.dart';
 import '../../../../utils/common-widgets/custom_textformfield.dart';
 import '../../../../utils/hights_widths.dart';
 

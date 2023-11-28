@@ -1,24 +1,19 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/src/landing_page/view/splash_screen.dart';
-import 'package:legal_links_app/src/lawyer_base/view/lawyer_base_view.dart';
-import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/view/schedule_appointment.dart';
-import 'package:legal_links_app/src/lawyer_profile/vm/signup_lawyer.dart';
-import 'package:legal_links_app/widget_test.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
+import 'firebase_options.dart';
 import 'routes/app_routes.dart';
 import 'src/auth/vm/auth_vm.dart';
 import 'src/base/view/pages/appointment/vm/appointment_vm.dart';
 import 'src/lawyer_base/view/pages/dashboard/vm/lawyer_vm.dart';
-import 'src/auth/view/lawyer_singup/signup_screen_one.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

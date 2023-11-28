@@ -5,9 +5,7 @@ import 'package:legal_links_app/src/auth/view/lawyer_singup/signup_screen_three.
 import 'package:legal_links_app/src/auth/view/lawyer_singup/signup_screen_two.dart';
 import 'package:legal_links_app/src/auth/view/lawyer_singup/steper_widget.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
-import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:provider/provider.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../../utils/common-widgets/global_widget.dart';
 import '../../../../utils/hights_widths.dart';

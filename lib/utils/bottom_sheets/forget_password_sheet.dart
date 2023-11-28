@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
-import 'package:legal_links_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../resources/validator.dart';
-import '../../src/auth/view/login_screen.dart';
 import '../../src/auth/vm/auth_vm.dart';
 import '../common-widgets/custom_button.dart';
 import '../common-widgets/custom_textformfield.dart';
 import '../hights_widths.dart';
-import 'otp_sheet.dart';
 
 class ForgotPasswordSheet extends StatefulWidget {
   final String title;

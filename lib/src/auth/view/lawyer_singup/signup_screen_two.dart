@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
-import 'package:legal_links_app/src/auth/view/lawyer_singup/signup_screen_three.dart';
-import 'package:legal_links_app/src/auth/view/lawyer_singup/steper_widget.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:provider/provider.dart';

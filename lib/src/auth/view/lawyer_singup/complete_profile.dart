@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/src/lawyer_base/view/lawyer_base_view.dart';
-import 'package:legal_links_app/src/lawyer_profile/view/widget/custom_button.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../../../resources/resources.dart';
 import '../../../../utils/hights_widths.dart';
 

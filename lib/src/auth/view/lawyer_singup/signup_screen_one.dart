@@ -7,7 +7,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/services/image_picker_service/image_picker_option.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
-import 'package:legal_links_app/src/auth/view/lawyer_singup/steper_widget.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
@@ -17,10 +16,7 @@ import 'package:sizer/sizer.dart';
 import '../../../../resources/resources.dart';
 import '../../../../resources/validator.dart';
 import '../../../../utils/common-widgets/custom_textformfield.dart';
-import '../../../../utils/common-widgets/global_widget.dart';
 import '../../../../utils/hights_widths.dart';
-import '../login_screen.dart';
-import 'signup_screen_two.dart';
 
 class SignupScreenOneOfLawyer extends StatefulWidget {
   const SignupScreenOneOfLawyer({super.key});

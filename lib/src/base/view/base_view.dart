@@ -8,9 +8,9 @@ import 'package:legal_links_app/src/base/view/pages/appointment/view/appointment
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/home_view.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/settings_view.dart';
-import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
+
 import '../../../utils/common-widgets/call_confirmation.dart';
 
 class BaseView extends StatefulWidget {

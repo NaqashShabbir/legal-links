@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/constants/enums.dart';
-import 'package:legal_links_app/services/auth_services.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/update_client_profile.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/update_lawyer_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import '../../../../../../resources/app_images.dart';
+
 import '../../../../../../resources/resources.dart';
 import '../../../../../../utils/common-widgets/global_widget.dart';
 import '../../../../../../utils/hights_widths.dart';
@@ -57,20 +56,22 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       builder: (context, authVm, _) {
         return SafeArea(
           child: Scaffold(
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: R.colors.primary,
-              onPressed: () {
-                if (authVm.userModel.role == UserRole.CLIENT) {
-                  Get.to(() => const UpdateClientScreen());
-                } else {
-                  Get.to(() => const UpdateLawyerProfile());
-                }
-              },
-              child: Icon(
-                Icons.edit,
-                color: R.colors.white,
-              ),
-            ),
+            floatingActionButton: authVm.userModel.role == UserRole.CLIENT
+                ? FloatingActionButton(
+                    backgroundColor: R.colors.primary,
+                    onPressed: () {
+                      if (authVm.userModel.role == UserRole.CLIENT) {
+                        Get.to(() => const UpdateClientScreen());
+                      } else {
+                        Get.to(() => const UpdateLawyerProfile());
+                      }
+                    },
+                    child: Icon(
+                      Icons.edit,
+                      color: R.colors.white,
+                    ),
+                  )
+                : null,
             appBar: GlobalWidgets.appBar('Profils'),
             body: authVm.userModel.role == UserRole.LAWYER
                 ? lawyerProfileWidget(authVm)

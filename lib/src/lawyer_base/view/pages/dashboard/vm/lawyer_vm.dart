@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/services/firebase_collections.dart';
-import 'package:legal_links_app/src/base/view/pages/settings/model/review_model.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/model/lawyer_schedule_model.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/model/user_reviews_model.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';

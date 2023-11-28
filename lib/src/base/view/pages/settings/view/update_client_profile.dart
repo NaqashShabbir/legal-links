@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/resources/validator.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
@@ -11,7 +10,6 @@ import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_textformfield.dart';
 import 'package:legal_links_app/utils/common-widgets/global_widget.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
-import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 

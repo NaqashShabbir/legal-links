@@ -210,8 +210,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                             address: (value) {
                               pickLocationData = value;
                               latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
-                              addressController.text =
-                                  pickLocationData?.streetAddress ?? '';
+                              addressController.text = pickLocationData?.streetAddress ?? '';
                             },
                           ),
                         );
@@ -241,9 +240,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     });
                   }),
                   h1,
-                  for (int index = 0;
-                      index < practiceAreaList.length;
-                      index++) ...[
+                  for (int index = 0; index < practiceAreaList.length; index++) ...[
                     practiceField(practiceAreaList[index], index),
                     h0P8,
                   ],
@@ -256,9 +253,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     });
                   }),
                   h1,
-                  for (int index = 0;
-                      index < experienceList.length;
-                      index++) ...[
+                  for (int index = 0; index < experienceList.length; index++) ...[
                     customTextFieldExperience(experienceList[index], index),
                     h0P8,
                   ],
@@ -269,9 +264,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     });
                   }),
                   h1,
-                  for (int index = 0;
-                      index < qualificationList.length;
-                      index++) ...[
+                  for (int index = 0; index < qualificationList.length; index++) ...[
                     qualificationFieldRow(qualificationList[index], index),
                     h0P8,
                   ],
@@ -305,8 +298,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                 value: item,
                 child: Text(
                   item.specialist ?? "",
-                  style: R.textStyles
-                      .poppinsRegular(color: R.colors.black, fontSize: 8.sp),
+                  style: R.textStyles.poppinsRegular(color: R.colors.black, fontSize: 8.sp),
                 ),
               ))
           .toList(),
@@ -340,8 +332,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle:
-            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -389,8 +380,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       //     phoneNumberController.text.trim(), context),
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputBorder: const UnderlineInputBorder(),
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
@@ -407,13 +397,13 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
     print('Fee Value: ${feeController.text}');
 
     num feeValue = double.parse(feeController.text.trim());
-    num caseCountControllerValue =
-        double.parse(caseCountController.text.trim());
+    num caseCountControllerValue = double.parse(caseCountController.text.trim());
+    // ignore: unused_local_variable
     int? yearExperience;
     if (yearExperienceController.text.isNotEmpty) {
       yearExperience = int.tryParse(yearExperienceController.text);
     }
-    print('Fee Value: ${feeValue}');
+    debugPrint('Fee Value: $feeValue');
 
     if (_formKey.currentState!.validate()) {
       Timestamp now = Timestamp.now();
@@ -473,22 +463,22 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       //       context.read<AuthVM>().userModel.id ?? "",
       //     );
 
-      debugPrint(" body: ${updateData}");
+      debugPrint(" body: $updateData");
       // debugPrint('role: ${context.read<AuthVM>().userRole}');
       debugPrint('fullName: ${nameController.text.trim()}');
       debugPrint('updatedAt: $now');
       debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
       debugPrint('Assistant Name: ${assistantController.text.trim()}');
       debugPrint('Year of Experience: ${yearExperienceController.toString()}');
-      debugPrint('fee: ${feeValue}');
+      debugPrint('fee: $feeValue');
       debugPrint('specialist: ${number.dialCode}');
-      debugPrint('Case count: ${caseCountControllerValue}');
+      debugPrint('Case count: $caseCountControllerValue');
       debugPrint('About : ${aboutController.text}');
-      debugPrint('Practice Area: ${practiceAreaList}');
-      debugPrint('Experiance Designation: ${practiceAreaList}');
-      debugPrint('Experiance Firm: ${practiceAreaList}');
-      debugPrint('Qualification Degree: ${practiceAreaList}');
-      debugPrint('Qualification Uni: ${practiceAreaList}');
+      debugPrint('Practice Area: $practiceAreaList');
+      debugPrint('Experiance Designation: $practiceAreaList');
+      debugPrint('Experiance Firm: $practiceAreaList');
+      debugPrint('Qualification Degree: $practiceAreaList');
+      debugPrint('Qualification Uni: $practiceAreaList');
     }
   }
 
@@ -504,8 +494,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
             onPressed: onTap,
             child: Text(
               'ADD MORE',
-              style: R.textStyles
-                  .poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
+              style: R.textStyles.poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
             )),
       ],
     );

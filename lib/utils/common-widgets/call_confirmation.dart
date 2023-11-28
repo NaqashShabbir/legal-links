@@ -1,14 +1,16 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
 import 'package:sizer/sizer.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../../../../../../resources/resources.dart';
 
 class CallConfirmationDialog extends StatefulWidget {
   final String PhoneNumberOne, PhoneNumberTwo;
-  CallConfirmationDialog({super.key, required this.PhoneNumberOne, required this.PhoneNumberTwo});
+  const CallConfirmationDialog({super.key, required this.PhoneNumberOne, required this.PhoneNumberTwo});
 
   @override
   State<CallConfirmationDialog> createState() => _CallConfirmationDialogState();
@@ -103,7 +105,7 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
     );
   }
 
-  // ignore: non_constant_identifier_names
+  
   Widget NumberField(VoidCallback onTap, String text) {
     return ElevatedButton(
       onPressed: onTap,
