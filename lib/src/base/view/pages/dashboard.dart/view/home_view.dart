@@ -53,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<BaseVM>(builder: (context, vm, _) {
+    return Consumer2<BaseVM, AuthVM>(builder: (context, vm, authVM, _) {
       return SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(
@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
                       Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
+                          GestureDetector(
                             onTap: () async {
                               // var vm = Provider.of<BaseVM>(context, listen: false);
                               // var baseVM = Provider.of<BaseVM>(context, listen: false);
@@ -86,8 +86,7 @@ class _HomeViewState extends State<HomeView> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: CachedNetworkImage(
-                                imageUrl:
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhb-i5hfO6dua8b_ST-jVkDFQSJMEGnDb5MQ&usqp=CAU',
+                                imageUrl: authVM.userModel.profileImages?.first ?? '',
                                 imageBuilder: (context, imageProvider) => Container(
                                   height: 11.w,
                                   width: 11.w,
@@ -124,40 +123,41 @@ class _HomeViewState extends State<HomeView> {
                         ],
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Find the Best Lawyer Near You",
-                            style: R.textStyles.poppinsMedium(),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Get.to(
-                                () => GoogleMapScreen(
-                                  selectedLocation: latLng,
-                                  address: (value) {
-                                    pickLocationData = value;
-                                    latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
-                                  },
-                                ),
-                              );
-                              setState(() {});
-                              debugPrint("pickLocationData $pickLocationData");
-                            },
-                            icon: const Icon(
-                              Icons.location_pin,
-                            ),
-                          ),
-                        ],
-                      ),
-                      searchField(),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Text(
+                      //       "Find the Best Lawyer Near You",
+                      //       style: R.textStyles.poppinsMedium(),
+                      //     ),
+                      //     IconButton(
+                      //       onPressed: () {
+                      //         Get.to(
+                      //           () => GoogleMapScreen(
+                      //             selectedLocation: latLng,
+                      //             address: (value) {
+                      //               pickLocationData = value;
+                      //               latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
+                      //             },
+                      //           ),
+                      //         );
+                      //         setState(() {});
+                      //         debugPrint("pickLocationData $pickLocationData");
+                      //       },
+                      //       icon: const Icon(
+                      //         Icons.location_pin,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       h1,
+                      searchField(),
+                      // h1,
 
                       viewAllWidget("Lawyers", () {
                         Get.toNamed(AllLawyersScreen.route);
                       }),
-                      h1,
+                      // h1,
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Row(
@@ -169,7 +169,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                       ),
-                      h0P7,
+                      // h0P7,
                       viewAllWidget("Chambers", () {}),
 
                       SingleChildScrollView(
@@ -184,7 +184,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                       ),
-                      h1,
+                      // h1,
                       viewAllWidget("Courts", () {}),
 
                       SingleChildScrollView(
@@ -199,7 +199,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                       ),
-                      h1,
+                      // h1,
                       viewAllWidget("Law Firms", () {}),
 
                       SingleChildScrollView(
@@ -214,7 +214,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ),
                       ),
-                      h1,
+                      // h1,
 
                       // viewAllWidget("Legal Links Users", () {}),
                       // h1,

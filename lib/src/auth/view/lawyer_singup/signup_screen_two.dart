@@ -404,7 +404,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
         status: vm.tempLawyerModel.status,
         yearOfExperience: vm.tempLawyerModel.yearOfExperience,
         gender: vm.tempLawyerModel.gender,
-        profileImages: vm.tempLawyerModel.profileImages ?? [],
+        // profileImages: vm.tempLawyerModel.profileImages ?? [],upload on 3
         // current page data
         specialist: [laywersSpe?.specialist ?? ""],
         qualifications: List.from(qualificationList),

@@ -8,8 +8,7 @@ import '../../../../../../../resources/resources.dart';
 
 class CallConfirmationDialog extends StatefulWidget {
   final String PhoneNumberOne, PhoneNumberTwo;
-  CallConfirmationDialog(
-      {super.key, required this.PhoneNumberOne, required this.PhoneNumberTwo});
+  CallConfirmationDialog({super.key, required this.PhoneNumberOne, required this.PhoneNumberTwo});
 
   @override
   State<CallConfirmationDialog> createState() => _CallConfirmationDialogState();
@@ -53,13 +52,13 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
                   child: Container(
                     padding: const EdgeInsets.all(7),
                     decoration: BoxDecoration(
-                      color: R.colors.grey,
+                      color: R.colors.red.withOpacity(.3),
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.clear,
                       size: 18,
-                      color: R.colors.black,
+                      color: R.colors.red,
                     ),
                   ),
                 ),
@@ -68,13 +67,14 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
               Icon(
                 Icons.headphones,
                 size: 30.sp,
-                color: Colors.red,
+                color: R.colors.primary,
               ),
-              h2,
-              GestureDetector(
-                onTap: () async {
-                  debugPrint('click');
-
+              h2P5,
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.sp),
+                width: double.infinity,
+                child: NumberField(() async {
+                  debugPrint("03244533999");
                   final Uri url = Uri(
                     scheme: 'tel',
                     path: '03244533999',
@@ -82,30 +82,14 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
                   if (await canLaunchUrl(url)) {
                     await launchUrl(url);
                   }
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10.sp),
-                  width: double.infinity,
-                  child: NumberField(() {}, widget.PhoneNumberOne),
-                ),
+                  debugPrint("03244533999");
+                }, widget.PhoneNumberOne),
               ),
               h1,
-              GestureDetector(
-                onTap: () async {
-                  debugPrint('click');
-                  final Uri url = Uri(
-                    scheme: 'tel',
-                    path: '03244533999',
-                  );
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url);
-                  }
-                },
-                child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10.sp),
-                    width: double.infinity,
-                    child: NumberField(() {}, widget.PhoneNumberTwo)),
-              ),
+              Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10.sp),
+                  width: double.infinity,
+                  child: NumberField(() {}, widget.PhoneNumberTwo)),
               h3,
               Text(
                 'Available 12/7 for your service',
@@ -143,9 +127,7 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
               child: Text(
                 text,
                 textAlign: TextAlign.center,
-                style: R.textStyles
-                    .poppinsMedium()
-                    .copyWith(color: R.colors.white),
+                style: R.textStyles.poppinsMedium().copyWith(color: R.colors.white),
               ),
             ),
           ],

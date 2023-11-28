@@ -45,12 +45,8 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
 
   var duration;
 
-
-
-  
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
-
 
   FocusNode passwordFocus = FocusNode();
   FocusNode confirmpasswordFocus = FocusNode();
@@ -153,65 +149,60 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
                     // autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   h1,
-                    CustomTextFormField(
-                      controller: passwordController,
-                      focusNode: passwordFocus,
-                      inputAction: TextInputAction.next,
-                      inputType: TextInputType.visiblePassword,
-                      validator: FieldValidator.validatePassword,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      hintText: 'Enter password',
-                      fieldTitle: "Password",
-                      obscureText: isObscure1,
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isObscure1 = !isObscure1;
-                          });
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 8.sp),
-                          child: Icon(
-                            isObscure1
-                                ? Icons.visibility_off_rounded
-                                : Icons.remove_red_eye_rounded,
-                            color: Colors.grey,
-                            size: 16.sp,
-                          ),
+                  CustomTextFormField(
+                    controller: passwordController,
+                    focusNode: passwordFocus,
+                    inputAction: TextInputAction.next,
+                    inputType: TextInputType.visiblePassword,
+                    validator: FieldValidator.validatePassword,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    hintText: 'Enter password',
+                    fieldTitle: "Password",
+                    obscureText: isObscure1,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isObscure1 = !isObscure1;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 8.sp),
+                        child: Icon(
+                          isObscure1 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          color: Colors.grey,
+                          size: 16.sp,
                         ),
                       ),
                     ),
-                    CustomTextFormField(
-                      controller: confirmpasswordController,
-                      focusNode: confirmpasswordFocus,
-                      inputAction: TextInputAction.done,
-                      inputType: TextInputType.visiblePassword,
-                      validator: (val) => FieldValidator.validatePasswordMatch(
-                          confirmpasswordController.text,
-                          passwordController.text),
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      hintText: 'Enter confirm password',
-                      fieldTitle: "Confirm Password",
-                      obscureText: isObscure2,
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isObscure2 = !isObscure2;
-                          });
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 8.sp),
-                          child: Icon(
-                            isObscure2
-                                ? Icons.visibility_off_rounded
-                                : Icons.remove_red_eye_rounded,
-                            color: Colors.grey,
-                            size: 16.sp,
-                          ),
+                  ),
+                  CustomTextFormField(
+                    controller: confirmpasswordController,
+                    focusNode: confirmpasswordFocus,
+                    inputAction: TextInputAction.done,
+                    inputType: TextInputType.visiblePassword,
+                    validator: (val) => FieldValidator.validatePasswordMatch(
+                        confirmpasswordController.text, passwordController.text),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    hintText: 'Enter confirm password',
+                    fieldTitle: "Confirm Password",
+                    obscureText: isObscure2,
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isObscure2 = !isObscure2;
+                        });
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 8.sp),
+                        child: Icon(
+                          isObscure2 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          color: Colors.grey,
+                          size: 16.sp,
                         ),
                       ),
                     ),
-                    h1,
+                  ),
+                  h1,
                   h3,
                   CustomButton(
                     buttonTitle: "Complete",
@@ -231,55 +222,64 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
   Future<void> butonFn(AuthVM vm) async {
     if (_formKey.currentState!.validate()) {
       ZBotToast.loadingShow();
-      Timestamp now = Timestamp.now();
-      vm.tempLawyerModel = UserModel(
-        // page 1 data
 
-        fullName: vm.tempLawyerModel.fullName,
-        phoneNumber: vm.tempLawyerModel.phoneNumber,
-        email: vm.tempLawyerModel.email,
-        yearOfExperience: vm.tempLawyerModel.yearOfExperience,
-        gender: vm.tempLawyerModel.gender,
-        profileImages: vm.tempLawyerModel.profileImages ?? [],
-        // page 2 data
-        specialist: vm.tempLawyerModel.specialist,
-        qualifications: vm.tempLawyerModel.qualifications,
-        experience: vm.tempLawyerModel.experience,
-        practiceAreas: vm.tempLawyerModel.practiceAreas,
-        // current page
-        about: aboutController.text.trim(),
-        assistantName: aboutController.text.trim(),
-        casesCount: int.parse(caseCountController.text.trim()),
+      String? url = await vm.uploadImageUser(vm.tempLawyerProfileImage!);
 
-        feePerMeeting: double.parse(feeController.text.trim()),
-        isLawyerVerified: false,
-        isVerified: false,
+      if (url != null) {
+        Timestamp now = Timestamp.now();
+        vm.tempLawyerModel = UserModel(
+          // page 1 data
 
-        officeAdress: OfficeAdress(
-          city: pickLocationData?.city,
-          country: pickLocationData?.country,
-          latLng: GeoPoint(pickLocationData?.lat ?? 0, pickLocationData?.lng ?? 0),
-          state: pickLocationData?.city,
-          streetAdress: pickLocationData?.city,
-          zipCode: pickLocationData?.city,
-        ),
-        role: context.read<AuthVM>().userRole,
-        status: vm.tempLawyerModel.status,
+          fullName: vm.tempLawyerModel.fullName,
+          phoneNumber: vm.tempLawyerModel.phoneNumber,
+          email: vm.tempLawyerModel.email,
+          yearOfExperience: vm.tempLawyerModel.yearOfExperience,
+          gender: vm.tempLawyerModel.gender,
+          profileImages: [url],
+          // page 2 data
+          specialist: vm.tempLawyerModel.specialist,
+          qualifications: vm.tempLawyerModel.qualifications,
+          experience: vm.tempLawyerModel.experience,
+          practiceAreas: vm.tempLawyerModel.practiceAreas,
+          // current page
+          about: aboutController.text.trim(),
+          assistantName: aboutController.text.trim(),
+          casesCount: int.parse(caseCountController.text.trim()),
 
-        createdAt: now,
-        updatedAt: now,
-      );
+          feePerMeeting: double.parse(feeController.text.trim()),
+          isLawyerVerified: false,
+          isVerified: false,
 
-      bool check = await context.read<AuthVM>().signUp(vm.tempLawyerModel, pass: confirmpasswordController.text.trim());
-      if (check) {
-        vm.tempLawyerModel = UserModel();
-        // vm.password = '';
+          officeAdress: OfficeAdress(
+            city: pickLocationData?.city,
+            country: pickLocationData?.country,
+            latLng: GeoPoint(pickLocationData?.lat ?? 0, pickLocationData?.lng ?? 0),
+            state: pickLocationData?.city,
+            streetAdress: pickLocationData?.city,
+            zipCode: pickLocationData?.city,
+          ),
+          role: context.read<AuthVM>().userRole,
+          status: vm.tempLawyerModel.status,
 
-        context.read<AuthVM>().singupPage = 0;
-        context.read<AuthVM>().singupPageController.jumpToPage(0);
-        context.read<AuthVM>().update();
-        ZBotToast.loadingClose();
-        Get.toNamed(LoginScreen.route);
+          createdAt: now,
+          updatedAt: now,
+        );
+
+        bool check = await context
+            .read<AuthVM>()
+            .signUp(vm.tempLawyerModel, pass: confirmpasswordController.text.trim());
+        if (check) {
+          vm.tempLawyerModel = UserModel();
+          // vm.password = '';
+
+          context.read<AuthVM>().singupPage = 0;
+          context.read<AuthVM>().singupPageController.jumpToPage(0);
+          context.read<AuthVM>().update();
+          ZBotToast.loadingClose();
+          Get.toNamed(LoginScreen.route);
+        }
+      } else {
+        ZBotToast.showToastError(message: "Error Uploading Image, Please Try Again!");
       }
     }
   }

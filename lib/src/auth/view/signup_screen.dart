@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -124,8 +126,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     h1,
                     Container(
-                      margin:
-                          EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                      margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
                       child: Text(
                         "Phone Number",
                         style: R.textStyles.poppinsMedium(
@@ -170,8 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       inputAction: TextInputAction.done,
                       inputType: TextInputType.visiblePassword,
                       validator: (val) => FieldValidator.validatePasswordMatch(
-                          confirmpasswordController.text,
-                          passwordController.text),
+                          confirmpasswordController.text, passwordController.text),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       hintText: 'Enter confirm password',
                       fieldTitle: "Confirm Password",
@@ -206,8 +206,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     genderDropDown(vm: authvm),
                     h3,
                     InkWell(
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.transparent),
+                      overlayColor: MaterialStateProperty.all(Colors.transparent),
                       onTap: () {
                         setState(() {
                           isChecked = !isChecked;
@@ -273,8 +272,7 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle:
-            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -322,8 +320,7 @@ class _SignupScreenState extends State<SignupScreen> {
       //     phoneNumberController.text.trim(), context),
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputBorder: const UnderlineInputBorder(),
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
@@ -339,28 +336,33 @@ class _SignupScreenState extends State<SignupScreen> {
   Future<void> buttonFn() async {
     if (_formKey.currentState!.validate()) {
       if (!isChecked) {
-        ZBotToast.showToastError(
-            message: "Please agree to the Privacy Policy and T&C.");
+        debugPrint(" Please agree to the Privacy Policy and T&C. ");
+        ZBotToast.showToastError(message: "Please agree to the Privacy Policy and T&C.");
+      } else if (profileImage == null) {
+        ZBotToast.showToastError(message: "Please Pick Image");
+        debugPrint(" Please Pick Image ");
       } else {
-        Timestamp now = Timestamp.now();
-        UserModel createClient = UserModel(
-          role: context.read<AuthVM>().userRole,
-          fullName: nameController.text.trim(),
-          createdAt: now,
-          updatedAt: now,
-          phoneNumber: PhoneNumberModel(
-            number: phoneNumberController.text.trim(),
-            isoCode: number.isoCode,
-            countryCode: number.dialCode,
-          ),
-          //  id: ,
-          email: emailController.text.trim(),
-          status: UserStatus.ACTIVE,
-        );
+        String? url = await context.read<AuthVM>().uploadImageUser(profileImage!);
+        debugPrint("  Image URL $url ");
+        if (url != null) {
+          Timestamp now = Timestamp.now();
+          UserModel createClient = UserModel(
+            profileImages: [url],
+            role: context.read<AuthVM>().userRole,
+            fullName: nameController.text.trim(),
+            createdAt: now,
+            updatedAt: now,
+            phoneNumber: PhoneNumberModel(
+              number: phoneNumberController.text.trim(),
+              isoCode: number.isoCode,
+              countryCode: number.dialCode,
+            ),
+            email: emailController.text.trim(),
+            status: UserStatus.ACTIVE,
+          );
 
-        await context
-            .read<AuthVM>()
-            .signUp(createClient, pass: passwordController.text.trim());
+          await context.read<AuthVM>().signUp(createClient, pass: passwordController.text.trim());
+        }
 
         // debugPrint(" body: ");
         // debugPrint('role: ${context.read<AuthVM>().userRole}');
@@ -414,9 +416,8 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Container(
               width: 40.sp,
               height: 40.sp,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: R.colors.primary.withOpacity(.08)),
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: R.colors.primary.withOpacity(.08)),
               child: profileImage == null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(150),
@@ -493,4 +494,8 @@ class _SignupScreenState extends State<SignupScreen> {
       },
     );
   }
+
+//
+
+//
 }

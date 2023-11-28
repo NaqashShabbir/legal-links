@@ -10,6 +10,7 @@ import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/view/lawyer_singup/steper_widget.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
+import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -25,8 +26,7 @@ class SignupScreenOneOfLawyer extends StatefulWidget {
   const SignupScreenOneOfLawyer({super.key});
 
   @override
-  State<SignupScreenOneOfLawyer> createState() =>
-      _SignupScreenOneOfLawyerState();
+  State<SignupScreenOneOfLawyer> createState() => _SignupScreenOneOfLawyerState();
 }
 
 class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
@@ -102,8 +102,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   ),
                   h1,
                   Container(
-                    margin:
-                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
                     child: Text(
                       "Phone Number",
                       style: R.textStyles.poppinsMedium(
@@ -221,9 +220,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
             child: Container(
               width: 40.sp,
               height: 40.sp,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: R.colors.primary.withOpacity(.08)),
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: R.colors.primary.withOpacity(.08)),
               child: profileImage == null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(150),
@@ -288,8 +286,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle:
-            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -337,8 +334,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
       //     phoneNumberController.text.trim(), context),
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputBorder: const UnderlineInputBorder(),
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
@@ -353,24 +349,30 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
 
   Future<void> butonFn() async {
     if (_formKey.currentState!.validate()) {
-      context.read<AuthVM>().tempLawyerModel = UserModel(
-        role: context.read<AuthVM>().userRole,
-        fullName: nameController.text.trim(),
-        phoneNumber: PhoneNumberModel(
-          number: numberController.text.trim(),
-          isoCode: number.isoCode,
-          countryCode: number.dialCode,
-        ),
-        email: emailController.text.trim(),
-        status: UserStatus.ACTIVE,
-        yearOfExperience: yeearOfExperienceController.text.toString(),
-        gender: selectedGender,
-        profileImages: [profileImage?.path ?? ""],
-      );
+      if (profileImage == null) {
+        ZBotToast.showToastError(message: "Please Pick Image");
+      } else {
+        context.read<AuthVM>().tempLawyerProfileImage = profileImage;
 
-      context.read<AuthVM>().singupPageController.jumpToPage(1);
-      context.read<AuthVM>().singupPage = 1;
-      context.read<AuthVM>().update();
+        context.read<AuthVM>().tempLawyerModel = UserModel(
+          role: context.read<AuthVM>().userRole,
+          fullName: nameController.text.trim(),
+          phoneNumber: PhoneNumberModel(
+            number: numberController.text.trim(),
+            isoCode: number.isoCode,
+            countryCode: number.dialCode,
+          ),
+          email: emailController.text.trim(),
+          status: UserStatus.ACTIVE,
+          yearOfExperience: yeearOfExperienceController.text.toString(),
+          gender: selectedGender,
+          // profileImages: [profileImage?.path ?? ""],
+        );
+
+        context.read<AuthVM>().singupPageController.jumpToPage(1);
+        context.read<AuthVM>().singupPage = 1;
+        context.read<AuthVM>().update();
+      }
     }
   }
 

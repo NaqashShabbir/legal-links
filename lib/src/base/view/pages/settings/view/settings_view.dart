@@ -43,7 +43,7 @@ class _SettingsViewState extends State<SettingsView> {
                   child: CircleAvatar(
                     backgroundColor: R.colors.primary.withOpacity(.2),
                     radius: 70,
-                    backgroundImage: NetworkImage(AppImages.dummyImageTwo),
+                    backgroundImage: NetworkImage(authVM.userModel.profileImages?.first ?? ""),
                     onBackgroundImageError: (exception, stackTrace) {
                       Container(
                         decoration: BoxDecoration(
@@ -87,14 +87,14 @@ class _SettingsViewState extends State<SettingsView> {
                         //     Get.toNamed(RatingAndReviewsScreen.route);
                         //   },
                         // ),
-                        ScreenTileWidget(
-                          iconVar: Icons.privacy_tip_rounded,
-                          title: 'Verification',
-                          tap: () {
-                            debugPrint('clicked');
-                            Get.toNamed(PrivacyPolicyScreen.route);
-                          },
-                        ),
+                        // ScreenTileWidget(
+                        //   iconVar: Icons.privacy_tip_rounded,
+                        //   title: 'Verification',
+                        //   tap: () {
+                        //     debugPrint('clicked');
+                        //     Get.toNamed(PrivacyPolicyScreen.route);
+                        //   },
+                        // ),
 
                         ScreenTileWidget(
                           iconVar: Icons.text_snippet_rounded,
