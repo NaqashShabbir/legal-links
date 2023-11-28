@@ -6,9 +6,16 @@ import '../hights_widths.dart';
 class ScreenTileWidget extends StatelessWidget {
   final IconData iconVar;
   final String title;
+  Color? color = R.colors.primary;
+  Color? textColor;
   final VoidCallback? tap;
-  const ScreenTileWidget(
-      {super.key, required this.iconVar, required this.title, required this.tap});
+  ScreenTileWidget(
+      {super.key,
+      required this.iconVar,
+      required this.title,
+      required this.tap,
+      this.color,
+      this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +45,14 @@ class ScreenTileWidget extends StatelessWidget {
           width: double.infinity,
           child: Row(
             children: [
-              Icon(iconVar, size: 14.sp, color: R.colors.primary),
+              Icon(iconVar, size: 14.sp, color: color),
               w2,
-              Text(title, style: R.textStyles.poppinsMedium(fontSize: 10.sp)),
+              Text(title,
+                  style: R.textStyles
+                      .poppinsMedium(fontSize: 10.sp, color: textColor)),
               const Spacer(),
-              Icon(Icons.arrow_forward_ios_rounded, size: 14.sp, color: R.colors.primary)
+              Icon(Icons.arrow_forward_ios_rounded,
+                  size: 14.sp, color: R.colors.primary)
             ],
           ),
         ),

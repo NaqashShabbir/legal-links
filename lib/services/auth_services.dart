@@ -16,6 +16,7 @@ abstract class BaseAuth {
   Future<void> signOut();
   Future<void> sendResetPassEmail(String? email);
   Future<void> changePassword(String? oldPassword, String? newPassword);
+  Future<void> deleteAccount(String? uid);
 
   // Future<void> updateProfile(UserData? userModel, String email);
 }
@@ -190,6 +191,29 @@ class Auth implements BaseAuth {
         debugPrint(e.toString());
         ZBotToast.showToastError(message: "Failed to change password");
       }
+    }
+  }
+
+  @override
+  Future<void> deleteAccount(String? uid) async {
+    try {
+      // Delete the user account
+      await _firebaseAuth.currentUser?.delete();
+
+      // Delete user data from Firestore or other databases if needed
+      // await FBCollections.users.doc(uid).delete();
+
+      ZBotToast.showToastSuccess(message: 'Account deleted successfully');
+    } catch (e) {
+      String error = e.toString();
+      debugPrint('Error deleting account: $error');
+      ZBotToast.showToastError(message: 'password not correct');
+
+      // if (error.contains('requires-recent-login')) {
+      //   ZBotToast.showToastError(message: 'User needs to reauthenticate');
+      // } else {
+      //   ZBotToast.showToastError(message: 'Failed to delete account');
+      // }
     }
   }
   //
