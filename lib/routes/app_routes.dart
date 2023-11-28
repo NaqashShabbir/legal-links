@@ -6,7 +6,6 @@ import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/profile_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_reviews_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/update_client_profile.dart';
-import 'package:legal_links_app/src/base/view/pages/settings/view/update_lawyer.dart';
 import '../src/base/view/pages/appointment/view/appointment_detail_screen.dart';
 import '../src/base/view/pages/appointment/view/appointment_view.dart';
 import '../src/base/view/pages/appointment/view/book_appointment_screen.dart';
@@ -71,7 +70,7 @@ abstract class AppPages {
     GetPage(
         name: UpdateClientScreen.route, page: () => const UpdateClientScreen()),
     GetPage(
-        name: UpdateLawyerProfileScreen.route,
-        page: () => const UpdateLawyerProfileScreen()),
+        name: UpdateLawyerProfile.route,
+        page: () => const UpdateLawyerProfile()),
   ];
 }

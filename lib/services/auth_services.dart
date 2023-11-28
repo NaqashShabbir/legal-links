@@ -15,6 +15,8 @@ abstract class BaseAuth {
   Future<UserModel?> getUserData(String? email);
   Future<void> signOut();
   Future<void> sendResetPassEmail(String? email);
+  Future<void> changePassword(String? oldPassword, String? newPassword);
+
   // Future<void> updateProfile(UserData? userModel, String email);
 }
 
@@ -22,11 +24,12 @@ class Auth implements BaseAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<User?> createUserWithEmailPassword(String? email, String? password) async {
+  Future<User?> createUserWithEmailPassword(
+      String? email, String? password) async {
     try {
-      var user =
-          (await _firebaseAuth.createUserWithEmailAndPassword(email: email!, password: password!))
-              .user;
+      var user = (await _firebaseAuth.createUserWithEmailAndPassword(
+              email: email!, password: password!))
+          .user;
       // try {
       // await user?.sendEmailVerification();
       return user;
@@ -42,7 +45,8 @@ class Auth implements BaseAuth {
       debugPrint("I am Error \n\n\n $e");
       String error = e.toString();
       if (error.contains("email-already-in-use")) {
-        ZBotToast.showToastError(message: "The email address is already in use by another account");
+        ZBotToast.showToastError(
+            message: "The email address is already in use by another account");
       }
       return null;
     }
@@ -59,8 +63,9 @@ class Auth implements BaseAuth {
   Future<User?> signInWithEmailPassword(String? email, String? password) async {
     debugPrint("sign in method");
     try {
-      var user =
-          (await _firebaseAuth.signInWithEmailAndPassword(email: email!, password: password!)).user;
+      var user = (await _firebaseAuth.signInWithEmailAndPassword(
+              email: email!, password: password!))
+          .user;
       // if (user!.emailVerified) {
       return user;
       // } else {
@@ -78,7 +83,8 @@ class Auth implements BaseAuth {
 
       if (error.contains("too-many-requests")) {
         ZBotToast.showToastError(
-            message: "This Device is blocked for some time due to unusual activity.");
+            message:
+                "This Device is blocked for some time due to unusual activity.");
       } else if (error.contains("INVALID_LOGIN_CREDENTIALS")) {
         ZBotToast.showToastError(message: "ENTER CORRECT PASSWORD");
       } else if (error.contains("user-not-found")) {
@@ -125,7 +131,8 @@ class Auth implements BaseAuth {
       debugPrint("sign in error $e");
       if (error.contains("too-many-requests")) {
         ZBotToast.showToastError(
-            message: "This Device is blocked for some time due to unusual activity.");
+            message:
+                "This Device is blocked for some time due to unusual activity.");
       } else if (error.contains("wrong-password")) {
         ZBotToast.showToastError(message: "ENTER CORRECT PASSWORD");
       } else if (error.contains("user-not-found")) {
@@ -145,6 +152,44 @@ class Auth implements BaseAuth {
     } catch (e) {
       debugPrint(e.toString());
       return null;
+    }
+  }
+
+  @override
+  Future<void> changePassword(String? oldPassword, String? newPassword) async {
+    try {
+      var user = _firebaseAuth.currentUser;
+
+      if (user != null) {
+        // Reauthenticate the user with their current credentials
+        var credential = EmailAuthProvider.credential(
+            email: user.email!, password: oldPassword!);
+        await user.reauthenticateWithCredential(credential);
+
+        // Now, update the password
+        await user.updatePassword(newPassword!);
+
+        ZBotToast.showToastSuccess(message: "Password changed successfully");
+      } else {
+        ZBotToast.showToastError(message: "User not authenticated");
+      }
+    } catch (e) {
+      String error = e.toString();
+      debugPrint("change password error $e");
+
+      if (error.contains("too-many-requests")) {
+        ZBotToast.showToastError(
+          message:
+              "This Device is blocked for some time due to unusual activity.",
+        );
+      } else if (error.contains("weak-password")) {
+        ZBotToast.showToastError(message: "Password is too weak");
+      } else if (error.contains("requires-recent-login")) {
+        ZBotToast.showToastError(message: "User needs to reauthenticate");
+      } else {
+        debugPrint(e.toString());
+        ZBotToast.showToastError(message: "Failed to change password");
+      }
     }
   }
   //

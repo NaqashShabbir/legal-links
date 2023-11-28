@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../../../../resources/resources.dart';
 
 class CallConfirmationDialog extends StatefulWidget {
@@ -70,16 +71,41 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
                 color: Colors.red,
               ),
               h2,
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 10.sp),
-                width: double.infinity,
-                child: NumberField(() {}, widget.PhoneNumberOne),
-              ),
-              h1,
-              Container(
+              GestureDetector(
+                onTap: () async {
+                  debugPrint('click');
+
+                  final Uri url = Uri(
+                    scheme: 'tel',
+                    path: '03244533999',
+                  );
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url);
+                  }
+                },
+                child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 10.sp),
                   width: double.infinity,
-                  child: NumberField(() {}, widget.PhoneNumberTwo)),
+                  child: NumberField(() {}, widget.PhoneNumberOne),
+                ),
+              ),
+              h1,
+              GestureDetector(
+                onTap: () async {
+                  debugPrint('click');
+                  final Uri url = Uri(
+                    scheme: 'tel',
+                    path: '03244533999',
+                  );
+                  if (await canLaunchUrl(url)) {
+                    await launchUrl(url);
+                  }
+                },
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10.sp),
+                    width: double.infinity,
+                    child: NumberField(() {}, widget.PhoneNumberTwo)),
+              ),
               h3,
               Text(
                 'Available 12/7 for your service',

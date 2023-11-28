@@ -5,7 +5,6 @@ import 'package:legal_links_app/services/auth_services.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/update_client_profile.dart';
-import 'package:legal_links_app/src/base/view/pages/settings/view/update_lawyer.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/update_lawyer_profile.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -65,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 if (authVm.userModel.role == UserRole.CLIENT) {
                   Get.to(() => const UpdateClientScreen());
                 } else {
-                  Get.to(() => const UpdateLawyerProfileScreen());
+                  Get.to(() => const UpdateLawyerProfile());
                 }
               },
               child: Icon(

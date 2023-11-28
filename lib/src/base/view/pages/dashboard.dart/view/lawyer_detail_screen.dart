@@ -57,7 +57,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
 
       await vm.getLawyerScheduleById(model?.id ?? "");
 
-      dateList = vm.lyrSchByID?.availableDates?.map((e) => e.toDate()).toList() ?? [];
+      dateList =
+          vm.lyrSchByID?.availableDates?.map((e) => e.toDate()).toList() ?? [];
 
       ZBotToast.loadingClose();
 
@@ -97,7 +98,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 12.sp),
-                    padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 10.sp, vertical: 15.sp),
                     decoration: BoxDecoration(
                       border: Border.all(color: R.colors.grey),
                       borderRadius: BorderRadius.circular(10.sp),
@@ -121,12 +123,14 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                                 borderRadius: BorderRadius.circular(50),
                                 child: CachedNetworkImage(
                                   imageUrl: model?.profileImages?.first ?? '',
-                                  imageBuilder: (context, imageProvider) => Container(
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
                                     height: 14.w,
                                     width: 14.w,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      border: Border.all(color: R.colors.white, width: 1),
+                                      border: Border.all(
+                                          color: R.colors.white, width: 1),
                                       image: DecorationImage(
                                         image: imageProvider,
                                         fit: BoxFit.cover,
@@ -135,7 +139,9 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                                   ),
                                   fit: BoxFit.cover,
                                   errorWidget: (context, url, e) => SizedBox(
-                                      height: 14.w, width: 14.w, child: const Icon(Icons.error)),
+                                      height: 14.w,
+                                      width: 14.w,
+                                      child: const Icon(Icons.error)),
                                   placeholder: (context, url) {
                                     return Center(
                                         child: SizedBox(
@@ -155,8 +161,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                                     model?.fullName ?? "",
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: R.textStyles
-                                        .poppinsSemiBold(fontSize: 11.sp, color: R.colors.black),
+                                    style: R.textStyles.poppinsSemiBold(
+                                        fontSize: 11.sp, color: R.colors.black),
                                   ),
                                   Row(
                                     children: List.generate(
@@ -166,32 +172,37 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                                         "${model?.specialist?[index]}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: R.textStyles
-                                            .poppinsRegular(fontSize: 10.sp, color: R.colors.black),
+                                        style: R.textStyles.poppinsRegular(
+                                            fontSize: 10.sp,
+                                            color: R.colors.black),
                                       ),
                                     ),
                                   ),
                                   Text(
                                     model?.experience
-                                            ?.map((e) => "${e.lawFirm} (${e.position})")
+                                            ?.map((e) =>
+                                                "${e.lawFirm} (${e.position})")
                                             .join(',') ??
                                         '',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: R.textStyles
-                                        .poppinsRegular(fontSize: 10.sp, color: R.colors.black),
+                                    style: R.textStyles.poppinsRegular(
+                                        fontSize: 10.sp, color: R.colors.black),
                                   ),
                                 ],
                               ),
                               const Spacer(),
-                              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.more_vert))
                             ]),
                       ],
                     ),
                   ),
                   Row(
                     children: [
-                      customContainer('Experience', model?.yearOfExperience ?? ""),
+                      customContainer(
+                          'Experience', model?.yearOfExperience ?? ""),
                       customContainer('Satisfaction %', '100%'),
                       customContainer('Wait Time', '7 mins'),
                     ],
@@ -222,7 +233,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                   h2,
                   Text(
                     'Select date for consultation',
-                    style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
+                    style:
+                        R.textStyles.poppinsSemiBold(color: R.colors.primary),
                   ),
                   h2,
                   Wrap(
@@ -230,7 +242,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                       baseVm.lyrSchByID?.availableDates?.length ?? 0,
                       (index) {
                         timestamp = baseVm.lyrSchByID!.availableDates![index];
-                        String d = DateFormat("dd-MMM-yyyy").format(timestamp!.toDate());
+                        String d = DateFormat("dd-MMM-yyyy")
+                            .format(timestamp!.toDate());
 
                         return InkWell(
                           onTap: () {
@@ -245,19 +258,25 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                             debugPrint(
                                 "d1 ${DateFormat("dd-MMM-yyyy").format(selectedTimestamp!.toDate())}");
                           },
-                          overlayColor: MaterialStatePropertyAll(R.colors.primary.withOpacity(.4)),
+                          overlayColor: MaterialStatePropertyAll(
+                              R.colors.primary.withOpacity(.4)),
                           borderRadius: BorderRadius.circular(8),
                           child: Container(
                             padding: EdgeInsets.all(7.sp),
                             margin: EdgeInsets.all(2.sp),
-                            decoration: R.decoration.decoration(radius: 5).copyWith(
-                                  color: selDateIndex == index ? R.colors.primary : R.colors.white,
-                                ),
+                            decoration:
+                                R.decoration.decoration(radius: 5).copyWith(
+                                      color: selDateIndex == index
+                                          ? R.colors.primary
+                                          : R.colors.white,
+                                    ),
                             child: Text(
                               d,
                               style: R.textStyles.poppinsRegular(
                                 fontSize: 10.sp,
-                                color: selDateIndex == index ? R.colors.white : R.colors.primary,
+                                color: selDateIndex == index
+                                    ? R.colors.white
+                                    : R.colors.primary,
                               ),
                             ),
                           ),
@@ -268,7 +287,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                   h3,
                   Text(
                     'Select Time for consultation',
-                    style: R.textStyles.poppinsSemiBold(color: R.colors.primary),
+                    style:
+                        R.textStyles.poppinsSemiBold(color: R.colors.primary),
                   ),
                   h1,
                   Wrap(
@@ -342,7 +362,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
         ),
         child: Column(
           children: [
-            Text(headingText, style: R.textStyles.poppinsSemiBold(fontSize: 10.sp)),
+            Text(headingText,
+                style: R.textStyles.poppinsSemiBold(fontSize: 10.sp)),
             h0P5,
             Text(
               text,
@@ -386,7 +407,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                 selectedSlot!.minute,
               );
 
-              Timestamp timeSlotTimestamp = Timestamp.fromDate(combinedDateTime);
+              Timestamp timeSlotTimestamp =
+                  Timestamp.fromDate(combinedDateTime);
 
               Map body = {
                 "id": selectedTimestamp?.millisecondsSinceEpoch.toString(),
@@ -401,7 +423,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
               };
 
               debugPrint("${R.colors.yellowPrint} $selectedSlot");
-              debugPrint("${R.colors.yellowPrint} ${selectedTimestamp?.toDate()}");
+              debugPrint(
+                  "${R.colors.yellowPrint} ${selectedTimestamp?.toDate()}");
               debugPrint("${R.colors.yellowPrint} $body");
             },
             textColor: R.colors.white,
@@ -415,17 +438,21 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
     if (dateList.isNotEmpty) {
       var vm = Provider.of<BaseVM>(context, listen: false);
       int interval = vm.lyrSchByID?.intervalMinutes ?? 0;
-      TimeOfDay startTime = TimeOfDay.fromDateTime(vm.lyrSchByID!.officeStartTime!.toDate());
-      TimeOfDay endTime = TimeOfDay.fromDateTime(vm.lyrSchByID!.officeEndTime!.toDate());
+      TimeOfDay startTime =
+          TimeOfDay.fromDateTime(vm.lyrSchByID!.officeStartTime!.toDate());
+      TimeOfDay endTime =
+          TimeOfDay.fromDateTime(vm.lyrSchByID!.officeEndTime!.toDate());
 
       slotList = generateTimeSlots(startTime, endTime, interval);
       setState(() {});
 
       debugPrint("startTime $startTime");
       debugPrint("endTime $endTime");
-      debugPrint("Time Difference: ${calculateTotalMinutes(startTime, endTime)}");
+      debugPrint(
+          "Time Difference: ${calculateTotalMinutes(startTime, endTime)}");
       // debugPrint("Time Difference: $slotCount");
-      debugPrint("Time Difference: ${generateTimeSlots(startTime, endTime, interval)}");
+      debugPrint(
+          "Time Difference: ${generateTimeSlots(startTime, endTime, interval)}");
       debugPrint("datesList $dateList");
       debugPrint("interval ${vm.lyrSchByID?.intervalMinutes}");
       debugPrint("starttime ${vm.lyrSchByID?.officeStartTime}");
@@ -448,7 +475,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
 //
   }
 
-  List<TimeOfDay> generateTimeSlots(TimeOfDay startTime, TimeOfDay endTime, int interval) {
+  List<TimeOfDay> generateTimeSlots(
+      TimeOfDay startTime, TimeOfDay endTime, int interval) {
     List<TimeOfDay> timeSlots = [];
 
     int totalMinutes = calculateTotalMinutes(startTime, endTime);

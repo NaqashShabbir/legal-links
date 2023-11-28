@@ -203,4 +203,17 @@ class AuthVM extends ChangeNotifier {
       ZBotToast.loadingClose();
     }
   }
+
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    try {
+      await _auth.changePassword(oldPassword, newPassword);
+      ZBotToast.showToastSuccess(message: "Password changed successfully");
+      // Notify listeners if necessary
+      notifyListeners();
+    } catch (e) {
+      // Handle errors or display a message
+      debugPrint("Change password failed: $e");
+      ZBotToast.showToastError(message: "Failed to change password");
+    }
+  }
 }

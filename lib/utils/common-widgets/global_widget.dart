@@ -86,7 +86,7 @@ class GlobalWidgets {
         InkWell(
           onTap: onTap,
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 4.sp, horizontal: 10.sp),
+            padding: EdgeInsets.symmetric(vertical: 2.sp, horizontal: 10.sp),
             margin: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 12.sp),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(9.0),
@@ -101,7 +101,7 @@ class GlobalWidgets {
                 w2,
                 Text(
                   "Help",
-                  style: R.textStyles.poppinsMedium(
+                  style: R.textStyles.poppinsRegular(
                     fontSize: 9.sp,
                     color: R.colors.white,
                   ),
