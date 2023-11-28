@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -8,13 +10,12 @@ import 'package:get/get.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/services/auth_services.dart';
 import 'package:legal_links_app/services/firebase_collections.dart';
+import 'package:legal_links_app/src/auth/model/lawyer_model.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
-import 'package:legal_links_app/src/auth/model/lawyer_model.dart';
 import 'package:legal_links_app/src/lawyer_base/view/lawyer_base_view.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
-import 'package:provider/provider.dart';
 
 class AuthVM extends ChangeNotifier {
   PageController singupPageController = PageController();
