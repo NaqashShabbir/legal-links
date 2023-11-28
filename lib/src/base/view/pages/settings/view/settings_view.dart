@@ -1,7 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/services/auth_services.dart';
+import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import '../../../../../../resources/app_images.dart';
@@ -140,7 +146,16 @@ class _SettingsViewState extends State<SettingsView> {
                                 title: "Logout",
                                 subtitle: "Are you sure you want to logout?",
                                 onLeftTap: () => Get.back(),
-                                onRightTap: () => Get.offAllNamed(LoginScreen.route),
+                                onRightTap: () async {
+                                  debugPrint("before${context.read<AuthVM>().userModel.email}");
+                                  await Auth().signOut();
+                                  context.read<AuthVM>().userModel = UserModel();
+                                  context.read<BaseVM>().currentIndex = 0;
+                                  context.read<BaseVM>().update();
+                                  context.read<AuthVM>().update();
+                                  debugPrint("after ${context.read<AuthVM>().userModel.email}");
+                                  Get.offAllNamed(LoginScreen.route);
+                                },
                               ),
                             );
                           },
