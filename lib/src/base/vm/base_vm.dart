@@ -11,7 +11,7 @@ import 'package:legal_links_app/utils/zbot_toast.dart';
 class BaseVM extends ChangeNotifier {
   int currentIndex = 0;
   List<UserModel> lawyersList = [];
-  LawyerScheduleModel? scheduleModel;
+  LawyerScheduleModel? lyrSchByID;
 
   Future<void> getAllLawyers() async {
     // try {
@@ -49,7 +49,7 @@ class BaseVM extends ChangeNotifier {
 
       debugPrint("doc ${doc.data()}");
       if (doc.exists) {
-        scheduleModel = LawyerScheduleModel.fromJson(doc.data());
+        lyrSchByID = LawyerScheduleModel.fromJson(doc.data());
         check = true;
         notifyListeners();
       } else {
