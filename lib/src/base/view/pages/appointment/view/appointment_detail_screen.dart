@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:legal_links_app/src/base/view/pages/appointment/model/appointment_details_model.dart';
+import 'package:intl/intl.dart';
+import 'package:legal_links_app/constants/enums.dart';
+import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/utils/common-widgets/call_confirmation.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../../../../../resources/resources.dart';
 import '../../../../../../utils/hights_widths.dart';
 import '../../settings/view/widgets/custom_data_widget.dart';
@@ -17,7 +20,7 @@ class AppointmentDetails extends StatefulWidget {
 
 class _AppointmentDetailsState extends State<AppointmentDetails> {
   dynamic args;
-  AppointmentModel? model;
+  BookingModel? model;
 
   @override
   void initState() {
@@ -57,16 +60,11 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
             actions: [
               InkWell(
                 onTap: () {
-                  Get.dialog(CallConfirmationDialog(
-                    PhoneNumberOne: '${model?.numberOne}',
-                    PhoneNumberTwo: '${model?.numberTwo}',
-                  ));
+                  Get.dialog(const CallConfirmationDialog());
                 },
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 4.sp, horizontal: 10.sp),
-                  margin:
-                      EdgeInsets.symmetric(horizontal: 5.sp, vertical: 12.sp),
+                  padding: EdgeInsets.symmetric(vertical: 4.sp, horizontal: 10.sp),
+                  margin: EdgeInsets.symmetric(horizontal: 5.sp, vertical: 12.sp),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(9.0),
                     color: R.colors.red,
@@ -97,11 +95,12 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
               children: [
                 Center(
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: 10.sp, vertical: 15.sp),
+                    padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 15.sp),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      border: Border.all(color: R.colors.grey),
+                      border: Border.all(
+                        color: getColorForBookingStatus(model?.status),
+                      ),
                       borderRadius: BorderRadius.circular(10.sp),
                       boxShadow: [
                         BoxShadow(
@@ -112,42 +111,68 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                         ),
                       ],
                     ),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Your Appointment ID',
-                            style: R.textStyles.poppinsSemiBold(),
-                          ),
-                          Text(
-                            "${model?.id.toString()}",
-                            style: R.textStyles.poppinsSemiBold(
-                                color: R.colors.primary, fontSize: 15.sp),
-                          ),
-                          h3,
-                          CustomData(
-                              title: 'Customer:',
-                              subTitle: '${model?.customerNamr}'),
-                          CustomData(
-                              title: 'Laywer:', subTitle: '${model?.username}'),
-                          CustomData(
-                              title: 'Chamber:',
-                              subTitle: '${model?.chamberName}'),
-                          CustomData(
-                              title: 'Address:', subTitle: '${model?.address}'),
-                          CustomData(
-                              title: 'Date:', subTitle: '${model?.date}'),
-                          CustomData(
-                              title: 'Status:', subTitle: '${model?.status}'),
-                          CustomData(
-                              title: 'Payment:', subTitle: '${model?.payment}'),
-                        ]),
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                      Text('Your Appointment ID', style: R.textStyles.poppinsSemiBold()),
+                      h1,
+                      Text(
+                        "${model?.id.toString()}",
+                        style:
+                            R.textStyles.poppinsSemiBold(color: R.colors.primary, fontSize: 15.sp),
+                      ),
+                      h1,
+                      if (model?.selectedDate != null)
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_today,
+                              color: R.colors.primary,
+                              size: 11.sp,
+                            ),
+                            Text(
+                              DateFormat(" MMMM dd, yyyy")
+                                  .format(model?.selectedDate?.toDate() ?? DateTime.now()),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: R.textStyles
+                                  .poppinsMedium(fontSize: 12.sp, color: R.colors.primary),
+                            ),
+                            Text(
+                              "  |  ",
+                              style:
+                                  R.textStyles.poppinsMedium(fontSize: 12.sp, color: R.colors.grey),
+                            ),
+                            Text(
+                              DateFormat("hh:mm a")
+                                  .format(model?.timeSlot?.toDate() ?? DateTime.now()),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: R.textStyles
+                                  .poppinsMedium(fontSize: 12.sp, color: R.colors.primary),
+                            )
+                          ],
+                        ),
+                      h1,
+                      CustomData(title: 'Customer:', subTitle: '${model?.customerName}'),
+                      CustomData(title: 'Laywer:', subTitle: '${model?.lawyerName}'),
+                      CustomData(title: 'Address:', subTitle: '${model?.officeLocation}'),
+                      CustomData(
+                          title: 'Date:',
+                          subTitle: DateFormat("MMMM dd, yyyy")
+                              .format(model?.selectedDate?.toDate() ?? DateTime.now())),
+                      CustomData(
+                        title: 'Status:',
+                        subTitle: bookingStatusEnum(model?.status),
+                        color: getColorForBookingStatus(model?.status),
+                      ),
+                      CustomData(
+                          title: 'Payment:',
+                          subTitle: '${model?.feePerMeeting?.toStringAsFixed(2)}'),
+                    ]),
                   ),
                 ),
                 h1,
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 5.sp, horizontal: 10.sp),
+                  padding: EdgeInsets.symmetric(vertical: 5.sp, horizontal: 10.sp),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,7 +190,7 @@ class _AppointmentDetailsState extends State<AppointmentDetails> {
                       const Spacer(),
                       Expanded(
                         child: Text(
-                          '${model?.fee}',
+                          '${model?.feePerMeeting}',
                           style: R.textStyles.poppinsBold(
                             color: R.colors.black,
                             letterSpacing: 0.45,

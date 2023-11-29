@@ -13,6 +13,7 @@ class BookingModel {
     this.timeSlot,
     this.lawyerName,
     this.lawyerImage,
+    this.customerImage,
     this.customerName,
     this.officeLocation,
     this.feePerMeeting,
@@ -22,6 +23,7 @@ class BookingModel {
     id = json['id'];
     lawyerId = json['lawyerId'];
     lawyerImage = json['lawyerImage'];
+    customerImage = json['customerImage'];
     customerId = json['customerId'];
     status = json['status'];
     createdAt = json['createdAt'];
@@ -38,6 +40,7 @@ class BookingModel {
   String? lawyerId;
   String? customerId;
   String? lawyerImage;
+  String? customerImage;
   int? status;
   Timestamp? createdAt;
   Timestamp? updatedAt;
@@ -55,6 +58,7 @@ class BookingModel {
     int? status,
     Timestamp? createdAt,
     String? lawyerImage,
+    String? customerImage,
     Timestamp? updatedAt,
     String? lawyerScheduleId,
     String? lawyerName,
@@ -68,6 +72,7 @@ class BookingModel {
         id: id ?? this.id,
         lawyerId: lawyerId ?? this.lawyerId,
         lawyerImage: lawyerImage ?? this.lawyerImage,
+        customerImage: customerImage ?? this.customerImage,
         customerId: customerId ?? this.customerId,
         status: status ?? this.status,
         createdAt: createdAt ?? this.createdAt,
@@ -85,6 +90,7 @@ class BookingModel {
     map['id'] = id;
     map['lawyerId'] = lawyerId;
     map['lawyerImage'] = lawyerImage;
+    map['customerImage'] = customerImage;
     map['customerId'] = customerId;
     map['status'] = status;
     map['createdAt'] = createdAt;

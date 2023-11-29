@@ -426,67 +426,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
               color: R.colors.primary,
               buttonTitle: "Book Appointment",
               tap: () async {
-                if (selectedTimestamp == null || selectedSlot == null) {
-                  ZBotToast.showToastError(message: "Please select a date and time");
-                } else {
-                  BaseVM vm = Provider.of<BaseVM>(context, listen: false);
-                  AuthVM aVm = Provider.of<AuthVM>(context, listen: false);
-                  Timestamp now = Timestamp.now();
-
-                  debugPrint("model ${lawyerModel?.fullName ?? ""}");
-
-                  // DateTime currentDate = DateTime.now();
-                  DateTime combinedDateTime = DateTime(
-                    selectedTimestamp!.toDate().year,
-                    selectedTimestamp!.toDate().month,
-                    selectedTimestamp!.toDate().day,
-                    selectedSlot!.hour,
-                    selectedSlot!.minute,
-                  );
-
-                  Timestamp timeSlotTimestamp = Timestamp.fromDate(combinedDateTime);
-
-                  Map body = {
-                    "id": now.millisecondsSinceEpoch.toString(),
-                    "lawyerId": vm.lyrSchByID?.lawyerId,
-                    "customerId": aVm.userModel.id,
-                    "status": 0,
-                    "createdAt": now,
-                    "updatedAt": now,
-                    "lawyerScheduleId": vm.lyrSchByID?.lawyerId,
-                    "selectedDate": selectedTimestamp,
-                    "timeSlot": timeSlotTimestamp,
-                    "lawyerName": lawyerModel?.fullName ?? "",
-                    "lawyerImage": lawyerModel?.profileImages?.first ?? "",
-                    "customerName": aVm.userModel.fullName ?? "",
-                    "officeLocation": lawyerModel?.officeAdress?.streetAdress ?? "",
-                    "feePerMeeting": lawyerModel?.feePerMeeting?.toDouble() ?? 0
-                  };
-                  BookingModel m = BookingModel(
-                    id: now.millisecondsSinceEpoch.toString(),
-                    lawyerId: vm.lyrSchByID?.lawyerId,
-                    customerId: aVm.userModel.id,
-                    status: 0,
-                    createdAt: now,
-                    updatedAt: now,
-                    lawyerScheduleId: vm.lyrSchByID?.lawyerId,
-                    selectedDate: selectedTimestamp,
-                    timeSlot: timeSlotTimestamp,
-                    lawyerName: lawyerModel?.fullName ?? "",
-                    lawyerImage: lawyerModel?.profileImages?.first ?? "",
-                    customerName: aVm.userModel.fullName,
-                    officeLocation: lawyerModel?.officeAdress?.streetAdress ?? "",
-                    feePerMeeting: lawyerModel?.feePerMeeting?.toDouble() ?? 0,
-                  );
-
-                  debugPrint("model ${m.selectedDate?.toDate()}");
-
-                  await vm.createBookings(m);
-                  ZBotToast.loadingClose();
-                  debugPrint("${R.colors.yellowPrint} $selectedSlot");
-                  debugPrint("${R.colors.yellowPrint} ${selectedTimestamp?.toDate()}");
-                  debugPrint("${R.colors.yellowPrint} $body");
-                }
+                // TODO: PAYMENT SCREEN TAP
+                // await btnTap();
               },
               textColor: R.colors.white,
             ),
@@ -559,5 +500,71 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
     int totalMinutes = endMinutes - startMinutes;
 
     return totalMinutes;
+  }
+
+  Future<void> btnTap() async {
+    if (selectedTimestamp == null || selectedSlot == null) {
+      ZBotToast.showToastError(message: "Please select a date and time");
+    } else {
+      BaseVM vm = Provider.of<BaseVM>(context, listen: false);
+      AuthVM aVm = Provider.of<AuthVM>(context, listen: false);
+      Timestamp now = Timestamp.now();
+
+      debugPrint("model ${lawyerModel?.fullName ?? ""}");
+
+      // DateTime currentDate = DateTime.now();
+      DateTime combinedDateTime = DateTime(
+        selectedTimestamp!.toDate().year,
+        selectedTimestamp!.toDate().month,
+        selectedTimestamp!.toDate().day,
+        selectedSlot!.hour,
+        selectedSlot!.minute,
+      );
+
+      Timestamp timeSlotTimestamp = Timestamp.fromDate(combinedDateTime);
+
+      Map body = {
+        "id": now.millisecondsSinceEpoch.toString(),
+        "lawyerId": vm.lyrSchByID?.lawyerId,
+        "customerId": aVm.userModel.id,
+        "status": 3, //Scheduled
+        "createdAt": now,
+        "updatedAt": now,
+        "lawyerScheduleId": vm.lyrSchByID?.lawyerId,
+        "selectedDate": selectedTimestamp,
+        "timeSlot": timeSlotTimestamp,
+        "lawyerName": lawyerModel?.fullName ?? "",
+        "lawyerImage": lawyerModel?.profileImages?.first ?? "",
+        "customerName": aVm.userModel.fullName ?? "",
+        "officeLocation": lawyerModel?.officeAdress?.streetAdress ?? "",
+        "feePerMeeting": lawyerModel?.feePerMeeting?.toDouble() ?? 0,
+        "customerImage": aVm.userModel.profileImages?.first,
+      };
+      BookingModel m = BookingModel(
+        id: now.millisecondsSinceEpoch.toString(),
+        lawyerId: vm.lyrSchByID?.lawyerId,
+        customerId: aVm.userModel.id,
+        status: 3, //Scheduled
+        createdAt: now,
+        updatedAt: now,
+        lawyerScheduleId: vm.lyrSchByID?.lawyerId,
+        selectedDate: selectedTimestamp,
+        timeSlot: timeSlotTimestamp,
+        lawyerName: lawyerModel?.fullName ?? "",
+        lawyerImage: lawyerModel?.profileImages?.first ?? "",
+        customerName: aVm.userModel.fullName,
+        officeLocation: lawyerModel?.officeAdress?.streetAdress ?? "",
+        feePerMeeting: lawyerModel?.feePerMeeting?.toDouble() ?? 0,
+        customerImage: aVm.userModel.profileImages?.first,
+      );
+
+      debugPrint("model ${m.selectedDate?.toDate()}");
+
+      await vm.createBookings(m);
+      ZBotToast.loadingClose();
+      debugPrint("${R.colors.yellowPrint} $selectedSlot");
+      debugPrint("${R.colors.yellowPrint} ${selectedTimestamp?.toDate()}");
+      debugPrint("${R.colors.yellowPrint} $body");
+    }
   }
 }

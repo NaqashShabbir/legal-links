@@ -7,8 +7,9 @@ import '../../../../../../../resources/resources.dart';
 
 class CustomData extends StatelessWidget {
   final String title;
+  final Color? color;
   var subTitle;
-  CustomData({super.key, required this.title, this.subTitle});
+  CustomData({super.key, required this.title, this.subTitle, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class CustomData extends StatelessWidget {
           child: Text(
             subTitle!,
             style: R.textStyles.poppinsRegular(
-              color: R.colors.darkGrey,
+              color:color?? R.colors.darkGrey,
               letterSpacing: 0.45,
             ),
           ),

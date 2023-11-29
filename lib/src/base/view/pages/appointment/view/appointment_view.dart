@@ -88,21 +88,32 @@ class _AppointmentViewState extends State<AppointmentView> with SingleTickerProv
                     child: TabBarView(
                   controller: tabController,
                   children: [
-                    if (vm.userModel.role == UserRole.LAWYER) ...[
-                      ...List.generate(
-                        appVm.lawyerAppointmentList.length,
-                        (index) => AppointmentWidget(
-                          model: appVm.lawyerAppointmentList[index],
+                    if (vm.userModel.role == UserRole.LAWYER)
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              appVm.lawyerAppointmentList.length,
+                              (index) => AppointmentWidget(
+                                model: appVm.lawyerAppointmentList[index],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    else
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              appVm.appointmentList.length,
+                              (index) => AppointmentWidget(
+                                model: appVm.appointmentList[index],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ] else ...[
-                      ...List.generate(
-                        appVm.appointmentList.length,
-                        (index) => AppointmentWidget(
-                          model: appVm.appointmentList[index],
-                        ),
-                      ),
-                    ],
                     Text(
                       appVm.appointmentList.length.toString(),
                     )

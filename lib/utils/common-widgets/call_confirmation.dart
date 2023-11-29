@@ -9,8 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../../../../resources/resources.dart';
 
 class CallConfirmationDialog extends StatefulWidget {
-  final String PhoneNumberOne, PhoneNumberTwo;
-  const CallConfirmationDialog({super.key, required this.PhoneNumberOne, required this.PhoneNumberTwo});
+  final String? PhoneNumberOne, PhoneNumberTwo;
+  const CallConfirmationDialog({super.key,  this.PhoneNumberOne,  this.PhoneNumberTwo});
 
   @override
   State<CallConfirmationDialog> createState() => _CallConfirmationDialogState();
@@ -85,13 +85,13 @@ class _CallConfirmationDialogState extends State<CallConfirmationDialog> {
                     await launchUrl(url);
                   }
                   debugPrint("03244533999");
-                }, widget.PhoneNumberOne),
+                }, "03244533999"),
               ),
               h1,
               Container(
                   margin: EdgeInsets.symmetric(horizontal: 10.sp),
                   width: double.infinity,
-                  child: NumberField(() {}, widget.PhoneNumberTwo)),
+                  child: NumberField(() {}, "042-44533999")),
               h3,
               Text(
                 'Available 12/7 for your service',
