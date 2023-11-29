@@ -62,6 +62,6 @@ abstract class AppPages {
     GetPage(
         name: UpdateLawyerProfile.route,
         page: () => const UpdateLawyerProfile()),
-    GetPage(name: PaymentScreen.route, page: () => const PaymentScreen()),
+    GetPage(name: PaymentScreen.route, page: () => PaymentScreen()),
   ];
 }
