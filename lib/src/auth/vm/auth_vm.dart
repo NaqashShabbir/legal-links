@@ -14,8 +14,10 @@ import 'package:legal_links_app/src/auth/model/lawyer_model.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
+import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/src/lawyer_base/view/lawyer_base_view.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
+import 'package:provider/provider.dart';
 
 class AuthVM extends ChangeNotifier {
   PageController singupPageController = PageController();
@@ -31,7 +33,8 @@ class AuthVM extends ChangeNotifier {
     LawyerModelSignup(id: "8", specialist: "Tax law"),
     LawyerModelSignup(id: "9", specialist: "Bankruptcy Lawyer"),
     LawyerModelSignup(id: "10", specialist: "Entertainment Lawyer"),
-    LawyerModelSignup(id: "11", specialist: "Business Lawyer (Corporate Lawyer)"),
+    LawyerModelSignup(
+        id: "11", specialist: "Business Lawyer (Corporate Lawyer)"),
     LawyerModelSignup(id: "12", specialist: "Constitutional Lawyer"),
     LawyerModelSignup(id: "13", specialist: "Criminal Defense Lawyer"),
     LawyerModelSignup(id: "14", specialist: "Employment and Labor Lawyer"),
@@ -65,19 +68,27 @@ class AuthVM extends ChangeNotifier {
             {
               Get.offAllNamed(BaseView.route);
 
+              Get.context?.read<BaseVM>().currentIndex = 0;
+              Get.context?.read<BaseVM>().update();
+
               ZBotToast.showToastSuccess(message: 'Logged in Successfully');
             }
           } else if (userModel.role == UserRole.LAWYER) {
             Get.offAllNamed(LawyerBaseView.route);
+            Get.context?.read<BaseVM>().currentIndex = 0;
+            Get.context?.read<BaseVM>().update();
             ZBotToast.showToastSuccess(message: 'Logged in Successfully');
           } else {
             ZBotToast.showToastSuccess(
-                message: 'Your Role is not defined, Please Contact With Support, Thank You!');
+                message:
+                    'Your Role is not defined, Please Contact With Support, Thank You!');
           }
         } else if (userModel.status == UserStatus.BLOCKED) {
-          ZBotToast.showToastError(message: "You have been blocked by the admin");
+          ZBotToast.showToastError(
+              message: "You have been blocked by the admin");
         } else {
-          ZBotToast.showToastError(message: "You have been deleted by the admin");
+          ZBotToast.showToastError(
+              message: "You have been deleted by the admin");
         }
       } else {
         ZBotToast.showToastError(message: "Verify Your Email");
@@ -97,7 +108,8 @@ class AuthVM extends ChangeNotifier {
     bool result = false;
     try {
       ZBotToast.loadingShow();
-      User? user = await _auth.createUserWithEmailPassword(ud?.email ?? "", pass);
+      User? user =
+          await _auth.createUserWithEmailPassword(ud?.email ?? "", pass);
       if (user != null) {
         debugPrint("user is not null");
         ud?.id = user.uid;
@@ -203,9 +215,8 @@ class AuthVM extends ChangeNotifier {
       ZBotToast.loadingShow();
       debugPrint("check");
       DateTime now = DateTime.now();
-      Reference firebaseStorageRef = FirebaseStorage.instance
-          .ref()
-          .child('userImages/${now.microsecondsSinceEpoch}/${userRole?.name}/${DateTime.now()}');
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(
+          'userImages/${now.microsecondsSinceEpoch}/${userRole?.name}/${DateTime.now()}');
       UploadTask uploadTask = firebaseStorageRef.putFile(image);
       await uploadTask.then((res) async {
         imageURL = await res.ref.getDownloadURL();
@@ -224,17 +235,20 @@ class AuthVM extends ChangeNotifier {
     return imageURL;
   }
 
-  Future<void> deleteAccount() async {
+  Future<void> deleteAccount(String password, UserModel ud) async {
     try {
       ZBotToast.loadingShow();
-      User? currentUser = _auth.getCurrentUser();
-      if (currentUser != null) {
-        await _auth.deleteAccount(currentUser.uid);
-        ZBotToast.showToastSuccess(message: "Account deleted successfully");
-        // Navigate to the login screen or any other screen after account deletion
+      debugPrint("userModel.fullName ${ud.fullName}");
+      debugPrint("ud.id ${ud.id}");
+      bool proceed = await _auth.deleteAccount(ud.id, password);
+      // Assuming deleteAccount does not throw an exception upon success
+      if (proceed) {
+        Get.back();
+
         Get.offAllNamed(LoginScreen.route);
-      } else {
-        ZBotToast.showToastError(message: "User not found");
+        userModel = UserModel();
+        ZBotToast.loadingClose();
+        ZBotToast.showToastSuccess(message: "Account deleted successfully");
       }
     } catch (e) {
       String error = e.toString().split(']').toList().last;
@@ -242,5 +256,6 @@ class AuthVM extends ChangeNotifier {
     } finally {
       ZBotToast.loadingClose();
     }
+    notifyListeners();
   }
 }

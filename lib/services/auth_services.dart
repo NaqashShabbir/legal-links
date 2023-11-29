@@ -16,7 +16,7 @@ abstract class BaseAuth {
   Future<void> signOut();
   Future<void> sendResetPassEmail(String? email);
   Future<void> changePassword(String? oldPassword, String? newPassword);
-  Future<void> deleteAccount(String? uid);
+  Future<bool> deleteAccount(String? uid, String? password);
 
   // Future<void> updateProfile(UserData? userModel, String email);
 }
@@ -25,11 +25,12 @@ class Auth implements BaseAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<User?> createUserWithEmailPassword(String? email, String? password) async {
+  Future<User?> createUserWithEmailPassword(
+      String? email, String? password) async {
     try {
-      var user =
-          (await _firebaseAuth.createUserWithEmailAndPassword(email: email!, password: password!))
-              .user;
+      var user = (await _firebaseAuth.createUserWithEmailAndPassword(
+              email: email!, password: password!))
+          .user;
       // try {
       // await user?.sendEmailVerification();
       return user;
@@ -45,7 +46,8 @@ class Auth implements BaseAuth {
       debugPrint("I am Error \n\n\n $e");
       String error = e.toString();
       if (error.contains("email-already-in-use")) {
-        ZBotToast.showToastError(message: "The email address is already in use by another account");
+        ZBotToast.showToastError(
+            message: "The email address is already in use by another account");
       }
       return null;
     }
@@ -62,8 +64,9 @@ class Auth implements BaseAuth {
   Future<User?> signInWithEmailPassword(String? email, String? password) async {
     debugPrint("sign in method");
     try {
-      var user =
-          (await _firebaseAuth.signInWithEmailAndPassword(email: email!, password: password!)).user;
+      var user = (await _firebaseAuth.signInWithEmailAndPassword(
+              email: email!, password: password!))
+          .user;
       // if (user!.emailVerified) {
       return user;
       // } else {
@@ -80,7 +83,9 @@ class Auth implements BaseAuth {
       debugPrint("sign in error $e");
 
       if (error.contains("too-many-requests")) {
-        ZBotToast.showToastError(message: "This Device is blocked for some time due to unusual activity.");
+        ZBotToast.showToastError(
+            message:
+                "This Device is blocked for some time due to unusual activity.");
       } else if (error.contains("INVALID_LOGIN_CREDENTIALS")) {
         ZBotToast.showToastError(message: "ENTER CORRECT PASSWORD");
       } else if (error.contains("user-not-found")) {
@@ -127,7 +132,8 @@ class Auth implements BaseAuth {
       debugPrint("sign in error $e");
       if (error.contains("too-many-requests")) {
         ZBotToast.showToastError(
-            message: "This Device is blocked for some time due to unusual activity.");
+            message:
+                "This Device is blocked for some time due to unusual activity.");
       } else if (error.contains("wrong-password")) {
         ZBotToast.showToastError(message: "ENTER CORRECT PASSWORD");
       } else if (error.contains("user-not-found")) {
@@ -157,7 +163,8 @@ class Auth implements BaseAuth {
 
       if (user != null) {
         // Reauthenticate the user with their current credentials
-        var credential = EmailAuthProvider.credential(email: user.email!, password: oldPassword!);
+        var credential = EmailAuthProvider.credential(
+            email: user.email!, password: oldPassword!);
         await user.reauthenticateWithCredential(credential);
 
         // Now, update the password
@@ -173,7 +180,8 @@ class Auth implements BaseAuth {
 
       if (error.contains("too-many-requests")) {
         ZBotToast.showToastError(
-          message: "This Device is blocked for some time due to unusual activity.",
+          message:
+              "This Device is blocked for some time due to unusual activity.",
         );
       } else if (error.contains("weak-password")) {
         ZBotToast.showToastError(message: "Password is too weak");
@@ -187,27 +195,64 @@ class Auth implements BaseAuth {
   }
 
   @override
-  Future<void> deleteAccount(String? uid) async {
+  Future<bool> deleteAccount(String? uid, String? password) async {
+    bool proceed = false;
     try {
-      // Delete the user account
-      await _firebaseAuth.currentUser?.delete();
+      var user = _firebaseAuth.currentUser;
+      if (user != null) {
+        var credential = EmailAuthProvider.credential(
+          email: user.email!,
+          password: password!,
+        );
+        await user.reauthenticateWithCredential(credential);
+        await user.delete();
 
-      // Delete user data from Firestore or other databases if needed
-      // await FBCollections.users.doc(uid).delete();
-
-      ZBotToast.showToastSuccess(message: 'Account deleted successfully');
+        await FBCollections.users.doc(uid).delete();
+        proceed = true;
+      } else {
+        ZBotToast.showToastError(message: 'User not authenticated');
+      }
     } catch (e) {
       String error = e.toString();
       debugPrint('Error deleting account: $error');
-      ZBotToast.showToastError(message: 'password not correct');
 
-      // if (error.contains('requires-recent-login')) {
-      //   ZBotToast.showToastError(message: 'User needs to reauthenticate');
-      // } else {
-      //   ZBotToast.showToastError(message: 'Failed to delete account');
-      // }
+      if (error.contains('too-many-requests')) {
+        ZBotToast.showToastError(
+            message:
+                'Your had been Blocked beacuse you placed too many requests.');
+      } else if (error.contains('requires-recent-login')) {
+        ZBotToast.showToastError(message: 'User needs to reauthenticate');
+      } else {
+        ZBotToast.showToastError(
+            message:
+                'Failed to delete account, Please Check and enter correct Password.');
+      }
     }
+    return proceed;
   }
+
+  // @override
+  // Future<void> deleteAccount(String? uid) async {
+  //   try {
+  //     // Delete the user account
+  //     await _firebaseAuth.currentUser?.delete();
+
+  //     // Delete user data from Firestore or other databases if needed
+  //     // await FBCollections.users.doc(uid).delete();
+
+  //     ZBotToast.showToastSuccess(message: 'Account deleted successfully');
+  //   } catch (e) {
+  //     String error = e.toString();
+  //     debugPrint('Error deleting account: $error');
+  //     ZBotToast.showToastError(message: 'password not correct');
+
+  //     // if (error.contains('requires-recent-login')) {
+  //     //   ZBotToast.showToastError(message: 'User needs to reauthenticate');
+  //     // } else {
+  //     //   ZBotToast.showToastError(message: 'Failed to delete account');
+  //     // }
+  //   }
+  // }
   //
   // @override
   // Future<void> updateProfile(UserData? userModel, String? email) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/services/auth_services.dart';
+import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -115,9 +117,14 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
                 color: R.colors.red,
                 tap: () async {
                   if (_formKey.currentState!.validate()) {
-                    //Auth().sendResetPassEmail(emailController.text.trim());
-                    await AuthVM().deleteAccount();
-                    Get.back();
+                    if (widget.isFromDelete ?? false) {
+                      await vm.deleteAccount(
+                        passwordController.text.trim(),
+                        vm.userModel,
+                      );
+                    } else {
+                      Auth().sendResetPassEmail(emailController.text.trim());
+                    }
                   }
                   // if (_formKey.currentState!.validate()) {
                   // otp(vm, emailController.text);
