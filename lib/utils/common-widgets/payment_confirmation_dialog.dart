@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/image_picker_service/image_picker_galary.dart';
 import 'package:legal_links_app/services/image_picker_service/image_picker_option.dart';
 import 'package:legal_links_app/services/image_picker_service/image_picker_services.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
 import 'package:provider/provider.dart';
@@ -82,7 +84,10 @@ class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
               CustomButton(
                   buttonTitle: "Save",
                   tap: () {
-                    Get.back();
+                    context
+                        .read<BaseVM>()
+                        .uploadImageUser(paymentImage!, '', '');
+                    //   Get.back();
                   })
             ],
           ),

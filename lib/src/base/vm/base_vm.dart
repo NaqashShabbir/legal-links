@@ -1,5 +1,7 @@
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/constants/enums.dart';
@@ -44,7 +46,8 @@ class BaseVM extends ChangeNotifier {
     bool check = false;
     try {
       debugPrint("lawyerId $lawyerId");
-      DocumentSnapshot doc = await FBCollections.lawyerScedule.doc(lawyerId).get();
+      DocumentSnapshot doc =
+          await FBCollections.lawyerScedule.doc(lawyerId).get();
       debugPrint("doc ${doc.id}");
       debugPrint("doc ${doc.reference.id}");
 
@@ -76,6 +79,34 @@ class BaseVM extends ChangeNotifier {
       ZBotToast.showToastError(message: error);
       ZBotToast.loadingClose();
     }
+  }
+
+  Future<String?> uploadImageUser(
+      File image, String id, String customerId) async {
+    String? imageURL;
+
+    try {
+      ZBotToast.loadingShow();
+      debugPrint("check");
+      DateTime now = DateTime.now();
+      Reference firebaseStorageRef =
+          FirebaseStorage.instance.ref().child('bookings/${id}/${customerId}');
+      UploadTask uploadTask = firebaseStorageRef.putFile(image);
+      await uploadTask.then((res) async {
+        imageURL = await res.ref.getDownloadURL();
+        debugPrint("========== $imageURL");
+        notifyListeners();
+      });
+      ZBotToast.loadingClose();
+
+      return imageURL;
+    } catch (e) {
+      debugPrint(e.toString());
+      ZBotToast.loadingClose();
+    }
+    ZBotToast.loadingClose();
+
+    return imageURL;
   }
 
   void update() {
