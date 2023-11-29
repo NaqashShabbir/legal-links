@@ -3,6 +3,7 @@ import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/auth_services.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/widget/appointment_widget.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/vm/appointment_vm.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
@@ -107,16 +108,89 @@ class _AppointmentViewState extends State<AppointmentView> with SingleTickerProv
                           children: [
                             ...List.generate(
                               appVm.appointmentList.length,
-                              (index) => AppointmentWidget(
-                                model: appVm.appointmentList[index],
-                              ),
+                              (index) {
+                                BookingModel appointment = appVm.appointmentList[index];
+
+                                DateTime now = DateTime.now();
+
+                                if (appointment.selectedDate != null &&
+                                    appointment.selectedDate!.toDate().year == now.year &&
+                                    appointment.selectedDate!.toDate().month == now.month &&
+                                    appointment.selectedDate!.toDate().day == now.day) {
+                                  final isFutureAppointment =
+                                      appointment.timeSlot!.toDate().isAfter(DateTime.now());
+
+                                  if (isFutureAppointment) {
+                                    return AppointmentWidget(model: appointment);
+                                  } else {
+                                    return Container();
+                                  }
+                                } else {
+                                  // return Container();
+                                  final isFutureAppointment = appointment.selectedDate != null &&
+                                      appointment.timeSlot != null &&
+                                      appointment.selectedDate!.toDate().isAfter(DateTime.now()) &&
+                                      appointment.timeSlot!.toDate().isAfter(DateTime.now());
+
+                                  debugPrint("aaa ${appVm.appointmentList.length}");
+                                  debugPrint(
+                                      " ${R.colors.yellowPrint}bbb: $isFutureAppointment : ${appointment.selectedDate?.toDate()}");
+                                  debugPrint(
+                                      " ${R.colors.redPrint}bbb: $isFutureAppointment : ${appointment.timeSlot?.toDate()}");
+
+                                  if (isFutureAppointment) {
+                                    return AppointmentWidget(
+                                      model: appointment,
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                }
+                              },
                             ),
                           ],
                         ),
                       ),
-                    Text(
-                      appVm.appointmentList.length.toString(),
-                    )
+
+                    // /-------------------------/ TAB 2
+                    if (vm.userModel.role == UserRole.LAWYER)
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              appVm.lawyerAppointmentList.length,
+                              (index) => AppointmentWidget(
+                                model: appVm.lawyerAppointmentList[index],
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    else
+                      SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ...List.generate(
+                              appVm.appointmentList.length,
+                              (index) {
+                                BookingModel appointment = appVm.appointmentList[index];
+                                final isFutureAppointment =
+                                    appointment.timeSlot!.toDate().isBefore(DateTime.now());
+
+                                // debugPrint("aaa ${appVm.appointmentList.length}");
+
+                                if (isFutureAppointment) {
+                                  return AppointmentWidget(model: appointment);
+                                } else {
+                                  return Container();
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    // Text(appVm.appointmentList.length.toString())
                   ],
                 ))
               ],

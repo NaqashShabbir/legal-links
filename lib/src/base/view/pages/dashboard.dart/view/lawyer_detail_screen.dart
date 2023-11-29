@@ -427,7 +427,7 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
               buttonTitle: "Book Appointment",
               tap: () async {
                 // TODO: PAYMENT SCREEN TAP
-                // await btnTap();
+                await btnTap();
               },
               textColor: R.colors.white,
             ),
