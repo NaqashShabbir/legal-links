@@ -15,9 +15,7 @@ import 'package:sizer/sizer.dart';
 class PaymentScreen extends StatefulWidget {
   static String route = '/paymentscreen';
 
-  PaymentScreen({
-    super.key,
-  });
+  const PaymentScreen({super.key});
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -36,9 +34,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
           child: Column(
             children: [
               ...List.generate(
-                  vm.contentModel.paymentMethod?.length ?? 0,
-                  (index) =>
-                      paymentWidget(vm.contentModel.paymentMethod![index]))
+                vm.contentModel.paymentMethod?.length ?? 0,
+                (index) => paymentWidget(
+                  vm.contentModel.paymentMethod![index],
+                ),
+              ),
             ],
           ),
         ),
@@ -49,8 +49,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget paymentWidget(PaymentMethod model) {
     return InkWell(
       onTap: () {
-        Get.dialog(const PaymentConfirmationDialog());
-        debugPrint('model ${model}');
+        Get.dialog(PaymentConfirmationDialog(model: model));
+        debugPrint('model $model');
       },
       child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 6.sp),
@@ -86,17 +86,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           ),
                         ),
                         fit: BoxFit.cover,
-                        errorWidget: (context, url, e) => SizedBox(
-                            height: 14.w,
-                            width: 14.w,
-                            child: const Icon(Icons.error)),
+                        errorWidget: (context, url, e) =>
+                            SizedBox(height: 14.w, width: 14.w, child: const Icon(Icons.error)),
                         placeholder: (context, url) {
                           return Center(
                               child: SizedBox(
                             height: 14.w,
                             width: 14.w,
                             child: CircularProgressIndicator.adaptive(
-                                backgroundColor: R.colors.primary),
+                              backgroundColor: R.colors.primary,
+                            ),
                           ));
                         },
                       ),
@@ -110,47 +109,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           model.name ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: R.textStyles.poppinsSemiBold(
-                              fontSize: 11.sp, color: R.colors.black),
+                          style:
+                              R.textStyles.poppinsSemiBold(fontSize: 11.sp, color: R.colors.black),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              "Name:",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: R.textStyles.poppinsSemiBold(
-                                  fontSize: 10.sp, color: R.colors.primary),
-                            ),
-                            w1,
-                            Text(
-                              model.accountNumber ?? "",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: R.textStyles.poppinsRegular(
-                                  fontSize: 10.sp, color: R.colors.primary),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Account Number:",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: R.textStyles.poppinsSemiBold(
-                                  fontSize: 10.sp, color: R.colors.primary),
-                            ),
-                            w1,
-                            Text(
-                              model.accountNumber ?? "",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: R.textStyles.poppinsRegular(
-                                  fontSize: 10.sp, color: R.colors.primary),
-                            ),
-                          ],
-                        ),
+                        rowTextWidget(title: "Name:", txt: model.userName ?? ""),
+                        rowTextWidget(title: "Account Number:", txt: model.accountNumber ?? ""),
+                        if (model.iban != null)
+                          rowTextWidget(title: "IBAN:", txt: model.iban ?? ""),
+                        if (model.branchName != null)
+                          rowTextWidget(title: "Branch Name:", txt: model.branchName ?? ""),
                       ],
                     ))
                   ],
@@ -158,6 +125,26 @@ class _PaymentScreenState extends State<PaymentScreen> {
               ],
             ),
           )),
+    );
+  }
+
+  Row rowTextWidget({required String title, required String txt}) {
+    return Row(
+      children: [
+        Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: R.textStyles.poppinsSemiBold(fontSize: 10.sp, color: R.colors.primary),
+        ),
+        w1,
+        Text(
+          txt,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
+        ),
+      ],
     );
   }
 

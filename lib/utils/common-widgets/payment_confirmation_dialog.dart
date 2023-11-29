@@ -9,91 +9,109 @@ import 'package:legal_links_app/services/image_picker_service/image_picker_galar
 import 'package:legal_links_app/services/image_picker_service/image_picker_option.dart';
 import 'package:legal_links_app/services/image_picker_service/image_picker_services.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/model/content_model.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
 import 'package:legal_links_app/utils/hights_widths.dart';
+import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class PaymentConfirmationDialog extends StatefulWidget {
-  const PaymentConfirmationDialog({super.key});
+  final PaymentMethod? model;
+  const PaymentConfirmationDialog({super.key, this.model});
 
   @override
-  State<PaymentConfirmationDialog> createState() =>
-      _PaymentConfirmationDialogState();
+  State<PaymentConfirmationDialog> createState() => _PaymentConfirmationDialogState();
 }
 
 class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
   File? paymentImage;
-  // late final bool? isOptionEnable;
-  // late final ValueChanged<File?>? uploadImage;
-  // late final bool? isPhotoPicked;
-  // late final VoidCallback? removeImageFn;
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthVM>(builder: (context, authVm, _) {
-      return Scaffold(
-        backgroundColor: R.colors.transparent,
-        body: Center(
-            child: Container(
-          padding: EdgeInsets.all(8.sp),
-          margin: EdgeInsets.symmetric(horizontal: 5.w),
-          decoration: BoxDecoration(
-            color: R.colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.20),
-                offset: const Offset(-5, -2),
-                blurRadius: 12,
-              ),
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.20),
-                offset: const Offset(3, 3),
-                blurRadius: 12,
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(7),
-                    decoration: BoxDecoration(
-                      color: R.colors.red.withOpacity(.3),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.clear,
-                      size: 18,
-                      color: R.colors.red,
+    return Consumer<AuthVM>(
+      builder: (context, authVm, _) {
+        return Scaffold(
+          backgroundColor: R.colors.transparent,
+          body: Center(
+              child: Container(
+            padding: EdgeInsets.all(8.sp),
+            margin: EdgeInsets.symmetric(horizontal: 5.w),
+            decoration: BoxDecoration(
+              color: R.colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.20),
+                  offset: const Offset(-5, -2),
+                  blurRadius: 12,
+                ),
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.20),
+                  offset: const Offset(3, 3),
+                  blurRadius: 12,
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(7),
+                      decoration: BoxDecoration(
+                        color: R.colors.red.withOpacity(.3),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.clear,
+                        size: 18,
+                        color: R.colors.red,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              pickImageWidget(authVm),
-              h3,
-              CustomButton(
+                h2,
+                Text(
+                  widget.model?.name ?? "",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: R.textStyles.poppinsSemiBold(fontSize: 13.sp, color: R.colors.black),
+                ),
+                h2,
+                Center(child: pickImageWidget(authVm)),
+                h3,
+                CustomButton(
                   buttonTitle: "Save",
-                  tap: () {
-                    context
-                        .read<BaseVM>()
-                        .uploadImageUser(paymentImage!, '', '');
-                    //   Get.back();
-                  })
-            ],
-          ),
-        )),
-      );
-    });
+                  tap: () async {
+                    if (paymentImage == null) {
+                      ZBotToast.showToastError(message: "Please upload Image!");
+                    } else {
+                      BaseVM vm = Provider.of<BaseVM>(context, listen: false);
+                      AuthVM aVm = Provider.of<AuthVM>(context, listen: false);
+
+                      String? imageUrl = await vm.uploadImageUser(paymentImage!,'${vm.tempBookingModel?.id}', '${vm.tempBookingModel?.customerId}');
+
+                      if (imageUrl?.isNotEmpty ?? false) {
+                        await vm.createBookings(vm.tempBookingModel!);
+                      }
+                    }
+                  },
+                ),
+              ],
+            ),
+          )),
+        );
+      },
+    );
   }
 
   Widget pickImageWidget(AuthVM vm) {
@@ -105,21 +123,27 @@ class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
             child: InkWell(
               overlayColor: MaterialStateProperty.all(Colors.transparent),
               onTap: () async {
-                final pickedFile =
-                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
                 if (pickedFile != null) {
                   paymentImage = File(pickedFile.path);
                 }
 
-                setState(() {});
-
                 // Navigator.pop(context);
+
+                setState(() {});
               },
-              child: Icon(
-                Icons.add,
-                size: 25.sp,
-                color: R.colors.primary,
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: R.colors.primary),
+                    borderRadius: BorderRadius.circular(50)),
+                padding: EdgeInsets.all(4.sp),
+                margin: EdgeInsets.all(12.sp),
+                child: Icon(
+                  Icons.add,
+                  size: 25.sp,
+                  color: R.colors.primary,
+                ),
               ),
             ),
           )
