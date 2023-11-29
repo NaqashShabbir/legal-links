@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +12,7 @@ class BaseVM extends ChangeNotifier {
   int currentIndex = 0;
   List<UserModel> lawyersList = [];
   LawyerScheduleModel? lyrSchByID;
+  BookingModel? tempBookingModel;
 
   Future<void> getAllLawyers() async {
     // try {
