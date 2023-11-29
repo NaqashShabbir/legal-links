@@ -1,18 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:legal_links_app/src/base/view/pages/appointment/model/appointment_details_model.dart';
+import 'package:intl/intl.dart';
+import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/appointment_detail_screen.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../../../../../../resources/resources.dart';
 import '../../../../../../../utils/hights_widths.dart';
 
 // ignore: must_be_immutable
-class AppointmentWidget extends StatelessWidget {
+class AppointmentWidget extends StatefulWidget {
   BookingModel model;
   AppointmentWidget({super.key, required this.model});
 
+  @override
+  State<AppointmentWidget> createState() => _AppointmentWidgetState();
+}
+
+class _AppointmentWidgetState extends State<AppointmentWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -36,7 +43,7 @@ class AppointmentWidget extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: CachedNetworkImage(
-                      imageUrl: "",
+                      imageUrl: widget.model.lawyerImage ?? "",
                       imageBuilder: (context, imageProvider) => Container(
                         height: 14.w,
                         width: 14.w,
@@ -68,47 +75,73 @@ class AppointmentWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style:
-                              R.textStyles.poppinsSemiBold(fontSize: 11.sp, color: R.colors.black),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.model.lawyerName ?? "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: R.textStyles
+                                  .poppinsSemiBold(fontSize: 11.sp, color: R.colors.black),
+                            ),
+                            Text(
+                              bookingStatusEnum(widget.model.status!),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: R.textStyles.poppinsMedium(
+                                fontSize: 11.sp,
+                                color: getColorForBookingStatus(widget.model.status),
+                              ),
+                            ),
+                          ],
                         ),
                         Text(
-                          "",
+                          widget.model.customerName ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style:
                               R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
                         ),
                         Text(
-                          "",
+                          widget.model.officeLocation ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style:
                               R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
                         ),
                         h2,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: R.textStyles
-                                  .poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
-                            ),
-                            Text(
-                              '',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: R.textStyles
-                                  .poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
-                            )
-                          ],
-                        )
+                        if (widget.model.selectedDate != null)
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.calendar_today,
+                                color: R.colors.primary,
+                                size: 11.sp,
+                              ),
+                              Text(
+                                DateFormat(" MMMM dd, yyyy")
+                                    .format(widget.model.selectedDate!.toDate()),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: R.textStyles
+                                    .poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
+                              ),
+                              Text(
+                                "  |  ",
+                                style: R.textStyles
+                                    .poppinsRegular(fontSize: 10.sp, color: R.colors.grey),
+                              ),
+                              Text(
+                                DateFormat("hh:mm a")
+                                    .format(widget.model.selectedDate?.toDate() ?? DateTime.now()),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: R.textStyles
+                                    .poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
+                              )
+                            ],
+                          )
                       ],
                     ),
                   ),
@@ -120,7 +153,7 @@ class AppointmentWidget extends StatelessWidget {
   }
 
   void visitProfileFn() {
-    debugPrint('model: $model');
-    Get.toNamed(AppointmentDetails.route, arguments: {"model": model});
+    debugPrint('model: ${widget.model}');
+    Get.toNamed(AppointmentDetails.route, arguments: {"model": widget.model});
   }
 }

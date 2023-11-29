@@ -11,11 +11,17 @@ class BookingModel {
     this.lawyerScheduleId,
     this.selectedDate,
     this.timeSlot,
+    this.lawyerName,
+    this.lawyerImage,
+    this.customerName,
+    this.officeLocation,
+    this.feePerMeeting,
   });
 
   BookingModel.fromJson(dynamic json) {
     id = json['id'];
     lawyerId = json['lawyerId'];
+    lawyerImage = json['lawyerImage'];
     customerId = json['customerId'];
     status = json['status'];
     createdAt = json['createdAt'];
@@ -23,49 +29,73 @@ class BookingModel {
     lawyerScheduleId = json['lawyerScheduleId'];
     selectedDate = json['selectedDate'];
     timeSlot = json['timeSlot'];
+    lawyerName = json['lawyerName'];
+    customerName = json['customerName'];
+    officeLocation = json['officeLocation'];
+    feePerMeeting = json['feePerMeeting'];
   }
   String? id;
   String? lawyerId;
   String? customerId;
-  num? status;
+  String? lawyerImage;
+  int? status;
   Timestamp? createdAt;
   Timestamp? updatedAt;
   String? lawyerScheduleId;
+  String? lawyerName;
+  String? customerName;
+  double? feePerMeeting;
+  String? officeLocation;
   Timestamp? selectedDate;
   Timestamp? timeSlot;
   BookingModel copyWith({
     String? id,
     String? lawyerId,
     String? customerId,
-    num? status,
+    int? status,
     Timestamp? createdAt,
+    String? lawyerImage,
     Timestamp? updatedAt,
     String? lawyerScheduleId,
+    String? lawyerName,
+    String? customerName,
+    double? feePerMeeting,
+    String? officeLocation,
     Timestamp? selectedDate,
     Timestamp? timeSlot,
   }) =>
       BookingModel(
         id: id ?? this.id,
         lawyerId: lawyerId ?? this.lawyerId,
+        lawyerImage: lawyerImage ?? this.lawyerImage,
         customerId: customerId ?? this.customerId,
         status: status ?? this.status,
         createdAt: createdAt ?? this.createdAt,
+        lawyerName: lawyerName ?? this.lawyerName,
         updatedAt: updatedAt ?? this.updatedAt,
         lawyerScheduleId: lawyerScheduleId ?? this.lawyerScheduleId,
         selectedDate: selectedDate ?? this.selectedDate,
         timeSlot: timeSlot ?? this.timeSlot,
+        customerName: customerName ?? this.customerName,
+        officeLocation: officeLocation ?? this.officeLocation,
+        feePerMeeting: feePerMeeting ?? this.feePerMeeting,
       );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['lawyerId'] = lawyerId;
+    map['lawyerImage'] = lawyerImage;
     map['customerId'] = customerId;
     map['status'] = status;
     map['createdAt'] = createdAt;
     map['updatedAt'] = updatedAt;
     map['lawyerScheduleId'] = lawyerScheduleId;
     map['selectedDate'] = selectedDate;
+    map['lawyerName'] = lawyerName;
     map['timeSlot'] = timeSlot;
+    map['customerName'] = customerName;
+    map['officeLocation'] = officeLocation;
+    map['feePerMeeting'] = feePerMeeting;
 
     return map;
   }

@@ -8,7 +8,6 @@ import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_rev
 import 'package:legal_links_app/src/base/view/pages/settings/view/update_client_profile.dart';
 import '../src/base/view/pages/appointment/view/appointment_detail_screen.dart';
 import '../src/base/view/pages/appointment/view/appointment_view.dart';
-import '../src/base/view/pages/appointment/view/book_appointment_screen.dart';
 import '../src/base/view/pages/dashboard.dart/view/all_chambers_screen.dart';
 import '../src/base/view/pages/dashboard.dart/view/all_courts_screen.dart';
 import '../src/base/view/pages/dashboard.dart/view/all_lawyers_screen.dart';
@@ -22,11 +21,6 @@ import '../src/lawyer_base/view/pages/dashboard/view/lawyer_home_view.dart';
 import '../src/lawyer_base/view/pages/dashboard/view/schedule_appointment.dart';
 import '../src/lawyer_base/view/pages/dashboard/view/user_ratting_screen.dart';
 import '../src/auth/view/lawyer_singup/complete_profile.dart';
-import '../src/lawyer_profile/view/signup_screen_four.dart';
-
-// import '../src/auth/view/lawyer_singup/signup_screen_one.dart';
-// import '../src/auth/view/lawyer_singup/signup_screen_three.dart';
-// import '../src/auth/view/lawyer_singup/signup_screen_two.dart';
 
 abstract class AppPages {
   static final List<GetPage> pages = [
@@ -35,42 +29,23 @@ abstract class AppPages {
     GetPage(name: SignupScreen.route, page: () => const SignupScreen()),
     GetPage(name: LawyerSignupView.route, page: () => const LawyerSignupView()),
     GetPage(name: BaseView.route, page: () => const BaseView()),
-    GetPage(
-        name: PrivacyPolicyScreen.route,
-        page: () => const PrivacyPolicyScreen()),
-    GetPage(
-        name: TermsAndConditions.route, page: () => const TermsAndConditions()),
-    GetPage(
-        name: RatingAndReviewsScreen.route,
-        page: () => const RatingAndReviewsScreen()),
+    GetPage(name: PrivacyPolicyScreen.route, page: () => const PrivacyPolicyScreen()),
+    GetPage(name: TermsAndConditions.route, page: () => const TermsAndConditions()),
+    GetPage(name: RatingAndReviewsScreen.route, page: () => const RatingAndReviewsScreen()),
     GetPage(name: ProfileScreen.route, page: () => const ProfileScreen()),
-    // GetPage(name: SignupScreenOneOfLawyer.route, page: () => const SignupScreenOneOfLawyer()),
-    // GetPage(name: SignupScreenTwoOfLawyer.route, page: () => SignupScreenTwoOfLawyer()),
-    // GetPage(name: SignupScreenThreeOfLawyer.route, page: () => const SignupScreenThreeOfLawyer()),
-    // GetPage(name: SignupScreenFour.route, page: () => const SignupScreenFour()),
     GetPage(name: CompleteProfile.route, page: () => const CompleteProfile()),
     GetPage(name: AppointmentView.route, page: () => const AppointmentView()),
     GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
-    GetPage(
-        name: AllChambersScreen.route, page: () => const AllChambersScreen()),
+    GetPage(name: AllChambersScreen.route, page: () => const AllChambersScreen()),
     GetPage(name: AllCourtsScreen.route, page: () => const AllCourtsScreen()),
     GetPage(name: AllLawyersScreen.route, page: () => const AllLawyersScreen()),
-    GetPage(
-        name: AppointmentDetails.route, page: () => const AppointmentDetails()),
-    GetPage(name: LawyerDetailsScrren.route, page: () => LawyerDetailsScrren()),
-    GetPage(
-        name: BookAppointmentScreen.route,
-        page: () => const BookAppointmentScreen()),
+    GetPage(name: AppointmentDetails.route, page: () => const AppointmentDetails()),
+    GetPage(name: LawyerDetailsScrren.route, page: () => const LawyerDetailsScrren()),
     GetPage(name: LawyerBaseView.route, page: () => const LawyerBaseView()),
     GetPage(name: LawyerHomeView.route, page: () => const LawyerHomeView()),
     GetPage(name: UserRattingView.route, page: () => const UserRattingView()),
-    GetPage(
-        name: ScheduleAppointmentView.route,
-        page: () => const ScheduleAppointmentView()),
-    GetPage(
-        name: UpdateClientScreen.route, page: () => const UpdateClientScreen()),
-    GetPage(
-        name: UpdateLawyerProfile.route,
-        page: () => const UpdateLawyerProfile()),
+    GetPage(name: ScheduleAppointmentView.route, page: () => const ScheduleAppointmentView()),
+    GetPage(name: UpdateClientScreen.route, page: () => const UpdateClientScreen()),
+    GetPage(name: UpdateLawyerProfile.route, page: () => const UpdateLawyerProfile()),
   ];
 }

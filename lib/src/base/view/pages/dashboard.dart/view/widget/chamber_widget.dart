@@ -5,18 +5,14 @@ import 'package:sizer/sizer.dart';
 import '../../../../../../../resources/resources.dart';
 import '../../../../../../../utils/hights_widths.dart';
 
-class ChamberWidget extends StatefulWidget {
+// ignore: must_be_immutable
+class ChamberWidget extends StatelessWidget {
   ChamberModel model;
   ChamberWidget({super.key, required this.model});
 
   @override
-  State<ChamberWidget> createState() => _ChamberWidgetState();
-}
-
-class _ChamberWidgetState extends State<ChamberWidget> {
-  @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 25.w,
       // margin: EdgeInsets.symmetric(vertical: 4.sp),
       child: Column(
@@ -29,7 +25,7 @@ class _ChamberWidgetState extends State<ChamberWidget> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: CachedNetworkImage(
-                imageUrl: widget.model.image ?? "",
+                imageUrl: model.image ?? "",
                 fit: BoxFit.cover,
                 height: 20.w,
                 width: 20.w,
@@ -45,7 +41,7 @@ class _ChamberWidgetState extends State<ChamberWidget> {
           ),
           h1,
           Text(
-            widget.model.name ?? '',
+            model.name ?? '',
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: R.textStyles.poppinsMedium(fontSize: 11.sp),

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
@@ -27,7 +28,7 @@ class LawyerDetailsScrren extends StatefulWidget {
 
 class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
   dynamic args;
-  UserModel? model;
+  UserModel? lawyerModel;
   String currentDate = DateFormat("EEEE dd").format(DateTime.now());
   // List<String> selectedDates = List.filled(5, "");
 
@@ -47,19 +48,19 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
       args = ModalRoute.of(context)?.settings.arguments;
       if (args != null) {
         if (args['model'] != null) {
-          model = args['model'];
+          lawyerModel = args['model'];
         }
       }
       var vm = Provider.of<BaseVM>(context, listen: false);
       ZBotToast.loadingShow();
 
-      await vm.getLawyerScheduleById(model?.id ?? "");
+      await vm.getLawyerScheduleById(lawyerModel?.id ?? "");
 
       dateList = vm.lyrSchByID?.availableDates?.map((e) => e.toDate()).toList() ?? [];
 
       ZBotToast.loadingClose();
 
-      debugPrint(" speciality length ${model?.specialist?.length}");
+      debugPrint(" speciality length ${lawyerModel?.specialist?.length}");
       debugPrint(" dateList length ${dateList.length}");
 
       calculateSlots();
@@ -75,10 +76,10 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
     return SafeArea(
       child: Scaffold(
         appBar: GlobalWidgets.screenAppBar(
-          '${model?.fullName}',
+          '${lawyerModel?.fullName}',
           onTap: () {
             Get.dialog(
-              CallConfirmationDialog(
+              const CallConfirmationDialog(
                 PhoneNumberOne: '+9223232323',
                 PhoneNumberTwo: '04234343434',
               ),
@@ -112,90 +113,145 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: CachedNetworkImage(
-                                  imageUrl: model?.profileImages?.first ?? '',
-                                  imageBuilder: (context, imageProvider) => Container(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: CachedNetworkImage(
+                                imageUrl: lawyerModel?.profileImages?.first ?? '',
+                                imageBuilder: (context, imageProvider) => Container(
+                                  height: 14.w,
+                                  width: 14.w,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(color: R.colors.white, width: 1),
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                fit: BoxFit.cover,
+                                errorWidget: (context, url, e) => SizedBox(
+                                    height: 14.w, width: 14.w, child: const Icon(Icons.error)),
+                                placeholder: (context, url) {
+                                  return Center(
+                                      child: SizedBox(
                                     height: 14.w,
                                     width: 14.w,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: R.colors.white, width: 1),
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
-                                      ),
+                                    child: CircularProgressIndicator.adaptive(
+                                        backgroundColor: R.colors.primary),
+                                  ));
+                                },
+                              ),
+                            ),
+                            w2,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  lawyerModel?.fullName ?? "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: R.textStyles
+                                      .poppinsSemiBold(fontSize: 11.sp, color: R.colors.black),
+                                ),
+                                Row(
+                                  children: List.generate(
+                                    lawyerModel?.specialist?.length ?? 0,
+                                    (index) => Text(
+                                      // model?.specialist![index],
+                                      "${lawyerModel?.specialist?[index]}",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: R.textStyles
+                                          .poppinsRegular(fontSize: 10.sp, color: R.colors.black),
                                     ),
                                   ),
-                                  fit: BoxFit.cover,
-                                  errorWidget: (context, url, e) => SizedBox(
-                                      height: 14.w, width: 14.w, child: const Icon(Icons.error)),
-                                  placeholder: (context, url) {
-                                    return Center(
-                                        child: SizedBox(
-                                      height: 14.w,
-                                      width: 14.w,
-                                      child: CircularProgressIndicator.adaptive(
-                                          backgroundColor: R.colors.primary),
-                                    ));
-                                  },
+                                ),
+                                // Text(
+                                //   lawyerModel?.experience
+                                //           ?.map((e) => "${e.lawFirm} (${e.position})")
+                                //           .join(',') ??
+                                //       '',
+                                //   maxLines: 1,
+                                //   overflow: TextOverflow.ellipsis,
+                                //   style: R.textStyles
+                                //       .poppinsRegular(fontSize: 10.sp, color: R.colors.black),
+                                // ),
+                              ],
+                            ),
+                            const Spacer(),
+                            // IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+                          ],
+                        ),
+                        h0P5,
+                        Text("Experiences:", style: R.textStyles.poppinsMedium(fontSize: 11.sp)),
+                        h0P5,
+                        Wrap(
+                          children: [
+                            for (Experience experience in lawyerModel?.experience ?? [])
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                margin: const EdgeInsets.only(bottom: 6),
+                                decoration: BoxDecoration(
+                                    color: R.colors.primary.withOpacity(.089),
+                                    borderRadius: BorderRadius.circular(4)),
+                                child: Text(
+                                  "${experience.position} | ${experience.lawFirm}",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: R.textStyles
+                                      .poppinsRegular(fontSize: 10.sp, color: R.colors.black),
                                 ),
                               ),
-                              w2,
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    model?.fullName ?? "",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: R.textStyles
-                                        .poppinsSemiBold(fontSize: 11.sp, color: R.colors.black),
-                                  ),
-                                  Row(
-                                    children: List.generate(
-                                      model?.specialist?.length ?? 0,
-                                      (index) => Text(
-                                        // model?.specialist![index],
-                                        "${model?.specialist?[index]}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: R.textStyles
-                                            .poppinsRegular(fontSize: 10.sp, color: R.colors.black),
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    model?.experience
-                                            ?.map((e) => "${e.lawFirm} (${e.position})")
-                                            .join(',') ??
-                                        '',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: R.textStyles
-                                        .poppinsRegular(fontSize: 10.sp, color: R.colors.black),
-                                  ),
-                                ],
+                          ],
+                        ),
+                        h2,
+                        Text("Qualifications:", style: R.textStyles.poppinsMedium(fontSize: 11.sp)),
+                        h0P5,
+                        Wrap(
+                          children: [
+                            for (Qualifications q in lawyerModel?.qualifications ?? [])
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                margin: const EdgeInsets.only(bottom: 6),
+                                decoration: BoxDecoration(
+                                    color: R.colors.primary.withOpacity(.089),
+                                    borderRadius: BorderRadius.circular(4)),
+                                child: Text(
+                                  "${q.degree} | ${q.institute}",
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: R.textStyles
+                                      .poppinsRegular(fontSize: 10.sp, color: R.colors.black),
+                                ),
                               ),
-                              const Spacer(),
-                              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
-                            ]),
+                          ],
+                        )
                       ],
                     ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      customContainer('Experience', model?.yearOfExperience ?? ""),
-                      customContainer('Satisfaction %', '100%'),
-                      customContainer('Wait Time', '7 mins'),
+                      Expanded(
+                          flex: 3,
+                          child:
+                              customContainer('Experience', lawyerModel?.yearOfExperience ?? "")),
+                      Expanded(
+                          flex: 3,
+                          child: customContainer('Gender', getGenderString(lawyerModel?.gender))),
+                      Expanded(
+                        flex: 5,
+                        child: customContainer(
+                            'Meeting Duration', '${baseVm.lyrSchByID?.intervalMinutes} mins'),
+                      ),
                     ],
                   ),
                   h1,
-                  if (model?.isLawyerVerified ?? false)
+                  if (lawyerModel?.isLawyerVerified ?? false)
                     Row(
                       children: [
                         Container(
@@ -227,38 +283,48 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                     children: List.generate(
                       baseVm.lyrSchByID?.availableDates?.length ?? 0,
                       (index) {
-                        Timestamp? timestampDate;
+                        Timestamp? timestampDate = baseVm.lyrSchByID!.availableDates![index];
 
-                        timestampDate = baseVm.lyrSchByID!.availableDates![index];
+                        // Compare the current date with the date in timestampDate
+                        DateTime currentDate = DateTime.now().add(const Duration(days: -1));
+                        DateTime dateFromTimestamp = timestampDate.toDate();
 
-                        return InkWell(
-                          onTap: () {
-                            setState(() {
-                              selectedTimestamp = timestampDate;
-                              selDateIndex = index;
-                            });
+                        // debugPrint("${R.colors.redPrint} currentDate $currentDate");
+                        // debugPrint("${R.colors.redPrint} dateFromTimestamp $dateFromTimestamp");
 
-                            debugPrint("d2 ${selectedTimestamp!.toDate()}");
-                            debugPrint("d ${timestampDate!.toDate().toString()}");
-                          },
-                          overlayColor: MaterialStatePropertyAll(R.colors.primary.withOpacity(.4)),
-                          borderRadius: BorderRadius.circular(8),
-                          child: Container(
-                            padding: EdgeInsets.all(7.sp),
-                            margin: EdgeInsets.all(2.sp),
-                            decoration: R.decoration.decoration(radius: 5).copyWith(
-                                  color: selDateIndex == index ? R.colors.primary : R.colors.white,
+                        if (dateFromTimestamp.isAfter(currentDate)) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                selectedTimestamp = timestampDate;
+                                selDateIndex = index;
+                              });
+
+                              debugPrint("d2 ${selectedTimestamp!.toDate()}");
+                              debugPrint("d ${timestampDate.toDate().toString()}");
+                            },
+                            overlayColor:
+                                MaterialStatePropertyAll(R.colors.primary.withOpacity(.4)),
+                            borderRadius: BorderRadius.circular(8),
+                            child: Container(
+                              padding: EdgeInsets.all(7.sp),
+                              margin: EdgeInsets.all(2.sp),
+                              decoration: R.decoration.decoration(radius: 5).copyWith(
+                                    color:
+                                        selDateIndex == index ? R.colors.primary : R.colors.white,
+                                  ),
+                              child: Text(
+                                DateFormat("dd-MMM-yyyy").format(timestampDate.toDate()),
+                                style: R.textStyles.poppinsRegular(
+                                  fontSize: 10.sp,
+                                  color: selDateIndex == index ? R.colors.white : R.colors.primary,
                                 ),
-                            child: Text(
-                              DateFormat("dd-MMM-yyyy").format(timestampDate.toDate()),
-                              // timestampDate!.toDate().toString(),
-                              style: R.textStyles.poppinsRegular(
-                                fontSize: 10.sp,
-                                color: selDateIndex == index ? R.colors.white : R.colors.primary,
                               ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                          return Container();
+                        }
                       },
                     ),
                   ),
@@ -316,37 +382,27 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
     );
   }
 
-  Widget customContainer(String headingText, var text) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.all(5.sp),
-        margin: EdgeInsets.all(5.sp),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: R.colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.20),
-              offset: const Offset(-5, -2),
-              blurRadius: 12,
-            ),
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.20),
-              offset: const Offset(3, 3),
-              blurRadius: 12,
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Text(headingText, style: R.textStyles.poppinsSemiBold(fontSize: 10.sp)),
-            h0P5,
-            Text(
-              text,
-              style: R.textStyles.poppinsRegular(fontSize: 10.sp),
-            ),
-          ],
-        ),
+  Widget customContainer(String headingText, String text) {
+    return Container(
+      padding: EdgeInsets.all(5.sp),
+      margin: EdgeInsets.all(5.sp),
+      decoration: R.decoration.decoration(),
+      child: Column(
+        children: [
+          Text(
+            headingText,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: R.textStyles.poppinsSemiBold(fontSize: 10.sp),
+          ),
+          h0P5,
+          Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: R.textStyles.poppinsRegular(fontSize: 10.sp),
+          ),
+        ],
       ),
     );
   }
@@ -377,6 +433,8 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                   AuthVM aVm = Provider.of<AuthVM>(context, listen: false);
                   Timestamp now = Timestamp.now();
 
+                  debugPrint("model ${lawyerModel?.fullName ?? ""}");
+
                   // DateTime currentDate = DateTime.now();
                   DateTime combinedDateTime = DateTime(
                     selectedTimestamp!.toDate().year,
@@ -398,8 +456,13 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                     "lawyerScheduleId": vm.lyrSchByID?.lawyerId,
                     "selectedDate": selectedTimestamp,
                     "timeSlot": timeSlotTimestamp,
+                    "lawyerName": lawyerModel?.fullName ?? "",
+                    "lawyerImage": lawyerModel?.profileImages?.first ?? "",
+                    "customerName": aVm.userModel.fullName ?? "",
+                    "officeLocation": lawyerModel?.officeAdress?.streetAdress ?? "",
+                    "feePerMeeting": lawyerModel?.feePerMeeting?.toDouble() ?? 0
                   };
-                  BookingModel model = BookingModel(
+                  BookingModel m = BookingModel(
                     id: now.millisecondsSinceEpoch.toString(),
                     lawyerId: vm.lyrSchByID?.lawyerId,
                     customerId: aVm.userModel.id,
@@ -409,10 +472,16 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
                     lawyerScheduleId: vm.lyrSchByID?.lawyerId,
                     selectedDate: selectedTimestamp,
                     timeSlot: timeSlotTimestamp,
+                    lawyerName: lawyerModel?.fullName ?? "",
+                    lawyerImage: lawyerModel?.profileImages?.first ?? "",
+                    customerName: aVm.userModel.fullName,
+                    officeLocation: lawyerModel?.officeAdress?.streetAdress ?? "",
+                    feePerMeeting: lawyerModel?.feePerMeeting?.toDouble() ?? 0,
                   );
 
-                  debugPrint("model ${model.selectedDate?.toDate()}");
-                  await vm.createBookings(model);
+                  debugPrint("model ${m.selectedDate?.toDate()}");
+
+                  await vm.createBookings(m);
                   ZBotToast.loadingClose();
                   debugPrint("${R.colors.yellowPrint} $selectedSlot");
                   debugPrint("${R.colors.yellowPrint} ${selectedTimestamp?.toDate()}");

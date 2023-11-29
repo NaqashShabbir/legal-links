@@ -9,7 +9,6 @@ import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/c
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../../../utils/hights_widths.dart';
 import '../vm/home_vm.dart';
@@ -231,18 +230,6 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 h2,
-                ElevatedButton(
-                    onPressed: () async {
-                      debugPrint('click');
-                      final Uri url = Uri(
-                        scheme: 'tel',
-                        path: '03244533999',
-                      );
-                      if (await canLaunchUrl(url)) {
-                        await launchUrl(url);
-                      }
-                    },
-                    child: Text('click here'))
               ],
             ),
           ),

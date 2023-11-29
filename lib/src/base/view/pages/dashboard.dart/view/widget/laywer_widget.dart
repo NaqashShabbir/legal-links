@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
-import 'package:legal_links_app/src/base/view/pages/dashboard.dart/model/lawyers_model.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/lawyer_detail_screen.dart';
 import 'package:sizer/sizer.dart';
 

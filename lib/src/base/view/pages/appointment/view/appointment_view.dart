@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/services/auth_services.dart';
+import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/widget/appointment_widget.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/vm/appointment_vm.dart';
+import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 
 class AppointmentView extends StatefulWidget {
@@ -12,15 +16,27 @@ class AppointmentView extends StatefulWidget {
   State<AppointmentView> createState() => _AppointmentViewState();
 }
 
-class _AppointmentViewState extends State<AppointmentView>
-    with SingleTickerProviderStateMixin {
+class _AppointmentViewState extends State<AppointmentView> with SingleTickerProviderStateMixin {
   late TabController tabController;
-  List tabTitle = ['Today/Upcoming', "Previous"];
+  List tabTitle = ['Upcoming', "Previous"];
 
+  @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var vm = Provider.of<AppointmentVM>(context, listen: false);
+      var aVm = Provider.of<AuthVM>(context, listen: false);
+      ZBotToast.loadingShow();
+
+      if (aVm.userModel.role == UserRole.LAWYER) {
+        await vm.getLawyerBookings(aVm.userModel.id ?? "");
+      } else {
+        await vm.getUserBookings(aVm.userModel.id ?? "");
+      }
+
+      vm.update();
       setState(() {});
+      ZBotToast.loadingClose();
     });
     super.initState();
   }
@@ -33,55 +49,70 @@ class _AppointmentViewState extends State<AppointmentView>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            DefaultTabController(
-              length: 3,
-              child: TabBar(
-                padding: EdgeInsets.zero,
-                indicatorPadding: EdgeInsets.zero,
-                controller: tabController,
-                labelStyle: R.textStyles.poppinsSemiBold(),
-                unselectedLabelColor: Colors.grey,
-                labelColor: Colors.black,
-                //controller: _tabController,
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorColor: R.colors.primary,
-                indicatorWeight: 4,
-                tabs: [
-                  for (int i = 0; i < tabTitle.length; i++)
-                    Tab(
-                      text: tabTitle[i],
-                    ),
-                ],
-              ),
-            ),
-            Expanded(
-                child: TabBarView(
-              controller: tabController,
+    return Consumer2<AppointmentVM, AuthVM>(builder: (context, appVm, vm, _) {
+      return SafeArea(
+        child: Scaffold(
+          body: GestureDetector(
+            onTap: () async {
+              // var vm = Provider.of<AppointmentVM>(context, listen: false);
+              // var aVm = Provider.of<AuthVM>(context, listen: false);
+
+              // await vm.getUserBookings(aVm.userModel.id ?? "");
+
+              // setState(() {});
+            },
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    ...List.generate(
-                        context.read<AppointmentVM>().appointmentList.length,
-                        (index) => AppointmentWidget(
-                            model: context
-                                .read<AppointmentVM>()
-                                .appointmentList[index]))
-                  ],
+                DefaultTabController(
+                  length: 3,
+                  child: TabBar(
+                    padding: EdgeInsets.zero,
+                    indicatorPadding: EdgeInsets.zero,
+                    controller: tabController,
+                    labelStyle: R.textStyles.poppinsSemiBold(),
+                    unselectedLabelColor: Colors.grey,
+                    labelColor: Colors.black,
+                    //controller: _tabController,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    indicatorColor: R.colors.primary,
+                    indicatorWeight: 4,
+                    tabs: [
+                      for (int i = 0; i < tabTitle.length; i++)
+                        Tab(
+                          text: tabTitle[i],
+                        ),
+                    ],
+                  ),
                 ),
-                Text(context
-                    .read<AppointmentVM>()
-                    .appointmentList
-                    .length
-                    .toString())
+                Expanded(
+                    child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    if (vm.userModel.role == UserRole.LAWYER) ...[
+                      ...List.generate(
+                        appVm.lawyerAppointmentList.length,
+                        (index) => AppointmentWidget(
+                          model: appVm.lawyerAppointmentList[index],
+                        ),
+                      ),
+                    ] else ...[
+                      ...List.generate(
+                        appVm.appointmentList.length,
+                        (index) => AppointmentWidget(
+                          model: appVm.appointmentList[index],
+                        ),
+                      ),
+                    ],
+                    Text(
+                      appVm.appointmentList.length.toString(),
+                    )
+                  ],
+                ))
               ],
-            ))
-          ],
+            ),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
