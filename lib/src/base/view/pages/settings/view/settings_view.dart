@@ -41,13 +41,16 @@ class _SettingsViewState extends State<SettingsView> {
                   child: CircleAvatar(
                     backgroundColor: R.colors.primary.withOpacity(.2),
                     radius: 70,
-                    backgroundImage: NetworkImage(authVM.userModel.profileImages?.first ?? ""),
+                    backgroundImage: NetworkImage(
+                        authVM.userModel.profileImages?.first ?? ""),
                     onBackgroundImageError: (exception, stackTrace) {
                       Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           borderRadius: BorderRadius.circular(100),
-                          border: Border.all(color: R.colors.primary.withOpacity(.8), width: 1),
+                          border: Border.all(
+                              color: R.colors.primary.withOpacity(.8),
+                              width: 1),
                         ),
                         child: Icon(
                           Icons.error,
@@ -62,7 +65,8 @@ class _SettingsViewState extends State<SettingsView> {
                   authVM.userModel.fullName ?? '',
                   style: R.textStyles.poppinsBold(fontSize: 15.sp),
                 ),
-                Text(authVM.userModel.email ?? '', style: R.textStyles.poppinsRegular()),
+                Text(authVM.userModel.email ?? '',
+                    style: R.textStyles.poppinsRegular()),
                 h4,
                 Expanded(
                   child: SingleChildScrollView(
@@ -147,20 +151,24 @@ class _SettingsViewState extends State<SettingsView> {
                                 subtitle: "Are you sure you want to logout?",
                                 onLeftTap: () => Get.back(),
                                 onRightTap: () async {
-                                  debugPrint("before${context.read<AuthVM>().userModel.email}");
+                                  debugPrint(
+                                      "before${context.read<AuthVM>().userModel.email}");
                                   await Auth().signOut();
-                                  context.read<AuthVM>().userModel = UserModel();
+                                  context.read<AuthVM>().userModel =
+                                      UserModel();
                                   context.read<BaseVM>().currentIndex = 0;
                                   context.read<BaseVM>().update();
                                   context.read<AuthVM>().update();
-                                  debugPrint("after ${context.read<AuthVM>().userModel.email}");
+                                  debugPrint(
+                                      "after ${context.read<AuthVM>().userModel.email}");
                                   Get.offAllNamed(LoginScreen.route);
                                 },
                               ),
                             );
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(horizontal: 8.sp, vertical: 8.sp),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.sp, vertical: 8.sp),
                             margin: EdgeInsets.symmetric(
                               vertical: 8.sp,
                               horizontal: 8.sp,
@@ -181,7 +189,8 @@ class _SettingsViewState extends State<SettingsView> {
                                 Text(
                                   "Logout",
                                   style: R.textStyles.poppinsRegular(
-                                      color: R.colors.red, fontWeight: FontWeight.w500),
+                                      color: R.colors.red,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ],
                             ),
