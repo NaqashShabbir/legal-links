@@ -451,8 +451,7 @@ class _LawyerDetailsScrrenState extends State<LawyerDetailsScrren> {
               buttonTitle: "Proceed",
               tap: () async {
                 // TODO: PAYMENT SCREEN TAP
-                // await btnTap();
-                Get.toNamed(PaymentScreen.route);
+                await btnTap();
               },
               textColor: R.colors.white,
             ),

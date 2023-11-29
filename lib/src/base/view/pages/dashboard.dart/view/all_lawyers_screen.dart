@@ -114,20 +114,20 @@ class _AllLawyersScreenState extends State<AllLawyersScreen> {
         onFieldSubmitted: (value) {
           setState(() {});
         },
-        // validator: FieldValidator.validateEmail,
-        // autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: R.decoration.fieldDecoration(
           hintText: "Search by Lawyer",
-          suffixIcon: InkWell(
-            onTap: () {
-              searchController.clear();
-              setState(() {});
-            },
-            child: Icon(
-              Icons.cancel_rounded,
-              color: searchFN.hasFocus ? R.colors.primary : Colors.red,
-            ),
-          ),
+          suffixIcon: (!searchController.text.isNotEmpty)
+              ? null
+              : InkWell(
+                  onTap: () {
+                    searchController.clear();
+                    setState(() {});
+                  },
+                  child: Icon(
+                    Icons.cancel_rounded,
+                    color: searchFN.hasFocus ? R.colors.primary : Colors.red,
+                  ),
+                ),
           verticalPadding: 10,
         ),
       ),
