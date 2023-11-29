@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_links_app/services/firebase_collections.dart';
+import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/model/content_model.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/model/review_model.dart';
 
@@ -45,11 +46,13 @@ class SettingsVM extends ChangeNotifier {
 
   ContentModel contentModel = ContentModel();
   Future<void> getData() async {
-    DocumentSnapshot doc = await FBCollections.settings.doc("SbKBaXdi6T3Tldwjycwc").get();
+    DocumentSnapshot doc =
+        await FBCollections.settings.doc("SbKBaXdi6T3Tldwjycwc").get();
 
     contentModel = ContentModel.fromJson(doc.data());
     debugPrint("settings data: ${doc.data()}");
     debugPrint("app name:  ${contentModel.appName}");
+    debugPrint("mobile number:  ${contentModel.mobileNumber}");
 
     update();
   }

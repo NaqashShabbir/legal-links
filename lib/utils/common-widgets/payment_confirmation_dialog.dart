@@ -1,0 +1,151 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/services/image_picker_service/image_picker_galary.dart';
+import 'package:legal_links_app/services/image_picker_service/image_picker_option.dart';
+import 'package:legal_links_app/services/image_picker_service/image_picker_services.dart';
+import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
+import 'package:legal_links_app/utils/hights_widths.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+
+class PaymentConfirmationDialog extends StatefulWidget {
+  const PaymentConfirmationDialog({super.key});
+
+  @override
+  State<PaymentConfirmationDialog> createState() =>
+      _PaymentConfirmationDialogState();
+}
+
+class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
+  File? paymentImage;
+  // late final bool? isOptionEnable;
+  // late final ValueChanged<File?>? uploadImage;
+  // late final bool? isPhotoPicked;
+  // late final VoidCallback? removeImageFn;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthVM>(builder: (context, authVm, _) {
+      return Scaffold(
+        backgroundColor: R.colors.transparent,
+        body: Center(
+            child: Container(
+          padding: EdgeInsets.all(8.sp),
+          margin: EdgeInsets.symmetric(horizontal: 5.w),
+          decoration: BoxDecoration(
+            color: R.colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.20),
+                offset: const Offset(-5, -2),
+                blurRadius: 12,
+              ),
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.20),
+                offset: const Offset(3, 3),
+                blurRadius: 12,
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(7),
+                    decoration: BoxDecoration(
+                      color: R.colors.red.withOpacity(.3),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.clear,
+                      size: 18,
+                      color: R.colors.red,
+                    ),
+                  ),
+                ),
+              ),
+              pickImageWidget(authVm),
+              h3,
+              CustomButton(
+                  buttonTitle: "Save",
+                  tap: () {
+                    Get.back();
+                  })
+            ],
+          ),
+        )),
+      );
+    });
+  }
+
+  Widget pickImageWidget(AuthVM vm) {
+    return Column(
+      children: [
+        if (paymentImage == null)
+          ClipRRect(
+            borderRadius: BorderRadius.circular(150),
+            child: InkWell(
+              overlayColor: MaterialStateProperty.all(Colors.transparent),
+              onTap: () async {
+                final pickedFile =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+
+                if (pickedFile != null) {
+                  paymentImage = File(pickedFile.path);
+                }
+
+                setState(() {});
+
+                // Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.add,
+                size: 25.sp,
+                color: R.colors.primary,
+              ),
+            ),
+          )
+        else
+          Image.file(
+            paymentImage!,
+            width: 100.w,
+            height: 60.h,
+          ),
+        // if (isPhotoPicked ?? false) const Divider(color: Colors.grey),
+        // if (isPhotoPicked ?? false)
+        if (paymentImage != null)
+          InkWell(
+            onTap: () {
+              paymentImage = null;
+              debugPrint("paymentImage $paymentImage");
+              setState(() {});
+            },
+            child: Row(children: [
+              const Icon(Icons.delete, size: 20, color: Colors.red),
+              SizedBox(width: Get.width * .03),
+              Text(
+                "Remove Photo",
+                style: R.textStyles.poppinsMedium(
+                  fontWeight: FontWeight.normal,
+                  color: Colors.red,
+                ),
+              )
+            ]),
+          ),
+      ],
+    );
+  }
+}
