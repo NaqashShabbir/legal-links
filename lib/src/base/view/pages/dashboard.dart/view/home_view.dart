@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
+import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/chamber_widget.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
@@ -33,6 +34,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var vm = Provider.of<BaseVM>(context, listen: false);
+      filteredLawyers = vm.lawyersList;
+      vm.update();
       // var baseVM = Provider.of<BaseVM>(context, listen: false);
       // var homeVM = Provider.of<HomeVM>(context, listen: false);
 
@@ -151,21 +155,24 @@ class _HomeViewState extends State<HomeView> {
                       searchField(),
                       // h1,
 
-                      viewAllWidget("Lawyers", () {
+                      viewAllWidget(isViewAll: true, "Lawyers", () {
                         Get.toNamed(AllLawyersScreen.route);
                       }),
                       // h1,
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(
-                            vm.lawyersList.length,
-                            (index) => LawyerWidget(
-                              model: vm.lawyersList[index],
+                      if (filteredLawyers.isEmpty)
+                        const Center(child: Text("No Search Result"))
+                      else
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                              filteredLawyers.take(5).length,
+                              (index) => LawyerWidget(
+                                model: filteredLawyers.take(5).toList()[index],
+                              ),
                             ),
                           ),
                         ),
-                      ),
                       // h0P7,
                       viewAllWidget("Chambers", () {}),
 
@@ -238,7 +245,7 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  Widget viewAllWidget(String title, Function() onPressed) {
+  Widget viewAllWidget(String title, Function() onPressed, {bool? isViewAll}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -246,21 +253,22 @@ class _HomeViewState extends State<HomeView> {
           title,
           style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 14.sp),
         ),
-        TextButton(
-          style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
-          onPressed: onPressed,
-          child: Text(
-            'View All',
-            style: R.textStyles
-                .poppinsRegular(
-                  fontSize: 10.sp,
-                  color: R.colors.primary,
-                )
-                .copyWith(
-                  decoration: TextDecoration.underline,
-                ),
+        if (isViewAll ?? false)
+          TextButton(
+            style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+            onPressed: onPressed,
+            child: Text(
+              'View All',
+              style: R.textStyles
+                  .poppinsRegular(
+                    fontSize: 10.sp,
+                    color: R.colors.primary,
+                  )
+                  .copyWith(
+                    decoration: TextDecoration.underline,
+                  ),
+            ),
           ),
-        ),
       ],
     );
   }
@@ -272,8 +280,8 @@ class _HomeViewState extends State<HomeView> {
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.done,
       onChanged: (value) {
-        debugPrint('Search');
-        setState(() {});
+        debugPrint('Search: $value');
+        filterLawyers(value);
       },
       onTap: () {
         setState(() {});
@@ -281,10 +289,8 @@ class _HomeViewState extends State<HomeView> {
       onFieldSubmitted: (value) {
         setState(() {});
       },
-      // validator: FieldValidator.validateEmail,
-      // autovalidateMode: AutovalidateMode.onUserInteraction,
       decoration: R.decoration.fieldDecoration(
-        hintText: "Search by Case/Lawyer",
+        hintText: "Search by Lawyer",
         preIcon: Focus(
           focusNode: searchFN,
           child: Builder(builder: (context) {
@@ -297,6 +303,29 @@ class _HomeViewState extends State<HomeView> {
         verticalPadding: 10,
       ),
     );
+  }
+
+  List<UserModel> filteredLawyers = [];
+
+  void filterLawyers(String query) {
+    List<UserModel> searchResult = [];
+    if (query.isNotEmpty) {
+      searchResult = context
+          .read<BaseVM>()
+          .lawyersList
+          .where((lawyer) =>
+              (lawyer.fullName?.toLowerCase().contains(query.toLowerCase()) ?? false) ||
+              (lawyer.officeAdress?.streetAdress?.toLowerCase().contains(query.toLowerCase()) ??
+                  false))
+          .toList();
+    } else {
+      searchResult = List.from(context.read<BaseVM>().lawyersList);
+    }
+    context.read<BaseVM>().update();
+
+    setState(() {
+      filteredLawyers = searchResult;
+    });
   }
 
   // List<String> lawFirms = [
