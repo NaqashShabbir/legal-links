@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/auth_services.dart';
 import 'package:provider/provider.dart';
