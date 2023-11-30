@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/services/firebase_collections.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
+import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/model/lawyer_schedule_model.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
+import 'package:provider/provider.dart';
 
 class BaseVM extends ChangeNotifier {
   int currentIndex = 0;
@@ -76,6 +78,10 @@ class BaseVM extends ChangeNotifier {
       p = true;
       notifyListeners();
       Get.back();
+      Get.offAllNamed(BaseView.route);
+      // Get.context!.read<BaseVM>()
+      currentIndex = 0;
+      notifyListeners();
     } catch (e) {
       String error = e.toString().split(']').toList().last;
       ZBotToast.showToastError(message: error);
