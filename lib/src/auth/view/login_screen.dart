@@ -113,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextButton(
                       onPressed: () {
                         {
-                          // Get.bottomSheet(ChangePasswordSheet());
+                          
                           Get.bottomSheet(
                             const ForgotPasswordSheet(
                               title: 'Forgot Password?',
@@ -122,6 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               labelText: 'Email',
                               placeHolder: 'Enter email',
                               text: 'Proceed',
+                              isFromDelete: false,
                             ),
                             isScrollControlled: true,
                           );

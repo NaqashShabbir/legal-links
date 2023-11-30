@@ -21,6 +21,14 @@ class LawyerSignupView extends StatefulWidget {
 
 class _LawyerSignupViewState extends State<LawyerSignupView> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<AuthVM>().singupPageController.jumpToPage(0);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<AuthVM>(
       builder: (context, vm, _) {

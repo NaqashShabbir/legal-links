@@ -126,8 +126,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     h1,
                     Container(
-                      margin:
-                          EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                      margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
                       child: Text(
                         "Phone Number",
                         style: R.textStyles.poppinsMedium(
@@ -172,8 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       inputAction: TextInputAction.done,
                       inputType: TextInputType.visiblePassword,
                       validator: (val) => FieldValidator.validatePasswordMatch(
-                          confirmpasswordController.text,
-                          passwordController.text),
+                          confirmpasswordController.text, passwordController.text),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       hintText: 'Enter confirm password',
                       fieldTitle: "Confirm Password",
@@ -208,8 +206,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     genderDropDown(vm: authvm),
                     h3,
                     InkWell(
-                      overlayColor:
-                          MaterialStateProperty.all(Colors.transparent),
+                      overlayColor: MaterialStateProperty.all(Colors.transparent),
                       onTap: () {
                         setState(() {
                           isChecked = !isChecked;
@@ -275,8 +272,7 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle:
-            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -324,8 +320,7 @@ class _SignupScreenState extends State<SignupScreen> {
       //     phoneNumberController.text.trim(), context),
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputBorder: const UnderlineInputBorder(),
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
@@ -342,14 +337,12 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState!.validate()) {
       if (!isChecked) {
         debugPrint(" Please agree to the Privacy Policy and T&C. ");
-        ZBotToast.showToastError(
-            message: "Please agree to the Privacy Policy and T&C.");
+        ZBotToast.showToastError(message: "Please agree to the Privacy Policy and T&C.");
       } else if (profileImage == null) {
         ZBotToast.showToastError(message: "Please Pick Image");
         debugPrint(" Please Pick Image ");
       } else {
-        String? url =
-            await context.read<AuthVM>().uploadImageUser(profileImage!);
+        String? url = await context.read<AuthVM>().uploadImageUser(profileImage!);
         debugPrint("  Image URL $url ");
         if (url != null) {
           Timestamp now = Timestamp.now();
@@ -367,10 +360,11 @@ class _SignupScreenState extends State<SignupScreen> {
             email: emailController.text.trim(),
             status: UserStatus.ACTIVE,
           );
+          debugPrint(" createClient 1: ${createClient.phoneNumber?.countryCode}");
+          debugPrint(" createClient 2: ${createClient.phoneNumber?.isoCode}");
+          debugPrint(" createClient 3: ${createClient.phoneNumber?.number}");
 
-          await context
-              .read<AuthVM>()
-              .signUp(createClient, pass: passwordController.text.trim());
+          await context.read<AuthVM>().signUp(createClient, pass: passwordController.text.trim());
         }
 
         // debugPrint(" body: ");
@@ -425,9 +419,8 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Container(
               width: 40.sp,
               height: 40.sp,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: R.colors.primary.withOpacity(.08)),
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: R.colors.primary.withOpacity(.08)),
               child: profileImage == null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(150),

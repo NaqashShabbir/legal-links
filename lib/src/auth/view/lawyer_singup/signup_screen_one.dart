@@ -28,7 +28,7 @@ class SignupScreenOneOfLawyer extends StatefulWidget {
 class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
-  TextEditingController numberController = TextEditingController();
+
   TextEditingController nameController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
   TextEditingController dateCon = TextEditingController();
@@ -354,7 +354,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
           role: context.read<AuthVM>().userRole,
           fullName: nameController.text.trim(),
           phoneNumber: PhoneNumberModel(
-            number: numberController.text.trim(),
+            number: phoneNumberController.text.trim(),
             isoCode: number.isoCode,
             countryCode: number.dialCode,
           ),

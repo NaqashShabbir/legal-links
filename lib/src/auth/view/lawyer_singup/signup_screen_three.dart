@@ -270,7 +270,6 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
           // vm.password = '';
 
           context.read<AuthVM>().singupPage = 0;
-          context.read<AuthVM>().singupPageController.jumpToPage(0);
           context.read<AuthVM>().update();
           ZBotToast.loadingClose();
           Get.toNamed(LoginScreen.route);

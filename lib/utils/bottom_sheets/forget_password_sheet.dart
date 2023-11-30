@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/auth_services.dart';
-import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -61,8 +60,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
               h2,
               Text(
                 widget.title,
-                style: R.textStyles
-                    .poppinsBold(color: R.colors.black, fontSize: 15.sp),
+                style: R.textStyles.poppinsBold(color: R.colors.black, fontSize: 15.sp),
               ),
               h2,
               Text(
@@ -91,9 +89,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
                     child: Padding(
                       padding: EdgeInsets.only(right: 8.sp),
                       child: Icon(
-                        isObscure1
-                            ? Icons.visibility_off_rounded
-                            : Icons.remove_red_eye_rounded,
+                        isObscure1 ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
                         color: Colors.grey,
                         size: 16.sp,
                       ),
@@ -114,7 +110,7 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
               h3,
               CustomButton(
                 buttonTitle: widget.text,
-                color: R.colors.red,
+                color: widget.isFromDelete ?? false ? R.colors.red : R.colors.primary,
                 tap: () async {
                   if (_formKey.currentState!.validate()) {
                     if (widget.isFromDelete ?? false) {
@@ -122,27 +118,12 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
                         passwordController.text.trim(),
                         vm.userModel,
                       );
+                      Get.back();
                     } else {
                       Auth().sendResetPassEmail(emailController.text.trim());
+                      Get.back();
                     }
                   }
-                  // if (_formKey.currentState!.validate()) {
-                  // otp(vm, emailController.text);
-                  // if (widget.isFromDelete ?? false) {
-                  //   Get.back();
-                  //   Get.offAllNamed(LoginScreen.route);
-                  // } else {
-                  //   Get.back();
-                  // Get.bottomSheet(
-                  //   OTPSheet(
-                  //     email: emailController.text,
-                  //     onTap: () {},
-                  //     isEmail: true,
-                  //   ),
-                  //   isScrollControlled: true,
-                  // );
-                  // }
-                  // }
                 },
               ),
               h3,
@@ -152,18 +133,4 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
       );
     });
   }
-
-  // Future<void> otp(
-  //   AuthVM vm,
-  //   String email,
-  // ) async {
-  //   ZBotToast.loadingShow();
-  //   var body = {
-  //     'email': email,
-  //   };
-  //   bool chack = await vm.otp(body: body);
-  //   if (chack) {
-  //     ZBotToast.loadingClose();
-  //   }
-  // }
 }
