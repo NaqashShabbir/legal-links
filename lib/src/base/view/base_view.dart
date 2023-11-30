@@ -57,6 +57,7 @@ class _BaseViewState extends State<BaseView> {
         homeVM.getLawFirmList(),
       ]);
       baseVM.update();
+      homeVM.update();
 
       setState(() {});
     });
