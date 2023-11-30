@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/src/auth/view/confirmation_dialog.dart';
+import 'package:legal_links_app/utils/bottom_sheets/change_password_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -126,6 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             isScrollControlled: true,
                           );
+                          Get.back();
+                          Get.bottomSheet(ChangePasswordSheet());
                         }
                       },
                       child: Row(

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_links_app/services/firebase_collections.dart';
-import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/model/content_model.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/model/review_model.dart';
 

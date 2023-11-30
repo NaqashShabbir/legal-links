@@ -160,29 +160,29 @@ class _BaseViewState extends State<BaseView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               if (index != 2)
+                // IconButton(
+                //   iconSize: 25,
+                //   onPressed: () {
+                //     // Get.to(() => const SearchView());
+                //   },
+                //   icon: Icon(
+                //     Icons.search_rounded,
+                //     color: R.colors.white,
+                //   ),
+                // ),
                 IconButton(
                   iconSize: 25,
                   onPressed: () {
-                    // Get.to(() => const SearchView());
+                    Get.dialog(CallConfirmationDialog(
+                      PhoneNumberOne: '0343-4567543',
+                      PhoneNumberTwo: '0325-4543213',
+                    ));
                   },
                   icon: Icon(
-                    Icons.search_rounded,
+                    Icons.call,
                     color: R.colors.white,
                   ),
                 ),
-              IconButton(
-                iconSize: 25,
-                onPressed: () {
-                  Get.dialog(CallConfirmationDialog(
-                    PhoneNumberOne: '0343-4567543',
-                    PhoneNumberTwo: '0325-4543213',
-                  ));
-                },
-                icon: Icon(
-                  Icons.call,
-                  color: R.colors.white,
-                ),
-              ),
             ],
           ),
         ],

@@ -10,7 +10,6 @@ import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/model/lawyer_schedule_model.dart';
 import 'package:legal_links_app/utils/zbot_toast.dart';
-import 'package:provider/provider.dart';
 
 class BaseVM extends ChangeNotifier {
   int currentIndex = 0;
@@ -48,7 +47,8 @@ class BaseVM extends ChangeNotifier {
     bool check = false;
     try {
       debugPrint("lawyerId $lawyerId");
-      DocumentSnapshot doc = await FBCollections.lawyerScedule.doc(lawyerId).get();
+      DocumentSnapshot doc =
+          await FBCollections.lawyerScedule.doc(lawyerId).get();
       debugPrint("doc ${doc.id}");
       debugPrint("doc ${doc.reference.id}");
 
@@ -90,7 +90,8 @@ class BaseVM extends ChangeNotifier {
     return p;
   }
 
-  Future<String?> uploadImageUser(File image, String id, String customerId) async {
+  Future<String?> uploadImageUser(
+      File image, String id, String customerId) async {
     String? imageURL;
 
     try {

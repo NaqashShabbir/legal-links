@@ -11,6 +11,6 @@ class AllChambersScreen extends StatefulWidget {
 class _AllChambersScreenState extends State<AllChambersScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }
