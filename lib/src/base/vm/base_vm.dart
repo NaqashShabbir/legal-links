@@ -67,17 +67,21 @@ class BaseVM extends ChangeNotifier {
     return check;
   }
 
-  Future<void> createBookings(BookingModel model) async {
+  Future<bool> createBookings(BookingModel model) async {
+    bool p = false;
     try {
       ZBotToast.loadingShow();
       await FBCollections.bookings.doc(model.id).set(model.toJson());
       ZBotToast.showToastSuccess(message: "Booking added successfully.");
+      p = true;
+      notifyListeners();
       Get.back();
     } catch (e) {
       String error = e.toString().split(']').toList().last;
       ZBotToast.showToastError(message: error);
       ZBotToast.loadingClose();
     }
+    return p;
   }
 
   Future<String?> uploadImageUser(File image, String id, String customerId) async {

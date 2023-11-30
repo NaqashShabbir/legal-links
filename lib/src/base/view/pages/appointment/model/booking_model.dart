@@ -17,6 +17,13 @@ class BookingModel {
     this.customerName,
     this.officeLocation,
     this.feePerMeeting,
+    this.paymentImage,
+    this.paymentProviderLogo,
+    this.pName,
+    this.paymentId,
+    this.userName,
+    this.accountNumber,
+    this.paymentStatus,
   });
 
   BookingModel.fromJson(dynamic json) {
@@ -35,6 +42,13 @@ class BookingModel {
     customerName = json['customerName'];
     officeLocation = json['officeLocation'];
     feePerMeeting = json['feePerMeeting'];
+    paymentImage = json['paymentImage'];
+    paymentProviderLogo = json['paymentProviderLogo'];
+    pName = json['pName'];
+    paymentId = json['paymentId'];
+    userName = json['userName'];
+    accountNumber = json['accountNumber'];
+    paymentStatus = json['paymentStatus'];
   }
   String? id;
   String? lawyerId;
@@ -51,6 +65,14 @@ class BookingModel {
   String? officeLocation;
   Timestamp? selectedDate;
   Timestamp? timeSlot;
+  String? paymentImage;
+  String? paymentProviderLogo;
+  String? pName;
+  String? paymentId;
+  String? userName;
+  String? accountNumber;
+  int? paymentStatus;
+
   BookingModel copyWith({
     String? id,
     String? lawyerId,
@@ -67,6 +89,13 @@ class BookingModel {
     String? officeLocation,
     Timestamp? selectedDate,
     Timestamp? timeSlot,
+    String? paymentImage,
+    String? paymentProviderLogo,
+    String? pName,
+    String? paymentId,
+    String? userName,
+    String? accountNumber,
+    int? paymentStatus,
   }) =>
       BookingModel(
         id: id ?? this.id,
@@ -84,6 +113,13 @@ class BookingModel {
         customerName: customerName ?? this.customerName,
         officeLocation: officeLocation ?? this.officeLocation,
         feePerMeeting: feePerMeeting ?? this.feePerMeeting,
+        paymentImage: paymentImage ?? this.paymentImage,
+        paymentProviderLogo: paymentProviderLogo ?? this.paymentProviderLogo,
+        pName: pName ?? this.pName,
+        paymentId: paymentId ?? this.paymentId,
+        userName: userName ?? this.userName,
+        accountNumber: accountNumber ?? this.accountNumber,
+        paymentStatus: paymentStatus ?? this.paymentStatus,
       );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -102,6 +138,13 @@ class BookingModel {
     map['customerName'] = customerName;
     map['officeLocation'] = officeLocation;
     map['feePerMeeting'] = feePerMeeting;
+    map['paymentImage'] = paymentImage;
+    map['paymentProviderLogo'] = paymentProviderLogo;
+    map['pName'] = pName;
+    map['paymentId'] = paymentId;
+    map['userName'] = userName;
+    map['accountNumber'] = accountNumber;
+    map['paymentStatus'] = paymentStatus;
 
     return map;
   }

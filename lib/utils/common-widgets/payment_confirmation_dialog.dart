@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -9,6 +10,7 @@ import 'package:legal_links_app/services/image_picker_service/image_picker_galar
 import 'package:legal_links_app/services/image_picker_service/image_picker_option.dart';
 import 'package:legal_links_app/services/image_picker_service/image_picker_services.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/model/content_model.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
@@ -95,13 +97,42 @@ class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
                     if (paymentImage == null) {
                       ZBotToast.showToastError(message: "Please upload Image!");
                     } else {
+                      ZBotToast.loadingShow();
                       BaseVM vm = Provider.of<BaseVM>(context, listen: false);
                       AuthVM aVm = Provider.of<AuthVM>(context, listen: false);
-
-                      String? imageUrl = await vm.uploadImageUser(paymentImage!,'${vm.tempBookingModel?.id}', '${vm.tempBookingModel?.customerId}');
-
+                      String? imageUrl = await vm.uploadImageUser(paymentImage!,
+                          '${vm.tempBookingModel?.id}', '${vm.tempBookingModel?.customerId}');
                       if (imageUrl?.isNotEmpty ?? false) {
-                        await vm.createBookings(vm.tempBookingModel!);
+                        vm.tempBookingModel = BookingModel(
+                          id: vm.tempBookingModel?.id,
+                          lawyerId: vm.tempBookingModel?.lawyerId,
+                          customerId: vm.tempBookingModel?.customerId,
+                          status: vm.tempBookingModel?.status, //Scheduled
+                          createdAt: Timestamp.now(),
+                          updatedAt: Timestamp.now(),
+                          lawyerScheduleId: vm.tempBookingModel?.lawyerId,
+                          selectedDate: vm.tempBookingModel?.selectedDate,
+                          timeSlot: vm.tempBookingModel?.timeSlot,
+                          lawyerName: vm.tempBookingModel?.lawyerName,
+                          lawyerImage: vm.tempBookingModel?.lawyerImage,
+                          customerName: aVm.userModel.fullName,
+                          officeLocation: vm.tempBookingModel?.officeLocation,
+                          feePerMeeting: vm.tempBookingModel?.feePerMeeting,
+                          customerImage: vm.tempBookingModel?.customerImage,
+                          accountNumber: widget.model?.accountNumber,
+                          pName: widget.model?.name,
+                          paymentId: Timestamp.now().microsecondsSinceEpoch.toString(),
+                          paymentProviderLogo: widget.model?.image,
+                          paymentImage: imageUrl,
+                          paymentStatus: 0,
+                          userName: widget.model?.userName,
+                        );
+
+                        bool p = await vm.createBookings(vm.tempBookingModel!);
+                        if (p) {
+                          vm.tempBookingModel = null;
+                          ZBotToast.loadingClose();
+                        }
                       }
                     }
                   },
