@@ -82,7 +82,14 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       assistantController.text = vm.userModel.assistantName ?? "";
       caseCountController.text = vm.userModel.casesCount.toString();
       aboutController.text = vm.userModel.about ?? "";
-      practiceAreaList = vm.userModel.practiceAreas ?? [];
+      // practiceAreaList = vm.userModel.practiceAreas ?? [];
+      addressController.text = vm.userModel.officeAdress?.streetAdress ?? "";
+
+      number = PhoneNumber(
+        dialCode: vm.userModel.phoneNumber?.countryCode ?? "",
+        isoCode: vm.userModel.phoneNumber?.isoCode ?? "",
+        phoneNumber: vm.userModel.phoneNumber?.number ?? "",
+      );
 
       //nameController.text = vm.userModel.fullName ?? "";
 
@@ -127,8 +134,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                   ),
                   h1,
                   Container(
-                    margin:
-                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
                     child: Text(
                       "Phone Number",
                       style: R.textStyles.poppinsMedium(
@@ -146,6 +152,10 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     focusNode: experienceFocus,
                     inputAction: TextInputAction.next,
                     inputType: TextInputType.number,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(2),
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                     validator: FieldValidator.validateEmpty,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
@@ -161,12 +171,12 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                   ),
                   h1,
-                  Text(
-                    'SpecialList',
-                    style: R.textStyles.poppinsMedium(),
-                  ),
-                  h1,
-                  speciallistLawyerDropdown(vm: vm),
+                  // Text(
+                  //   'SpecialList',
+                  //   style: R.textStyles.poppinsMedium(),
+                  // ),
+                  // h1,
+                  // speciallistLawyerDropdown(vm: vm),
                   CustomTextFormField(
                     controller: assistantController,
                     focusNode: assistantFocus,
@@ -198,6 +208,10 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     inputType: TextInputType.streetAddress,
                     hintText: 'Address',
                     fieldTitle: "Your address",
+                    onTap: () {
+                      debugPrint(
+                          "vm.userModel.officeAdress?.streetAdress ${vm.userModel.officeAdress?.streetAdress}");
+                    },
                     suffixIcon: GestureDetector(
                       onTap: () {
                         Get.to(
@@ -206,8 +220,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                             address: (value) {
                               pickLocationData = value;
                               latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
-                              addressController.text =
-                                  pickLocationData?.streetAddress ?? '';
+                              addressController.text = pickLocationData?.streetAddress ?? '';
                             },
                           ),
                         );
@@ -231,18 +244,16 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                   ),
                   h1,
                   h1,
-                  heading('Practice Area', () {
-                    setState(() {
-                      practiceAreaList.add("");
-                    });
-                  }),
-                  h1,
-                  for (int index = 0;
-                      index < practiceAreaList.length;
-                      index++) ...[
-                    practiceField(practiceAreaList[index], index),
-                    h0P8,
-                  ],
+                  // heading('Practice Area', () {
+                  //   setState(() {
+                  //     practiceAreaList.add("");
+                  //   });
+                  // }),
+                  // h1,
+                  // for (int index = 0; index < practiceAreaList.length; index++) ...[
+                  //   practiceField(practiceAreaList[index], index),
+                  //   h0P8,
+                  // ],
                   h1,
                   // heading('Your Experience', () {
                   //   setState(() {
@@ -301,8 +312,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                 value: item,
                 child: Text(
                   item.specialist ?? "",
-                  style: R.textStyles
-                      .poppinsRegular(color: R.colors.black, fontSize: 8.sp),
+                  style: R.textStyles.poppinsRegular(color: R.colors.black, fontSize: 8.sp),
                 ),
               ))
           .toList(),
@@ -336,8 +346,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle:
-            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -363,11 +372,17 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
               color: R.colors.red,
             )),
       ),
-      onInputChanged: (PhoneNumber phonenumber) {
-        number = phonenumber;
+      // onInputChanged: (PhoneNumber phonenumber) {
+      //   number = phonenumber;
+      // },
+      onInputChanged: (PhoneNumber number) {
+        if ((number.phoneNumber?.length ?? 0) < 1) {
+          setState(() {});
+        }
       },
       onInputValidated: (val) {
         debugPrint(val.toString());
+        setState(() {});
       },
       selectorConfig: const SelectorConfig(
           leadingPadding: 10,
@@ -381,17 +396,16 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       autoValidateMode: AutovalidateMode.onUserInteraction,
       initialValue: number,
       textFieldController: phoneNumberController,
-      // validator: (value) => FieldValidator.validatePhoneNumber(
-      //     phoneNumberController.text.trim(), context),
+      // validator: (value) {},
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType:
-          const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
       inputBorder: const UnderlineInputBorder(),
+
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
+        setState(() {});
       },
-
       onFieldSubmitted: (value) {
         setState(() {});
         FocusScope.of(context).requestFocus(passwordFocus);
@@ -403,32 +417,40 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
     print('Fee Value: ${feeController.text}');
 
     num feeValue = double.parse(feeController.text.trim());
-    num caseCountControllerValue =
-        double.parse(caseCountController.text.trim());
+    num caseCountControllerValue = double.parse(caseCountController.text.trim());
     // ignore: unused_local_variable
-    int? yearExperience;
-    if (yearExperienceController.text.isNotEmpty) {
-      yearExperience = int.tryParse(yearExperienceController.text);
-    }
+    // int? yearExperience;
+    // if (yearExperienceController.text.isNotEmpty) {
+    //   yearExperience = int.tryParse(yearExperienceController.text);
+    // }
     debugPrint('Fee Value: $feeValue');
 
     if (_formKey.currentState!.validate()) {
       Timestamp now = Timestamp.now();
       UserModel updateLawyer = UserModel(
-          fullName: nameController.text.trim(),
-          updatedAt: now,
-          phoneNumber: PhoneNumberModel(
-            number: phoneNumberController.text.trim(),
-            isoCode: number.isoCode,
-            countryCode: number.dialCode,
-          ),
-          feePerMeeting: feeValue,
-          about: aboutController.text,
-          yearOfExperience: yearExperienceController.toString(),
-          practiceAreas: practiceAreaList,
-          assistantName: assistantController.text.trim(),
-          casesCount: caseCountControllerValue);
-      print('assistent name : ${assistantController.toString()}');
+        fullName: nameController.text.trim(),
+        updatedAt: now,
+        phoneNumber: PhoneNumberModel(
+          number: phoneNumberController.text.trim(),
+          isoCode: number.isoCode,
+          countryCode: number.dialCode,
+        ),
+        feePerMeeting: feeValue,
+        about: aboutController.text,
+        yearOfExperience: yearExperienceController.text.trim(),
+        // practiceAreas: practiceAreaList,
+        assistantName: assistantController.text.trim(),
+        casesCount: caseCountControllerValue,
+
+        officeAdress: OfficeAdress(
+          city: pickLocationData?.city,
+          country: pickLocationData?.country,
+          latLng: GeoPoint(pickLocationData?.lat ?? 0, pickLocationData?.lng ?? 0),
+          state: pickLocationData?.city,
+          streetAdress: addressController.text.trim(),
+          zipCode: pickLocationData?.city,
+        ),
+      );
 
       Map<String, dynamic> updateData = {
         "fullName": updateLawyer.fullName,
@@ -439,243 +461,212 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
         },
         "about": updateLawyer.about,
         "assistantName": updateLawyer.assistantName,
-        "casesCount": updateLawyer.casesCount.toString(),
-
+        "casesCount": updateLawyer.casesCount,
         "feePerMeeting": updateLawyer.feePerMeeting,
         "yearOfExperience": updateLawyer.yearOfExperience,
-        "practiceAreas": updateLawyer.practiceAreas,
-// "experience": [""],
-        // "officeAddress": {
-        //   "city": null,
-        //   "country": null,
-        //   "latLng": [0, 0],
-        //   "state": null,
-        //   "streetAddress": null,
-        //   "zipCode": null
-        // },
-
-        // "practiceAreas": [
-
-        // ],
-        // "profileImages": [""],
-        // "qualifications": [
-
-        // ],
-        // "role": 1,
-        // "specialist": [""],
-        // "status": 0,
-        // "updatedAt": ,
-        // "yearOfExperience": ""
+        "officeAdress": {
+          "zipCode": updateLawyer.officeAdress?.zipCode,
+          "country": updateLawyer.officeAdress?.country,
+          "streetAdress": updateLawyer.officeAdress?.streetAdress,
+          "city": updateLawyer.officeAdress?.city,
+          "state": updateLawyer.officeAdress?.state,
+          "latLng": updateLawyer.officeAdress?.latLng,
+        },
+        "updatedAt": updateLawyer.updatedAt,
       };
+
+      debugPrint(" body: $updateData");
 
       await context.read<AuthVM>().updateUserData(
             updateData,
             context.read<AuthVM>().userModel.id ?? "",
           );
-
-      debugPrint(" body: $updateData");
-      // debugPrint('role: ${context.read<AuthVM>().userRole}');
-      debugPrint('fullName: ${nameController.text.trim()}');
-      debugPrint('updatedAt: $now');
-      debugPrint('phoneNumberController: ${phoneNumberController.text.trim()}');
-      debugPrint('Assistant Name: ${assistantController.text.trim()}');
-      debugPrint('Year of Experience: ${yearExperienceController.toString()}');
-      debugPrint('fee: $feeValue');
-      debugPrint('specialist: ${number.dialCode}');
-      debugPrint('Case count: $caseCountControllerValue');
-      debugPrint('About : ${aboutController.text}');
-      debugPrint('Practice Area: $practiceAreaList');
-      debugPrint('Experiance Designation: $practiceAreaList');
-      debugPrint('Experiance Firm: $practiceAreaList');
-      debugPrint('Qualification Degree: $practiceAreaList');
-      debugPrint('Qualification Uni: $practiceAreaList');
     }
-  }
 
-  Widget heading(String text, VoidCallback onTap) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          text,
-          style: R.textStyles.poppinsMedium(),
-        ),
-        TextButton(
-            onPressed: onTap,
-            child: Text(
-              'ADD MORE',
-              style: R.textStyles
-                  .poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
-            )),
-      ],
-    );
-  }
+    Widget heading(String text, VoidCallback onTap) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            text,
+            style: R.textStyles.poppinsMedium(),
+          ),
+          TextButton(
+              onPressed: onTap,
+              child: Text(
+                'ADD MORE',
+                style: R.textStyles.poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
+              )),
+        ],
+      );
+    }
 
-  Widget customTextFieldExperience(Experience item, int index) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 5,
-          child: CustomTextFormField(
-            hintText: "Designation",
-            inputAction: TextInputAction.next,
-            inputType: TextInputType.name,
-            validator: FieldValidator.validateEmpty,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            onChanged: (value) {
-              setState(() {
-                experienceList[index].position = value;
-              });
-              return "";
-            },
-          ),
-        ),
-        w2,
-        Expanded(
-          flex: 5,
-          child: CustomTextFormField(
-            hintText: "Firm/Court",
-            // focusNode: lawyerFocus,
-            inputAction: TextInputAction.next,
-            inputType: TextInputType.name,
-            validator: FieldValidator.validateEmpty,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            onChanged: (value) {
-              setState(() {
-                experienceList[index].lawFirm = value;
-              });
-              return "";
-            },
-          ),
-        ),
-        if (index >= 1)
+    Widget customTextFieldExperience(Experience item, int index) {
+      return Row(
+        children: [
           Expanded(
-            flex: 1,
-            child: IconButton(
-              onPressed: () {
+            flex: 5,
+            child: CustomTextFormField(
+              hintText: "Designation",
+              inputAction: TextInputAction.next,
+              inputType: TextInputType.name,
+              validator: FieldValidator.validateEmpty,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) {
                 setState(() {
-                  experienceList.removeAt(index);
+                  experienceList[index].position = value;
                 });
+                return "";
               },
-              icon: Icon(
-                Icons.delete,
-                color: R.colors.red,
-                size: 22.sp,
-              ),
             ),
           ),
-        Expanded(
-          flex: index == 0 ? 2 : 1,
-          child: Container(),
-        ),
-      ],
-    );
-  }
-
-  Widget qualificationFieldRow(Qualifications item, int index) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 5,
-          child: CustomTextFormField(
-            hintText: "Degree",
-            // focusNode: degreeFocus,
-            inputAction: TextInputAction.next,
-            inputType: TextInputType.name,
-            validator: FieldValidator.validateEmpty,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            onChanged: (value) {
-              setState(() {
-                qualificationList[index].degree = value;
-              });
-              return "";
-            },
-          ),
-        ),
-        w2,
-        Expanded(
-          flex: 5,
-          child: CustomTextFormField(
-            hintText: "Institute/University",
-            // focusNode: instituteFocus,
-            inputAction: TextInputAction.next,
-            inputType: TextInputType.name,
-            validator: FieldValidator.validateEmpty,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            onChanged: (value) {
-              setState(() {
-                qualificationList[index].institute = value;
-              });
-              return "";
-            },
-          ),
-        ),
-        if (index >= 1)
+          w2,
           Expanded(
-            flex: 1,
-            child: IconButton(
-              onPressed: () {
+            flex: 5,
+            child: CustomTextFormField(
+              hintText: "Firm/Court",
+              // focusNode: lawyerFocus,
+              inputAction: TextInputAction.next,
+              inputType: TextInputType.name,
+              validator: FieldValidator.validateEmpty,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) {
                 setState(() {
-                  qualificationList.removeAt(index);
+                  experienceList[index].lawFirm = value;
                 });
+                return "";
               },
-              icon: Icon(
-                Icons.delete,
-                color: R.colors.red,
-                size: 20.sp,
-              ),
             ),
           ),
-        Expanded(
-          flex: index == 0 ? 2 : 1,
-          child: Container(),
-        ),
-      ],
-    );
-  }
-
-  Widget practiceField(String item, int index) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 9,
-          child: CustomTextFormField(
-            initialVal: item,
-            hintText: "Practice Area",
-            //focusNode: lawyerFocus,
-            inputAction: TextInputAction.next,
-            inputType: TextInputType.name,
-            validator: FieldValidator.validateEmpty,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            onChanged: (value) {
-              setState(() {
-                practiceAreaList[index] = value;
-              });
-              return "";
-            },
-          ),
-        ),
-        if (index >= 1)
-          Expanded(
-            flex: 1,
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  practiceAreaList.removeAt(index);
-                });
-              },
-              icon: Icon(
-                Icons.delete,
-                color: R.colors.primary,
-                size: 25.sp,
+          if (index >= 1)
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    experienceList.removeAt(index);
+                  });
+                },
+                icon: Icon(
+                  Icons.delete,
+                  color: R.colors.red,
+                  size: 22.sp,
+                ),
               ),
             ),
+          Expanded(
+            flex: index == 0 ? 2 : 1,
+            child: Container(),
           ),
-        Expanded(
-          flex: index == 0 ? 2 : 1,
-          child: Container(),
-        ),
-      ],
-    );
+        ],
+      );
+    }
+
+    Widget qualificationFieldRow(Qualifications item, int index) {
+      return Row(
+        children: [
+          Expanded(
+            flex: 5,
+            child: CustomTextFormField(
+              hintText: "Degree",
+              // focusNode: degreeFocus,
+              inputAction: TextInputAction.next,
+              inputType: TextInputType.name,
+              validator: FieldValidator.validateEmpty,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) {
+                setState(() {
+                  qualificationList[index].degree = value;
+                });
+                return "";
+              },
+            ),
+          ),
+          w2,
+          Expanded(
+            flex: 5,
+            child: CustomTextFormField(
+              hintText: "Institute/University",
+              // focusNode: instituteFocus,
+              inputAction: TextInputAction.next,
+              inputType: TextInputType.name,
+              validator: FieldValidator.validateEmpty,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) {
+                setState(() {
+                  qualificationList[index].institute = value;
+                });
+                return "";
+              },
+            ),
+          ),
+          if (index >= 1)
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    qualificationList.removeAt(index);
+                  });
+                },
+                icon: Icon(
+                  Icons.delete,
+                  color: R.colors.red,
+                  size: 20.sp,
+                ),
+              ),
+            ),
+          Expanded(
+            flex: index == 0 ? 2 : 1,
+            child: Container(),
+          ),
+        ],
+      );
+    }
+
+    Widget practiceField(String item, int index) {
+      return Row(
+        children: [
+          Expanded(
+            flex: 9,
+            child: CustomTextFormField(
+              initialVal: item,
+              hintText: "Practice Area",
+              //focusNode: lawyerFocus,
+              inputAction: TextInputAction.next,
+              inputType: TextInputType.name,
+              validator: FieldValidator.validateEmpty,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              onChanged: (value) {
+                setState(() {
+                  practiceAreaList[index] = value;
+                });
+                return "";
+              },
+            ),
+          ),
+          if (index >= 1)
+            Expanded(
+              flex: 1,
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    practiceAreaList.removeAt(index);
+                  });
+                },
+                icon: Icon(
+                  Icons.delete,
+                  color: R.colors.primary,
+                  size: 25.sp,
+                ),
+              ),
+            ),
+          Expanded(
+            flex: index == 0 ? 2 : 1,
+            child: Container(),
+          ),
+        ],
+      );
+    }
   }
 }

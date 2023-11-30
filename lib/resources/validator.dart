@@ -1,3 +1,5 @@
+import 'package:flutter/src/widgets/framework.dart';
+
 class FieldValidator {
   static String? validateEmail(String? value) {
     if (value!.isEmpty) {
@@ -79,4 +81,6 @@ class FieldValidator {
     }
     return null;
   }
+
+  static validatePhoneNumber(String trim, BuildContext context) {}
 }

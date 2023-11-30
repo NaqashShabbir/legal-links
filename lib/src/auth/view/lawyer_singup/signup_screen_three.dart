@@ -252,7 +252,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
             country: pickLocationData?.country,
             latLng: GeoPoint(pickLocationData?.lat ?? 0, pickLocationData?.lng ?? 0),
             state: pickLocationData?.city,
-            streetAdress: pickLocationData?.city,
+            streetAdress: addressController.text.trim(),
             zipCode: pickLocationData?.city,
           ),
           role: context.read<AuthVM>().userRole,

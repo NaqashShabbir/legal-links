@@ -136,31 +136,7 @@ class AuthVM extends ChangeNotifier {
     return result;
   }
 
-  // Future<String?> uploadImage(File image) async {
-  //   String? imageURL;
-  //   try {
-  //     ZBotToast.loadingShow();
-  //     debugPrint("checking image uplaod");
-  //     var vm = Provider.of<AuthVM>(Get.context!, listen: false);
-  //     Reference firebaseStorageRef =
-  //         FirebaseStorage.instance.ref().child('userImages/${vm.userModel.id}/${DateTime.now()}');
-  //     UploadTask uploadTask = firebaseStorageRef.putFile(image);
-  //     await uploadTask.then((res) async {
-  //       imageURL = await res.ref.getDownloadURL();
-  //       debugPrint("========== $imageURL");
-  //       notifyListeners();
-  //     });
-  //     ZBotToast.loadingClose();
-
-  //     return imageURL;
-  //   } catch (e) {
-  //     debugPrint(e.toString());
-  //     ZBotToast.loadingClose();
-  //   }
-  //   ZBotToast.loadingClose();
-  //   return imageURL;
-  // }
-
+ 
   void update() {
     notifyListeners();
   }
