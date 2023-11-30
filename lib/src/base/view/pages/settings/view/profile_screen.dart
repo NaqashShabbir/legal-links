@@ -23,7 +23,8 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProviderStateMixin {
+class _ProfileScreenState extends State<ProfileScreen>
+    with SingleTickerProviderStateMixin {
   late ClientModel model;
   dynamic args;
   late TabController tabController;
@@ -56,22 +57,24 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       builder: (context, authVm, _) {
         return SafeArea(
           child: Scaffold(
-            floatingActionButton: authVm.userModel.role == UserRole.CLIENT
-                ? FloatingActionButton(
-                    backgroundColor: R.colors.primary,
-                    onPressed: () {
-                      if (authVm.userModel.role == UserRole.CLIENT) {
-                        Get.to(() => const UpdateClientScreen());
-                      } else {
-                        Get.to(() => const UpdateLawyerProfile());
-                      }
-                    },
-                    child: Icon(
-                      Icons.edit,
-                      color: R.colors.white,
-                    ),
-                  )
-                : null,
+            floatingActionButton:
+                //  authVm.userModel.role == UserRole.CLIENT
+                //     ?
+                FloatingActionButton(
+              backgroundColor: R.colors.primary,
+              onPressed: () {
+                if (authVm.userModel.role == UserRole.CLIENT) {
+                  Get.to(() => const UpdateClientScreen());
+                } else if (authVm.userModel.role == UserRole.LAWYER) {
+                  Get.to(() => const UpdateLawyerProfile());
+                }
+              },
+              child: Icon(
+                Icons.edit,
+                color: R.colors.white,
+              ),
+            ),
+            // : null,
             appBar: GlobalWidgets.appBar('Profils'),
             body: authVm.userModel.role == UserRole.LAWYER
                 ? lawyerProfileWidget(authVm)
@@ -90,13 +93,15 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           child: CircleAvatar(
             backgroundColor: R.colors.primary.withOpacity(.2),
             radius: 70,
-            backgroundImage: NetworkImage(vm.userModel.profileImages?.first ?? ""),
+            backgroundImage:
+                NetworkImage(vm.userModel.profileImages?.first ?? ""),
             onBackgroundImageError: (exception, stackTrace) {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: R.colors.primary.withOpacity(.8), width: 1),
+                  border: Border.all(
+                      color: R.colors.primary.withOpacity(.8), width: 1),
                 ),
                 child: Icon(
                   Icons.error,
@@ -136,11 +141,16 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                   ),
                 ),
                 h1,
-                CustomData(title: 'Name:', subTitle: vm.userModel.fullName ?? ''),
+                CustomData(
+                    title: 'Name:', subTitle: vm.userModel.fullName ?? ''),
                 h1,
-                CustomData(title: 'Assistent Name:', subTitle: vm.userModel.assistantName ?? ''),
+                CustomData(
+                    title: 'Assistent Name:',
+                    subTitle: vm.userModel.assistantName ?? ''),
                 h1,
-                CustomData(title: 'Specialist Lawyer:', subTitle: vm.userModel.specialist![0]),
+                CustomData(
+                    title: 'Specialist Lawyer:',
+                    subTitle: vm.userModel.specialist![0]),
                 h1,
                 CustomData(
                   title: 'Qualifications:',
@@ -159,7 +169,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                 h1,
                 CustomData(title: 'Location:', subTitle: "samnabad Lahore"),
                 h1,
-                CustomData(title: 'Number:', subTitle: phoneNumber(vm.userModel.phoneNumber)),
+                CustomData(
+                    title: 'Number:',
+                    subTitle: phoneNumber(vm.userModel.phoneNumber)),
                 h1,
                 CustomData(title: 'Email:', subTitle: vm.userModel.email ?? ''),
                 h1,
@@ -172,7 +184,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                     title: 'Years of Experience:',
                     subTitle: vm.userModel.yearOfExperience.toString()),
                 h1,
-                CustomData(title: 'Cases Count:', subTitle: vm.userModel.casesCount.toString()),
+                CustomData(
+                    title: 'Cases Count:',
+                    subTitle: vm.userModel.casesCount.toString()),
                 h1,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -209,7 +223,9 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                 // h1,
                 // CustomData(title: 'License Number:', subTitle: "234 34354545"),
                 h1,
-                CustomData(title: 'Fee:', subTitle: vm.userModel.feePerMeeting.toString()),
+                CustomData(
+                    title: 'Fee:',
+                    subTitle: vm.userModel.feePerMeeting.toString()),
                 h1,
                 h4,
               ],
@@ -228,13 +244,15 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           child: CircleAvatar(
             backgroundColor: R.colors.primary.withOpacity(.2),
             radius: 70,
-            backgroundImage: NetworkImage(authVM.userModel.profileImages?.first ?? ""),
+            backgroundImage:
+                NetworkImage(authVM.userModel.profileImages?.first ?? ""),
             onBackgroundImageError: (exception, stackTrace) {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: R.colors.primary.withOpacity(.8), width: 1),
+                  border: Border.all(
+                      color: R.colors.primary.withOpacity(.8), width: 1),
                 ),
                 child: Icon(
                   Icons.error,
@@ -249,7 +267,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
           authVM.userModel.fullName ?? '',
           style: R.textStyles.poppinsBold(fontSize: 15.sp),
         ),
-        Text(authVM.userModel.email ?? '', style: R.textStyles.poppinsRegular()),
+        Text(authVM.userModel.email ?? '',
+            style: R.textStyles.poppinsRegular()),
         h4,
         Expanded(
           child: SingleChildScrollView(
@@ -276,7 +295,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                 //     ),
                 //   ),
                 // h1,
-                CustomData(title: 'Name:', subTitle: authVM.userModel.fullName ?? ''),
+                CustomData(
+                    title: 'Name:', subTitle: authVM.userModel.fullName ?? ''),
                 h1,
                 // CustomData(
                 //     title: 'Location:',
@@ -287,7 +307,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                   subTitle: phoneNumber(authVM.userModel.phoneNumber),
                 ),
                 h1,
-                CustomData(title: 'Email:', subTitle: authVM.userModel.email ?? ''),
+                CustomData(
+                    title: 'Email:', subTitle: authVM.userModel.email ?? ''),
                 h1,
                 // CustomData(title: 'Gender:', subTitle: getGenderString(authVM.userModel.gender)),
               ],

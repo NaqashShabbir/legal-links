@@ -75,13 +75,9 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var vm = Provider.of<AuthVM>(context, listen: false);
-      // aboutTC.text = vm.userModel.about ?? "";
       nameController.text = vm.userModel.fullName ?? "";
-
       phoneNumberController.text = vm.userModel.phoneNumber?.number ?? "";
-
       yearExperienceController.text = vm.userModel.yearOfExperience.toString();
-
       feeController.text = vm.userModel.feePerMeeting.toString();
       assistantController.text = vm.userModel.assistantName ?? "";
       caseCountController.text = vm.userModel.casesCount.toString();
@@ -119,29 +115,29 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   h3,
-                  // CustomTextFormField(
-                  //   fieldTitle: "Full Name",
-                  //   controller: nameController,
-                  //   hintText: 'Enter name',
-                  //   focusNode: nameFocus,
-                  //   inputAction: TextInputAction.next,
-                  //   inputType: TextInputType.name,
-                  //   validator: FieldValidator.validateEmpty,
-                  //   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  // ),
-                  // h1,
-                  // Container(
-                  //   margin:
-                  //       EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
-                  //   child: Text(
-                  //     "Phone Number",
-                  //     style: R.textStyles.poppinsMedium(
-                  //       fontSize: 11.sp,
-                  //       color: Colors.black,
-                  //     ),
-                  //   ),
-                  // ),
-                  // phoneNumberField(),
+                  CustomTextFormField(
+                    fieldTitle: "Full Name",
+                    controller: nameController,
+                    hintText: 'Enter name',
+                    focusNode: nameFocus,
+                    inputAction: TextInputAction.next,
+                    inputType: TextInputType.name,
+                    validator: FieldValidator.validateEmpty,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                  h1,
+                  Container(
+                    margin:
+                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    child: Text(
+                      "Phone Number",
+                      style: R.textStyles.poppinsMedium(
+                        fontSize: 11.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  phoneNumberField(),
                   h1,
                   CustomTextFormField(
                     fieldTitle: "Year of experience",
@@ -210,7 +206,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                             address: (value) {
                               pickLocationData = value;
                               latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
-                              addressController.text = pickLocationData?.streetAddress ?? '';
+                              addressController.text =
+                                  pickLocationData?.streetAddress ?? '';
                             },
                           ),
                         );
@@ -240,34 +237,40 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                     });
                   }),
                   h1,
-                  for (int index = 0; index < practiceAreaList.length; index++) ...[
+                  for (int index = 0;
+                      index < practiceAreaList.length;
+                      index++) ...[
                     practiceField(practiceAreaList[index], index),
                     h0P8,
                   ],
                   h1,
-                  heading('Your Experience', () {
-                    setState(() {
-                      experienceList.add(
-                        Experience(),
-                      );
-                    });
-                  }),
-                  h1,
-                  for (int index = 0; index < experienceList.length; index++) ...[
-                    customTextFieldExperience(experienceList[index], index),
-                    h0P8,
-                  ],
-                  h1,
-                  heading('Your Qualification', () {
-                    setState(() {
-                      qualificationList.add(Qualifications());
-                    });
-                  }),
-                  h1,
-                  for (int index = 0; index < qualificationList.length; index++) ...[
-                    qualificationFieldRow(qualificationList[index], index),
-                    h0P8,
-                  ],
+                  // heading('Your Experience', () {
+                  //   setState(() {
+                  //     experienceList.add(
+                  //       Experience(),
+                  //     );
+                  //   });
+                  // }),
+                  // h1,
+                  // for (int index = 0;
+                  //     index < experienceList.length;
+                  //     index++) ...[
+                  //   customTextFieldExperience(experienceList[index], index),
+                  //   h0P8,
+                  // ],
+                  // h1,
+                  // heading('Your Qualification', () {
+                  //   setState(() {
+                  //     qualificationList.add(Qualifications());
+                  //   });
+                  // }),
+                  // h1,
+                  // for (int index = 0;
+                  //     index < qualificationList.length;
+                  //     index++) ...[
+                  //   qualificationFieldRow(qualificationList[index], index),
+                  //   h0P8,
+                  // ],
                   h1,
                 ],
               ),
@@ -298,7 +301,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                 value: item,
                 child: Text(
                   item.specialist ?? "",
-                  style: R.textStyles.poppinsRegular(color: R.colors.black, fontSize: 8.sp),
+                  style: R.textStyles
+                      .poppinsRegular(color: R.colors.black, fontSize: 8.sp),
                 ),
               ))
           .toList(),
@@ -332,7 +336,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle:
+            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -380,7 +385,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       //     phoneNumberController.text.trim(), context),
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType:
+          const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputBorder: const UnderlineInputBorder(),
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
@@ -397,7 +403,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
     print('Fee Value: ${feeController.text}');
 
     num feeValue = double.parse(feeController.text.trim());
-    num caseCountControllerValue = double.parse(caseCountController.text.trim());
+    num caseCountControllerValue =
+        double.parse(caseCountController.text.trim());
     // ignore: unused_local_variable
     int? yearExperience;
     if (yearExperienceController.text.isNotEmpty) {
@@ -424,13 +431,20 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       print('assistent name : ${assistantController.toString()}');
 
       Map<String, dynamic> updateData = {
+        "fullName": updateLawyer.fullName,
+        'phoneNumber': {
+          'number': updateLawyer.phoneNumber?.number,
+          'isoCode': updateLawyer.phoneNumber?.isoCode,
+          'countryCode': updateLawyer.phoneNumber?.countryCode,
+        },
         "about": updateLawyer.about,
         "assistantName": updateLawyer.assistantName,
         "casesCount": updateLawyer.casesCount.toString(),
-        "experience": [""],
-        "feePerMeeting": updateLawyer.feePerMeeting,
-        "fullName": updateLawyer.fullName,
 
+        "feePerMeeting": updateLawyer.feePerMeeting,
+        "yearOfExperience": updateLawyer.yearOfExperience,
+        "practiceAreas": updateLawyer.practiceAreas,
+// "experience": [""],
         // "officeAddress": {
         //   "city": null,
         //   "country": null,
@@ -439,11 +453,7 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
         //   "streetAddress": null,
         //   "zipCode": null
         // },
-        'phoneNumber': {
-          'number': updateLawyer.phoneNumber?.number,
-          'isoCode': updateLawyer.phoneNumber?.isoCode,
-          'countryCode': updateLawyer.phoneNumber?.countryCode,
-        }
+
         // "practiceAreas": [
 
         // ],
@@ -458,10 +468,10 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
         // "yearOfExperience": ""
       };
 
-      // await context.read<AuthVM>().updateUserData(
-      //       updateData,
-      //       context.read<AuthVM>().userModel.id ?? "",
-      //     );
+      await context.read<AuthVM>().updateUserData(
+            updateData,
+            context.read<AuthVM>().userModel.id ?? "",
+          );
 
       debugPrint(" body: $updateData");
       // debugPrint('role: ${context.read<AuthVM>().userRole}');
@@ -494,7 +504,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
             onPressed: onTap,
             child: Text(
               'ADD MORE',
-              style: R.textStyles.poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
+              style: R.textStyles
+                  .poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
             )),
       ],
     );

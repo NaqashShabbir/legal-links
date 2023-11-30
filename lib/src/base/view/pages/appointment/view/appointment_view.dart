@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/resources/resources.dart';
-import 'package:legal_links_app/services/auth_services.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/model/booking_model.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/widget/appointment_widget.dart';
@@ -17,7 +16,8 @@ class AppointmentView extends StatefulWidget {
   State<AppointmentView> createState() => _AppointmentViewState();
 }
 
-class _AppointmentViewState extends State<AppointmentView> with SingleTickerProviderStateMixin {
+class _AppointmentViewState extends State<AppointmentView>
+    with SingleTickerProviderStateMixin {
   late TabController tabController;
   List tabTitle = ['Upcoming', "Previous"];
 
@@ -109,30 +109,43 @@ class _AppointmentViewState extends State<AppointmentView> with SingleTickerProv
                             ...List.generate(
                               appVm.appointmentList.length,
                               (index) {
-                                BookingModel appointment = appVm.appointmentList[index];
+                                BookingModel appointment =
+                                    appVm.appointmentList[index];
 
                                 DateTime now = DateTime.now();
 
                                 if (appointment.selectedDate != null &&
-                                    appointment.selectedDate!.toDate().year == now.year &&
-                                    appointment.selectedDate!.toDate().month == now.month &&
-                                    appointment.selectedDate!.toDate().day == now.day) {
-                                  final isFutureAppointment =
-                                      appointment.timeSlot!.toDate().isAfter(DateTime.now());
+                                    appointment.selectedDate!.toDate().year ==
+                                        now.year &&
+                                    appointment.selectedDate!.toDate().month ==
+                                        now.month &&
+                                    appointment.selectedDate!.toDate().day ==
+                                        now.day) {
+                                  final isFutureAppointment = appointment
+                                      .timeSlot!
+                                      .toDate()
+                                      .isAfter(DateTime.now());
 
                                   if (isFutureAppointment) {
-                                    return AppointmentWidget(model: appointment);
+                                    return AppointmentWidget(
+                                        model: appointment);
                                   } else {
                                     return Container();
                                   }
                                 } else {
                                   // return Container();
-                                  final isFutureAppointment = appointment.selectedDate != null &&
-                                      appointment.timeSlot != null &&
-                                      appointment.selectedDate!.toDate().isAfter(DateTime.now()) &&
-                                      appointment.timeSlot!.toDate().isAfter(DateTime.now());
+                                  final isFutureAppointment =
+                                      appointment.selectedDate != null &&
+                                          appointment.timeSlot != null &&
+                                          appointment.selectedDate!
+                                              .toDate()
+                                              .isAfter(DateTime.now()) &&
+                                          appointment.timeSlot!
+                                              .toDate()
+                                              .isAfter(DateTime.now());
 
-                                  debugPrint("aaa ${appVm.appointmentList.length}");
+                                  debugPrint(
+                                      "aaa ${appVm.appointmentList.length}");
                                   debugPrint(
                                       " ${R.colors.yellowPrint}bbb: $isFutureAppointment : ${appointment.selectedDate?.toDate()}");
                                   debugPrint(
@@ -173,9 +186,12 @@ class _AppointmentViewState extends State<AppointmentView> with SingleTickerProv
                             ...List.generate(
                               appVm.appointmentList.length,
                               (index) {
-                                BookingModel appointment = appVm.appointmentList[index];
-                                final isFutureAppointment =
-                                    appointment.timeSlot!.toDate().isBefore(DateTime.now());
+                                BookingModel appointment =
+                                    appVm.appointmentList[index];
+                                final isFutureAppointment = appointment
+                                    .timeSlot!
+                                    .toDate()
+                                    .isBefore(DateTime.now());
 
                                 // debugPrint("aaa ${appVm.appointmentList.length}");
 
