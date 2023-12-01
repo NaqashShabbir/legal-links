@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
@@ -39,6 +40,11 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
   List<Qualifications> qualificationList = [Qualifications()];
   List<Experience> experienceList = [Experience()];
   List<String> practiceAreaList = [""];
+  TextEditingController LCNoController = TextEditingController();
+  TextEditingController HCNoController = TextEditingController();
+
+  FocusNode LCNoFocus = FocusNode();
+  FocusNode HCNoFocus = FocusNode();
 
   // List<ExperienceItem> experienceList = [
   //   ExperienceItem(
@@ -130,6 +136,35 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     h0P8,
                   ],
                   h1,
+                  CustomTextFormField(
+                    controller: LCNoController,
+                    focusNode: LCNoFocus,
+                    inputAction: TextInputAction.next,
+                    hintText: 'L C No',
+                    fieldTitle: "L C No",
+                    validator: FieldValidator.validateEmpty,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    inputType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(11),
+                    ],
+                  ),
+                  h1,
+                  CustomTextFormField(
+                    controller: HCNoController,
+                    focusNode: HCNoFocus,
+                    inputAction: TextInputAction.next,
+                    hintText: 'H C No',
+                    fieldTitle: "H C No",
+                    validator: FieldValidator.validateEmpty,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    inputType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(11),
+                    ],
+                  ),
                   h3,
                   CustomButton(
                     buttonTitle: 'Continue',

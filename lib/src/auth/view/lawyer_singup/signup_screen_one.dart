@@ -22,7 +22,8 @@ class SignupScreenOneOfLawyer extends StatefulWidget {
   const SignupScreenOneOfLawyer({super.key});
 
   @override
-  State<SignupScreenOneOfLawyer> createState() => _SignupScreenOneOfLawyerState();
+  State<SignupScreenOneOfLawyer> createState() =>
+      _SignupScreenOneOfLawyerState();
 }
 
 class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
@@ -98,7 +99,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   ),
                   h1,
                   Container(
-                    margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    margin:
+                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
                     child: Text(
                       "Phone Number",
                       style: R.textStyles.poppinsMedium(
@@ -216,8 +218,9 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
             child: Container(
               width: 40.sp,
               height: 40.sp,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: R.colors.primary.withOpacity(.08)),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: R.colors.primary.withOpacity(.08)),
               child: profileImage == null
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(150),
@@ -282,7 +285,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle:
+            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -330,7 +334,8 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
       //     phoneNumberController.text.trim(), context),
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType: const TextInputType.numberWithOptions(signed: true, decimal: true),
+      keyboardType:
+          const TextInputType.numberWithOptions(signed: true, decimal: true),
       inputBorder: const UnderlineInputBorder(),
       onSaved: (PhoneNumber number) {
         debugPrint('On Saved: $number');
