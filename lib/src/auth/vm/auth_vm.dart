@@ -33,11 +33,13 @@ class AuthVM extends ChangeNotifier {
     LawyerModelSignup(id: "8", specialist: "Tax law"),
     LawyerModelSignup(id: "9", specialist: "Bankruptcy Lawyer"),
     LawyerModelSignup(id: "10", specialist: "Entertainment Lawyer"),
-    LawyerModelSignup(id: "11", specialist: "Business Lawyer (Corporate Lawyer)"),
+    LawyerModelSignup(
+        id: "11", specialist: "Business Lawyer (Corporate Lawyer)"),
     LawyerModelSignup(id: "12", specialist: "Constitutional Lawyer"),
     LawyerModelSignup(id: "13", specialist: "Criminal Defense Lawyer"),
     LawyerModelSignup(id: "14", specialist: "Employment and Labor Lawyer"),
-    LawyerModelSignup(id: "15", specialist: " Estate Planning Lawyer"),
+    LawyerModelSignup(id: "15", specialist: "Estate Planning Lawyer"),
+    LawyerModelSignup(id: "16", specialist: "Others"),
   ];
 
   UserRole? userRole;
@@ -81,12 +83,15 @@ class AuthVM extends ChangeNotifier {
             ZBotToast.showToastSuccess(message: 'Logged in Successfully');
           } else {
             ZBotToast.showToastSuccess(
-                message: 'Your Role is not defined, Please Contact With Support, Thank You!');
+                message:
+                    'Your Role is not defined, Please Contact With Support, Thank You!');
           }
         } else if (userModel.status == UserStatus.BLOCKED) {
-          ZBotToast.showToastError(message: "You have been blocked by the admin");
+          ZBotToast.showToastError(
+              message: "You have been blocked by the admin");
         } else {
-          ZBotToast.showToastError(message: "You have been deleted by the admin");
+          ZBotToast.showToastError(
+              message: "You have been deleted by the admin");
         }
       } else {
         // ZBotToast.showToastError(message: "Verify Your Email");
@@ -106,7 +111,8 @@ class AuthVM extends ChangeNotifier {
     bool result = false;
     try {
       ZBotToast.loadingShow();
-      User? user = await _auth.createUserWithEmailPassword(ud?.email ?? "", pass);
+      User? user =
+          await _auth.createUserWithEmailPassword(ud?.email ?? "", pass);
       if (user != null) {
         debugPrint("user is not null");
         ud?.id = user.uid;
@@ -187,9 +193,8 @@ class AuthVM extends ChangeNotifier {
       ZBotToast.loadingShow();
       debugPrint("check");
       DateTime now = DateTime.now();
-      Reference firebaseStorageRef = FirebaseStorage.instance
-          .ref()
-          .child('userImages/${now.microsecondsSinceEpoch}/${userRole?.name}/${DateTime.now()}');
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(
+          'userImages/${now.microsecondsSinceEpoch}/${userRole?.name}/${DateTime.now()}');
       UploadTask uploadTask = firebaseStorageRef.putFile(image);
       await uploadTask.then((res) async {
         imageURL = await res.ref.getDownloadURL();

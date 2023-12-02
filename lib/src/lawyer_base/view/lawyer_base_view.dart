@@ -152,7 +152,7 @@ class _LawyerBaseViewState extends State<LawyerBaseView> {
               IconButton(
                 iconSize: 25,
                 onPressed: () {
-                  Get.dialog(CallConfirmationDialog(
+                  Get.dialog(const CallConfirmationDialog(
                     PhoneNumberOne: '0343-4567543',
                     PhoneNumberTwo: '0325-4543213',
                   ));

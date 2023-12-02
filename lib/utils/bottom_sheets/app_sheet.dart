@@ -93,7 +93,7 @@ class _AppBottomSheetState extends State<AppBottomSheet> {
                   w2,
                   Expanded(
                       child: CustomButton(
-                    color: widget.rightButtonColor ?? R.colors.primary,
+                    color: widget.rightButtonColor ?? R.colors.red,
                     buttonTitle: widget.buttonRight ?? "Yes",
                     tap: widget.onRightTap ?? () {},
                     textColor: R.colors.white,
