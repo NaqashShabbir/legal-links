@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,6 +6,7 @@ import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/resources/validator.dart';
 import 'package:legal_links_app/services/date_picker/date_picker_services.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/model/lawyer_schedule_model.dart';
 import 'package:legal_links_app/src/lawyer_base/view/pages/dashboard/vm/lawyer_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
@@ -42,6 +42,17 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
 
   DateRangePickerSelectionChangedArgs? dateRangeArgs;
   List<DateTime> dates = [];
+
+  DateRangePickerController dateRangePickerController =
+      DateRangePickerController();
+
+  // LawyerScheduleModel? lawyerSch;
+
+  @override
+  void initState() {
+    super.initState();
+    initFN();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,18 +139,17 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                               rangeTextStyle: R.textStyles
                                   .poppinsRegular(color: R.colors.black),
                               selectionColor: R.colors.primary,
-                              onSelectionChanged:
-                                  (dateRangePickerSelectionChangedArgs) {
+                              onSelectionChanged: (d) {
                                 setState(
                                   () {
-                                    dateRangeArgs =
-                                        dateRangePickerSelectionChangedArgs;
+                                    dateRangeArgs = d;
                                     dates = dateRangeArgs?.value;
                                     debugPrint("dates $dates");
                                   },
                                 );
                               },
                               enablePastDates: false,
+                              controller: dateRangePickerController,
                               selectionMode:
                                   DateRangePickerSelectionMode.multiple,
                               // initialSelectedRange: PickerDateRange(
@@ -285,8 +295,10 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
                       updatedAt: now,
                       status: 0,
                     );
-                    debugPrint("${R.colors.cyanPrint}model ${model.availableDates}");
-                    debugPrint("${R.colors.cyanPrint}timestamplist $timestamplist");
+                    debugPrint(
+                        "${R.colors.cyanPrint}model ${model.availableDates}");
+                    debugPrint(
+                        "${R.colors.cyanPrint}timestamplist $timestamplist");
 
                     vm.createSchedule(model);
                   } else {
@@ -300,5 +312,47 @@ class _ScheduleAppointmentViewState extends State<ScheduleAppointmentView> {
         );
       },
     );
+  }
+
+  void initFN() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      var lvm = Provider.of<LawyerVM>(context, listen: false);
+      var bvm = Provider.of<BaseVM>(context, listen: false);
+      var avm = Provider.of<AuthVM>(context, listen: false);
+
+      var vm = Provider.of<BaseVM>(context, listen: false);
+      ZBotToast.loadingShow();
+
+      await vm.getLawyerScheduleById(avm.userModel.id ?? '');
+      debugPrint("lyrSchByID ${bvm.lyrSchByID?.availableDates}");
+
+      if (bvm.lyrSchByID?.officeStartTime != null &&
+          bvm.lyrSchByID?.intervalMinutes != null) {
+        startTimeTC.text = DateFormat("hh:mm a").format(
+            bvm.lyrSchByID?.officeStartTime?.toDate() ?? DateTime.now());
+        endTimeTC.text = DateFormat("hh:mm a")
+            .format(bvm.lyrSchByID?.officeEndTime?.toDate() ?? DateTime.now());
+        selectedInterval = bvm.lyrSchByID?.intervalMinutes;
+
+        List<DateTime> dl =
+            bvm.lyrSchByID!.availableDates!.map((e) => e.toDate()).toList();
+
+        dateRangePickerController.selectedDates = dl;
+        DateFormat format = DateFormat("hh:mm a");
+
+        try {
+          startTime = format.parse(startTimeTC.text.trim());
+          endTime = format.parse(endTimeTC.text.trim());
+          debugPrint("${R.colors.greenPrint} |$startTime : $endTime");
+        } catch (e) {
+          debugPrint("Error parsing time: $e");
+        }
+
+        // dateRangeArgs = dl;
+      }
+
+      setState(() {});
+      ZBotToast.loadingClose();
+    });
   }
 }

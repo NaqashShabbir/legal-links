@@ -134,7 +134,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                   ),
                   h1,
                   Container(
-                    margin: EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
+                    margin:
+                        EdgeInsets.only(left: 4.sp, bottom: 4.sp, top: 6.sp),
                     child: Text(
                       "Phone Number",
                       style: R.textStyles.poppinsMedium(
@@ -220,7 +221,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                             address: (value) {
                               pickLocationData = value;
                               latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
-                              addressController.text = pickLocationData?.streetAddress ?? '';
+                              addressController.text =
+                                  pickLocationData?.streetAddress ?? '';
                             },
                           ),
                         );
@@ -312,7 +314,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
                 value: item,
                 child: Text(
                   item.specialist ?? "",
-                  style: R.textStyles.poppinsRegular(color: R.colors.black, fontSize: 8.sp),
+                  style: R.textStyles
+                      .poppinsRegular(color: R.colors.black, fontSize: 8.sp),
                 ),
               ))
           .toList(),
@@ -346,7 +349,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
         ),
         filled: true,
         focusColor: R.colors.primary,
-        hintStyle: R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
+        hintStyle:
+            R.textStyles.poppinsRegular(fontSize: 11.sp, color: Colors.grey),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
@@ -399,7 +403,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
       // validator: (value) {},
       formatInput: false,
       keyboardAction: TextInputAction.done,
-      keyboardType: const TextInputType.numberWithOptions(signed: false, decimal: false),
+      keyboardType:
+          const TextInputType.numberWithOptions(signed: false, decimal: false),
       inputBorder: const UnderlineInputBorder(),
 
       onSaved: (PhoneNumber number) {
@@ -417,7 +422,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
     print('Fee Value: ${feeController.text}');
 
     num feeValue = double.parse(feeController.text.trim());
-    num caseCountControllerValue = double.parse(caseCountController.text.trim());
+    num caseCountControllerValue =
+        double.parse(caseCountController.text.trim());
     // ignore: unused_local_variable
     // int? yearExperience;
     // if (yearExperienceController.text.isNotEmpty) {
@@ -445,7 +451,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
         officeAdress: OfficeAdress(
           city: pickLocationData?.city,
           country: pickLocationData?.country,
-          latLng: GeoPoint(pickLocationData?.lat ?? 0, pickLocationData?.lng ?? 0),
+          latLng:
+              GeoPoint(pickLocationData?.lat ?? 0, pickLocationData?.lng ?? 0),
           state: pickLocationData?.city,
           streetAdress: addressController.text.trim(),
           zipCode: pickLocationData?.city,
@@ -495,7 +502,8 @@ class _UpdateLawyerProfileState extends State<UpdateLawyerProfile> {
               onPressed: onTap,
               child: Text(
                 'ADD MORE',
-                style: R.textStyles.poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
+                style: R.textStyles
+                    .poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
               )),
         ],
       );
