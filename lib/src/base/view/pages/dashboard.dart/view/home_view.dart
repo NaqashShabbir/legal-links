@@ -37,15 +37,15 @@ class _HomeViewState extends State<HomeView> {
       var vm = Provider.of<BaseVM>(context, listen: false);
       filteredLawyers = vm.lawyersList;
       vm.update();
-      // var baseVM = Provider.of<BaseVM>(context, listen: false);
-      // var homeVM = Provider.of<HomeVM>(context, listen: false);
+      var baseVM = Provider.of<BaseVM>(context, listen: false);
+      var homeVM = Provider.of<HomeVM>(context, listen: false);
 
-      // await Future.wait([
-      //   baseVM.getAllLawyers(),
-      //   homeVM.getChamberList(),
-      //   homeVM.getCourtList(),
-      //   homeVM.getLawFirmList(),
-      // ]);
+      await Future.wait([
+        baseVM.getAllLawyers(),
+        homeVM.getChamberList(),
+        homeVM.getCourtList(),
+        homeVM.getLawFirmList(),
+      ]);
 
       setState(() {});
     });

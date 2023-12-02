@@ -17,11 +17,14 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   Future<void> startTimer() async {
-    await Future.delayed(const Duration(seconds: 2)); // Delay for text animation
+    await Future.delayed(
+        const Duration(seconds: 2)); // Delay for text animation
     await controller.forward(); // Start the text animation
-    await Future.delayed(const Duration(seconds: 3)); // Delay before starting image animation
+    await Future.delayed(
+        const Duration(seconds: 3)); // Delay before starting image animation
     Get.offAllNamed(LoginScreen.route);
   }
 
@@ -57,7 +60,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 child: SlideAnimation(
                   verticalOffset: -MediaQuery.of(context).size.height,
                   child: FadeInAnimation(
-                    child: Image.asset(R.images.logo, scale: 4), // Replace with your logo asset
+                    child: Image.asset(R.images.logo,
+                        scale: 4), // Replace with your logo asset
                   ),
                 ),
               ),

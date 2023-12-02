@@ -33,7 +33,9 @@ class UserModel {
 
   UserModel.fromJson(dynamic json) {
     role = UserRole.values[json['role']];
-    gender = json['gender'] != null ? GenderEnum.values[json['gender']] : GenderEnum.PREFERNOTTOSAY;
+    gender = json['gender'] != null
+        ? GenderEnum.values[json['gender']]
+        : GenderEnum.PREFERNOTTOSAY;
     assistantName = json['assistantName'];
     isVerified = json['isVerified'];
     experiencedCasesCount = json['experiencedCasesCount'];
@@ -49,7 +51,9 @@ class UserModel {
 
     isLawyerVerified = json['isLawyerVerified'];
     // practiceAreas = json['practiceAreas'] != null ? json['practiceAreas'].cast<String>() : [];
-    practiceAreas = json['practiceAreas'] is List ? List<String>.from(json['practiceAreas']) : [];
+    practiceAreas = json['practiceAreas'] is List
+        ? List<String>.from(json['practiceAreas'])
+        : [];
 
     yearOfExperience = json['yearOfExperience'];
     // qualifications =json['qualifications'] != null ? Qualifications.fromJson(json['qualifications']) : null;
@@ -60,16 +64,21 @@ class UserModel {
       });
     }
     createdAt = json['createdAt'];
-    phoneNumber =
-        json['phoneNumber'] != null ? PhoneNumberModel.fromJson(json['phoneNumber']) : null;
+    phoneNumber = json['phoneNumber'] != null
+        ? PhoneNumberModel.fromJson(json['phoneNumber'])
+        : null;
     // specialist = json['specialist'] != null ? json['specialist'].cast<String>() : [];
     // profileImages = json['profileImages'] != null ? List<String>.from(json['profileImages']) : [];
-    specialist = json['specialist'] is List ? List<String>.from(json['specialist']) : [];
-    profileImages = json['profileImages'] is List ? List<String>.from(json['profileImages']) : [];
+    specialist =
+        json['specialist'] is List ? List<String>.from(json['specialist']) : [];
+    profileImages = json['profileImages'] is List
+        ? List<String>.from(json['profileImages'])
+        : [];
     docs = json['docs'] is List ? List<String>.from(json['docs']) : [];
 
-    officeAdress =
-        json['officeAdress'] != null ? OfficeAdress.fromJson(json['officeAdress']) : null;
+    officeAdress = json['officeAdress'] != null
+        ? OfficeAdress.fromJson(json['officeAdress'])
+        : null;
     feePerMeeting = json['feePerMeeting'];
     id = json['id'];
     email = json['email'];
@@ -141,7 +150,8 @@ class UserModel {
         gender: gender ?? this.gender,
         assistantName: assistantName ?? this.assistantName,
         isVerified: isVerified ?? this.isVerified,
-        experiencedCasesCount: experiencedCasesCount ?? this.experiencedCasesCount,
+        experiencedCasesCount:
+            experiencedCasesCount ?? this.experiencedCasesCount,
         fullName: fullName ?? this.fullName,
         about: about ?? this.about,
         experience: experience ?? this.experience,
