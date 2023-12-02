@@ -2,6 +2,16 @@
 
 import 'package:flutter/material.dart';
 
+enum FileTypeEnum {
+  pdf,
+  doc,
+  docx,
+  xls,
+  xlsx,
+  png,
+  jpg,
+  jpeg,
+}
 enum Speciallist {
   familyLaw,
   corporateLawyer,

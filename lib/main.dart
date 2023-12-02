@@ -8,7 +8,6 @@ import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:legal_links_app/src/landing_page/view/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-
 import 'firebase_options.dart';
 import 'routes/app_routes.dart';
 import 'src/auth/vm/auth_vm.dart';

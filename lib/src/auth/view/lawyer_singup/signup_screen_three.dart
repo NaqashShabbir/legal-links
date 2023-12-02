@@ -221,6 +221,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
       ZBotToast.loadingShow();
 
       String? url = await vm.uploadImageUser(vm.tempLawyerProfileImage!);
+      // String? docUrl = await vm.uploadImageUser(vm.attachmentsList!);
 
       if (url != null) {
         Timestamp now = Timestamp.now();
@@ -233,6 +234,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
           yearOfExperience: vm.tempLawyerModel.yearOfExperience,
           gender: vm.tempLawyerModel.gender,
           profileImages: [url],
+          // docs: [url],
           // page 2 data
           specialist: vm.tempLawyerModel.specialist,
           qualifications: vm.tempLawyerModel.qualifications,
@@ -257,6 +259,8 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
           ),
           role: context.read<AuthVM>().userRole,
           status: vm.tempLawyerModel.status,
+          hcno: vm.tempLawyerModel.hcno,
+          lcno: vm.tempLawyerModel.lcno,
 
           createdAt: now,
           updatedAt: now,
@@ -270,6 +274,8 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
           // vm.password = '';
 
           context.read<AuthVM>().singupPage = 0;
+          vm.attachmentsList = [];
+          vm.tempLawyerProfileImage = null;
           context.read<AuthVM>().update();
           ZBotToast.loadingClose();
           Get.toNamed(LoginScreen.route);

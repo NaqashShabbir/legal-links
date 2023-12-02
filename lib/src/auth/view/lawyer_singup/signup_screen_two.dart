@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:legal_links_app/services/custom_file_picker/file_picker_widget.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
+import 'package:legal_links_app/utils/zbot_toast.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -16,8 +18,7 @@ class SignupScreenTwoOfLawyer extends StatefulWidget {
   const SignupScreenTwoOfLawyer({super.key});
 
   @override
-  State<SignupScreenTwoOfLawyer> createState() =>
-      _SignupScreenTwoOfLawyerState();
+  State<SignupScreenTwoOfLawyer> createState() => _SignupScreenTwoOfLawyerState();
 }
 
 class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
@@ -101,9 +102,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     });
                   }),
                   h1,
-                  for (int index = 0;
-                      index < qualificationList.length;
-                      index++) ...[
+                  for (int index = 0; index < qualificationList.length; index++) ...[
                     qualificationFieldRow(qualificationList[index], index),
                     h0P8,
                   ],
@@ -116,9 +115,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     });
                   }),
                   h1,
-                  for (int index = 0;
-                      index < experienceList.length;
-                      index++) ...[
+                  for (int index = 0; index < experienceList.length; index++) ...[
                     customTextFieldExperience(experienceList[index], index),
                     h0P8,
                   ],
@@ -129,9 +126,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     });
                   }),
                   h1,
-                  for (int index = 0;
-                      index < practiceAreaList.length;
-                      index++) ...[
+                  for (int index = 0; index < practiceAreaList.length; index++) ...[
                     practiceField(practiceAreaList[index], index),
                     h0P8,
                   ],
@@ -140,14 +135,14 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     controller: LCNoController,
                     focusNode: LCNoFocus,
                     inputAction: TextInputAction.next,
-                    hintText: 'L C No',
-                    fieldTitle: "L C No",
+                    hintText: 'License No.',
+                    fieldTitle: "License No.",
                     validator: FieldValidator.validateEmpty,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     inputType: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(11),
+                      LengthLimitingTextInputFormatter(20),
                     ],
                   ),
                   h1,
@@ -155,15 +150,36 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     controller: HCNoController,
                     focusNode: HCNoFocus,
                     inputAction: TextInputAction.next,
-                    hintText: 'H C No',
-                    fieldTitle: "H C No",
+                    hintText: 'H.C No.',
+                    fieldTitle: "H.C No.",
                     validator: FieldValidator.validateEmpty,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     inputType: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(11),
+                      LengthLimitingTextInputFormatter(20),
                     ],
+                  ),
+                  h1,
+                  Text(
+                    "Attachments",
+                    style: R.textStyles.poppinsSemiBold(),
+                  ),
+                  Text(
+                    "Upload your lawyer's card, CNIC, and registration certificates for verification",
+                    style: R.textStyles.poppinsRegular(color: R.colors.darkGrey),
+                  ),
+                  h1,
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w),
+                    decoration: R.decoration.decoration(),
+                    child: FilePickerWidget(
+                      list: vm.attachmentsList,
+                      isHideUploadButton: false,
+                      onSelect: (list) {
+                        vm.attachmentsList = list;
+                      },
+                    ),
                   ),
                   h3,
                   CustomButton(
@@ -192,8 +208,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 value: item,
                 child: Text(
                   item.specialist ?? "",
-                  style: R.textStyles
-                      .poppinsRegular(color: R.colors.black, fontSize: 8.sp),
+                  style: R.textStyles.poppinsRegular(color: R.colors.black, fontSize: 8.sp),
                 ),
               ))
           .toList(),
@@ -220,8 +235,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                 value: item,
                 child: Text(
                   item.specialist ?? "",
-                  style: R.textStyles
-                      .poppinsRegular(color: R.colors.black, fontSize: 8.sp),
+                  style: R.textStyles.poppinsRegular(color: R.colors.black, fontSize: 8.sp),
                 ),
               ))
           .toList(),
@@ -251,8 +265,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
             onPressed: onTap,
             child: Text(
               'ADD MORE',
-              style: R.textStyles
-                  .poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
+              style: R.textStyles.poppinsSemiBold(color: R.colors.primary, fontSize: 10.sp),
             )),
       ],
     );
@@ -427,26 +440,32 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
 
   Future<void> butonFn(AuthVM vm) async {
     if (_formKey.currentState!.validate()) {
-      vm.tempLawyerModel = UserModel(
-        // page 1 data
-        role: context.read<AuthVM>().userRole,
-        fullName: vm.tempLawyerModel.fullName,
-        phoneNumber: vm.tempLawyerModel.phoneNumber,
-        email: vm.tempLawyerModel.email,
-        status: vm.tempLawyerModel.status,
-        yearOfExperience: vm.tempLawyerModel.yearOfExperience,
-        gender: vm.tempLawyerModel.gender,
-        // profileImages: vm.tempLawyerModel.profileImages ?? [],upload on 3
-        // current page data
-        specialist: [laywersSpe?.specialist ?? ""],
-        qualifications: List.from(qualificationList),
-        experience: List.from(experienceList),
-        practiceAreas: List.from(practiceAreaList),
-      );
-      context.read<AuthVM>().singupPageController.jumpToPage(2);
-      context.read<AuthVM>().singupPage = 2;
-      context.read<AuthVM>().update();
-      // Get.toNamed(SignupScreenThreeOfLawyer.route);
+      if (vm.attachmentsList.isNotEmpty) {
+        vm.tempLawyerModel = UserModel(
+          // page 1 data
+          role: context.read<AuthVM>().userRole,
+          fullName: vm.tempLawyerModel.fullName,
+          phoneNumber: vm.tempLawyerModel.phoneNumber,
+          email: vm.tempLawyerModel.email,
+          status: vm.tempLawyerModel.status,
+          yearOfExperience: vm.tempLawyerModel.yearOfExperience,
+          gender: vm.tempLawyerModel.gender,
+          // profileImages: vm.tempLawyerModel.profileImages ?? [],upload on 3
+          // current page data
+          specialist: [laywersSpe?.specialist ?? ""],
+          qualifications: List.from(qualificationList),
+          experience: List.from(experienceList),
+          practiceAreas: List.from(practiceAreaList),
+          lcno: LCNoController.text.trim(),
+          hcno: HCNoController.text.trim(),
+        );
+        context.read<AuthVM>().singupPageController.jumpToPage(2);
+        context.read<AuthVM>().singupPage = 2;
+        context.read<AuthVM>().update();
+        // Get.toNamed(SignupScreenThreeOfLawyer.route);
+      } else {
+        ZBotToast.showToastError(message: "Please Upload Documents");
+      }
     }
   }
 }

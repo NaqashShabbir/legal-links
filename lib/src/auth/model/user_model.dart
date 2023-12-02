@@ -17,6 +17,7 @@ class UserModel {
     this.phoneNumber,
     this.specialist,
     this.profileImages,
+    this.docs,
     this.officeAdress,
     this.feePerMeeting,
     this.id,
@@ -26,13 +27,13 @@ class UserModel {
     this.status,
     this.casesCount,
     this.gender,
+    this.lcno,
+    this.hcno,
   });
 
   UserModel.fromJson(dynamic json) {
     role = UserRole.values[json['role']];
-    gender = json['gender'] != null
-        ? GenderEnum.values[json['gender']]
-        : GenderEnum.PREFERNOTTOSAY;
+    gender = json['gender'] != null ? GenderEnum.values[json['gender']] : GenderEnum.PREFERNOTTOSAY;
     assistantName = json['assistantName'];
     isVerified = json['isVerified'];
     experiencedCasesCount = json['experiencedCasesCount'];
@@ -48,9 +49,7 @@ class UserModel {
 
     isLawyerVerified = json['isLawyerVerified'];
     // practiceAreas = json['practiceAreas'] != null ? json['practiceAreas'].cast<String>() : [];
-    practiceAreas = json['practiceAreas'] is List
-        ? List<String>.from(json['practiceAreas'])
-        : [];
+    practiceAreas = json['practiceAreas'] is List ? List<String>.from(json['practiceAreas']) : [];
 
     yearOfExperience = json['yearOfExperience'];
     // qualifications =json['qualifications'] != null ? Qualifications.fromJson(json['qualifications']) : null;
@@ -61,20 +60,16 @@ class UserModel {
       });
     }
     createdAt = json['createdAt'];
-    phoneNumber = json['phoneNumber'] != null
-        ? PhoneNumberModel.fromJson(json['phoneNumber'])
-        : null;
+    phoneNumber =
+        json['phoneNumber'] != null ? PhoneNumberModel.fromJson(json['phoneNumber']) : null;
     // specialist = json['specialist'] != null ? json['specialist'].cast<String>() : [];
     // profileImages = json['profileImages'] != null ? List<String>.from(json['profileImages']) : [];
-    specialist =
-        json['specialist'] is List ? List<String>.from(json['specialist']) : [];
-    profileImages = json['profileImages'] is List
-        ? List<String>.from(json['profileImages'])
-        : [];
+    specialist = json['specialist'] is List ? List<String>.from(json['specialist']) : [];
+    profileImages = json['profileImages'] is List ? List<String>.from(json['profileImages']) : [];
+    docs = json['docs'] is List ? List<String>.from(json['docs']) : [];
 
-    officeAdress = json['officeAdress'] != null
-        ? OfficeAdress.fromJson(json['officeAdress'])
-        : null;
+    officeAdress =
+        json['officeAdress'] != null ? OfficeAdress.fromJson(json['officeAdress']) : null;
     feePerMeeting = json['feePerMeeting'];
     id = json['id'];
     email = json['email'];
@@ -83,9 +78,13 @@ class UserModel {
     // status = json['status'].va;
     status = UserStatus.values[json['status']];
     casesCount = json['casesCount'];
+    lcno = json['lcno'];
+    hcno = json['hcno'];
   }
   UserRole? role;
   String? assistantName;
+  String? lcno;
+  String? hcno;
   bool? isVerified;
   num? experiencedCasesCount;
   String? fullName;
@@ -98,6 +97,7 @@ class UserModel {
   PhoneNumberModel? phoneNumber;
   List<String>? specialist;
   List<String>? profileImages;
+  List<String>? docs;
   String? about;
   OfficeAdress? officeAdress;
   num? feePerMeeting;
@@ -124,11 +124,14 @@ class UserModel {
     PhoneNumberModel? phoneNumber,
     List<String>? specialist,
     List<String>? profileImages,
+    List<String>? docs,
     OfficeAdress? officeAdress,
     num? feePerMeeting,
     GenderEnum? gender,
     String? id,
     String? email,
+    String? lcno,
+    String? hcno,
     Timestamp? updatedAt,
     UserStatus? status,
     num? casesCount,
@@ -138,8 +141,7 @@ class UserModel {
         gender: gender ?? this.gender,
         assistantName: assistantName ?? this.assistantName,
         isVerified: isVerified ?? this.isVerified,
-        experiencedCasesCount:
-            experiencedCasesCount ?? this.experiencedCasesCount,
+        experiencedCasesCount: experiencedCasesCount ?? this.experiencedCasesCount,
         fullName: fullName ?? this.fullName,
         about: about ?? this.about,
         experience: experience ?? this.experience,
@@ -151,6 +153,7 @@ class UserModel {
         phoneNumber: phoneNumber ?? this.phoneNumber,
         specialist: specialist ?? this.specialist,
         profileImages: profileImages ?? this.profileImages,
+        docs: docs ?? this.docs,
         officeAdress: officeAdress ?? this.officeAdress,
         feePerMeeting: feePerMeeting ?? this.feePerMeeting,
         id: id ?? this.id,
@@ -158,6 +161,8 @@ class UserModel {
         updatedAt: updatedAt ?? this.updatedAt,
         status: status ?? this.status,
         casesCount: casesCount ?? this.casesCount,
+        lcno: lcno ?? this.lcno,
+        hcno: hcno ?? this.lcno,
       );
 
   Map<String, dynamic> toJson() {
@@ -184,6 +189,7 @@ class UserModel {
     }
     map['specialist'] = specialist;
     map['profileImages'] = profileImages;
+    map['docs'] = docs;
     if (officeAdress != null) {
       map['officeAdress'] = officeAdress?.toJson();
     }
@@ -193,6 +199,8 @@ class UserModel {
     map['updatedAt'] = updatedAt;
     map['status'] = status?.index;
     map['casesCount'] = casesCount;
+    map['lcno'] = lcno;
+    map['hcno'] = hcno;
     return map;
   }
 }

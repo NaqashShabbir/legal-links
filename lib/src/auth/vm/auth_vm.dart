@@ -52,6 +52,8 @@ class AuthVM extends ChangeNotifier {
 
   File? tempLawyerProfileImage;
 
+  List<File> attachmentsList = [];
+
   Future<void> signIn(String email, String pass) async {
     try {
       ZBotToast.loadingShow();
@@ -136,7 +138,6 @@ class AuthVM extends ChangeNotifier {
     return result;
   }
 
- 
   void update() {
     notifyListeners();
   }
