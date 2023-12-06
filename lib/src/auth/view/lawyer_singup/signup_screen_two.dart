@@ -83,54 +83,6 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  h2,
-                  speciallistLawyerDropdown(vm: vm),
-                  // h1,
-                  // CustomTextFormField(
-                  //   controller: anyotherSpeclawyerController,
-                  //   hintText: 'Any other Speciality',
-                  //   //focusNode: lawyerFocus,
-                  //   inputAction: TextInputAction.next,
-                  //   inputType: TextInputType.name,
-                  //   validator: FieldValidator.validateEmpty,
-                  //   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  // ),
-                  h1,
-                  heading('Your Qualification', () {
-                    setState(() {
-                      qualificationList.add(Qualifications());
-                    });
-                  }),
-                  h1,
-                  for (int index = 0; index < qualificationList.length; index++) ...[
-                    qualificationFieldRow(qualificationList[index], index),
-                    h0P8,
-                  ],
-                  h1,
-                  heading('Your Experience', () {
-                    setState(() {
-                      experienceList.add(
-                        Experience(),
-                      );
-                    });
-                  }),
-                  h1,
-                  for (int index = 0; index < experienceList.length; index++) ...[
-                    customTextFieldExperience(experienceList[index], index),
-                    h0P8,
-                  ],
-                  h1,
-                  heading('Practice Area', () {
-                    setState(() {
-                      practiceAreaList.add("");
-                    });
-                  }),
-                  h1,
-                  for (int index = 0; index < practiceAreaList.length; index++) ...[
-                    practiceField(practiceAreaList[index], index),
-                    h0P8,
-                  ],
-                  h1,
                   CustomTextFormField(
                     controller: LCNoController,
                     focusNode: LCNoFocus,
@@ -145,7 +97,7 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                       LengthLimitingTextInputFormatter(20),
                     ],
                   ),
-                  h1,
+                  // h1,
                   CustomTextFormField(
                     controller: HCNoController,
                     focusNode: HCNoFocus,
@@ -161,15 +113,63 @@ class _SignupScreenTwoOfLawyerState extends State<SignupScreenTwoOfLawyer> {
                     ],
                   ),
                   h1,
+                  speciallistLawyerDropdown(vm: vm),
+                  // h1,
+                  // CustomTextFormField(
+                  //   controller: anyotherSpeclawyerController,
+                  //   hintText: 'Any other Speciality',
+                  //   //focusNode: lawyerFocus,
+                  //   inputAction: TextInputAction.next,
+                  //   inputType: TextInputType.name,
+                  //   validator: FieldValidator.validateEmpty,
+                  //   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  // ),
+                  // h1,
+                  heading('Your Qualification', () {
+                    setState(() {
+                      qualificationList.add(Qualifications());
+                    });
+                  }),
+                  // h1,
+                  for (int index = 0; index < qualificationList.length; index++) ...[
+                    qualificationFieldRow(qualificationList[index], index),
+                    h0P8,
+                  ],
+                  // h1,
+                  heading('Your Experience', () {
+                    setState(() {
+                      experienceList.add(
+                        Experience(),
+                      );
+                    });
+                  }),
+                  // h1,
+                  for (int index = 0; index < experienceList.length; index++) ...[
+                    customTextFieldExperience(experienceList[index], index),
+                    h0P8,
+                  ],
+                  // h1,
+                  heading('Practice Area', () {
+                    setState(() {
+                      practiceAreaList.add("");
+                    });
+                  }),
+                  // h1,
+                  for (int index = 0; index < practiceAreaList.length; index++) ...[
+                    practiceField(practiceAreaList[index], index),
+                    h0P8,
+                  ],
+                  // h1,
                   Text(
                     "Attachments",
                     style: R.textStyles.poppinsSemiBold(),
                   ),
+                  h0P5,
                   Text(
                     "Upload your lawyer's card, CNIC, and registration certificates for verification",
                     style: R.textStyles.poppinsRegular(color: R.colors.darkGrey),
                   ),
-                  h1,
+                  h1P5,
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 3.w),
                     decoration: R.decoration.decoration(),

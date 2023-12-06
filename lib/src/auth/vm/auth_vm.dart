@@ -1,5 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison
-
+import 'dart:core';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,8 +33,7 @@ class AuthVM extends ChangeNotifier {
     LawyerModelSignup(id: "8", specialist: "Tax law"),
     LawyerModelSignup(id: "9", specialist: "Bankruptcy Lawyer"),
     LawyerModelSignup(id: "10", specialist: "Entertainment Lawyer"),
-    LawyerModelSignup(
-        id: "11", specialist: "Business Lawyer (Corporate Lawyer)"),
+    LawyerModelSignup(id: "11", specialist: "Business Lawyer (Corporate Lawyer)"),
     LawyerModelSignup(id: "12", specialist: "Constitutional Lawyer"),
     LawyerModelSignup(id: "13", specialist: "Criminal Defense Lawyer"),
     LawyerModelSignup(id: "14", specialist: "Employment and Labor Lawyer"),
@@ -83,15 +82,12 @@ class AuthVM extends ChangeNotifier {
             ZBotToast.showToastSuccess(message: 'Logged in Successfully');
           } else {
             ZBotToast.showToastSuccess(
-                message:
-                    'Your Role is not defined, Please Contact With Support, Thank You!');
+                message: 'Your Role is not defined, Please Contact With Support, Thank You!');
           }
         } else if (userModel.status == UserStatus.BLOCKED) {
-          ZBotToast.showToastError(
-              message: "You have been blocked by the admin");
+          ZBotToast.showToastError(message: "You have been blocked by the admin");
         } else {
-          ZBotToast.showToastError(
-              message: "You have been deleted by the admin");
+          ZBotToast.showToastError(message: "You have been deleted by the admin");
         }
       } else {
         // ZBotToast.showToastError(message: "Verify Your Email");
@@ -111,8 +107,7 @@ class AuthVM extends ChangeNotifier {
     bool result = false;
     try {
       ZBotToast.loadingShow();
-      User? user =
-          await _auth.createUserWithEmailPassword(ud?.email ?? "", pass);
+      User? user = await _auth.createUserWithEmailPassword(ud?.email ?? "", pass);
       if (user != null) {
         debugPrint("user is not null");
         ud?.id = user.uid;
@@ -184,25 +179,49 @@ class AuthVM extends ChangeNotifier {
       ZBotToast.showToastError(message: "Failed to change password");
     }
   }
-  //
+
+  // Future<String?> uploadImageUser(File image) async {
+  //   String? imageURL;
+  //   try {
+  //     ZBotToast.loadingShow();
+  //     debugPrint("check");
+  //     DateTime now = DateTime.now();
+  //     Reference firebaseStorageRef = FirebaseStorage.instance
+  //         .ref()
+  //         .child('userImages/${now.microsecondsSinceEpoch}/${DateTime.now()}');
+  //     UploadTask uploadTask = firebaseStorageRef.putFile(image);
+  //     await uploadTask.then((res) async {
+  //       imageURL = await res.ref.getDownloadURL();
+  //       debugPrint("========== $imageURL");
+  //       notifyListeners();
+  //     });
+  //     ZBotToast.loadingClose();
+  //     return imageURL;
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //     ZBotToast.loadingClose();
+  //   }
+  //   ZBotToast.loadingClose();
+  //   return imageURL;
+  // }
 
   Future<String?> uploadImageUser(File image) async {
     String? imageURL;
 
     try {
       ZBotToast.loadingShow();
-      debugPrint("check");
       DateTime now = DateTime.now();
-      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(
-          'userImages/${now.microsecondsSinceEpoch}/${userRole?.name}/${DateTime.now()}');
+      String fileName = '${now.microsecondsSinceEpoch}.${image.path.split('.').last}';
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child('userImages/$fileName');
       UploadTask uploadTask = firebaseStorageRef.putFile(image);
       await uploadTask.then((res) async {
         imageURL = await res.ref.getDownloadURL();
         debugPrint("========== $imageURL");
+
         notifyListeners();
       });
       ZBotToast.loadingClose();
-
+      getFileExtensionFromUrl(imageURL!);
       return imageURL;
     } catch (e) {
       debugPrint(e.toString());
@@ -211,6 +230,20 @@ class AuthVM extends ChangeNotifier {
     ZBotToast.loadingClose();
 
     return imageURL;
+  }
+
+  Future<List<String>?> uploadMultiFiles({required List<File> files}) async {
+    ZBotToast.loadingShow();
+    List<String> docsURL = [];
+    for (int i = 0; i <= files.length; i++) {
+      String url = await uploadImageUser(files[i]) ?? '';
+      docsURL.add(url);
+      if (i == files.length - 1) {
+        return docsURL;
+      }
+    }
+    ZBotToast.loadingClose();
+    return null;
   }
 
   Future<void> deleteAccount(String password, UserModel ud) async {
@@ -235,5 +268,26 @@ class AuthVM extends ChangeNotifier {
       ZBotToast.loadingClose();
     }
     notifyListeners();
+  }
+
+// void main() {
+//   String imageURL = "https://firebasestorage.googleapis.com/v0/b/your-firebase-app.appspot.com/o/userImages%2F1612345678901234_1641700000000.jpg?alt=media&token=your-token";
+
+//   String fileExtension = getFileExtensionFromUrl(imageURL);
+//   print("File extension: $fileExtension");
+// }
+
+  String getFileExtensionFromUrl(String url) {
+    Uri uri = Uri.parse(url);
+    String path = uri.path;
+    List<String> segments = path.split('/');
+    String fileNameWithExtension = segments.last;
+    List<String> fileNameParts = fileNameWithExtension.split('.');
+    if (fileNameParts.length > 1) {
+      debugPrint("========== ${fileNameParts.last}");
+      debugPrint("========== ${fileNameParts}");
+      return fileNameParts.last;
+    }
+    return '';
   }
 }

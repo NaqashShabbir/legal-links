@@ -18,7 +18,7 @@ class BaseVM extends ChangeNotifier {
   BookingModel? tempBookingModel;
 
   Future<void> getAllLawyers() async {
-    // try {
+    try {
     // var vm = Provider.of<AuthVM>(Get.context!, listen: false);
     debugPrint("getAllLawyers GETTING _________");
 
@@ -37,18 +37,17 @@ class BaseVM extends ChangeNotifier {
     debugPrint("getAllLawyers GETTING _________ ${lawyersList.length}");
     notifyListeners();
     ZBotToast.loadingClose();
-    // } catch (e) {
-    //   ZBotToast.loadingClose();
-    //   debugPrint(e.toString());
-    // }
+    } catch (e) {
+      ZBotToast.loadingClose();
+      debugPrint(e.toString());
+    }
   }
 
   Future<bool> getLawyerScheduleById(String? lawyerId) async {
     bool check = false;
     try {
       debugPrint("lawyerId $lawyerId");
-      DocumentSnapshot doc =
-          await FBCollections.lawyerScedule.doc(lawyerId).get();
+      DocumentSnapshot doc = await FBCollections.lawyerScedule.doc(lawyerId).get();
       debugPrint("doc ${doc.id}");
       debugPrint("doc ${doc.reference.id}");
 
@@ -90,8 +89,7 @@ class BaseVM extends ChangeNotifier {
     return p;
   }
 
-  Future<String?> uploadImageUser(
-      File image, String id, String customerId) async {
+  Future<String?> uploadImageUser(File image, String id, String customerId) async {
     String? imageURL;
 
     try {

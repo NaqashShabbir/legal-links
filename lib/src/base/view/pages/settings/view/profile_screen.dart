@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/constants/enums.dart';
@@ -88,27 +89,36 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
     return Column(
       children: [
         h2,
-        Center(
-          child: CircleAvatar(
-            backgroundColor: R.colors.primary.withOpacity(.2),
-            radius: 70,
-            backgroundImage: NetworkImage(vm.userModel.profileImages?.first ?? ""),
-            onBackgroundImageError: (exception, stackTrace) {
-              Container(
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: R.colors.primary.withOpacity(.8), width: 1),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(150),
+          child: CachedNetworkImage(
+            imageUrl: vm.userModel.profileImages?.first ?? '',
+            imageBuilder: (context, imageProvider) => Container(
+              height: 35.w,
+              width: 35.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: R.colors.white, width: 1),
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
                 ),
-                child: Icon(
-                  Icons.error,
-                  color: R.colors.black,
-                ),
-              );
+              ),
+            ),
+            fit: BoxFit.cover,
+            errorWidget: (context, url, e) =>
+                SizedBox(height: 35.w, width: 35.w, child: const Icon(Icons.error)),
+            placeholder: (context, url) {
+              return Center(
+                  child: SizedBox(
+                height: 35.w,
+                width: 35.w,
+                child: CircularProgressIndicator.adaptive(backgroundColor: R.colors.primary),
+              ));
             },
           ),
         ),
-        h3,
+        h2,
         Text(
           vm.userModel.fullName ?? '',
           style: R.textStyles.poppinsBold(fontSize: 15.sp),

@@ -221,9 +221,11 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
       ZBotToast.loadingShow();
 
       String? url = await vm.uploadImageUser(vm.tempLawyerProfileImage!);
-      // String? docUrl = await vm.uploadImageUser(vm.attachmentsList!);
+      List<String>? docsUrl = await vm.uploadMultiFiles(files: vm.attachmentsList);
+      debugPrint("docsUrl ${docsUrl?.length}");
+      debugPrint("docsUrl $docsUrl");
 
-      if (url != null) {
+      if (url != null && docsUrl != null) {
         Timestamp now = Timestamp.now();
         vm.tempLawyerModel = UserModel(
           // page 1 data
@@ -234,7 +236,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
           yearOfExperience: vm.tempLawyerModel.yearOfExperience,
           gender: vm.tempLawyerModel.gender,
           profileImages: [url],
-          // docs: [url],
+          docs: [...docsUrl],
           // page 2 data
           specialist: vm.tempLawyerModel.specialist,
           qualifications: vm.tempLawyerModel.qualifications,
@@ -244,11 +246,9 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
           about: aboutController.text.trim(),
           assistantName: aboutController.text.trim(),
           casesCount: int.parse(caseCountController.text.trim()),
-
           feePerMeeting: double.parse(feeController.text.trim()),
           isLawyerVerified: false,
           isVerified: false,
-
           officeAdress: OfficeAdress(
             city: pickLocationData?.city,
             country: pickLocationData?.country,
@@ -261,7 +261,6 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
           status: vm.tempLawyerModel.status,
           hcno: vm.tempLawyerModel.hcno,
           lcno: vm.tempLawyerModel.lcno,
-
           createdAt: now,
           updatedAt: now,
         );
@@ -281,7 +280,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
           Get.toNamed(LoginScreen.route);
         }
       } else {
-        ZBotToast.showToastError(message: "Error Uploading Image, Please Try Again!");
+        ZBotToast.showToastError(message: "Error Uploading Files, Please Try Again!");
       }
     }
   }
