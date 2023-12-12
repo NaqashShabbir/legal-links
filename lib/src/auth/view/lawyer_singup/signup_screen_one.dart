@@ -359,7 +359,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
             countryCode: number.dialCode,
           ),
           email: emailController.text.trim(),
-          status: UserStatus.ACTIVE,
+          status: UserStatus.PENDING,
           yearOfExperience: yeearOfExperienceController.text.toString(),
           gender: selectedGender,
           // profileImages: [profileImage?.path ?? ""],

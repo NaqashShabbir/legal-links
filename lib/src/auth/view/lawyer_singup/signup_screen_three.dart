@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/resources/validator.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
@@ -258,7 +259,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
             zipCode: pickLocationData?.city,
           ),
           role: context.read<AuthVM>().userRole,
-          status: vm.tempLawyerModel.status,
+          status: UserStatus.PENDING,
           hcno: vm.tempLawyerModel.hcno,
           lcno: vm.tempLawyerModel.lcno,
           createdAt: now,
