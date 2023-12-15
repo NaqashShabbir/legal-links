@@ -12,6 +12,7 @@ enum FileTypeEnum {
   jpg,
   jpeg,
 }
+
 enum Speciallist {
   familyLaw,
   corporateLawyer,
@@ -29,7 +30,14 @@ enum UserRole { CLIENT, LAWYER }
 
 enum GenderEnum { MALE, FEMALE, PREFERNOTTOSAY, OTHERS }
 
-enum BookingStatus { Placed, Accepted, Cancelled, Scheduled, Visited, Completed }
+enum BookingStatus {
+  Placed,
+  Accepted,
+  Cancelled,
+  Scheduled,
+  Visited,
+  Completed
+}
 
 String getGenderString(GenderEnum? gender) {
   switch (gender) {
@@ -70,8 +78,6 @@ String bookingStatusEnum(int? status) {
       return '';
   }
 }
-
-
 
 Color getColorForBookingStatus(int? status) {
   switch (status) {
