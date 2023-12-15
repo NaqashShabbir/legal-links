@@ -38,8 +38,8 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
       type: FileType.custom,
       allowedExtensions: [
         'pdf',
-        'doc',
-        'docx',
+        // 'doc',
+        // 'docx',
         // 'xls',
         // 'xlsx',
         // 'png',

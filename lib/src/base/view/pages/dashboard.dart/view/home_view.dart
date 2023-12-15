@@ -71,12 +71,9 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           GestureDetector(
                             onTap: () async {
-                              var vm =
-                                  Provider.of<BaseVM>(context, listen: false);
-                              var baseVM =
-                                  Provider.of<BaseVM>(context, listen: false);
-                              var homeVM =
-                                  Provider.of<HomeVM>(context, listen: false);
+                              var vm = Provider.of<BaseVM>(context, listen: false);
+                              var baseVM = Provider.of<BaseVM>(context, listen: false);
+                              var homeVM = Provider.of<HomeVM>(context, listen: false);
 
                               await Future.wait([
                                 baseVM.getAllLawyers(),
@@ -90,16 +87,13 @@ class _HomeViewState extends State<HomeView> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: CachedNetworkImage(
-                                imageUrl:
-                                    authVM.userModel.profileImages?.first ?? '',
-                                imageBuilder: (context, imageProvider) =>
-                                    Container(
+                                imageUrl: authVM.userModel.profileImages?.first ?? '',
+                                imageBuilder: (context, imageProvider) => Container(
                                   height: 11.w,
                                   width: 11.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    border: Border.all(
-                                        color: R.colors.white, width: 1),
+                                    border: Border.all(color: R.colors.white, width: 1),
                                     image: DecorationImage(
                                       image: imageProvider,
                                       fit: BoxFit.cover,
@@ -108,9 +102,7 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 fit: BoxFit.cover,
                                 errorWidget: (context, url, e) => SizedBox(
-                                    height: 11.w,
-                                    width: 11.w,
-                                    child: const Icon(Icons.error)),
+                                    height: 11.w, width: 11.w, child: const Icon(Icons.error)),
                                 placeholder: (context, url) {
                                   return Center(
                                       child: SizedBox(
@@ -259,13 +251,11 @@ class _HomeViewState extends State<HomeView> {
       children: [
         Text(
           title,
-          style: R.textStyles
-              .poppinsSemiBold(color: R.colors.black, fontSize: 14.sp),
+          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 14.sp),
         ),
         if (isViewAll ?? false)
           TextButton(
-            style: const ButtonStyle(
-                padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+            style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
             onPressed: onPressed,
             child: Text(
               'View All',
@@ -324,11 +314,8 @@ class _HomeViewState extends State<HomeView> {
           .read<BaseVM>()
           .lawyersList
           .where((lawyer) =>
-              (lawyer.fullName?.toLowerCase().contains(query.toLowerCase()) ??
-                  false) ||
-              (lawyer.officeAdress?.streetAdress
-                      ?.toLowerCase()
-                      .contains(query.toLowerCase()) ??
+              (lawyer.fullName?.toLowerCase().contains(query.toLowerCase()) ?? false) ||
+              (lawyer.officeAdress?.streetAdress?.toLowerCase().contains(query.toLowerCase()) ??
                   false))
           .toList();
     } else {
