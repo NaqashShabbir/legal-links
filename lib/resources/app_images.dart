@@ -1,5 +1,5 @@
 class AppImages {
-  var logo = "assets/images/logo.png";
+  var logo = "assets/images/logo.jpeg";
   var pin = "assets/images/pin.png";
 
   var upload = "assets/images/upload.png";

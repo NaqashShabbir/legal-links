@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
-
 import 'package:legal_links_app/src/base/view/pages/settings/model/content_model.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
 import 'package:legal_links_app/utils/common-widgets/custom_button.dart';
@@ -86,8 +85,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           ),
                         ),
                         fit: BoxFit.cover,
-                        errorWidget: (context, url, e) =>
-                            SizedBox(height: 14.w, width: 14.w, child: const Icon(Icons.error)),
+                        errorWidget: (context, url, e) => SizedBox(
+                            height: 14.w,
+                            width: 14.w,
+                            child: const Icon(Icons.error)),
                         placeholder: (context, url) {
                           return Center(
                               child: SizedBox(
@@ -109,15 +110,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           model.name ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style:
-                              R.textStyles.poppinsSemiBold(fontSize: 11.sp, color: R.colors.black),
+                          style: R.textStyles.poppinsSemiBold(
+                              fontSize: 11.sp, color: R.colors.black),
                         ),
-                        rowTextWidget(title: "Name:", txt: model.userName ?? ""),
-                        rowTextWidget(title: "Account Number:", txt: model.accountNumber ?? ""),
+                        rowTextWidget(
+                            title: "Name:", txt: model.userName ?? ""),
+                        rowTextWidget(
+                            title: "Account Number:",
+                            txt: model.accountNumber ?? ""),
                         if (model.iban != null)
                           rowTextWidget(title: "IBAN:", txt: model.iban ?? ""),
                         if (model.branchName != null)
-                          rowTextWidget(title: "Branch Name:", txt: model.branchName ?? ""),
+                          rowTextWidget(
+                              title: "Branch Name:",
+                              txt: model.branchName ?? ""),
                       ],
                     ))
                   ],
@@ -135,14 +141,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
           title,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: R.textStyles.poppinsSemiBold(fontSize: 10.sp, color: R.colors.primary),
+          style: R.textStyles
+              .poppinsSemiBold(fontSize: 10.sp, color: R.colors.primary),
         ),
         w1,
         Text(
           txt,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
-          style: R.textStyles.poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
+          style: R.textStyles
+              .poppinsRegular(fontSize: 10.sp, color: R.colors.primary),
         ),
       ],
     );
