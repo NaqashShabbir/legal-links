@@ -28,22 +28,13 @@ class SignupScreenOneOfLawyer extends StatefulWidget {
 class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
-
   TextEditingController nameController = TextEditingController();
-  TextEditingController confirmpasswordController = TextEditingController();
-  TextEditingController dateCon = TextEditingController();
   TextEditingController yeearOfExperienceController = TextEditingController();
 
-  DateTime? selectedDate;
-
   FocusNode emailFocus = FocusNode();
-  FocusNode numberFocus = FocusNode();
-  FocusNode confirmpasswordFocus = FocusNode();
+  FocusNode numberFN = FocusNode();
   FocusNode nameFocus = FocusNode();
-  FocusNode dateFocus = FocusNode();
-  FocusNode colorF = FocusNode();
-  FocusNode numberF = FocusNode();
-  FocusNode genderFn = FocusNode();
+  FocusNode expFN = FocusNode();
 
   bool isObscure1 = false;
   bool isObscure2 = false;
@@ -52,10 +43,21 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
   PhoneNumber number = PhoneNumber(isoCode: 'PK');
   TextEditingController phoneNumberController = TextEditingController();
 
-  FocusNode numberFN = FocusNode();
-
   DateTime? currentBackPressTime;
   File? profileImage;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      // nameController.text = "Test Lawyer";
+      // emailController.text = "testlawyer1@gmail.com";
+      // phoneNumberController.text = "3122323223";
+      // yeearOfExperienceController.text = "23";
+
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +113,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
                   h1,
                   CustomTextFormField(
                     controller: yeearOfExperienceController,
-                    focusNode: confirmpasswordFocus,
+                    focusNode: expFN,
                     inputAction: TextInputAction.next,
                     hintText: 'Years of Experience',
                     fieldTitle: "Years of Experience",
@@ -338,7 +340,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
 
       onFieldSubmitted: (value) {
         setState(() {});
-        FocusScope.of(context).requestFocus(numberF);
+        FocusScope.of(context).requestFocus(expFN);
       },
     );
   }
@@ -359,7 +361,7 @@ class _SignupScreenOneOfLawyerState extends State<SignupScreenOneOfLawyer> {
             countryCode: number.dialCode,
           ),
           email: emailController.text.trim(),
-          status: UserStatus.ACTIVE,
+          status: UserStatus.PENDING,
           yearOfExperience: yeearOfExperienceController.text.toString(),
           gender: selectedGender,
           // profileImages: [profileImage?.path ?? ""],

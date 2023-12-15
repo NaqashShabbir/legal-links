@@ -42,20 +42,14 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
-  TextEditingController dateCon = TextEditingController();
-
-  DateTime? selectedDate;
 
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
   FocusNode confirmpasswordFocus = FocusNode();
   FocusNode nameFocus = FocusNode();
-  FocusNode dateFocus = FocusNode();
-  FocusNode genderFn = FocusNode();
 
   bool isObscure1 = false;
   bool isObscure2 = false;
-
   bool isChecked = false;
 
   PhoneNumber number = PhoneNumber(isoCode: 'PK');
@@ -76,6 +70,20 @@ class _SignupScreenState extends State<SignupScreen> {
       return Future.value(false);
     }
     return Future.value(true);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      // nameController.text = "Test User";
+      // emailController.text = "testuser1@gmail.com";
+      // passwordController.text = "12345@";
+      // confirmpasswordController.text = "12345@";
+      // phoneNumberController.text = "3122323223";
+
+      setState(() {});
+    });
   }
 
   @override

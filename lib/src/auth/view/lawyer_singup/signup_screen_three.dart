@@ -1,10 +1,11 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_typing_uninitialized_variables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:legal_links_app/constants/enums.dart';
 import 'package:legal_links_app/resources/validator.dart';
 import 'package:legal_links_app/services/google_map/address_model.dart';
 import 'package:legal_links_app/services/google_map/google_map_screen.dart';
@@ -40,8 +41,6 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
   LatLng? latLng;
   PickLocationData? pickLocationData;
 
-  var duration;
-
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
 
@@ -52,11 +51,6 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
   bool isObscure2 = false;
 
   FocusNode aboutFocus = FocusNode();
-  @override
-  void initState() {
-    super.initState();
-    duration = const Duration(minutes: 30); // Initialize with a default value
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -258,7 +252,7 @@ class _SignupScreenThreeOfLawyerState extends State<SignupScreenThreeOfLawyer> {
             zipCode: pickLocationData?.city,
           ),
           role: context.read<AuthVM>().userRole,
-          status: vm.tempLawyerModel.status,
+          status: UserStatus.PENDING,
           hcno: vm.tempLawyerModel.hcno,
           lcno: vm.tempLawyerModel.lcno,
           createdAt: now,

@@ -24,7 +24,7 @@ enum Speciallist {
   paralegal,
 }
 
-enum UserStatus { ACTIVE, BLOCKED, DELETED }
+enum UserStatus {PENDING, ACTIVE, BLOCKED, DELETED }
 
 enum UserRole { CLIENT, LAWYER }
 
