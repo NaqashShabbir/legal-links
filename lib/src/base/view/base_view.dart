@@ -1,15 +1,19 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/constants/global_functions.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/appointment/view/appointment_view.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/home_view.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/settings_view.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
+import 'package:legal_links_app/utils/hights_widths.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../../utils/common-widgets/call_confirmation.dart';
 
@@ -149,14 +153,73 @@ class _BaseViewState extends State<BaseView> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            _barTitles[dashVM.currentIndex],
-            style: R.textStyles.poppinsRegular(
-              color: R.colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.w400,
+          if (dashVM.currentIndex == 0)
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () async {
+                    var vm = Provider.of<BaseVM>(context, listen: false);
+                    var baseVM = Provider.of<BaseVM>(context, listen: false);
+                    var homeVM = Provider.of<HomeVM>(context, listen: false);
+
+                    await Future.wait([
+                      baseVM.getAllLawyers(),
+                      homeVM.getChamberList(),
+                      homeVM.getCourtList(),
+                      homeVM.getLawFirmList(),
+                    ]);
+
+                    setState(() {});
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: CachedNetworkImage(
+                      imageUrl: context.read<AuthVM>().userModel.profileImages?.first ?? '',
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: 11.w,
+                        width: 11.w,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: R.colors.white, width: 1),
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, e) =>
+                          SizedBox(height: 11.w, width: 11.w, child: const Icon(Icons.error)),
+                      placeholder: (context, url) {
+                        return Center(
+                            child: SizedBox(
+                          height: 11.w,
+                          width: 11.w,
+                          child:
+                              CircularProgressIndicator.adaptive(backgroundColor: R.colors.primary),
+                        ));
+                      },
+                    ),
+                  ),
+                ),
+                w1,
+                Text(
+                  "Hello, ${context.read<AuthVM>().userModel.fullName?.capitalizeFirst}!",
+                  style: R.textStyles.poppinsMedium(fontSize: 15.sp, color: R.colors.white),
+                ),
+                w1,
+              ],
+            )
+          else
+            Text(
+              _barTitles[dashVM.currentIndex],
+              style: R.textStyles.poppinsRegular(
+                color: R.colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.w400,
+              ),
             ),
-          ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -174,10 +237,7 @@ class _BaseViewState extends State<BaseView> {
                 IconButton(
                   iconSize: 25,
                   onPressed: () {
-                    Get.dialog(const CallConfirmationDialog(
-                      PhoneNumberOne: '0343-4567543',
-                      PhoneNumberTwo: '0325-4543213',
-                    ));
+                    Get.dialog(const CallConfirmationDialog());
                   },
                   icon: Icon(
                     Icons.call,

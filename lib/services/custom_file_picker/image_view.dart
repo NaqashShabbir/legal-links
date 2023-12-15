@@ -64,7 +64,7 @@ class _ImageViewState extends State<ImageView> {
                   child: AppButton(
                       buttonTitle: "submit",
                       // color: R.colors.themeColor,
-                      // textColor: R.colors.white,
+                      // textColor: R.colors.white,e
                       onTap: () {
                         Get.back(result: true);
                       }),

@@ -13,7 +13,7 @@ class AppColors {
   Color darkGrey = Colors.grey;
   Color yellow = Colors.yellow;
   Color orange = Colors.orange;
-  Color lightPrimary = const Color.fromARGB(255, 61, 131, 229);
+  Color lightPrimary = Color.fromARGB(255, 71, 80, 93);
   Color transparent = const Color(0x0000ffff);
 
   String blackPrint = "\x1b[30m";

@@ -8,6 +8,7 @@ import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/widget/chamber_widget.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
+import 'package:legal_links_app/utils/common-widgets/call_confirmation.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -66,91 +67,86 @@ class _HomeViewState extends State<HomeView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // h1P5,
-                      Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () async {
-                              var vm = Provider.of<BaseVM>(context, listen: false);
-                              var baseVM = Provider.of<BaseVM>(context, listen: false);
-                              var homeVM = Provider.of<HomeVM>(context, listen: false);
+                      InkWell(
+                        onTap: () {
+                          Get.dialog(const CallConfirmationDialog());
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: Colors.green[100],
+                            // image: DecorationImage(
+                            //   alignment: Alignment.topRight,
+                            //   image: ,
+                            // ),
+                          ),
+                          // mainAxisSize: MainAxisSize.min,
+                          child: Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(8.sp),
+                                child: Row(
+                                  children: [
+                                    Flexible(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          // Image.asset(
+                                          //   R.images.instantLawyer,
+                                          //   height: 6.h,
+                                          // ),
+                                          Row(
+                                            children: [
+                                              Transform.scale(
+                                                scale: 2,
+                                                child: Transform.rotate(
+                                                  angle: 0.2,
+                                                  child: const Icon(
+                                                    Icons.flash_on_outlined,
+                                                    color: Color(0xFFFFD700),
+                                                  ),
+                                                ),
+                                              ),
+                                              w2,
+                                              Text(
+                                                "Instant\nLawyer".toUpperCase(),
+                                                style: R.textStyles.poppinsSemiBold(),
+                                              ),
+                                            ],
+                                          ),
 
-                              await Future.wait([
-                                baseVM.getAllLawyers(),
-                                homeVM.getChamberList(),
-                                homeVM.getCourtList(),
-                                homeVM.getLawFirmList(),
-                              ]);
-
-                              setState(() {});
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: CachedNetworkImage(
-                                imageUrl: authVM.userModel.profileImages?.first ?? '',
-                                imageBuilder: (context, imageProvider) => Container(
-                                  height: 11.w,
-                                  width: 11.w,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border: Border.all(color: R.colors.white, width: 1),
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                                          h0P4,
+                                          SizedBox(
+                                            width: 60.w,
+                                            child: Text(
+                                              // 'If you want to get direct service from legal links then call our helpline.',
+                                              "The Fastest Way to Legal Solutions",
+                                              style: R.textStyles.poppinsRegular(
+                                                color: Colors.grey[800],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                fit: BoxFit.cover,
-                                errorWidget: (context, url, e) => SizedBox(
-                                    height: 11.w, width: 11.w, child: const Icon(Icons.error)),
-                                placeholder: (context, url) {
-                                  return Center(
-                                      child: SizedBox(
-                                    height: 11.w,
-                                    width: 11.w,
-                                    child: CircularProgressIndicator.adaptive(
-                                        backgroundColor: R.colors.primary),
-                                  ));
-                                },
                               ),
-                            ),
+                              Align(
+                                alignment: Alignment.bottomRight,
+                                child: Image.network(
+                                  R.images.lawyer2,
+                                  // alignment: Alignment.bottomCenter,
+                                  // color: R.colors.red,
+                                  width: 50.w,
+                                ),
+                              ),
+                            ],
                           ),
-                          w1,
-                          Text(
-                            "Hello, ${context.read<AuthVM>().userModel.fullName?.capitalizeFirst}!",
-                            style: R.textStyles.poppinsMedium(fontSize: 15.sp),
-                          ),
-                          w1,
-                        ],
+                        ),
                       ),
-
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Text(
-                      //       "Find the Best Lawyer Near You",
-                      //       style: R.textStyles.poppinsMedium(),
-                      //     ),
-                      //     IconButton(
-                      //       onPressed: () {
-                      //         Get.to(
-                      //           () => GoogleMapScreen(
-                      //             selectedLocation: latLng,
-                      //             address: (value) {
-                      //               pickLocationData = value;
-                      //               latLng = LatLng(value.lat ?? 0, value.lng ?? 0);
-                      //             },
-                      //           ),
-                      //         );
-                      //         setState(() {});
-                      //         debugPrint("pickLocationData $pickLocationData");
-                      //       },
-                      //       icon: const Icon(
-                      //         Icons.location_pin,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       h1,
                       searchField(),
                       // h1,
