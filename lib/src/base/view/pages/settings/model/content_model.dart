@@ -9,6 +9,7 @@ class ContentModel {
       this.mobileNumber,
       this.telephoneNumber,
       this.availbleTime,
+      
       this.paymentMethod});
 
   ContentModel.fromJson(dynamic json) {
@@ -70,36 +71,39 @@ class PaymentMethod {
   Timestamp? createdAt;
   String? image;
   String? iban;
-  String? name;
+  
   String? branchName;
   String? id;
   String? userName;
   String? accountNumber;
+  String? providerName;
   int? status;
   Timestamp? updatedAt;
 
   PaymentMethod({
-    required this.createdAt,
-    required this.image,
-    required this.iban,
-    required this.name,
-    required this.branchName,
-    required this.id,
-    required this.userName,
-    required this.accountNumber,
-    required this.status,
-    required this.updatedAt,
+    this.createdAt,
+    this.image,
+    this.iban,
+    
+    this.branchName,
+    this.id,
+    this.userName,
+    this.accountNumber,
+    this.providerName,
+    this.status,
+    this.updatedAt,
   });
 
   PaymentMethod.fromJson(dynamic map) {
     createdAt = map['createdAt'];
     image = map['image'];
     iban = map['iban'];
-    name = map['name'];
+    
     branchName = map['branchName'];
     id = map['id'];
     userName = map['userName'];
     accountNumber = map['accountNumber'];
+    providerName = map['providerName'];
     status = map['status'];
     updatedAt = map['updatedAt'];
   }
@@ -108,7 +112,7 @@ class PaymentMethod {
       'createdAt': createdAt,
       'image': image,
       'iban': iban,
-      'name': name,
+      
       'branchName': branchName,
       'id': id,
       'userName': userName,
