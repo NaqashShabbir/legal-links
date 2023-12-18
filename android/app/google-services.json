@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:823762151327:android:64d33f9150df3d733c7faa",
+        "android_client_info": {
+          "package_name": "com.example.legal_links_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1s0709OwErF27SxALmkbV-3pi9Gzvxjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:823762151327:android:88639224de1f6afd3c7faa",
         "android_client_info": {
           "package_name": "com.zoom.legal_links_app"

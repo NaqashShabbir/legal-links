@@ -1,12 +1,16 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
+import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/view/confirmation_dialog.dart';
+import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/utils/bottom_sheets/change_password_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../resources/validator.dart';
+import '../../../services/auth_services.dart';
 import '../../../utils/bottom_sheets/forget_password_sheet.dart';
 import '../../../utils/common-widgets/custom_button.dart';
 import '../../../utils/common-widgets/custom_textformfield.dart';
@@ -26,13 +30,32 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController = TextEditingController(/* text: 'luffy@gmail.com' */);
-  TextEditingController passwordController = TextEditingController(/* text: '12345@' */);
+  TextEditingController emailController =
+      TextEditingController(/* text: 'luffy@gmail.com' */);
+  TextEditingController passwordController =
+      TextEditingController(/* text: '12345@' */);
 
   FocusNode emailFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
 
   bool ispObscure = false;
+
+  Future<void> saveUserData(UserModel user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Convert UserModel to JSON string and save it in preferences
+    await prefs.setString('user', jsonEncode(user.toJson()));
+  }
+
+  // Method to get user data from shared preferences
+  Future<UserModel?> getUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userData = prefs.getString('user');
+    if (userData != null && userData.isNotEmpty) {
+      // If user data exists, parse it and return the UserModel
+      return UserModel.fromJson(jsonDecode(userData));
+    }
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(right: 8.sp),
                         child: Icon(
-                          ispObscure ? Icons.visibility_off_rounded : Icons.remove_red_eye_rounded,
+                          ispObscure
+                              ? Icons.visibility_off_rounded
+                              : Icons.remove_red_eye_rounded,
                           color: Colors.grey,
                           size: 16.sp,
                         ),
@@ -166,12 +191,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> login(AuthVM vm) async {
     if (_formKey.currentState!.validate()) {
-      await context.read<AuthVM>().signIn(
-            emailController.text.trim(),
-            passwordController.text.trim(),
-          );
-
-      // Get.offAllNamed(BaseView.route);
+      Auth authService = Auth();
+      UserModel? userModel = await authService.authenticateUser(
+        emailController.text.trim(),
+        passwordController.text.trim(),
+      );
+      if (userModel != null) {
+        await saveUserData(userModel);
+        bool isFirstTimeLogin = await vm.checkFirstTimeLogin();
+        if (isFirstTimeLogin) {
+          Get.offAllNamed(LoginScreen.route);
+        } else {
+          Get.offAllNamed(BaseView.route);
+        }
+      }
     }
   }
 }

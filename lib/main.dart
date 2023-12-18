@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/vm/home_vm.dart';
@@ -16,9 +17,23 @@ import 'src/lawyer_base/view/pages/dashboard/vm/lawyer_vm.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+          apiKey: "AIzaSyBVkgTpnBblEAXrSDhAhOcpKpkrckyzSAw",
+          authDomain: "legallinks640.firebaseapp.com",
+          projectId: "legallinks640",
+          storageBucket: "legallinks640.appspot.com",
+          messagingSenderId: "823762151327",
+          appId: "1:823762151327:web:a26305ae6f2b5b013c7faa",
+          measurementId: "G-QRES51SW63"),
+    );
+  } else {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  }
   runApp(
     MultiProvider(
       providers: [
