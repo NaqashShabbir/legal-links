@@ -45,13 +45,13 @@ class SettingsVM extends ChangeNotifier {
 
   ContentModel contentModel = ContentModel();
   Future<void> getData() async {
-    DocumentSnapshot doc =
-        await FBCollections.settings.doc("SbKBaXdi6T3Tldwjycwc").get();
+    DocumentSnapshot doc = await FBCollections.settings.doc("SbKBaXdi6T3Tldwjycwc").get();
 
     contentModel = ContentModel.fromJson(doc.data());
     debugPrint("settings data: ${doc.data()}");
     debugPrint("app name:  ${contentModel.appName}");
     debugPrint("mobile number:  ${contentModel.mobileNumber}");
+    debugPrint("mobile number:  ${contentModel.paymentMethod?.first.providerName}");
 
     update();
   }

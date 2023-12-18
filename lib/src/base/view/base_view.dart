@@ -159,18 +159,16 @@ class _BaseViewState extends State<BaseView> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    var vm = Provider.of<BaseVM>(context, listen: false);
-                    var baseVM = Provider.of<BaseVM>(context, listen: false);
-                    var homeVM = Provider.of<HomeVM>(context, listen: false);
-
-                    await Future.wait([
-                      baseVM.getAllLawyers(),
-                      homeVM.getChamberList(),
-                      homeVM.getCourtList(),
-                      homeVM.getLawFirmList(),
-                    ]);
-
-                    setState(() {});
+                    // var vm = Provider.of<BaseVM>(context, listen: false);
+                    // var baseVM = Provider.of<BaseVM>(context, listen: false);
+                    // var homeVM = Provider.of<HomeVM>(context, listen: false);
+                    // await Future.wait([
+                    //   baseVM.getAllLawyers(),
+                    //   homeVM.getChamberList(),
+                    //   homeVM.getCourtList(),
+                    //   homeVM.getLawFirmList(),
+                    // ]);
+                    // setState(() {});
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),

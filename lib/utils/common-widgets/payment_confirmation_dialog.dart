@@ -20,8 +20,7 @@ class PaymentConfirmationDialog extends StatefulWidget {
   const PaymentConfirmationDialog({super.key, this.model});
 
   @override
-  State<PaymentConfirmationDialog> createState() =>
-      _PaymentConfirmationDialogState();
+  State<PaymentConfirmationDialog> createState() => _PaymentConfirmationDialogState();
 }
 
 class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
@@ -80,11 +79,10 @@ class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
                 ),
                 h2,
                 Text(
-                  widget.model?.name ?? "",
+                  widget.model?.providerName ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: R.textStyles
-                      .poppinsSemiBold(fontSize: 13.sp, color: R.colors.black),
+                  style: R.textStyles.poppinsSemiBold(fontSize: 13.sp, color: R.colors.black),
                 ),
                 h2,
                 Center(child: pickImageWidget(authVm)),
@@ -98,10 +96,8 @@ class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
                       ZBotToast.loadingShow();
                       BaseVM vm = Provider.of<BaseVM>(context, listen: false);
                       AuthVM aVm = Provider.of<AuthVM>(context, listen: false);
-                      String? imageUrl = await vm.uploadImageUser(
-                          paymentImage!,
-                          '${vm.tempBookingModel?.id}',
-                          '${vm.tempBookingModel?.customerId}');
+                      String? imageUrl = await vm.uploadImageUser(paymentImage!,
+                          '${vm.tempBookingModel?.id}', '${vm.tempBookingModel?.customerId}');
                       if (imageUrl?.isNotEmpty ?? false) {
                         vm.tempBookingModel = BookingModel(
                           id: vm.tempBookingModel?.id,
@@ -120,9 +116,8 @@ class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
                           feePerMeeting: vm.tempBookingModel?.feePerMeeting,
                           customerImage: vm.tempBookingModel?.customerImage,
                           accountNumber: widget.model?.accountNumber,
-                          pName: widget.model?.name,
-                          paymentId:
-                              Timestamp.now().microsecondsSinceEpoch.toString(),
+                          pName: widget.model?.providerName,
+                          paymentId: Timestamp.now().microsecondsSinceEpoch.toString(),
                           paymentProviderLogo: widget.model?.image,
                           paymentImage: imageUrl,
                           paymentStatus: 0,
@@ -155,8 +150,7 @@ class _PaymentConfirmationDialogState extends State<PaymentConfirmationDialog> {
             child: InkWell(
               overlayColor: MaterialStateProperty.all(Colors.transparent),
               onTap: () async {
-                final pickedFile =
-                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
                 if (pickedFile != null) {
                   paymentImage = File(pickedFile.path);
