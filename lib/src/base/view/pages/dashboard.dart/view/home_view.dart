@@ -91,7 +91,8 @@ class _HomeViewState extends State<HomeView> {
                                   children: [
                                     Flexible(
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           // Image.asset(
                                           //   R.images.instantLawyer,
@@ -112,7 +113,8 @@ class _HomeViewState extends State<HomeView> {
                                               w2,
                                               Text(
                                                 "Instant\nLawyer".toUpperCase(),
-                                                style: R.textStyles.poppinsSemiBold(),
+                                                style: R.textStyles
+                                                    .poppinsSemiBold(),
                                               ),
                                             ],
                                           ),
@@ -122,8 +124,9 @@ class _HomeViewState extends State<HomeView> {
                                             width: 60.w,
                                             child: Text(
                                               // 'If you want to get direct service from legal links then call our helpline.',
-                                              "The Fastest Way to Legal Solutions",
-                                              style: R.textStyles.poppinsRegular(
+                                              "If you want to get direct service from legal links then call our helpline.",
+                                              style:
+                                                  R.textStyles.poppinsRegular(
                                                 color: Colors.grey[800],
                                               ),
                                             ),
@@ -247,11 +250,13 @@ class _HomeViewState extends State<HomeView> {
       children: [
         Text(
           title,
-          style: R.textStyles.poppinsSemiBold(color: R.colors.black, fontSize: 14.sp),
+          style: R.textStyles
+              .poppinsSemiBold(color: R.colors.black, fontSize: 14.sp),
         ),
         if (isViewAll ?? false)
           TextButton(
-            style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+            style: const ButtonStyle(
+                padding: MaterialStatePropertyAll(EdgeInsets.zero)),
             onPressed: onPressed,
             child: Text(
               'View All',
@@ -310,8 +315,11 @@ class _HomeViewState extends State<HomeView> {
           .read<BaseVM>()
           .lawyersList
           .where((lawyer) =>
-              (lawyer.fullName?.toLowerCase().contains(query.toLowerCase()) ?? false) ||
-              (lawyer.officeAdress?.streetAdress?.toLowerCase().contains(query.toLowerCase()) ??
+              (lawyer.fullName?.toLowerCase().contains(query.toLowerCase()) ??
+                  false) ||
+              (lawyer.officeAdress?.streetAdress
+                      ?.toLowerCase()
+                      .contains(query.toLowerCase()) ??
                   false))
           .toList();
     } else {
