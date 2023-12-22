@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/auth_services.dart';
+import 'package:legal_links_app/services/sp_helper.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
@@ -158,14 +159,26 @@ class _SettingsViewState extends State<SettingsView> {
                                 subtitle: "Are you sure you want to logout?",
                                 onLeftTap: () => Get.back(),
                                 onRightTap: () async {
-                                  debugPrint("before${context.read<AuthVM>().userModel.email}");
-                                  await Auth().signOut();
-                                  context.read<AuthVM>().userModel = UserModel();
-                                  context.read<BaseVM>().currentIndex = 0;
-                                  context.read<BaseVM>().update();
-                                  context.read<AuthVM>().update();
-                                  debugPrint("after ${context.read<AuthVM>().userModel.email}");
-                                  Get.offAllNamed(LoginScreen.route);
+                                  // await HiveStorage.deleteHive().then((value) async {
+                                    SharedPreferencesHelper.deleteUserData();
+
+                                    debugPrint("before${context.read<AuthVM>().userModel.email}");
+                                    await Auth().signOut();
+                                    context.read<AuthVM>().userModel = UserModel();
+                                    context.read<BaseVM>().currentIndex = 0;
+                                    context.read<BaseVM>().update();
+                                    context.read<AuthVM>().update();
+                                    debugPrint("after ${context.read<AuthVM>().userModel.email}");
+
+                                    Get.offAllNamed(LoginScreen.route);
+                                    // context.pushReplacementNamed("login");
+                                    // Navigator.pushReplacement<void, void>(
+                                    //   context,
+                                    //   MaterialPageRoute<void>(
+                                    //     builder: (BuildContext context) => const LoginView(),
+                                    //   ),
+                                    // );
+                                  // });
                                 },
                               ),
                             );
