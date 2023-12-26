@@ -4,6 +4,7 @@ import 'package:legal_links_app/src/auth/view/login_screen.dart';
 import 'package:legal_links_app/src/auth/view/signup_screen.dart';
 import 'package:legal_links_app/src/base/view/base_view.dart';
 import 'package:legal_links_app/src/base/view/pages/dashboard.dart/view/payment_screen.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/view/about_app_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/profile_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/rating_and_reviews_screen.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/view/update_client_profile.dart';
@@ -63,5 +64,6 @@ abstract class AppPages {
         name: UpdateLawyerProfile.route,
         page: () => const UpdateLawyerProfile()),
     GetPage(name: PaymentScreen.route, page: () => const PaymentScreen()),
+    GetPage(name: AboutAppScreen.route, page: () => const AboutAppScreen()),
   ];
 }

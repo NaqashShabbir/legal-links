@@ -7,6 +7,7 @@ import 'package:legal_links_app/resources/resources.dart';
 import 'package:legal_links_app/services/auth_services.dart';
 import 'package:legal_links_app/src/auth/model/user_model.dart';
 import 'package:legal_links_app/src/auth/vm/auth_vm.dart';
+import 'package:legal_links_app/src/base/view/pages/settings/view/about_app_screen.dart';
 import 'package:legal_links_app/src/base/vm/base_vm.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -105,6 +106,14 @@ class _SettingsViewState extends State<SettingsView> {
                           tap: () {
                             debugPrint('clicked');
                             Get.toNamed(PrivacyPolicyScreen.route);
+                          },
+                        ),
+                        ScreenTileWidget(
+                          iconVar: Icons.privacy_tip_rounded,
+                          title: 'About app',
+                          tap: () {
+                            debugPrint('clicked');
+                            Get.toNamed(AboutAppScreen.route);
                           },
                         ),
                         ScreenTileWidget(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legal_links_app/src/base/view/pages/settings/vm/settings_vm.dart';
+import 'package:legal_links_app/utils/hights_widths.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -22,15 +23,15 @@ class PrivacyPolicyScreen extends StatelessWidget {
             Text(
               context.read<SettingsVM>().contentModel.privacyPolicy ?? "",
               style: R.textStyles.poppinsRegular(
-                color: R.colors.grey,
+                color: R.colors.black,
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w400,
               ),
             ),
+            h2,
           ],
         ),
       ),
-    
     );
   }
 }
